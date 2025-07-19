@@ -15,7 +15,10 @@ roleMenuRouter.post('/create', async (ctx) => {
     const { roleId, menuId } = ctx.request.body;
 
     let _result = {};
-    const _roleMenu = { roleId, menuId };
+    const _roleMenu = {
+        roleId,
+        menuId,
+    };
     _result = await roleMenuRepo.create(_roleMenu);
     ctx.body = _result;
 });
@@ -33,7 +36,10 @@ roleMenuRouter.post('/update', async (ctx) => {
     const { id, roleId, funcId } = ctx.request.body;
 
     let _result = {};
-    const _roleFunc = { roleId, funcId };
+    const _roleFunc = {
+        roleId,
+        funcId,
+    };
     _result = await roleMenuRepo.update(id, _roleFunc);
     ctx.body = _result;
 });

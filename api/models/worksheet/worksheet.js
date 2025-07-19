@@ -8,45 +8,48 @@ module.exports = (sequelize, DataTypes) => {
         {
             // 属性对象
             phone: {
-                type: DataTypes.CHAR(11),
-                allowNull: false,
-                comment: '',
+                type      : DataTypes.CHAR(11),
+                allowNull : false,
+                comment   : '',
             },
             status: {
-                type: DataTypes.CHAR(10),
-                allowNull: false,
-                defaultValue: '未处理',
-                comment: '',
+                type         : DataTypes.CHAR(10),
+                allowNull    : false,
+                defaultValue : '未处理',
+                comment      : '',
             },
             jobNum: {
-                type: DataTypes.STRING(20),
-                field: 'job_num',
-                allowNull: false,
-                comment: '工单号',
+                type      : DataTypes.STRING(20),
+                field     : 'job_num',
+                allowNull : false,
+                comment   : '工单号',
             },
             createTime: {
-                type: DataTypes.INTEGER(11),
-                field: 'create_time',
-                allowNull: false,
-                comment: '提交时间',
+                type      : DataTypes.INTEGER(11),
+                field     : 'create_time',
+                allowNull : false,
+                comment   : '提交时间',
             },
             type: {
-                type: DataTypes.CHAR(10),
-                allowNull: false,
-                comment: '',
+                type      : DataTypes.CHAR(10),
+                allowNull : false,
+                comment   : '',
             },
             title: {
-                type: DataTypes.STRING(20),
-                allowNull: false,
-                comment: '',
+                type      : DataTypes.STRING(20),
+                allowNull : false,
+                comment   : '',
             },
             content: {
-                type: DataTypes.STRING(255),
-                allowNull: false,
-                comment: '',
+                type      : DataTypes.STRING(255),
+                allowNull : false,
+                comment   : '',
             },
         },
-        { hideDefaultArribute: false, comment: '工单表' },
+        {
+            hideDefaultArribute : false,
+            comment             : '工单表',
+        },
     );
 
     Worksheet.associate = (models) => {};

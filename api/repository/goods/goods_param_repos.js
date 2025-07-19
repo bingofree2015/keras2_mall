@@ -9,10 +9,10 @@ class GoodsParamRepos {
 
     async create (goodsParam) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -22,28 +22,39 @@ class GoodsParamRepos {
                 }
             });
             if (goodsParam.name) {
-                let _goodsParam = await GoodsParam.findOne({ where: { name: goodsParam.name }, raw: true });
+                let _goodsParam = await GoodsParam.findOne({
+                    where : { name: goodsParam.name },
+                    raw   : true,
+                });
                 if (_goodsParam) {
-                    _result = { succeed: 0, code: 101, description: '名称重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '名称重复',
+                    };
                 } else {
                     _goodsParam = await GoodsParam.create(goodsParam);
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: _goodsParam,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : _goodsParam,
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> goodsParam:${JSON.stringify(goodsParam)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> goodsParam:${JSON.stringify(goodsParam)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -51,26 +62,42 @@ class GoodsParamRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await GoodsParam.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -78,10 +105,10 @@ class GoodsParamRepos {
 
     async update (id, goodsParam) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -93,38 +120,65 @@ class GoodsParamRepos {
             if (id) {
                 const _name = goodsParam.name;
                 if (_name) {
-                    let _goodsParam = await GoodsParam.findOne({ where: { id, name: _name }, raw: true });
+                    let _goodsParam = await GoodsParam.findOne({
+                        where: {
+                            id,
+                            name: _name,
+                        },
+                        raw: true,
+                    });
                     if (_goodsParam) {
                         const _ret = await GoodsParam.update(goodsParam, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...goodsParam, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...goodsParam,
+                                    id,
+                                },
                             };
                         }
                     } else {
                         _goodsParam = await GoodsParam.findOne({
-                            where: { name: _name, id: { $ne: id } },
+                            where: {
+                                name : _name,
+                                id   : { $ne: id },
+                            },
                             raw: true,
                         });
                         if (_goodsParam) {
-                            _result = { succeed: 0, code: 101, description: `名称 [${_name}] 重复` };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : `名称 [${_name}] 重复`,
+                            };
                         } else {
                             const _ret = await GoodsParam.update(goodsParam, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...goodsParam, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...goodsParam,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -133,22 +187,37 @@ class GoodsParamRepos {
                     const _ret = await GoodsParam.update(goodsParam, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...goodsParam, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...goodsParam,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -156,10 +225,10 @@ class GoodsParamRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -168,27 +237,35 @@ class GoodsParamRepos {
             });
             if (_goodsParam) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _goodsParam,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _goodsParam,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -222,10 +299,13 @@ class GoodsParamRepos {
                     _datas.push(_goodsParam);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _goodsParams.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _goodsParams.count,
+                    },
                 };
             } else {
                 const _goodsParams = await GoodsParam.findAll({
@@ -235,15 +315,19 @@ class GoodsParamRepos {
                     _datas.push(_goodsParam);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;

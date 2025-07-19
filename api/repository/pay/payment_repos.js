@@ -9,10 +9,10 @@ class PaymentRepos {
 
     async create (payment) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -22,9 +22,16 @@ class PaymentRepos {
                 }
             });
             if (payment.code) {
-                let _payment = await Payment.findOne({ where: { code: payment.code }, raw: true });
+                let _payment = await Payment.findOne({
+                    where : { code: payment.code },
+                    raw   : true,
+                });
                 if (_payment) {
-                    _result = { succeed: 0, code: 101, description: '名称重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '名称重复',
+                    };
                 } else {
                     _payment = await Payment.create(payment);
                     const _id = _payment.id;
@@ -32,22 +39,26 @@ class PaymentRepos {
                         where: { id: _id },
                     });
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: _payment,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : _payment,
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> payment:${JSON.stringify(payment)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> payment:${JSON.stringify(payment)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -55,26 +66,42 @@ class PaymentRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await Payment.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -82,10 +109,10 @@ class PaymentRepos {
 
     async update (id, payment) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -97,41 +124,71 @@ class PaymentRepos {
             if (id) {
                 const _code = payment.code;
                 if (_code) {
-                    let _payment = await Payment.findOne({ where: { id, code: _code }, raw: true });
+                    let _payment = await Payment.findOne({
+                        where: {
+                            id,
+                            code: _code,
+                        },
+                        raw: true,
+                    });
                     if (_payment) {
                         const _ret = await Payment.update(payment, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             _payment = await Payment.findOne({
                                 where: { id },
                             });
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...payment, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...payment,
+                                    id,
+                                },
                             };
                         }
                     } else {
-                        _payment = await Payment.findOne({ where: { name: _name, id: { $ne: id } }, raw: true });
+                        _payment = await Payment.findOne({
+                            where: {
+                                name : _name,
+                                id   : { $ne: id },
+                            },
+                            raw: true,
+                        });
                         if (_payment) {
-                            _result = { succeed: 0, code: 101, description: `名称 [${_name}] 重复` };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : `名称 [${_name}] 重复`,
+                            };
                         } else {
                             const _ret = await Payment.update(payment, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 _payment = await Payment.findOne({
                                     where: { id },
                                 });
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...payment, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...payment,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -140,22 +197,37 @@ class PaymentRepos {
                     const _ret = await Payment.update(payment, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...payment, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...payment,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -163,10 +235,10 @@ class PaymentRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -175,27 +247,35 @@ class PaymentRepos {
             });
             if (_payment) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _payment,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _payment,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -229,10 +309,13 @@ class PaymentRepos {
                     _datas.push(_payment);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _payments.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _payments.count,
+                    },
                 };
             } else {
                 const _payments = await Payment.findAll({
@@ -242,15 +325,19 @@ class PaymentRepos {
                     _datas.push(_payment);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;

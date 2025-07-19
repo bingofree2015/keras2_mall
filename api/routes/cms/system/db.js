@@ -20,11 +20,11 @@ dbRouter.post('/backup', async (ctx) => {
     let _result = {};
     try {
         const _options = {
-            host: DB.host,
-            port: DB.port,
-            username: DB.username,
-            password: DB.password,
-            database: DB.database,
+            host     : DB.host,
+            port     : DB.port,
+            username : DB.username,
+            password : DB.password,
+            database : DB.database,
         };
         const _backupPath = `./db/${_options.database}_${moment().format('YYYYMMDD-HH:mm:ss')}.sql`;
         await backup(_options, _backupPath);
@@ -49,11 +49,11 @@ dbRouter.post('/restore', async (ctx) => {
         _result = await dbBackupRepo.get(id);
         if (_result.succeed && _result.data) {
             const _options = {
-                host: DB.host,
-                port: DB.port,
-                username: DB.username,
-                password: DB.password,
-                database: DB.database,
+                host     : DB.host,
+                port     : DB.port,
+                username : DB.username,
+                password : DB.password,
+                database : DB.database,
             };
             const _backupPath = _result.data.path;
             await restore(_options, _backupPath);

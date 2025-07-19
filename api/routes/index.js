@@ -20,8 +20,8 @@ const router = Router();
 
 router.get('/', async (ctx) => {
     await ctx.render('index', {
-        title: '获取您的-jwtdata',
-        jwtdata: ctx.state.jwtdata,
+        title   : '获取您的-jwtdata',
+        jwtdata : ctx.state.jwtdata,
     });
 });
 
@@ -31,17 +31,27 @@ router.post('/jwt_auth', (ctx) => {
     const { username, pwd } = ctx.request.body;
 
     if (username && pwd) {
-        const payload = { username, pwd };
+        const payload = {
+            username,
+            pwd,
+        };
         const access_token = sign(payload, JWT.secret, { expiresIn: JWT.expiresIn }); // 签发token
 
         ctx.body = {
-            success: 1,
-            code: 200,
-            description: '成功',
-            data: { payload, access_token },
+            success     : 1,
+            code        : 200,
+            description : '成功',
+            data        : {
+                payload,
+                access_token,
+            },
         };
     } else {
-        ctx.body = { succeed: 0, code: 100, description: '参数错误' };
+        ctx.body = {
+            succeed     : 0,
+            code        : 100,
+            description : '参数错误',
+        };
     }
 });
 
@@ -50,15 +60,18 @@ router.get('/user_info', (ctx) => {
     const { jwtdata } = ctx.state;
     // 使用jwt-simple自行解析数据
     // let payload = jwt.decode(token.split(' ')[1], config.JWT.secret)
-    ctx.body = { token, jwtdata };
+    ctx.body = {
+        token,
+        jwtdata,
+    };
 });
 
 router.get('/download', async (ctx) => {
     let _result = {
-        succeed: 0, // 1:成功0:失败
-        code: 0, // 错误码
-        description: '', // 错误信息
-        data: null, // 本身就是一个json字符串
+        succeed     : 0, // 1:成功0:失败
+        code        : 0, // 错误码
+        description : '', // 错误信息
+        data        : null, // 本身就是一个json字符串
     };
 
     const _filePath = ctx.query.filePath;
@@ -74,22 +87,22 @@ router.get('/download', async (ctx) => {
             }
             // 文件不存在:
             _result = {
-                succeed: 0,
-                code: 102,
-                description: `服务器文件: [${_resPath}] 不存在`,
+                succeed     : 0,
+                code        : 102,
+                description : `服务器文件: [${_resPath}] 不存在`,
             };
         } catch (err) {
             _result = {
-                succeed: 0,
-                code: 500,
-                description: err.message || err.stack || '系统错误',
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
             };
         }
     } else {
         _result = {
-            succeed: 0,
-            code: 100,
-            description: `参数filePath: [${_filePath}] 为空`,
+            succeed     : 0,
+            code        : 100,
+            description : `参数filePath: [${_filePath}] 为空`,
         };
     }
     ctx.body = _result;
@@ -122,24 +135,24 @@ router.post('/parseTxtFile', async (ctx) => {
                 delimiter: '|',
             });
             _result = {
-                succeed: 1,
-                code: 200,
-                description: '成功',
-                data: results.data,
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+                data        : results.data,
             };
         } catch (err) {
             logger.error(err);
             _result = {
-                succeed: 0,
-                code: 500,
-                description: err.message || err.stack || '系统错误',
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
             };
         }
     } else {
         _result = {
-            succeed: 0,
-            code: 100,
-            description: '请选择需要上传的文件',
+            succeed     : 0,
+            code        : 100,
+            description : '请选择需要上传的文件',
         };
     }
     ctx.body = _result;
@@ -158,11 +171,11 @@ router.post('/get_last_version_info', async (ctx) => {
  * 图形验证码 */
 router.get('/captcha', async (ctx) => {
     const _captcha = create({
-        size: 4,
-        fontSize: 42,
-        width: 90,
-        height: 30,
-        background: '#cc9966',
+        size       : 4,
+        fontSize   : 42,
+        width      : 90,
+        height     : 30,
+        background : '#cc9966',
     });
     ctx.session.captcha = _captcha.text;
 

@@ -8,28 +8,31 @@ module.exports = (sequelize, DataTypes) => {
         {
             // 属性对象
             code: {
-                type: DataTypes.STRING(32),
-                allowNull: true,
-                comment: '编码',
+                type      : DataTypes.STRING(32),
+                allowNull : true,
+                comment   : '编码',
             },
             sms: {
-                type: DataTypes.BOOLEAN,
-                allowNull: false,
-                comment: '1 启用  2禁用',
+                type      : DataTypes.BOOLEAN,
+                allowNull : false,
+                comment   : '1 启用  2禁用',
             },
             message: {
-                type: DataTypes.BOOLEAN,
-                allowNull: false,
-                comment: '站内消息',
+                type      : DataTypes.BOOLEAN,
+                allowNull : false,
+                comment   : '站内消息',
             },
             wxTplMessage: {
-                type: DataTypes.BOOLEAN,
-                field: 'wx_tpl_message',
-                allowNull: false,
-                comment: '微信模板消息',
+                type      : DataTypes.BOOLEAN,
+                field     : 'wx_tpl_message',
+                allowNull : false,
+                comment   : '微信模板消息',
             },
         },
-        { hideDefaultArribute: false, comment: '消息中心表' },
+        {
+            hideDefaultArribute : false,
+            comment             : '消息中心表',
+        },
     );
 
     MessageCenter.associate = (models) => {};

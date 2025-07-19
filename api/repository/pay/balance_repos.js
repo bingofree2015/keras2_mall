@@ -9,10 +9,10 @@ class BalanceRepos {
 
     async create (balance) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -24,21 +24,25 @@ class BalanceRepos {
             if (balance.userId && balance.type && balance.money) {
                 _balance = await Balance.create(balance);
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _balance,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _balance,
                 };
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> balance:${JSON.stringify(balance)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> balance:${JSON.stringify(balance)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -46,26 +50,42 @@ class BalanceRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await Balance.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -73,10 +93,10 @@ class BalanceRepos {
 
     async update (id, balance) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -89,24 +109,39 @@ class BalanceRepos {
                 const _ret = await Balance.update(balance, { where: { id } });
                 const _affectedCount = _ret[0];
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
                     _balance = await Balance.findOne({
                         where: { id },
                     });
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: { ...balance, id },
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : {
+                            ...balance,
+                            id,
+                        },
                     };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -114,47 +149,55 @@ class BalanceRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             const _balance = await Balance.findOne({
                 include: [
                     {
-                        model: User,
-                        attributes: User.getAttributes(),
-                        as: 'user',
-                        require: false,
+                        model      : User,
+                        attributes : User.getAttributes(),
+                        as         : 'user',
+                        require    : false,
                     },
                 ],
                 where: { id },
             });
             if (_balance) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _balance,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _balance,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -182,14 +225,14 @@ class BalanceRepos {
                 const _balances = await Balance.findAndCountAll({
                     include: [
                         {
-                            model: User,
-                            attributes: User.getAttributes(),
-                            as: 'user',
-                            require: false,
+                            model      : User,
+                            attributes : User.getAttributes(),
+                            as         : 'user',
+                            require    : false,
                         },
                     ],
-                    where: _where,
-                    distinct: true,
+                    where    : _where,
+                    distinct : true,
                     offset,
                     limit,
                 });
@@ -197,19 +240,22 @@ class BalanceRepos {
                     _datas.push(_balance);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _balances.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _balances.count,
+                    },
                 };
             } else {
                 const _balances = await Balance.findAll({
                     include: [
                         {
-                            model: User,
-                            attributes: User.getAttributes(),
-                            as: 'user',
-                            require: false,
+                            model      : User,
+                            attributes : User.getAttributes(),
+                            as         : 'user',
+                            require    : false,
                         },
                     ],
                     where: _where,
@@ -218,15 +264,19 @@ class BalanceRepos {
                     _datas.push(_balance);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;

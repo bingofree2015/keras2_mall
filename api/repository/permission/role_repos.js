@@ -9,10 +9,10 @@ class RoleRepos {
 
     async create (role) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -22,24 +22,39 @@ class RoleRepos {
                 }
             });
             if (role.name) {
-                let _role = await Role.findOne({ where: { name: role.name }, raw: true });
+                let _role = await Role.findOne({
+                    where : { name: role.name },
+                    raw   : true,
+                });
                 if (_role) {
-                    _result = { succeed: 0, code: 101, description: '名称重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '名称重复',
+                    };
                 } else {
                     _role = await Role.create(role);
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: _role,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : _role,
                     };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> role:${JSON.stringify(role)}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> role:${JSON.stringify(role)}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -47,26 +62,47 @@ class RoleRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
-                const _affectedCount = await Role.destroy({ where: { id: ids, name: { $ne: 'admin' } } });
+                const _affectedCount = await Role.destroy({
+                    where: {
+                        id   : ids,
+                        name : { $ne: 'admin' },
+                    },
+                });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -74,10 +110,10 @@ class RoleRepos {
 
     async update (id, role) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -89,35 +125,65 @@ class RoleRepos {
             if (id) {
                 const _name = role.name;
                 if (_name) {
-                    let _role = await Role.findOne({ where: { id, name: _name }, raw: true });
+                    let _role = await Role.findOne({
+                        where: {
+                            id,
+                            name: _name,
+                        },
+                        raw: true,
+                    });
                     if (_role) {
                         const _ret = await Role.update(role, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...role, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...role,
+                                    id,
+                                },
                             };
                         }
                     } else {
-                        _role = await Role.findOne({ where: { name: _name, id: { $ne: id } }, raw: true });
+                        _role = await Role.findOne({
+                            where: {
+                                name : _name,
+                                id   : { $ne: id },
+                            },
+                            raw: true,
+                        });
                         if (_role) {
-                            _result = { succeed: 0, code: 101, description: `名称 [${_name}] 重复` };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : `名称 [${_name}] 重复`,
+                            };
                         } else {
                             const _ret = await Role.update(role, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...role, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...role,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -126,22 +192,37 @@ class RoleRepos {
                     const _ret = await Role.update(role, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...role, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...role,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -149,20 +230,20 @@ class RoleRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             const _role = await Role.findOne({
-                attributes: Role.getAttributes(),
-                include: [
+                attributes : Role.getAttributes(),
+                include    : [
                     {
-                        model: Menu,
-                        as: 'menus',
-                        through: {
+                        model   : Menu,
+                        as      : 'menus',
+                        through : {
                             attributes: [],
                         },
                         attributes: ['id', 'name'],
@@ -172,27 +253,35 @@ class RoleRepos {
             });
             if (_role) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _role,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _role,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -218,38 +307,45 @@ class RoleRepos {
         try {
             if ((offset == 0 || offset) && limit) {
                 const _roles = await Role.findAndCountAll({
-                    where: _where,
+                    where : _where,
                     offset,
                     limit,
-                    raw: true,
+                    raw   : true,
                 });
                 for (const _role of _roles.rows) {
                     _datas.push(_role);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _roles.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _roles.count,
+                    },
                 };
             } else {
                 const _roles = await Role.findAll({
-                    where: _where,
-                    raw: true,
+                    where : _where,
+                    raw   : true,
                 });
                 for (const _role of _roles) {
                     _datas.push(_role);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -257,10 +353,10 @@ class RoleRepos {
 
     async get_menus_by_roleid (roleId) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -274,19 +370,23 @@ class RoleRepos {
                 _where = { id: _menuIds };
             }
             const _menus = await Menu.findAll({
-                attributes: Menu.getAttributes(),
-                where: _where,
-                raw: true,
+                attributes : Menu.getAttributes(),
+                where      : _where,
+                raw        : true,
             });
             _result = {
-                succeed: 1,
-                code: 200,
-                description: '成功',
-                data: { list: _menus },
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+                data        : { list: _menus },
             };
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -294,10 +394,10 @@ class RoleRepos {
 
     async save_role_menus (roleId, roleMenus) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -307,21 +407,25 @@ class RoleRepos {
                     await RoleMenu.bulkCreate(roleMenus, { ignoreDuplicates: true });
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: '',
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : '',
                 };
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> roleMenus:${JSON.stringify(roleMenus)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> roleMenus:${JSON.stringify(roleMenus)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;

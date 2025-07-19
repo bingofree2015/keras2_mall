@@ -13,10 +13,10 @@ class AttachmentRepos {
 
     async create (attachment) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
         try {
             Object.keys(attachment).forEach((field) => {
@@ -26,30 +26,41 @@ class AttachmentRepos {
             });
             if (attachment.path) {
                 let _attachment = await Attachment.findOne({
-                    where: { attachGroupId: attachment.attachGroupId, path: attachment.path },
+                    where: {
+                        attachGroupId : attachment.attachGroupId,
+                        path          : attachment.path,
+                    },
                     raw: true,
                 });
                 if (_attachment) {
-                    _result = { succeed: 0, code: 101, description: '路径重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '路径重复',
+                    };
                 } else {
                     _attachment = await Attachment.create(attachment);
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: _attachment,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : _attachment,
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> log:${JSON.stringify(attachment)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> log:${JSON.stringify(attachment)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -57,10 +68,10 @@ class AttachmentRepos {
 
     async batchDelete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -72,7 +83,11 @@ class AttachmentRepos {
                 }
                 const _affectedCount = await Attachment.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
                     for (let _filePath of _filePaths) {
                         _filePath = join(SERVER_UPLOAD_DIR, _filePath);
@@ -84,14 +99,26 @@ class AttachmentRepos {
                             }
                         });
                     }
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -99,10 +126,10 @@ class AttachmentRepos {
 
     async update (id, attachment) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -116,40 +143,65 @@ class AttachmentRepos {
                 const _path = attachment.path;
                 if (_path) {
                     let _attachment = await Attachment.findOne({
-                        where: { id, attachGroupId: _attachGroupId, path: _path },
+                        where: {
+                            id,
+                            attachGroupId : _attachGroupId,
+                            path          : _path,
+                        },
                         raw: true,
                     });
                     if (_attachment) {
                         const _ret = await Attachment.update(attachment, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...attachment, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...attachment,
+                                    id,
+                                },
                             };
                         }
                     } else {
                         _attachment = await Attachment.findOne({
-                            where: { path: _path, id: { $ne: id } },
+                            where: {
+                                path : _path,
+                                id   : { $ne: id },
+                            },
                             raw: true,
                         });
                         if (_attachment) {
-                            _result = { succeed: 0, code: 101, description: `路径 [${_path}] 重复` };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : `路径 [${_path}] 重复`,
+                            };
                         } else {
                             const _ret = await Attachment.update(attachment, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...attachment, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...attachment,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -158,22 +210,37 @@ class AttachmentRepos {
                     const _ret = await Attachment.update(attachment, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...attachment, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...attachment,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -181,37 +248,48 @@ class AttachmentRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
-            const _attachment = await Attachment.findOne({ where: { id }, raw: true });
+            const _attachment = await Attachment.findOne({
+                where : { id },
+                raw   : true,
+            });
             if (_attachment) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _attachment,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _attachment,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -237,35 +315,45 @@ class AttachmentRepos {
         try {
             if ((offset == 0 || offset) && limit) {
                 const _attachments = await Attachment.findAndCountAll({
-                    where: _where,
+                    where : _where,
                     offset,
                     limit,
-                    raw: true,
+                    raw   : true,
                 });
                 for (const _attachment of _attachments.rows) {
                     _datas.push(_attachment);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _attachments.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _attachments.count,
+                    },
                 };
             } else {
-                const _attachments = await Attachment.findAll({ where: _where, raw: true });
+                const _attachments = await Attachment.findAll({
+                    where : _where,
+                    raw   : true,
+                });
                 for (const _attachment of _attachments) {
                     _datas.push(_attachment);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;

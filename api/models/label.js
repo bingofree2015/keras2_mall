@@ -8,18 +8,21 @@ module.exports = (sequelize, DataTypes) => {
         {
             // 属性对象
             name: {
-                type: DataTypes.STRING(20),
-                allowNull: true,
-                comment: '标签名称',
+                type      : DataTypes.STRING(20),
+                allowNull : true,
+                comment   : '标签名称',
             },
             style: {
-                type: DataTypes.STRING(20),
-                allowNull: true,
-                defaultValue: 'hot',
-                comment: '标签样式',
+                type         : DataTypes.STRING(20),
+                allowNull    : true,
+                defaultValue : 'hot',
+                comment      : '标签样式',
             },
         },
-        { hideDefaultArribute: false, comment: '标签表' },
+        {
+            hideDefaultArribute : false,
+            comment             : '标签表',
+        },
     );
 
     Label.associate = (models) => {};

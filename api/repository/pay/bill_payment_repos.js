@@ -9,10 +9,10 @@ class BillPaymentRepos {
 
     async create (billPayment) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -24,21 +24,25 @@ class BillPaymentRepos {
             if (billPayment.userId && billPayment.money) {
                 _billPayment = await BillPayment.create(billPayment);
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _billPayment,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _billPayment,
                 };
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> billPayment:${JSON.stringify(billPayment)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> billPayment:${JSON.stringify(billPayment)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -46,26 +50,42 @@ class BillPaymentRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await BillPayment.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -73,10 +93,10 @@ class BillPaymentRepos {
 
     async update (id, billPayment) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -89,21 +109,36 @@ class BillPaymentRepos {
                 const _ret = await BillPayment.update(billPayment, { where: { id } });
                 const _affectedCount = _ret[0];
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: { ...billPayment, id },
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : {
+                            ...billPayment,
+                            id,
+                        },
                     };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -111,53 +146,61 @@ class BillPaymentRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             const _billPayment = await BillPayment.findOne({
                 include: [
                     {
-                        model: User,
-                        attributes: User.getAttributes(),
-                        as: 'user',
-                        require: false,
+                        model      : User,
+                        attributes : User.getAttributes(),
+                        as         : 'user',
+                        require    : false,
                     },
                     {
-                        model: BillPaymentItem,
-                        attributes: BillPaymentItem.getAttributes(),
-                        as: 'billPaymentItems',
-                        require: 'false',
+                        model      : BillPaymentItem,
+                        attributes : BillPaymentItem.getAttributes(),
+                        as         : 'billPaymentItems',
+                        require    : 'false',
                     },
                 ],
                 where: { id },
             });
             if (_billPayment) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _billPayment,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _billPayment,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -185,20 +228,20 @@ class BillPaymentRepos {
                 const _billPayments = await BillPayment.findAndCountAll({
                     include: [
                         {
-                            model: User,
-                            attributes: User.getAttributes(),
-                            as: 'user',
-                            require: false,
+                            model      : User,
+                            attributes : User.getAttributes(),
+                            as         : 'user',
+                            require    : false,
                         },
                         {
-                            model: BillPaymentItem,
-                            attributes: BillPaymentItem.getAttributes(),
-                            as: 'billPaymentItems',
-                            require: 'false',
+                            model      : BillPaymentItem,
+                            attributes : BillPaymentItem.getAttributes(),
+                            as         : 'billPaymentItems',
+                            require    : 'false',
                         },
                     ],
-                    where: _where,
-                    distinct: true,
+                    where    : _where,
+                    distinct : true,
                     offset,
                     limit,
                 });
@@ -206,25 +249,28 @@ class BillPaymentRepos {
                     _datas.push(_billPayment);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _billPayments.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _billPayments.count,
+                    },
                 };
             } else {
                 const _billPayments = await BillPayment.findAll({
                     include: [
                         {
-                            model: User,
-                            attributes: User.getAttributes(),
-                            as: 'user',
-                            require: false,
+                            model      : User,
+                            attributes : User.getAttributes(),
+                            as         : 'user',
+                            require    : false,
                         },
                         {
-                            model: BillPaymentItem,
-                            attributes: BillPaymentItem.getAttributes(),
-                            as: 'billPaymentItems',
-                            require: 'false',
+                            model      : BillPaymentItem,
+                            attributes : BillPaymentItem.getAttributes(),
+                            as         : 'billPaymentItems',
+                            require    : 'false',
                         },
                     ],
                     where: _where,
@@ -233,15 +279,19 @@ class BillPaymentRepos {
                     _datas.push(_billPayment);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;

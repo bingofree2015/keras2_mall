@@ -8,31 +8,34 @@ module.exports = (sequelize, DataTypes) => {
         {
             // 属性对象
             goodsSpecId: {
-                type: DataTypes.INTEGER(10).UNSIGNED,
-                field: 'goods_spec_id',
-                allowNull: false,
-                comment: '属性ID',
+                type      : DataTypes.INTEGER(10).UNSIGNED,
+                field     : 'goods_spec_id',
+                allowNull : false,
+                comment   : '属性ID',
             },
             goodsTypeId: {
-                type: DataTypes.INTEGER(10).UNSIGNED,
-                field: 'goods_type_id',
-                allowNull: true,
-                comment: '类型ID',
+                type      : DataTypes.INTEGER(10).UNSIGNED,
+                field     : 'goods_type_id',
+                allowNull : true,
+                comment   : '类型ID',
             },
         },
-        { hideDefaultArribute: false, comment: '商品类型和属性关联表' },
+        {
+            hideDefaultArribute : false,
+            comment             : '商品类型和属性关联表',
+        },
     );
 
     GoodsTypeSpec.associate = (models) => {
         GoodsTypeSpec.belongsTo(models.GoodsSpec, {
-            foreignKey: 'goodsSpecId',
-            constraints: false,
-            as: 'specs',
+            foreignKey  : 'goodsSpecId',
+            constraints : false,
+            as          : 'specs',
         });
         GoodsTypeSpec.belongsTo(models.GoodsType, {
-            foreignKey: 'goodsTypeId',
-            constraints: false,
-            as: 'types',
+            foreignKey  : 'goodsTypeId',
+            constraints : false,
+            as          : 'types',
         });
     };
 

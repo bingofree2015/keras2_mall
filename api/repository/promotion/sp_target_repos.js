@@ -17,10 +17,10 @@ class SPTargetRepos {
 
     async create (spTarget) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -30,28 +30,42 @@ class SPTargetRepos {
                 }
             });
             if (spTarget.name) {
-                let _spTarget = await SpTarget.findOne({ where: { name: spTarget.name }, raw: true });
+                let _spTarget = await SpTarget.findOne({
+                    where : { name: spTarget.name },
+                    raw   : true,
+                });
                 if (_spTarget) {
-                    _result = { succeed: 0, code: 101, description: '名称重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '名称重复',
+                    };
                 } else {
                     _spTarget = await SpTarget.create(spTarget);
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: { ...spTarget, id: _spTarget.id },
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : {
+                            ...spTarget,
+                            id: _spTarget.id,
+                        },
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> spTarget:${JSON.stringify(spTarget)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> spTarget:${JSON.stringify(spTarget)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -59,26 +73,42 @@ class SPTargetRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await SpTarget.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -86,10 +116,10 @@ class SPTargetRepos {
 
     async update (id, spTarget) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -101,38 +131,65 @@ class SPTargetRepos {
             if (id) {
                 const _name = spTarget.name;
                 if (_name) {
-                    let _spTarget = await SpTarget.findOne({ where: { id, name: _name }, raw: true });
+                    let _spTarget = await SpTarget.findOne({
+                        where: {
+                            id,
+                            name: _name,
+                        },
+                        raw: true,
+                    });
                     if (_spTarget) {
                         const _ret = await SpTarget.update(spTarget, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...spTarget, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...spTarget,
+                                    id,
+                                },
                             };
                         }
                     } else {
                         _spTarget = await SpTarget.findOne({
-                            where: { name: _name, id: { $ne: id } },
+                            where: {
+                                name : _name,
+                                id   : { $ne: id },
+                            },
                             raw: true,
                         });
                         if (_spTarget) {
-                            _result = { succeed: 0, code: 101, description: `名称 [${_name}] 重复` };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : `名称 [${_name}] 重复`,
+                            };
                         } else {
                             const _ret = await SpTarget.update(spTarget, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...spTarget, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...spTarget,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -141,22 +198,37 @@ class SPTargetRepos {
                     const _ret = await SpTarget.update(spTarget, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...spTarget, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...spTarget,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -164,10 +236,10 @@ class SPTargetRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -176,27 +248,35 @@ class SPTargetRepos {
             });
             if (_spTarget) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _spTarget,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _spTarget,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -230,10 +310,13 @@ class SPTargetRepos {
                     _datas.push(_spTarget);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _spTargets.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _spTargets.count,
+                    },
                 };
             } else {
                 const _spTargets = await SpTarget.findAll({
@@ -243,15 +326,19 @@ class SPTargetRepos {
                     _datas.push(_spTarget);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;

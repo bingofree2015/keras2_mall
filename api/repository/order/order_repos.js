@@ -59,10 +59,10 @@ class OrderRepos {
 
     async create (order) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
         try {
             Object.keys(order).forEach((field) => {
@@ -72,30 +72,42 @@ class OrderRepos {
             });
             if (order.sellerId && order.userId && order.orderId) {
                 let _order = await Order.findOne({
-                    where: { sellerId: order.sellerId, userId: order.userId, orderId: order.orderId },
+                    where: {
+                        sellerId : order.sellerId,
+                        userId   : order.userId,
+                        orderId  : order.orderId,
+                    },
                     raw: true,
                 });
                 if (_order) {
-                    _result = { succeed: 0, code: 101, description: '订单重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '订单重复',
+                    };
                 } else {
                     _order = await Order.create(order);
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: _order,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : _order,
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> order:${JSON.stringify(order)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> order:${JSON.stringify(order)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -103,26 +115,42 @@ class OrderRepos {
 
     async batchDelete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await Order.destroy({ where: { orderId: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -130,10 +158,10 @@ class OrderRepos {
 
     async update (id, order) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -147,45 +175,67 @@ class OrderRepos {
                 const _orderId = order.orderId;
                 if (_userId && _orderId) {
                     let _order = await Order.findOne({
-                        where: { id, userId: _userId, orderId: _orderId },
+                        where: {
+                            id,
+                            userId  : _userId,
+                            orderId : _orderId,
+                        },
                         raw: true,
                     });
                     if (_order) {
                         const _ret = await Order.update(order, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...order, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...order,
+                                    id,
+                                },
                             };
                         }
                     } else {
                         _order = await Order.findOne({
                             where: {
-                                userId: _userId,
-                                sellerId: _sellerId,
-                                orderId: _orderId,
-                                id: { $ne: id },
+                                userId   : _userId,
+                                sellerId : _sellerId,
+                                orderId  : _orderId,
+                                id       : { $ne: id },
                             },
                             raw: true,
                         });
                         if (_order) {
-                            _result = { succeed: 0, code: 101, description: `名称 [${_title}] 重复` };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : `名称 [${_title}] 重复`,
+                            };
                         } else {
                             const _ret = await Order.update(order, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...order, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...order,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -194,22 +244,37 @@ class OrderRepos {
                     const _ret = await Order.update(order, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...order, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...order,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -217,98 +282,106 @@ class OrderRepos {
 
     async get (orderId, type = 1) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             let _include = [
                 {
-                    model: User,
-                    attributes: User.getAttributes(),
-                    as: 'user',
-                    require: false,
+                    model      : User,
+                    attributes : User.getAttributes(),
+                    as         : 'user',
+                    require    : false,
                 },
                 {
-                    model: Store,
-                    attributes: Store.getAttributes(),
-                    as: 'store',
-                    require: false,
+                    model      : Store,
+                    attributes : Store.getAttributes(),
+                    as         : 'store',
+                    require    : false,
                 },
                 {
-                    model: OrderItem,
-                    attributes: OrderItem.getAttributes(),
-                    as: 'orderItems',
-                    require: false,
+                    model      : OrderItem,
+                    attributes : OrderItem.getAttributes(),
+                    as         : 'orderItems',
+                    require    : false,
                 },
             ];
             if (type == 1) {
                 _include = _include.concat(
                     {
-                        model: BillPayment,
-                        as: 'billPayments',
-                        through: {
+                        model   : BillPayment,
+                        as      : 'billPayments',
+                        through : {
                             attributes: [],
                         },
                     },
                     {
-                        model: BillRefund,
-                        as: 'billRefunds',
-                        require: false,
+                        model   : BillRefund,
+                        as      : 'billRefunds',
+                        require : false,
                     },
                     {
-                        model: BillDelivery,
-                        attributes: BillDelivery.getAttributes(),
-                        as: 'billDeliveries',
-                        require: false,
+                        model      : BillDelivery,
+                        attributes : BillDelivery.getAttributes(),
+                        as         : 'billDeliveries',
+                        require    : false,
                     },
                     {
-                        model: BillLading,
-                        as: 'billLadings',
-                        require: false,
+                        model   : BillLading,
+                        as      : 'billLadings',
+                        require : false,
                     },
                     {
-                        model: BillReship,
-                        as: 'billReships',
-                        require: false,
+                        model   : BillReship,
+                        as      : 'billReships',
+                        require : false,
                     },
                     {
-                        model: OrderLog,
-                        as: 'orderLogs',
-                        require: false,
+                        model   : OrderLog,
+                        as      : 'orderLogs',
+                        require : false,
                     },
                 );
             }
 
             const _order = await Order.findOne({
-                include: _include,
-                where: { orderId },
+                include : _include,
+                where   : { orderId },
             });
             if (_order) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _order,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _order,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -336,14 +409,14 @@ class OrderRepos {
                 const _orders = await Order.findAndCountAll({
                     include: [
                         {
-                            model: User,
-                            as: 'user',
-                            attributes: ['id', 'username', 'nickname'],
-                            require: false,
+                            model      : User,
+                            as         : 'user',
+                            attributes : ['id', 'username', 'nickname'],
+                            require    : false,
                         },
                     ],
-                    distinct: true,
-                    where: _where,
+                    distinct : true,
+                    where    : _where,
                     offset,
                     limit,
                 });
@@ -372,19 +445,22 @@ class OrderRepos {
                     _datas.push(_order);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _orders.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _orders.count,
+                    },
                 };
             } else {
                 const _orders = await Order.findAll({
                     include: [
                         {
-                            model: User,
-                            as: 'user',
-                            attributes: ['id', 'username', 'nickname'],
-                            require: false,
+                            model      : User,
+                            as         : 'user',
+                            attributes : ['id', 'username', 'nickname'],
+                            require    : false,
                         },
                     ],
                     where: _where,
@@ -414,15 +490,19 @@ class OrderRepos {
                     _datas.push(_order);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;
@@ -436,22 +516,32 @@ class OrderRepos {
    */
     async getCount (state, payState, shipState) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
-            const _count = await Order.count({ where: { state, payState, shipState } });
+            const _count = await Order.count({
+                where: {
+                    state,
+                    payState,
+                    shipState,
+                },
+            });
             Object.assign(_result, {
-                succeed: 1,
-                code: 200,
-                description: '成功',
-                data: _count,
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+                data        : _count,
             });
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
@@ -518,20 +608,20 @@ class OrderRepos {
     getCapablePermit (orderState, payState, shipState, from = 'seller') {
         const _permits = [
             {
-                action: 'action.view',
-                label: '查看',
-                icon: 'el-icon-ali-chakan',
-                perms: 'order:view',
+                action : 'action.view',
+                label  : '查看',
+                icon   : 'el-icon-ali-chakan',
+                perms  : 'order:view',
             },
         ];
         if (orderState == this.ORDER_STATUS_NORMAL) {
             // 正常
             if (payState == this.PAY_STATUS_NO && from == 'seller') {
                 _permits.push({
-                    action: 'action.pay',
-                    label: '支付',
-                    icon: 'el-icon-ali-zhifu',
-                    perms: 'order:pay',
+                    action : 'action.pay',
+                    label  : '支付',
+                    icon   : 'el-icon-ali-zhifu',
+                    perms  : 'order:pay',
                 });
             }
             if (payState != this.PAY_STATUS_NO) {
@@ -540,48 +630,48 @@ class OrderRepos {
           from == 'seller'
                 ) {
                     _permits.push({
-                        action: 'action.edit',
-                        label: '编辑',
-                        icon: 'el-icon-ali-bianji',
-                        perms: 'order:edit',
+                        action : 'action.edit',
+                        label  : '编辑',
+                        icon   : 'el-icon-ali-bianji',
+                        perms  : 'order:edit',
                     });
                     _permits.push({
-                        action: 'action.delivery',
-                        label: '发货',
-                        icon: 'el-icon-ali-fahuodan',
-                        perms: 'order:delivery',
+                        action : 'action.delivery',
+                        label  : '发货',
+                        icon   : 'el-icon-ali-fahuodan',
+                        perms  : 'order:delivery',
                     });
                 }
                 _permits.push({
-                    action: 'action.finished',
-                    label: '完成',
-                    icon: 'el-icon-ali-wancheng1',
-                    perms: 'order:finished',
+                    action : 'action.finished',
+                    label  : '完成',
+                    icon   : 'el-icon-ali-wancheng1',
+                    perms  : 'order:finished',
                 });
             }
             if (payState == this.PAY_STATUS_NO) {
                 if (from == 'seller') {
                     _permits.push({
-                        action: 'action.edit',
-                        label: '编辑',
-                        icon: 'el-icon-ali-bianji',
-                        perms: 'order:edit',
+                        action : 'action.edit',
+                        label  : '编辑',
+                        icon   : 'el-icon-ali-bianji',
+                        perms  : 'order:edit',
                     });
                 }
                 _permits.push({
-                    action: 'action.cancel',
-                    label: '取消',
-                    icon: 'el-icon-ali-quxiao1',
-                    perms: 'order:cancel',
+                    action : 'action.cancel',
+                    label  : '取消',
+                    icon   : 'el-icon-ali-quxiao1',
+                    perms  : 'order:cancel',
                 });
             }
         }
         if (orderState == this.ORDER_STATUS_CANCEL) {
             _permits.push({
-                action: 'action.delete',
-                label: '删除',
-                icon: 'el-icon-ali-quxiao',
-                perms: 'order:delete',
+                action : 'action.delete',
+                label  : '删除',
+                icon   : 'el-icon-ali-quxiao',
+                perms  : 'order:delete',
             });
         }
         return _permits;
@@ -593,24 +683,48 @@ class OrderRepos {
    */
     async complate (orderId) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
             // 如果是等待售后审核的订单，则不处理
-            const _billAfterSale = await BillAfterSale.findOne({ where: { orderId, state: 1 } }); // 等待审核
+            const _billAfterSale = await BillAfterSale.findOne({
+                where: {
+                    orderId,
+                    state: 1,
+                },
+            }); // 等待审核
             if (_billAfterSale) {
-                Object.assign(_result, { succeed: 0, code: 301, description: '等待售后审核的订单不能处理' });
+                Object.assign(_result, {
+                    succeed     : 0,
+                    code        : 301,
+                    description : '等待售后审核的订单不能处理',
+                });
                 return _result;
             }
             // 将订单(未付款的订单)状态设置为 完成
-            const _order = await Order.findOne({ where: { orderId, payState: { $ne: 1 } } });
+            const _order = await Order.findOne({
+                where: {
+                    orderId,
+                    payState: { $ne: 1 },
+                },
+            });
             if (_order) {
-                await Order.update({ state: 2 }, { where: { orderId, payState: { $ne: 1 } } });
+                await Order.update({ state: 2 }, {
+                    where: {
+                        orderId,
+                        payState: { $ne: 1 },
+                    },
+                });
                 let _money = _order.payed;
-                const _billAfterSales = await BillAfterSale.findAll({ where: { orderId, state: 2 } }); // 审核通过
+                const _billAfterSales = await BillAfterSale.findAll({
+                    where: {
+                        orderId,
+                        state: 2,
+                    },
+                }); // 审核通过
                 let _refundMoney = 0;
                 for (const _billAfterSaleItem of _billAfterSales) {
                     _refundMoney += _billAfterSaleItem.refund;
@@ -631,19 +745,34 @@ class OrderRepos {
                 }
                 // 订单记录
                 await OrderLog.create({
-                    orderId: _order.orderId,
-                    userId: _order.userId,
-                    type: 6, // 订单完成
-                    msg: '后台订单完成操作',
-                    data: JSON.stringify({ orderId, payState: { $ne: 1 } }),
+                    orderId : _order.orderId,
+                    userId  : _order.userId,
+                    type    : 6, // 订单完成
+                    msg     : '后台订单完成操作',
+                    data    : JSON.stringify({
+                        orderId,
+                        payState: { $ne: 1 },
+                    }),
                 });
-                _result = { succeed: 1, code: 200, description: '成功' };
+                _result = {
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                };
             } else {
-                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '记录不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -656,17 +785,17 @@ class OrderRepos {
    */
     async cancel (orderIds, userId) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
             const _where = {
-                orderId: orderIds,
-                payState: 1,
-                state: 1,
-                shipState: 1,
+                orderId   : orderIds,
+                payState  : 1,
+                state     : 1,
+                shipState : 1,
             }; // 未付款、未发货、正常订单
             if (userId) {
                 _where.userId = userId;
@@ -678,11 +807,11 @@ class OrderRepos {
                 _orderIds.push(_order.orderId);
                 // 订单记录
                 await OrderLog.create({
-                    orderId: _order.orderId,
-                    userId: _order.userId,
-                    type: 7, // 订单取消
-                    msg: '订单取消操作',
-                    data: JSON.stringify(_where),
+                    orderId : _order.orderId,
+                    userId  : _order.userId,
+                    type    : 7, // 订单取消
+                    msg     : '订单取消操作',
+                    data    : JSON.stringify(_where),
                 });
                 if (_order.point > 0) {
                     await userPointLogRepos.setPoint(_order.userId, _order.point, 4, '取消订单返还积分'); // 后台编辑
@@ -696,7 +825,11 @@ class OrderRepos {
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -709,23 +842,26 @@ class OrderRepos {
    */
     async confirmReceipt (userId, orderId) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
             const _where = {
                 orderId,
-                payState: { $ne: this.PAY_STATUS_NO },
-                shipState: { $ne: this.SHIP_STATUS_NO },
-                state: this.ORDER_STATUS_NORMAL,
-                confirm: { $ne: this.CONFIRM_RECEIPT },
+                payState  : { $ne: this.PAY_STATUS_NO },
+                shipState : { $ne: this.SHIP_STATUS_NO },
+                state     : this.ORDER_STATUS_NORMAL,
+                confirm   : { $ne: this.CONFIRM_RECEIPT },
                 userId,
             };
             // 修改订单
             let _ret = await Order.update(
-                { confirm: this.CONFIRM_RECEIPT, confirmTime: Date.now() },
+                {
+                    confirm     : this.CONFIRM_RECEIPT,
+                    confirmTime : Date.now(),
+                },
                 { where: _where },
             );
             // 修改发货单
@@ -734,14 +870,22 @@ class OrderRepos {
             await OrderLog.create({
                 orderId,
                 userId,
-                type: 4, // 订单签收
-                msg: '确认签收操作',
-                data: JSON.stringify(_where),
+                type : 4, // 订单签收
+                msg  : '确认签收操作',
+                data : JSON.stringify(_where),
             });
-            _result = { succeed: 1, code: 200, description: '确认签收' };
+            _result = {
+                succeed     : 1,
+                code        : 200,
+                description : '确认签收',
+            };
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;

@@ -32,10 +32,10 @@ class BillAfterSaleRepos {
      */
     async create (billAfterSale) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -46,30 +46,41 @@ class BillAfterSaleRepos {
             });
             if (billAfterSale.userId && billAfterSale.orderId) {
                 let _billAfterSale = await BillAfterSale.findOne({
-                    where: { userId: billAfterSale.userId, orderId: billAfterSale.orderId },
+                    where: {
+                        userId  : billAfterSale.userId,
+                        orderId : billAfterSale.orderId,
+                    },
                     raw: true,
                 });
                 if (_billAfterSale) {
-                    _result = { succeed: 0, code: 101, description: '名称重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '名称重复',
+                    };
                 } else {
                     _billAfterSale = await BillAfterSale.create(billAfterSale);
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: _billAfterSale,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : _billAfterSale,
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> billAfterSale:${JSON.stringify(billAfterSale)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> billAfterSale:${JSON.stringify(billAfterSale)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -77,26 +88,42 @@ class BillAfterSaleRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await BillAfterSale.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -104,10 +131,10 @@ class BillAfterSaleRepos {
 
     async update (id, billAfterSale) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -121,40 +148,66 @@ class BillAfterSaleRepos {
                 const _orderId = billAfterSale.orderId;
                 if (_userId && _orderId) {
                     let _billAfterSale = await BillAfterSale.findOne({
-                        where: { id, userId: _userId, orderId: _orderId },
+                        where: {
+                            id,
+                            userId  : _userId,
+                            orderId : _orderId,
+                        },
                         raw: true,
                     });
                     if (_billAfterSale) {
                         const _ret = await BillAfterSale.update(billAfterSale, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...billAfterSale, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...billAfterSale,
+                                    id,
+                                },
                             };
                         }
                     } else {
                         _billAfterSale = await BillAfterSale.findOne({
-                            where: { userId: _userId, orderId: _orderId, id: { $ne: id } },
+                            where: {
+                                userId  : _userId,
+                                orderId : _orderId,
+                                id      : { $ne: id },
+                            },
                             raw: true,
                         });
                         if (_billAfterSale) {
-                            _result = { succeed: 0, code: 101, description: '售后单重复' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : '售后单重复',
+                            };
                         } else {
                             const _ret = await BillAfterSale.update(billAfterSale, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...billAfterSale, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...billAfterSale,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -163,22 +216,37 @@ class BillAfterSaleRepos {
                     const _ret = await BillAfterSale.update(billAfterSale, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...billAfterSale, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...billAfterSale,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -186,53 +254,61 @@ class BillAfterSaleRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             const _billAfterSale = await BillAfterSale.findOne({
                 include: [
                     {
-                        model: User,
-                        as: 'user',
-                        attributes: User.getAttributes(),
-                        require: false,
+                        model      : User,
+                        as         : 'user',
+                        attributes : User.getAttributes(),
+                        require    : false,
                     },
                     {
-                        model: BillAfterSaleItem,
-                        as: 'billAfterSaleItems',
-                        attributes: BillAfterSaleItem.getAttributes(),
-                        require: false,
+                        model      : BillAfterSaleItem,
+                        as         : 'billAfterSaleItems',
+                        attributes : BillAfterSaleItem.getAttributes(),
+                        require    : false,
                     },
                 ],
                 where: { id },
             });
             if (_billAfterSale) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _billAfterSale,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _billAfterSale,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -260,20 +336,20 @@ class BillAfterSaleRepos {
                 const _billAfterSales = await BillAfterSale.findAndCountAll({
                     include: [
                         {
-                            model: User,
-                            as: 'user',
-                            attributes: User.getAttributes(),
-                            require: false,
+                            model      : User,
+                            as         : 'user',
+                            attributes : User.getAttributes(),
+                            require    : false,
                         },
                         {
-                            model: BillAfterSaleItem,
-                            as: 'billAfterSaleItems',
-                            attributes: BillAfterSaleItem.getAttributes(),
-                            require: false,
+                            model      : BillAfterSaleItem,
+                            as         : 'billAfterSaleItems',
+                            attributes : BillAfterSaleItem.getAttributes(),
+                            require    : false,
                         },
                     ],
-                    distinct: true,
-                    where: _where,
+                    distinct : true,
+                    where    : _where,
                     offset,
                     limit,
                 });
@@ -281,25 +357,28 @@ class BillAfterSaleRepos {
                     _datas.push(_billAfterSale);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _billAfterSales.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _billAfterSales.count,
+                    },
                 };
             } else {
                 const _billAfterSales = await BillAfterSale.findAll({
                     include: [
                         {
-                            model: User,
-                            as: 'user',
-                            attributes: User.getAttributes(),
-                            require: false,
+                            model      : User,
+                            as         : 'user',
+                            attributes : User.getAttributes(),
+                            require    : false,
                         },
                         {
-                            model: BillAfterSaleItem,
-                            as: 'billAfterSaleItems',
-                            attributes: BillAfterSaleItem.getAttributes(),
-                            require: false,
+                            model      : BillAfterSaleItem,
+                            as         : 'billAfterSaleItems',
+                            attributes : BillAfterSaleItem.getAttributes(),
+                            require    : false,
                         },
                     ],
                     where: _where,
@@ -308,15 +387,19 @@ class BillAfterSaleRepos {
                     _datas.push(_billAfterSale);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;
@@ -327,22 +410,26 @@ class BillAfterSaleRepos {
    */
     async getCount () {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
             const _count = await BillAfterSale.count({ where: { status: this.STATUS_WAITAUDIT } });
             Object.assign(_result, {
-                succeed: 1,
-                code: 200,
-                description: '成功',
-                data: _count,
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+                data        : _count,
             });
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
@@ -353,10 +440,10 @@ class BillAfterSaleRepos {
    */
     async getAfterSaleState (orderId) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
             const _states = [];
@@ -397,14 +484,18 @@ class BillAfterSaleRepos {
                 }
             }
             Object.assign(_result, {
-                succeed: 1,
-                code: 200,
-                description: '成功',
-                data: _states.join(','),
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+                data        : _states.join(','),
             });
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;

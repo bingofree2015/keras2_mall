@@ -20,10 +20,10 @@ class AddonRepos {
    */
     async getList () {
         const _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '获取失败', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '获取失败', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         if (!ADDON_PATH) {
@@ -46,23 +46,30 @@ class AddonRepos {
    */
     async getAddonInfo (name) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
 
         try {
-            const _addon = Addon.findAll({ where: { name }, raw: true });
+            const _addon = Addon.findAll({
+                where : { name },
+                raw   : true,
+            });
             _result = {
-                succeed: 1,
-                code: 200,
-                description: '成功',
-                data: _addon,
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+                data        : _addon,
             };
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -75,24 +82,31 @@ class AddonRepos {
    */
     async getSetting (name) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
-            const _addon = Addon.findOne({ where: { name }, raw: true });
+            const _addon = Addon.findOne({
+                where : { name },
+                raw   : true,
+            });
             if (_addon && _addon.config) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _addon.config,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _addon.config,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
@@ -104,27 +118,37 @@ class AddonRepos {
    */
     async doSetting (name, setting) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
-            const _addon = Addon.findOne({ where: { name }, raw: true });
+            const _addon = Addon.findOne({
+                where : { name },
+                raw   : true,
+            });
             if (_addon) {
                 await Addon.update({ config: setting }, { where: { id: _addon.id } });
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _addon,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _addon,
                 };
             } else {
-                Object.assign(_result, { code: 201, description: '记录不存在' });
+                Object.assign(_result, {
+                    code        : 201,
+                    description : '记录不存在',
+                });
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
@@ -135,24 +159,28 @@ class AddonRepos {
    */
     async add (data) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
             const _data = pick(data, ['name', 'title'], 'description', 'author', 'version');
             Object.assign(_data, { status: this.INSTALL_STATUS });
             const _addon = await Addon.create(_data);
             Object.assign(_result, {
-                succeed: 1,
-                code: 200,
-                description: '成功',
-                data: _addon,
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+                data        : _addon,
             });
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -164,22 +192,28 @@ class AddonRepos {
    */
     async getAddonByName (name = '') {
         const _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
-            const _addon = await Addon.findOne({ where: { name }, raw: true });
+            const _addon = await Addon.findOne({
+                where : { name },
+                raw   : true,
+            });
             Object.assign(_result, {
-                succeed: 1,
-                code: 200,
-                description: '成功',
-                data: _addon,
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+                data        : _addon,
             });
         } catch (err) {
             logger.error(err);
-            Object.assign(_result, { code: 500, description: err.message || err.stack || '系统错误' });
+            Object.assign(_result, {
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            });
         }
         return _result;
     }
@@ -190,33 +224,46 @@ class AddonRepos {
    */
     async changeStatus (name) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
             if (name) {
-                let _addon = await Addon.findOne({ where: { name }, raw: true });
+                let _addon = await Addon.findOne({
+                    where : { name },
+                    raw   : true,
+                });
                 if (_addon) {
                     const _status =
             _addon.status == this.INSTALL_STATUS ? this.STATUS_DISENABLE : this.INSTALL_STATUS;
                     _addon = await Addon.update({ status: _status }, { where: { id: _addon.id } });
                     Object.assign(_result, {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: _addon,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : _addon,
                     });
                 } else {
-                    Object.assign(_result, { code: 101, description: '不存在' });
+                    Object.assign(_result, {
+                        code        : 101,
+                        description : '不存在',
+                    });
                 }
             } else {
-                Object.assign(_result, { code: 101, description: '参数错误' });
+                Object.assign(_result, {
+                    code        : 101,
+                    description : '参数错误',
+                });
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }

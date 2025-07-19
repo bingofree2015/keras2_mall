@@ -67,7 +67,12 @@ router.get('/get_order_list', async (ctx) => {
         source,
     };
     if (startTime && endTime) {
-        _searchKey.createdAt = { $and: { $gt: startTime, $lt: endTime } };
+        _searchKey.createdAt = {
+            $and: {
+                $gt : startTime,
+                $lt : endTime,
+            },
+        };
     } else if (startTime) {
         _searchKey.createdAt = { $gt: startTime };
     } else if (endTime) {

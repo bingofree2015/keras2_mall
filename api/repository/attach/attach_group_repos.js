@@ -9,10 +9,10 @@ class AttachGroupRepos {
 
     async create (attachGroup) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
         try {
             Object.keys(attachGroup).forEach((field) => {
@@ -22,30 +22,38 @@ class AttachGroupRepos {
             });
             if (attachGroup.name) {
                 let _attachGroup = await AttachGroup.findOne({
-                    where: { name: attachGroup.name },
-                    raw: true,
+                    where : { name: attachGroup.name },
+                    raw   : true,
                 });
                 if (_attachGroup) {
-                    _result = { succeed: 0, code: 101, description: '名称重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '名称重复',
+                    };
                 } else {
                     _attachGroup = await AttachGroup.create(attachGroup);
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: _attachGroup,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : _attachGroup,
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> log:${JSON.stringify(attachGroup)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> log:${JSON.stringify(attachGroup)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -53,26 +61,42 @@ class AttachGroupRepos {
 
     async batchDelete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await AttachGroup.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -80,10 +104,10 @@ class AttachGroupRepos {
 
     async update (id, attachGroup) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -95,38 +119,65 @@ class AttachGroupRepos {
             if (id) {
                 const _name = attachGroup.name;
                 if (_name) {
-                    let _attachGroup = await AttachGroup.findOne({ where: { id, name: _name }, raw: true });
+                    let _attachGroup = await AttachGroup.findOne({
+                        where: {
+                            id,
+                            name: _name,
+                        },
+                        raw: true,
+                    });
                     if (_attachGroup) {
                         const _ret = await AttachGroup.update(attachGroup, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...attachGroup, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...attachGroup,
+                                    id,
+                                },
                             };
                         }
                     } else {
                         _attachGroup = await AttachGroup.findOne({
-                            where: { name: _name, id: { $ne: id } },
+                            where: {
+                                name : _name,
+                                id   : { $ne: id },
+                            },
                             raw: true,
                         });
                         if (_attachGroup) {
-                            _result = { succeed: 0, code: 101, description: `文件 [${_name}] 重复` };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : `文件 [${_name}] 重复`,
+                            };
                         } else {
                             const _ret = await AttachGroup.update(attachGroup, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...attachGroup, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...attachGroup,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -135,22 +186,37 @@ class AttachGroupRepos {
                     const _ret = await AttachGroup.update(attachGroup, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...attachGroup, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...attachGroup,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -158,37 +224,48 @@ class AttachGroupRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
-            const _attachGroup = await AttachGroup.findOne({ where: { id }, raw: true });
+            const _attachGroup = await AttachGroup.findOne({
+                where : { id },
+                raw   : true,
+            });
             if (_attachGroup) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _attachGroup,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _attachGroup,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -214,35 +291,45 @@ class AttachGroupRepos {
         try {
             if ((offset == 0 || offset) && limit) {
                 const _attachGroups = await AttachGroup.findAndCountAll({
-                    where: _where,
+                    where : _where,
                     offset,
                     limit,
-                    raw: true,
+                    raw   : true,
                 });
                 for (const _attachGroup of _attachGroups.rows) {
                     _datas.push(_attachGroup);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _attachGroups.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _attachGroups.count,
+                    },
                 };
             } else {
-                const _attachGroups = await AttachGroup.findAll({ where: _where, raw: true });
+                const _attachGroups = await AttachGroup.findAll({
+                    where : _where,
+                    raw   : true,
+                });
                 for (const _attachGroup of _attachGroups) {
                     _datas.push(_attachGroup);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;

@@ -9,10 +9,10 @@ class PageItemRepos {
 
     async create (pageItem) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -22,28 +22,42 @@ class PageItemRepos {
                 }
             });
             if (pageItem.name) {
-                let _pageItem = await PageItem.findOne({ where: { name: pageItem.name }, raw: true });
+                let _pageItem = await PageItem.findOne({
+                    where : { name: pageItem.name },
+                    raw   : true,
+                });
                 if (_pageItem) {
-                    _result = { succeed: 0, code: 101, description: '名称重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '名称重复',
+                    };
                 } else {
                     _pageItem = await PageItem.create(pageItem);
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: { ...pageItem, id: _pageItem.id },
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : {
+                            ...pageItem,
+                            id: _pageItem.id,
+                        },
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> pageItem:${JSON.stringify(pageItem)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> pageItem:${JSON.stringify(pageItem)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -51,26 +65,42 @@ class PageItemRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await PageItem.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -78,10 +108,10 @@ class PageItemRepos {
 
     async update (id, pageItem) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -93,38 +123,65 @@ class PageItemRepos {
             if (id) {
                 const _name = pageItem.name;
                 if (_name) {
-                    let _pageItem = await PageItem.findOne({ where: { id, name: _name }, raw: true });
+                    let _pageItem = await PageItem.findOne({
+                        where: {
+                            id,
+                            name: _name,
+                        },
+                        raw: true,
+                    });
                     if (_pageItem) {
                         const _ret = await PageItem.update(pageItem, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...pageItem, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...pageItem,
+                                    id,
+                                },
                             };
                         }
                     } else {
                         _pageItem = await PageItem.findOne({
-                            where: { name: _name, id: { $ne: id } },
+                            where: {
+                                name : _name,
+                                id   : { $ne: id },
+                            },
                             raw: true,
                         });
                         if (_pageItem) {
-                            _result = { succeed: 0, code: 101, description: `名称 [${_name}] 重复` };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : `名称 [${_name}] 重复`,
+                            };
                         } else {
                             const _ret = await PageItem.update(pageItem, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...pageItem, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...pageItem,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -133,22 +190,37 @@ class PageItemRepos {
                     const _ret = await PageItem.update(pageItem, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...pageItem, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...pageItem,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -156,46 +228,54 @@ class PageItemRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             const _pageItem = await PageItem.findOne({
                 include: [
                     {
-                        model: Attachment,
-                        as: 'attachment',
-                        attributes: ['id', 'path'],
+                        model      : Attachment,
+                        as         : 'attachment',
+                        attributes : ['id', 'path'],
                     },
                 ],
                 where: { id },
             });
             if (_pageItem) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _pageItem,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _pageItem,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -223,13 +303,13 @@ class PageItemRepos {
                 const _pageItems = await PageItem.findAndCountAll({
                     include: [
                         {
-                            model: Attachment,
-                            as: 'attachment',
-                            attributes: ['id', 'path'],
+                            model      : Attachment,
+                            as         : 'attachment',
+                            attributes : ['id', 'path'],
                         },
                     ],
-                    distinct: true,
-                    where: _where,
+                    distinct : true,
+                    where    : _where,
                     offset,
                     limit,
                 });
@@ -237,18 +317,21 @@ class PageItemRepos {
                     _datas.push(_pageItem);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _pageItems.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _pageItems.count,
+                    },
                 };
             } else {
                 const _pageItems = await PageItem.findAll({
                     include: [
                         {
-                            model: Attachment,
-                            as: 'attachment',
-                            attributes: ['id', 'path'],
+                            model      : Attachment,
+                            as         : 'attachment',
+                            attributes : ['id', 'path'],
                         },
                     ],
                     where: _where,
@@ -257,15 +340,19 @@ class PageItemRepos {
                     _datas.push(_pageItem);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;

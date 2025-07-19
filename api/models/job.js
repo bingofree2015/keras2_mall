@@ -8,39 +8,42 @@ module.exports = (sequelize, DataTypes) => {
         {
             // 属性对象
             queue: {
-                type: DataTypes.STRING(255),
-                allowNull: false,
-                comment: '',
+                type      : DataTypes.STRING(255),
+                allowNull : false,
+                comment   : '',
             },
             payload: {
-                type: DataTypes.TEXT,
-                allowNull: false,
-                comment: '',
+                type      : DataTypes.TEXT,
+                allowNull : false,
+                comment   : '',
             },
             attempt: {
-                type: DataTypes.INTEGER(3).UNSIGNED,
-                allowNull: false,
-                comment: '',
+                type      : DataTypes.INTEGER(3).UNSIGNED,
+                allowNull : false,
+                comment   : '',
             },
             reserved: {
-                type: DataTypes.INTEGER(3).UNSIGNED,
-                allowNull: false,
-                comment: '',
+                type      : DataTypes.INTEGER(3).UNSIGNED,
+                allowNull : false,
+                comment   : '',
             },
             reservedAt: {
-                type: DataTypes.INTEGER(10).UNSIGNED,
-                field: 'reserved_at',
-                allowNull: true,
-                comment: '',
+                type      : DataTypes.INTEGER(10).UNSIGNED,
+                field     : 'reserved_at',
+                allowNull : true,
+                comment   : '',
             },
             availableAt: {
-                type: DataTypes.INTEGER(10).UNSIGNED,
-                field: 'available_at',
-                allowNull: false,
-                comment: '',
+                type      : DataTypes.INTEGER(10).UNSIGNED,
+                field     : 'available_at',
+                allowNull : false,
+                comment   : '',
             },
         },
-        { hideDefaultArribute: false, comment: '队列表' },
+        {
+            hideDefaultArribute : false,
+            comment             : '队列表',
+        },
     );
 
     Job.associate = (models) => {};

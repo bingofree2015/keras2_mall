@@ -20,10 +20,10 @@ class PromotionRepos {
 
     async create (promotion) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -33,9 +33,16 @@ class PromotionRepos {
                 }
             });
             if (promotion.name) {
-                let _promotion = await Promotion.findOne({ where: { name: promotion.name }, raw: true });
+                let _promotion = await Promotion.findOne({
+                    where : { name: promotion.name },
+                    raw   : true,
+                });
                 if (_promotion) {
-                    _result = { succeed: 0, code: 101, description: '名称重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '名称重复',
+                    };
                 } else {
                     _promotion = await Promotion.create(promotion);
 
@@ -44,10 +51,10 @@ class PromotionRepos {
                         const _spTargets = [];
                         for (const _target of promotion.spTargets) {
                             _spTargets.push({
-                                promotionId: _promotion.id,
-                                code: _target.code,
-                                name: _target.name,
-                                pattern: _target.pattern,
+                                promotionId : _promotion.id,
+                                code        : _target.code,
+                                name        : _target.name,
+                                pattern     : _target.pattern,
                             });
                         }
                         await SpTarget.bulkCreate(_spTargets, {
@@ -59,10 +66,10 @@ class PromotionRepos {
                         const _spRules = [];
                         for (const _rule of promotion.spRules) {
                             _spRules.push({
-                                promotionId: _promotion.id,
-                                code: _rule.code,
-                                name: _rule.name,
-                                pattern: _rule.pattern,
+                                promotionId : _promotion.id,
+                                code        : _rule.code,
+                                name        : _rule.name,
+                                pattern     : _rule.pattern,
                             });
                         }
                         await SpRule.bulkCreate(_spRules, {
@@ -71,22 +78,29 @@ class PromotionRepos {
                     }
 
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: { ...promotion, id: _promotion.id },
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : {
+                            ...promotion,
+                            id: _promotion.id,
+                        },
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> promotion:${JSON.stringify(promotion)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> promotion:${JSON.stringify(promotion)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -94,26 +108,42 @@ class PromotionRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await Promotion.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -121,10 +151,10 @@ class PromotionRepos {
 
     async update (id, promotion) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _bulkUpsertTarget = async (promotionId, spTargets) => {
@@ -132,9 +162,9 @@ class PromotionRepos {
             if (Array.isArray(spTargets) && spTargets.length > 0) {
                 // 删除数据
                 const _spTargets = await SpTarget.findAll({
-                    attributes: ['id'],
-                    where: { promotionId },
-                    raw: true,
+                    attributes : ['id'],
+                    where      : { promotionId },
+                    raw        : true,
                 });
                 const _oldIds = [];
                 _spTargets.forEach((v) => {
@@ -156,9 +186,9 @@ class PromotionRepos {
                 for (const _target of spTargets) {
                     _spTargetDatas.push({
                         promotionId,
-                        code: _target.code,
-                        name: _target.name,
-                        pattern: _target.pattern,
+                        code    : _target.code,
+                        name    : _target.name,
+                        pattern : _target.pattern,
                     });
                 }
                 await SpTarget.bulkCreate(_spTargetDatas, {
@@ -172,9 +202,9 @@ class PromotionRepos {
             if (Array.isArray(spRules) && spRules.length > 0) {
                 // 删除数据
                 const _spRules = await SpRule.findAll({
-                    attributes: ['id'],
-                    where: { promotionId },
-                    raw: true,
+                    attributes : ['id'],
+                    where      : { promotionId },
+                    raw        : true,
                 });
                 const _oldIds = [];
                 _spRules.forEach((v) => {
@@ -196,9 +226,9 @@ class PromotionRepos {
                 for (const _rule of spRules) {
                     _spRuleDatas.push({
                         promotionId,
-                        code: _rule.code,
-                        name: _rule.name,
-                        pattern: _rule.pattern,
+                        code    : _rule.code,
+                        name    : _rule.name,
+                        pattern : _rule.pattern,
                     });
                 }
                 await SpRule.bulkCreate(_spRuleDatas, {
@@ -216,42 +246,69 @@ class PromotionRepos {
             if (id) {
                 const _name = promotion.name;
                 if (_name) {
-                    let _promotion = await Promotion.findOne({ where: { id, name: _name }, raw: true });
+                    let _promotion = await Promotion.findOne({
+                        where: {
+                            id,
+                            name: _name,
+                        },
+                        raw: true,
+                    });
                     if (_promotion) {
                         const _ret = await Promotion.update(promotion, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             await _bulkUpsertTarget(id, promotion.spTargets);
                             await _bulkUpsertRule(id, promotion.spRules);
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...promotion, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...promotion,
+                                    id,
+                                },
                             };
                         }
                     } else {
                         _promotion = await Promotion.findOne({
-                            where: { name: _name, id: { $ne: id } },
+                            where: {
+                                name : _name,
+                                id   : { $ne: id },
+                            },
                             raw: true,
                         });
                         if (_promotion) {
-                            _result = { succeed: 0, code: 101, description: `名称 [${_name}] 重复` };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : `名称 [${_name}] 重复`,
+                            };
                         } else {
                             const _ret = await Promotion.update(promotion, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 await _bulkUpsertTarget(id, promotion.spTargets);
                                 await _bulkUpsertRule(id, promotion.spRules);
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...promotion, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...promotion,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -260,24 +317,39 @@ class PromotionRepos {
                     const _ret = await Promotion.update(promotion, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         await _bulkUpsertTarget(id, promotion.spTargets);
                         await _bulkUpsertRule(id, promotion.spRules);
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...promotion, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...promotion,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -285,51 +357,59 @@ class PromotionRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             const _promotion = await Promotion.findOne({
                 include: [
                     {
-                        model: SpTarget,
-                        attributes: SpTarget.getAttributes(),
-                        as: 'spTargets',
+                        model      : SpTarget,
+                        attributes : SpTarget.getAttributes(),
+                        as         : 'spTargets',
                     },
                     {
-                        model: SpRule,
-                        attributes: SpRule.getAttributes(),
-                        as: 'spRules',
+                        model      : SpRule,
+                        attributes : SpRule.getAttributes(),
+                        as         : 'spRules',
                     },
                 ],
                 where: { id },
             });
             if (_promotion) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _promotion,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _promotion,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -363,10 +443,13 @@ class PromotionRepos {
                     _datas.push(_promotion);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _promotions.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _promotions.count,
+                    },
                 };
             } else {
                 const _promotions = await Promotion.findAll({
@@ -376,15 +459,19 @@ class PromotionRepos {
                     _datas.push(_promotion);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;
@@ -396,29 +483,29 @@ class PromotionRepos {
    */
     async getCouponList (limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
             const _where = {
-                endTime: { $gt: Date.now() }, // 判断优惠券失效时间 是否可领取
-                state: true, // 启用状态
-                type: 2, // 促销 类型
-                autoReceive: true, // 自动领取状态
+                endTime     : { $gt: Date.now() }, // 判断优惠券失效时间 是否可领取
+                state       : true, // 启用状态
+                type        : 2, // 促销 类型
+                autoReceive : true, // 自动领取状态
             };
             const _promotions = await Promotion.findAll({
                 include: [
                     {
-                        model: SpTarget,
-                        as: 'spTargets',
-                        require: false,
+                        model   : SpTarget,
+                        as      : 'spTargets',
+                        require : false,
                     },
                     {
-                        model: SpRule,
-                        as: 'spRules',
-                        require: false,
+                        model   : SpRule,
+                        as      : 'spRules',
+                        require : false,
                     },
                 ],
                 where: _where,
@@ -488,14 +575,18 @@ class PromotionRepos {
                 _datas.push(_promotion);
             }
             _result = {
-                succeed: 1,
-                code: 200,
-                description: '成功',
-                data: { list: _datas },
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+                data        : { list: _datas },
             };
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }

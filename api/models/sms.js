@@ -8,38 +8,41 @@ module.exports = (sequelize, DataTypes) => {
         {
             // 属性对象
             mobile: {
-                type: DataTypes.STRING(15),
-                allowNull: false,
-                comment: '手机号码',
+                type      : DataTypes.STRING(15),
+                allowNull : false,
+                comment   : '手机号码',
             },
             code: {
-                type: DataTypes.STRING(60),
-                allowNull: false,
-                comment: '',
+                type      : DataTypes.STRING(60),
+                allowNull : false,
+                comment   : '',
             },
             params: {
-                type: DataTypes.STRING(5000),
-                allowNull: false,
-                comment: '参数',
+                type      : DataTypes.STRING(5000),
+                allowNull : false,
+                comment   : '参数',
             },
             content: {
-                type: DataTypes.STRING(200),
-                allowNull: false,
-                comment: '内容',
+                type      : DataTypes.STRING(200),
+                allowNull : false,
+                comment   : '内容',
             },
             ip: {
-                type: DataTypes.STRING(50),
-                allowNull: false,
-                comment: '',
+                type      : DataTypes.STRING(50),
+                allowNull : false,
+                comment   : '',
             },
             status: {
-                type: DataTypes.BOOLEAN,
-                allowNull: false,
-                defaultValue: false,
-                comment: '1未使用，2已使用',
+                type         : DataTypes.BOOLEAN,
+                allowNull    : false,
+                defaultValue : false,
+                comment      : '1未使用，2已使用',
             },
         },
-        { hideDefaultArribute: false, comment: '短信表' },
+        {
+            hideDefaultArribute : false,
+            comment             : '短信表',
+        },
     );
 
     sms.associate = (models) => {};

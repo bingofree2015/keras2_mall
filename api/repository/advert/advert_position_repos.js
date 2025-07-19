@@ -14,10 +14,10 @@ class AdvertPositionRepos {
    */
     async create (item) {
         const _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -27,24 +27,36 @@ class AdvertPositionRepos {
                 }
             });
             if (item.name && item.code) {
-                let _item = await AdvertPosition.findOne({ where: { name: item.name }, raw: true });
+                let _item = await AdvertPosition.findOne({
+                    where : { name: item.name },
+                    raw   : true,
+                });
                 if (_item) {
-                    Object.assign(_result, { code: 101, description: '名称重复' });
+                    Object.assign(_result, {
+                        code        : 101,
+                        description : '名称重复',
+                    });
                 } else {
                     _item = await AdvertPosition.create(item);
                     Object.assign(_result, {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: _item,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : _item,
                     });
                 }
             } else {
-                Object.assign(_result, { code: 100, description: `参数错误 -> ${JSON.stringify(item)}` });
+                Object.assign(_result, {
+                    code        : 100,
+                    description : `参数错误 -> ${JSON.stringify(item)}`,
+                });
             }
         } catch (err) {
             logger.error(err);
-            Object.assign(_result, { code: 500, description: err.message || err.stack || '系统错误' });
+            Object.assign(_result, {
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            });
         }
 
         return _result;
@@ -52,26 +64,42 @@ class AdvertPositionRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await AdvertPosition.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -84,10 +112,10 @@ class AdvertPositionRepos {
    */
     async update (id, item) {
         const _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -100,21 +128,33 @@ class AdvertPositionRepos {
                 const _ret = await AdvertPosition.update(item, { where: { id } });
                 const _affectedCount = _ret[0];
                 if (_affectedCount == 0) {
-                    Object.assign(_result, { code: 102, description: '记录不存在' });
+                    Object.assign(_result, {
+                        code        : 102,
+                        description : '记录不存在',
+                    });
                 } else {
                     Object.assign(_result, {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: { ...item, id },
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : {
+                            ...item,
+                            id,
+                        },
                     });
                 }
             } else {
-                Object.assign(_result, { code: 100, description: `参数错误 -> id:${id}` });
+                Object.assign(_result, {
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                });
             }
         } catch (err) {
             logger.error(err);
-            Object.assign(_result, { code: 500, description: err.message || err.stack || '系统错误' });
+            Object.assign(_result, {
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            });
         }
         return _result;
     }
@@ -125,27 +165,36 @@ class AdvertPositionRepos {
    */
     async get (id) {
         const _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
-            const _advertPosition = await AdvertPosition.findOne({ where: { id }, raw: true });
+            const _advertPosition = await AdvertPosition.findOne({
+                where : { id },
+                raw   : true,
+            });
             if (_advertPosition) {
                 Object.assign(_result, {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _advertPosition,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _advertPosition,
                 });
             } else {
-                Object.assign(_result, { code: 102, description: '数据不存在' });
+                Object.assign(_result, {
+                    code        : 102,
+                    description : '数据不存在',
+                });
             }
         } catch (err) {
             logger.error(err);
-            Object.assign(_result, { code: 500, description: err.message || err.stack || '系统错误' });
+            Object.assign(_result, {
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            });
         }
         return _result;
     }
@@ -158,10 +207,10 @@ class AdvertPositionRepos {
    */
     async list (searchKey, offset, limit) {
         const _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -180,7 +229,10 @@ class AdvertPositionRepos {
                 } else if (Array.isArray(searchKey[_key]) && searchKey[_key].length === 2) {
                     const _beginValue = searchKey[_key][0];
                     const _endValue = searchKey[_key][1];
-                    _where[_key] = { $gte: _beginValue, $lte: _endValue };
+                    _where[_key] = {
+                        $gte : _beginValue,
+                        $lte : _endValue,
+                    };
                 } else {
                     _where[_key] = searchKey[_key];
                 }
@@ -191,40 +243,46 @@ class AdvertPositionRepos {
         try {
             if ((offset == 0 || offset) && limit) {
                 const _advertPositions = await AdvertPosition.findAndCountAll({
-                    where: _where,
+                    where : _where,
                     offset,
                     limit,
-                    raw: true,
-                    order: [['id', 'desc']],
+                    raw   : true,
+                    order : [['id', 'desc']],
                 });
                 for (const _advertPosition of _advertPositions.rows) {
                     _datas.push(_advertPosition);
                 }
                 Object.assign(_result, {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _advertPositions.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _advertPositions.count,
+                    },
                 });
             } else {
                 const _advertPositions = await AdvertPosition.findAll({
-                    where: _where,
-                    raw: true,
-                    order: [['id', 'desc']],
+                    where : _where,
+                    raw   : true,
+                    order : [['id', 'desc']],
                 });
                 for (const _advertPosition of _advertPositions) {
                     _datas.push(_advertPosition);
                 }
                 Object.assign(_result, {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 });
             }
         } catch (err) {
             logger.error(err);
-            Object.assign(_result, { code: 500, description: err });
+            Object.assign(_result, {
+                code        : 500,
+                description : err,
+            });
         }
         return _result;
     }

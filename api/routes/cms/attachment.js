@@ -65,10 +65,10 @@ attachmentRouter.post('/download', async (ctx) => {
     if (_result.succeed == 1 && _result.code == 200) {
         const _attachment = {
             attachGroupId,
-            name: _result.data.fileName,
-            type: _result.data.fileType,
-            path: _result.data.fileUrl,
-            size: 0,
+            name : _result.data.fileName,
+            type : _result.data.fileType,
+            path : _result.data.fileUrl,
+            size : 0,
         };
         _result = await create(_attachment);
     }

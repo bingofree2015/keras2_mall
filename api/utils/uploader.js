@@ -13,9 +13,9 @@ class Uploader {
 
     async upload (ctx, pathType, w, h) {
         let _result = {
-            succeed: 0,
-            code: 102,
-            description: '文件不存在',
+            succeed     : 0,
+            code        : 102,
+            description : '文件不存在',
         };
         w = parseInt(w);
         h = parseInt(h);
@@ -60,17 +60,21 @@ class Uploader {
                 }
                 const _fileUrl = _relativePath + _fileName;
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { fileUrl: _fileUrl, fileName: _fileName, fileType: _fileType },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        fileUrl  : _fileUrl,
+                        fileName : _fileName,
+                        fileType : _fileType,
+                    },
                 };
             } catch (err) {
                 logger.error(err);
                 _result = {
-                    succeed: 0,
-                    code: 500,
-                    description: err.message || err.stack || '系统错误',
+                    succeed     : 0,
+                    code        : 500,
+                    description : err.message || err.stack || '系统错误',
                 };
             }
         }
@@ -113,17 +117,21 @@ class Uploader {
 
             const _fileUrl = _relativePath + _fileName;
             _result = {
-                succeed: 1,
-                code: 200,
-                description: '成功',
-                data: { fileUrl: _fileUrl, fileName: _fileName, fileType: _fileType },
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+                data        : {
+                    fileUrl  : _fileUrl,
+                    fileName : _fileName,
+                    fileType : _fileType,
+                },
             };
         } catch (err) {
             logger.error(err);
             _result = {
-                succeed: 0,
-                code: 500,
-                description: err.message || err.stack || '系统错误',
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
             };
         }
         return _result;

@@ -38,7 +38,10 @@ router.post('/login', async (ctx) => {
     let _result = {};
     _result = await login(username, pwd);
     if (_result.succeed == 1 && _result.code == 200) {
-        const _payload = { username, pwd };
+        const _payload = {
+            username,
+            pwd,
+        };
         const _token = sign(_payload, JWT.secret, { expiresIn: JWT.expiresIn });
         _result.data.setDataValue('token', _token);
     }
@@ -55,10 +58,10 @@ router.post('/resetPwd', async (ctx) => {
 /** 退出 */
 router.post('/logout', async (ctx) => {
     const _result = {
-        succeed: 1,
-        code: 200,
-        description: '成功',
-        data: null,
+        succeed     : 1,
+        code        : 200,
+        description : '成功',
+        data        : null,
     };
 
     ctx.body = _result;

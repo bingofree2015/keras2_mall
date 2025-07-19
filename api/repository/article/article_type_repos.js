@@ -14,10 +14,10 @@ class ArticleTypeRepos {
    */
     async create (articleType) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -28,31 +28,42 @@ class ArticleTypeRepos {
             });
             if (Number.isInteger(articleType.pid) && articleType.typeName) {
                 let _articleType = await ArticleType.findOne({
-                    where: { typeName: articleType.typeName, pid: articleType.pid },
+                    where: {
+                        typeName : articleType.typeName,
+                        pid      : articleType.pid,
+                    },
                     raw: true,
                 });
                 if (_articleType) {
-                    _result = { succeed: 0, code: 101, description: '名称重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '名称重复',
+                    };
                 } else {
                     _articleType = await ArticleType.create(articleType);
                     _articleType.setDataValue('children', []);
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: _articleType,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : _articleType,
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> articleType:${JSON.stringify(articleType)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> articleType:${JSON.stringify(articleType)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -60,26 +71,42 @@ class ArticleTypeRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await ArticleType.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -92,10 +119,10 @@ class ArticleTypeRepos {
    */
     async update (id, articleType) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -108,40 +135,65 @@ class ArticleTypeRepos {
                 const _typeName = articleType.typeName;
                 if (_typeName) {
                     let _articleType = await ArticleType.findOne({
-                        where: { id, typeName: _typeName },
+                        where: {
+                            id,
+                            typeName: _typeName,
+                        },
                         raw: true,
                     });
                     if (_articleType) {
                         const _ret = await ArticleType.update(articleType, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...articleType, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...articleType,
+                                    id,
+                                },
                             };
                         }
                     } else {
                         _articleType = await ArticleType.findOne({
-                            where: { typeName: _typeName, pid: articleType.pid, id: { $ne: id } },
+                            where: {
+                                typeName : _typeName,
+                                pid      : articleType.pid,
+                                id       : { $ne: id },
+                            },
                             raw: true,
                         });
                         if (_articleType) {
-                            _result = { succeed: 0, code: 101, description: `名称 [${_typeName}] 重复` };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : `名称 [${_typeName}] 重复`,
+                            };
                         } else {
                             const _ret = await ArticleType.update(articleType, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...articleType, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...articleType,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -150,22 +202,37 @@ class ArticleTypeRepos {
                     const _ret = await ArticleType.update(articleType, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...articleType, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...articleType,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -173,27 +240,38 @@ class ArticleTypeRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
-            const _articleType = await ArticleType.findOne({ where: { id }, raw: true });
+            const _articleType = await ArticleType.findOne({
+                where : { id },
+                raw   : true,
+            });
             if (_articleType) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _articleType,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _articleType,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
@@ -204,10 +282,10 @@ class ArticleTypeRepos {
    */
     async getTree () {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -218,7 +296,10 @@ class ArticleTypeRepos {
             for (const _data of datas) {
                 if (_data.pid == id) {
                     _data.level = level;
-                    _articleTypes.push({ ..._data, ...{ parentName: name } });
+                    _articleTypes.push({
+                        ..._data,
+                        ...{ parentName: name },
+                    });
                 }
             }
             for (const _articleType of _articleTypes) {
@@ -230,7 +311,10 @@ class ArticleTypeRepos {
             return _articleTypes;
         };
         try {
-            let _articleTypes = await ArticleType.findAll({ where: _where, order: [['id', 'ASC']] });
+            let _articleTypes = await ArticleType.findAll({
+                where : _where,
+                order : [['id', 'ASC']],
+            });
             _articleTypes = _articleTypes.map((v) => v.dataValues);
             const _level = 1;
             for (const _articleType of _articleTypes) {
@@ -246,14 +330,18 @@ class ArticleTypeRepos {
                 }
             }
             _result = {
-                succeed: 1,
-                code: 200,
-                description: '成功',
-                data: { list: _datas },
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+                data        : { list: _datas },
             };
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;

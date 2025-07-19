@@ -28,10 +28,10 @@ class GoodsRepos {
 
     async create (goods) {
         let _result = {
-            succeed: 0, // 1:成功 0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功 0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -41,9 +41,16 @@ class GoodsRepos {
                 }
             });
             if (goods.name) {
-                let _goods = await Goods.findOne({ where: { name: goods.name }, raw: true });
+                let _goods = await Goods.findOne({
+                    where : { name: goods.name },
+                    raw   : true,
+                });
                 if (_goods) {
-                    _result = { succeed: 0, code: 101, description: '名称重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '名称重复',
+                    };
                 } else {
                     goods.specs = goods.goodsType ? goods.goodsType.specs : [];
                     goods.params = goods.goodsType ? goods.goodsType.params : [];
@@ -54,7 +61,10 @@ class GoodsRepos {
                         // 批量插入  goodsAttachment 表
                         const _goodsAttachments = [];
                         for (const _goodsAttachment of goods.goodsAttachments) {
-                            _goodsAttachments.push({ goodsId: _goodsId, attachmentId: _goodsAttachment.id });
+                            _goodsAttachments.push({
+                                goodsId      : _goodsId,
+                                attachmentId : _goodsAttachment.id,
+                            });
                         }
                         if (_goodsAttachments.length > 0) {
                             await GoodsAttachment.bulkCreate(_goodsAttachments, {
@@ -68,18 +78,18 @@ class GoodsRepos {
                         for (const _product of goods.products) {
                             const _sn = couponUtil.genSerialNumber(4);
                             _products.push({
-                                goodsId: _goodsId, // 商品id
-                                barcode: '', // 货品条码
-                                sn: _product.sn ? _product.sn : _sn, // 商品编码
-                                price: _product.price, // 货品价格
-                                costPrice: _product.costPrice, // 货品成本价
-                                mktPrice: _product.mktPrice, // 货品市场价
-                                marketable: goods.marketable, // 上架标志 1:上架 2:下架
-                                stock: _product.stock, // 库存
-                                freezeStock: goods.freezeStock, // 冻结库存
-                                specsJson: _product.specsJson, // 规格值逗号分隔存储
-                                isDefalut: _product.isDefault, // 是否默认货品 1:是 2:否
-                                attachmentId: _product.attachment ? _product.attachment.id : 0, // 规格图片ID
+                                goodsId      : _goodsId, // 商品id
+                                barcode      : '', // 货品条码
+                                sn           : _product.sn ? _product.sn : _sn, // 商品编码
+                                price        : _product.price, // 货品价格
+                                costPrice    : _product.costPrice, // 货品成本价
+                                mktPrice     : _product.mktPrice, // 货品市场价
+                                marketable   : goods.marketable, // 上架标志 1:上架 2:下架
+                                stock        : _product.stock, // 库存
+                                freezeStock  : goods.freezeStock, // 冻结库存
+                                specsJson    : _product.specsJson, // 规格值逗号分隔存储
+                                isDefalut    : _product.isDefault, // 是否默认货品 1:是 2:否
+                                attachmentId : _product.attachment ? _product.attachment.id : 0, // 规格图片ID
                             });
                         }
                         if (_products.length > 0) {
@@ -106,9 +116,9 @@ class GoodsRepos {
                         const _goodsGrades = [];
                         for (const _gradeId in goods.gradePrice) {
                             _goodsGrades.push({
-                                goodsId: _goodsId,
-                                gradeId: _gradeId,
-                                gradePrice: goods.gradePrice[_gradeId],
+                                goodsId    : _goodsId,
+                                gradeId    : _gradeId,
+                                gradePrice : goods.gradePrice[_gradeId],
                             });
                         }
                         if (_goodsGrades.length > 0) {
@@ -119,22 +129,26 @@ class GoodsRepos {
                     }
 
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: _goods,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : _goods,
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> goods:${JSON.stringify(goods)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> goods:${JSON.stringify(goods)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -142,26 +156,42 @@ class GoodsRepos {
 
     async batchDelete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await Goods.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -169,10 +199,10 @@ class GoodsRepos {
 
     async update (id, goods) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _bulkCreateGoodsAttachments = async (goodsId, goodsAttachments) => {
@@ -180,9 +210,9 @@ class GoodsRepos {
             if (Array.isArray(goodsAttachments) && goodsAttachments.length > 0) {
                 // 删除数据
                 const _goodsAttachments = await GoodsAttachment.findAll({
-                    attributes: ['id'],
-                    where: { goodsId },
-                    raw: true,
+                    attributes : ['id'],
+                    where      : { goodsId },
+                    raw        : true,
                 });
                 const _oldIds = [];
                 _goodsAttachments.forEach((v) => {
@@ -205,9 +235,9 @@ class GoodsRepos {
                 for (const _goodsAttachment of goodsAttachments) {
                     _goodsAttachmentDatas.push({
                         goodsId,
-                        attachmentId: _goodsAttachment.id,
-                        path: _goodsAttachment.path,
-                        sort: _sort,
+                        attachmentId : _goodsAttachment.id,
+                        path         : _goodsAttachment.path,
+                        sort         : _sort,
                     });
                     ++_sort;
                 }
@@ -222,9 +252,9 @@ class GoodsRepos {
             if (Array.isArray(products) && products.length > 0) {
                 // 删除数据
                 const _products = await Product.findAll({
-                    attributes: ['id'],
-                    where: { goodsId },
-                    raw: true,
+                    attributes : ['id'],
+                    where      : { goodsId },
+                    raw        : true,
                 });
                 const _oldIds = [];
                 _products.forEach((v) => {
@@ -247,17 +277,17 @@ class GoodsRepos {
                     const _sn = couponUtil.genSerialNumber(4);
                     _productDatas.push({
                         goodsId, // 商品id
-                        barcode: '', // 货品条码
-                        sn: _product.sn ? _product.sn : _sn, // 商品编码
-                        price: _product.price, // 货品价格
-                        costPrice: _product.costPrice, // 货品成本价
-                        mktPrice: _product.mktPrice, // 货品市场价
-                        marketable: goods.marketable, // 上架标志 1:上架 2:下架
-                        stock: _product.stock, // 库存
-                        freezeStock: goods.freezeStock, // 冻结库存
-                        specsJson: _product.specsJson, // 规格值逗号分隔存储
-                        isDefault: _product.isDefault, // 是否默认货品 true;false
-                        attachmentId: _product.attachment ? _product.attachment.id : 0, // 规格图片ID
+                        barcode      : '', // 货品条码
+                        sn           : _product.sn ? _product.sn : _sn, // 商品编码
+                        price        : _product.price, // 货品价格
+                        costPrice    : _product.costPrice, // 货品成本价
+                        mktPrice     : _product.mktPrice, // 货品市场价
+                        marketable   : goods.marketable, // 上架标志 1:上架 2:下架
+                        stock        : _product.stock, // 库存
+                        freezeStock  : goods.freezeStock, // 冻结库存
+                        specsJson    : _product.specsJson, // 规格值逗号分隔存储
+                        isDefault    : _product.isDefault, // 是否默认货品 true;false
+                        attachmentId : _product.attachment ? _product.attachment.id : 0, // 规格图片ID
                     });
                 }
                 await Product.bulkCreate(_productDatas, {
@@ -284,9 +314,9 @@ class GoodsRepos {
             if (gradePrice && Object.keys(gradePrice).length > 0) {
                 // 删除数据
                 const _goodsGrades = await GoodsGrade.findAll({
-                    attributes: ['id'],
-                    where: { goodsId },
-                    raw: true,
+                    attributes : ['id'],
+                    where      : { goodsId },
+                    raw        : true,
                 });
                 const _oldIds = [];
                 _goodsGrades.forEach((v) => {
@@ -308,8 +338,8 @@ class GoodsRepos {
                 for (const _gradeId in gradePrice) {
                     _goodsGradeDatas.push({
                         goodsId,
-                        gradeId: _gradeId,
-                        gradePrice: gradePrice[_gradeId],
+                        gradeId    : _gradeId,
+                        gradePrice : gradePrice[_gradeId],
                     });
                 }
                 if (_goodsGradeDatas.length > 0) {
@@ -332,43 +362,73 @@ class GoodsRepos {
 
                 const _name = goods.name;
                 if (_name) {
-                    let _goods = await Goods.findOne({ where: { id, name: _name }, raw: true });
+                    let _goods = await Goods.findOne({
+                        where: {
+                            id,
+                            name: _name,
+                        },
+                        raw: true,
+                    });
                     if (_goods) {
                         const _ret = await Goods.update(goods, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             // 更新图片集与商品记录
                             await _bulkCreateGoodsAttachments(id, goods.goodsAttachments);
                             await _bulkCreateProducts(id, goods, goods.products);
                             await _bulkCreateGoodsGrades(id, goods.gradePrice);
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...goods, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...goods,
+                                    id,
+                                },
                             };
                         }
                     } else {
-                        _goods = await Goods.findOne({ where: { name: _name, id: { $ne: id } }, raw: true });
+                        _goods = await Goods.findOne({
+                            where: {
+                                name : _name,
+                                id   : { $ne: id },
+                            },
+                            raw: true,
+                        });
                         if (_goods) {
-                            _result = { succeed: 0, code: 101, description: `名称 [${_name}] 重复` };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : `名称 [${_name}] 重复`,
+                            };
                         } else {
                             const _ret = await Goods.update(goods, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 // 更新图片集与商品记录
                                 await _bulkCreateGoodsAttachments(id, goods.goodsAttachments);
                                 await _bulkCreateProducts(id, goods, goods.products);
                                 await _bulkCreateGoodsGrades(id, goods.gradePrice);
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...goods, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...goods,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -377,26 +437,41 @@ class GoodsRepos {
                     const _ret = await Goods.update(goods, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         // 更新图片集与商品记录
                         await _bulkCreateGoodsAttachments(id, goods.goodsAttachments);
                         await _bulkCreateProducts(id, goods, goods.products);
                         await _bulkCreateGoodsGrades(id, goods.gradePrice);
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...goods, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...goods,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -404,99 +479,107 @@ class GoodsRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             const _goods = await Goods.findOne({
                 include: [
                     {
-                        model: Attachment,
-                        attributes: ['id', 'path'],
-                        as: 'attachment',
-                        require: false,
+                        model      : Attachment,
+                        attributes : ['id', 'path'],
+                        as         : 'attachment',
+                        require    : false,
                     },
                     {
-                        model: GoodsAttachment,
-                        attributes: GoodsAttachment.getAttributes(),
-                        as: 'goodsAttachments',
-                        include: [
+                        model      : GoodsAttachment,
+                        attributes : GoodsAttachment.getAttributes(),
+                        as         : 'goodsAttachments',
+                        include    : [
                             {
-                                model: Attachment,
-                                as: 'attachment',
-                                attributes: ['id', 'path'],
-                                require: false,
+                                model      : Attachment,
+                                as         : 'attachment',
+                                attributes : ['id', 'path'],
+                                require    : false,
                             },
                         ],
                         require: false,
                     },
                     {
-                        model: GoodsCat,
-                        attributes: ['id', 'name'],
-                        as: 'goodsCat',
-                        require: false,
+                        model      : GoodsCat,
+                        attributes : ['id', 'name'],
+                        as         : 'goodsCat',
+                        require    : false,
                     },
                     {
-                        model: GoodsType,
-                        attributes: ['id', 'name'],
-                        as: 'goodsType',
-                        require: false,
+                        model      : GoodsType,
+                        attributes : ['id', 'name'],
+                        as         : 'goodsType',
+                        require    : false,
                     },
                     {
-                        model: Brand,
-                        attributes: ['id', 'name'],
-                        as: 'brand',
-                        require: false,
+                        model      : Brand,
+                        attributes : ['id', 'name'],
+                        as         : 'brand',
+                        require    : false,
                     },
                     {
-                        model: Product,
-                        attributes: Product.getAttributes(),
-                        as: 'products',
-                        include: [
+                        model      : Product,
+                        attributes : Product.getAttributes(),
+                        as         : 'products',
+                        include    : [
                             {
-                                model: Attachment,
-                                as: 'attachment',
-                                attributes: ['id', 'path'],
-                                require: false,
+                                model      : Attachment,
+                                as         : 'attachment',
+                                attributes : ['id', 'path'],
+                                require    : false,
                             },
                         ],
                         require: false,
                     },
                     {
-                        model: GoodsGrade,
-                        attributes: GoodsGrade.getAttributes(),
-                        as: 'goodsGrades',
-                        require: false,
+                        model      : GoodsGrade,
+                        attributes : GoodsGrade.getAttributes(),
+                        as         : 'goodsGrades',
+                        require    : false,
                     },
                 ],
                 where: { id },
             });
             if (_goods) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _goods,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _goods,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -524,32 +607,32 @@ class GoodsRepos {
                 const _goods = await Goods.findAndCountAll({
                     include: [
                         {
-                            model: Attachment,
-                            attributes: ['id', 'path'],
-                            as: 'attachment',
-                            require: false,
+                            model      : Attachment,
+                            attributes : ['id', 'path'],
+                            as         : 'attachment',
+                            require    : false,
                         },
                         {
-                            model: GoodsCat,
-                            attributes: ['id', 'name'],
-                            as: 'goodsCat',
-                            require: false,
+                            model      : GoodsCat,
+                            attributes : ['id', 'name'],
+                            as         : 'goodsCat',
+                            require    : false,
                         },
                         {
-                            model: GoodsType,
-                            attributes: ['id', 'name'],
-                            as: 'goodsType',
-                            require: false,
+                            model      : GoodsType,
+                            attributes : ['id', 'name'],
+                            as         : 'goodsType',
+                            require    : false,
                         },
                         {
-                            model: Brand,
-                            attributes: ['id', 'name'],
-                            as: 'brand',
-                            require: false,
+                            model      : Brand,
+                            attributes : ['id', 'name'],
+                            as         : 'brand',
+                            require    : false,
                         },
                     ],
-                    distinct: true,
-                    where: _where,
+                    distinct : true,
+                    where    : _where,
                     offset,
                     limit,
                 });
@@ -557,37 +640,40 @@ class GoodsRepos {
                     _datas.push(__goods);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _goods.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _goods.count,
+                    },
                 };
             } else {
                 const _goods = await Goods.findAll({
                     include: [
                         {
-                            model: Attachment,
-                            attributes: ['id', 'path'],
-                            as: 'attachment',
-                            require: false,
+                            model      : Attachment,
+                            attributes : ['id', 'path'],
+                            as         : 'attachment',
+                            require    : false,
                         },
                         {
-                            model: GoodsCat,
-                            attributes: ['id', 'name'],
-                            as: 'goodsCat',
-                            require: false,
+                            model      : GoodsCat,
+                            attributes : ['id', 'name'],
+                            as         : 'goodsCat',
+                            require    : false,
                         },
                         {
-                            model: GoodsType,
-                            attributes: ['id', 'name'],
-                            as: 'goodsType',
-                            require: false,
+                            model      : GoodsType,
+                            attributes : ['id', 'name'],
+                            as         : 'goodsType',
+                            require    : false,
                         },
                         {
-                            model: Brand,
-                            attributes: ['id', 'name'],
-                            as: 'brand',
-                            require: false,
+                            model      : Brand,
+                            attributes : ['id', 'name'],
+                            as         : 'brand',
+                            require    : false,
                         },
                     ],
                     where: _where,
@@ -596,15 +682,19 @@ class GoodsRepos {
                     _datas.push(__goods);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;
@@ -616,10 +706,10 @@ class GoodsRepos {
    */
     async getStatistics (baseFilter = {}) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
             const _total = await Goods.count({ where: baseFilter });
@@ -636,26 +726,29 @@ class GoodsRepos {
                 _goodsStockWarn = _result.data;
             }
             const _totalWarn = await Product.findAll({
-                attributes: ['goodsId', [Sequelize.literal('COUNT(id)'), 'count']],
-                where: Sequelize.literal(`(stock - freeze_stock) < ${_goodsStockWarn}`),
-                group: 'goodsId',
-                raw: true,
+                attributes : ['goodsId', [Sequelize.literal('COUNT(id)'), 'count']],
+                where      : Sequelize.literal(`(stock - freeze_stock) < ${_goodsStockWarn}`),
+                group      : 'goodsId',
+                raw        : true,
             });
 
             Object.assign(_result, {
-                succeed: 1,
-                code: 200,
-                description: '成功',
-                data: {
-                    totalGoods: _total,
-                    totalMarketableUp: _totalMarketableUp,
-                    totalMarketableDown: _totalMarketableDown,
-                    totalWarn: _totalWarn,
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+                data        : {
+                    totalGoods          : _total,
+                    totalMarketableUp   : _totalMarketableUp,
+                    totalMarketableDown : _totalMarketableDown,
+                    totalWarn           : _totalWarn,
                 },
             });
         } catch (err) {
             logger.error(err);
-            Object.assign(_result, { code: 500, description: err.message || err.stack || '系统错误' });
+            Object.assign(_result, {
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            });
         }
 
         return _result;
@@ -674,10 +767,10 @@ class GoodsRepos {
    */
     async changeStock (productId, type, num) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
             let _ret = null;
@@ -702,7 +795,11 @@ class GoodsRepos {
                     );
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '库存更新失败' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '库存更新失败',
+                        };
                     } else {
                         await Product.update(
                             { freezeStock: sequelize.literal(`\`freeze_stock\` - ${num}`) },
@@ -746,16 +843,32 @@ class GoodsRepos {
             if (_ret) {
                 const _affectedCount = _ret[0];
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '库存更新失败' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '库存更新失败',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 102, description: '库存更新失败' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '库存更新失败',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;

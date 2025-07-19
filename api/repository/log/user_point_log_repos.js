@@ -9,10 +9,10 @@ class UserPointLogRepos {
 
     async create (userPointLog) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -24,21 +24,25 @@ class UserPointLogRepos {
             if (userPointLog.userId && userPointLog.type) {
                 const _userPointLog = await UserPointLog.create(userPointLog);
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _userPointLog,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _userPointLog,
                 };
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> userPointLog:${JSON.stringify(userPointLog)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> userPointLog:${JSON.stringify(userPointLog)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -46,26 +50,42 @@ class UserPointLogRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await UserPointLog.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -73,10 +93,10 @@ class UserPointLogRepos {
 
     async update (id, userPointLog) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -89,21 +109,36 @@ class UserPointLogRepos {
                 const _ret = await UserPointLog.update(userPointLog, { where: { id } });
                 const _affectedCount = _ret[0];
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: { ...userPointLog, id },
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : {
+                            ...userPointLog,
+                            id,
+                        },
                     };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -111,37 +146,48 @@ class UserPointLogRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
-            const _userPointLog = await UserPointLog.findOne({ where: { id }, raw: true });
+            const _userPointLog = await UserPointLog.findOne({
+                where : { id },
+                raw   : true,
+            });
             if (_userPointLog) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _userPointLog,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _userPointLog,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -167,35 +213,45 @@ class UserPointLogRepos {
         try {
             if ((offset == 0 || offset) && limit) {
                 const _userPointLogs = await UserPointLog.findAndCountAll({
-                    where: _where,
+                    where : _where,
                     offset,
                     limit,
-                    raw: true,
+                    raw   : true,
                 });
                 for (const _userPointLog of _userPointLogs.rows) {
                     _datas.push(_userPointLog);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _userPointLogs.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _userPointLogs.count,
+                    },
                 };
             } else {
-                const _userPointLogs = await UserPointLog.findAll({ where: _where, raw: true });
+                const _userPointLogs = await UserPointLog.findAll({
+                    where : _where,
+                    raw   : true,
+                });
                 for (const _userPointLog of _userPointLogs) {
                     _datas.push(_userPointLog);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;
@@ -210,10 +266,10 @@ class UserPointLogRepos {
    */
     async setPoint (userId, point, type, remark) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
             if (point) {
@@ -223,27 +279,40 @@ class UserPointLogRepos {
                     const _point = _user.point + point;
                     // 积分余额判断
                     if (_point < 0) {
-                        Object.assign(_result, { code: 102, description: '积分余额不足' });
+                        Object.assign(_result, {
+                            code        : 102,
+                            description : '积分余额不足',
+                        });
                     } else {
                         await UserPointLog.create({
                             userId,
                             type,
-                            num: point,
-                            balance: _point,
+                            num     : point,
+                            balance : _point,
                             remark,
                         });
                     }
                     // 修改用户积分
                     await User.update({ point: _user.point + point }, { where: { id: userId } });
                 } else {
-                    Object.assign(_result, { code: 103, description: '用户不存在' });
+                    Object.assign(_result, {
+                        code        : 103,
+                        description : '用户不存在',
+                    });
                 }
             } else {
-                Object.assign(_result, { code: 101, description: `${point} 参数错误` });
+                Object.assign(_result, {
+                    code        : 101,
+                    description : `${point} 参数错误`,
+                });
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }

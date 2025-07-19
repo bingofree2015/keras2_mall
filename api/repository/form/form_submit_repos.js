@@ -12,15 +12,15 @@ class FormSubmitRepos {
             title: {
                 text: '报表',
             },
-            tooltip: {},
-            legend: {
+            tooltip : {},
+            legend  : {
                 data: [],
             },
             grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true,
+                left         : '3%',
+                right        : '4%',
+                bottom       : '3%',
+                containLabel : true,
             },
             toolbox: {
                 feature: {
@@ -28,13 +28,13 @@ class FormSubmitRepos {
                 },
             },
             xAxis: {
-                type: 'category',
-                boundaryGap: false,
-                data: [],
+                type        : 'category',
+                boundaryGap : false,
+                data        : [],
             },
             yAxis: {
-                type: 'value',
-                name: '元',
+                type : 'value',
+                name : '元',
             },
             series: [],
         };
@@ -43,10 +43,10 @@ class FormSubmitRepos {
 
     async create (formSubmit) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -56,28 +56,42 @@ class FormSubmitRepos {
                 }
             });
             if (formSubmit.name) {
-                let _formSubmit = await FormSubmit.findOne({ where: { name: formSubmit.name }, raw: true });
+                let _formSubmit = await FormSubmit.findOne({
+                    where : { name: formSubmit.name },
+                    raw   : true,
+                });
                 if (_formSubmit) {
-                    _result = { succeed: 0, code: 101, description: '名称重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '名称重复',
+                    };
                 } else {
                     _formSubmit = await FormSubmit.create(formSubmit);
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: { ...formSubmit, id: _formSubmit.id },
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : {
+                            ...formSubmit,
+                            id: _formSubmit.id,
+                        },
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> formSubmit:${JSON.stringify(formSubmit)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> formSubmit:${JSON.stringify(formSubmit)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -85,26 +99,42 @@ class FormSubmitRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await FormSubmit.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -112,10 +142,10 @@ class FormSubmitRepos {
 
     async update (id, formSubmit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -127,38 +157,65 @@ class FormSubmitRepos {
             if (id) {
                 const _name = formSubmit.name;
                 if (_name) {
-                    let _formSubmit = await FormSubmit.findOne({ where: { id, name: _name }, raw: true });
+                    let _formSubmit = await FormSubmit.findOne({
+                        where: {
+                            id,
+                            name: _name,
+                        },
+                        raw: true,
+                    });
                     if (_formSubmit) {
                         const _ret = await FormSubmit.update(formSubmit, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...formSubmit, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...formSubmit,
+                                    id,
+                                },
                             };
                         }
                     } else {
                         _formSubmit = await FormSubmit.findOne({
-                            where: { name: _name, id: { $ne: id } },
+                            where: {
+                                name : _name,
+                                id   : { $ne: id },
+                            },
                             raw: true,
                         });
                         if (_formSubmit) {
-                            _result = { succeed: 0, code: 101, description: `名称 [${_name}] 重复` };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : `名称 [${_name}] 重复`,
+                            };
                         } else {
                             const _ret = await FormSubmit.update(formSubmit, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...formSubmit, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...formSubmit,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -167,22 +224,37 @@ class FormSubmitRepos {
                     const _ret = await FormSubmit.update(formSubmit, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...formSubmit, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...formSubmit,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -190,34 +262,34 @@ class FormSubmitRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             const _formSubmit = await FormSubmit.findOne({
                 include: [
                     {
-                        model: User,
-                        as: 'user',
-                        attributes: ['id', 'username'],
-                        require: false,
+                        model      : User,
+                        as         : 'user',
+                        attributes : ['id', 'username'],
+                        require    : false,
                     },
                     {
                         include: [
                             {
-                                model: FormItem,
-                                as: 'formItems',
-                                attributes: FormItem.getAttributes(),
-                                require: false,
+                                model      : FormItem,
+                                as         : 'formItems',
+                                attributes : FormItem.getAttributes(),
+                                require    : false,
                             },
                         ],
-                        model: Form,
-                        as: 'form',
-                        attributes: Form.getAttributes(),
-                        require: false,
+                        model      : Form,
+                        as         : 'form',
+                        attributes : Form.getAttributes(),
+                        require    : false,
                     },
                 ],
                 where: { id },
@@ -227,7 +299,11 @@ class FormSubmitRepos {
                     for (const _formItem of _formSubmit.form.formItems) {
                         const _formItemId = _formItem.id;
                         const _formSubmitDetail = await FormSubmitDetail.findOne({
-                            where: { formId: _formSubmit.form.id, submitId: id, formItemId: _formItemId },
+                            where: {
+                                formId     : _formSubmit.form.id,
+                                submitId   : id,
+                                formItemId : _formItemId,
+                            },
                         });
                         if (_formSubmitDetail) {
                             _formItem.setDataValue('formItemValue', _formSubmitDetail.formItemValue);
@@ -235,27 +311,35 @@ class FormSubmitRepos {
                     }
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _formSubmit,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _formSubmit,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -283,9 +367,9 @@ class FormSubmitRepos {
                 const _formSubmits = await FormSubmit.findAndCountAll({
                     include: [
                         {
-                            model: User,
-                            as: 'user',
-                            attributes: ['id', 'username'],
+                            model      : User,
+                            as         : 'user',
+                            attributes : ['id', 'username'],
                         },
                     ],
                     where: _where,
@@ -296,18 +380,21 @@ class FormSubmitRepos {
                     _datas.push(_formSubmit);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _formSubmits.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _formSubmits.count,
+                    },
                 };
             } else {
                 const _formSubmits = await FormSubmit.findAll({
                     include: [
                         {
-                            model: User,
-                            as: 'user',
-                            attributes: ['id', 'username'],
+                            model      : User,
+                            as         : 'user',
+                            attributes : ['id', 'username'],
                         },
                     ],
                     where: _where,
@@ -316,15 +403,19 @@ class FormSubmitRepos {
                     _datas.push(_formSubmit);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;
@@ -337,10 +428,10 @@ class FormSubmitRepos {
    */
     async report (formId, days) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
             const _data = {};
@@ -356,8 +447,8 @@ class FormSubmitRepos {
                     [sequelize.fn('DATE_FORMAT', sequelize.col('created_at'), '%Y-%m-%d'), 'day'],
                     [sequelize.fn('COUNT', sequelize.col('id')), 'num'],
                 ],
-                group: [[sequelize.fn('DATE_FORMAT', sequelize.col('created_at'), '%Y-%m-%d')]],
-                where: {
+                group : [[sequelize.fn('DATE_FORMAT', sequelize.col('created_at'), '%Y-%m-%d')]],
+                where : {
                     formId,
                     createdAt: { $gt: _startDate },
                 },
@@ -381,23 +472,27 @@ class FormSubmitRepos {
             this._options.xAxis.data = _xAxisData;
 
             const _serie = {
-                name: '金额',
-                type: 'line',
-                data: Object.values(_fullDays),
+                name : '金额',
+                type : 'line',
+                data : Object.values(_fullDays),
             };
             this._options.series.push(_serie);
 
             _data.list = this._options;
 
             _result = {
-                succeed: 1,
-                code: 200,
-                description: '成功',
-                data: _data,
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+                data        : _data,
             };
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;

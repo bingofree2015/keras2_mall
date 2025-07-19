@@ -10,10 +10,10 @@ class AreaRepos {
 
     async create (area) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -24,27 +24,42 @@ class AreaRepos {
             });
             if (area.name) {
                 let _area = await Area.findOne({
-                    where: { name: area.name, parentId: area.parentId },
+                    where: {
+                        name     : area.name,
+                        parentId : area.parentId,
+                    },
                     raw: true,
                 });
                 if (_area) {
-                    _result = { succeed: 0, code: 101, description: '名称重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '名称重复',
+                    };
                 } else {
                     _area = await Area.create(area);
                     _area.setDataValue('children', []);
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: _area,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : _area,
                     };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> area:${JSON.stringify(area)}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> area:${JSON.stringify(area)}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -52,26 +67,42 @@ class AreaRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await Area.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -79,10 +110,10 @@ class AreaRepos {
 
     async update (id, area) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -94,38 +125,66 @@ class AreaRepos {
             if (id) {
                 const _name = area.name;
                 if (_name) {
-                    let _area = await Area.findOne({ where: { id, name: _name }, raw: true });
+                    let _area = await Area.findOne({
+                        where: {
+                            id,
+                            name: _name,
+                        },
+                        raw: true,
+                    });
                     if (_area) {
                         const _ret = await Area.update(area, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...area, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...area,
+                                    id,
+                                },
                             };
                         }
                     } else {
                         _area = await Area.findOne({
-                            where: { name: _name, parentId: area.parentId, id: { $ne: id } },
+                            where: {
+                                name     : _name,
+                                parentId : area.parentId,
+                                id       : { $ne: id },
+                            },
                             raw: true,
                         });
                         if (_area) {
-                            _result = { succeed: 0, code: 101, description: `名称 [${_name}] 重复` };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : `名称 [${_name}] 重复`,
+                            };
                         } else {
                             const _ret = await Area.update(area, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...area, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...area,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -134,22 +193,37 @@ class AreaRepos {
                     const _ret = await Area.update(area, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...area, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...area,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -157,27 +231,38 @@ class AreaRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
-            const _area = await Area.findOne({ where: { id }, raw: true });
+            const _area = await Area.findOne({
+                where : { id },
+                raw   : true,
+            });
             if (_area) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _area,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _area,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
@@ -190,10 +275,10 @@ class AreaRepos {
    */
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -219,37 +304,47 @@ class AreaRepos {
         try {
             if ((offset == 0 || offset) && limit) {
                 const _areas = await Area.findAndCountAll({
-                    where: _where,
+                    where : _where,
                     offset,
                     limit,
-                    raw: true,
+                    raw   : true,
                 });
                 for (const _area of _areas.rows) {
                     _area.leaf = _area.depth === 3;
                     _datas.push(_area);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _areas.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _areas.count,
+                    },
                 };
             } else {
-                const _areas = await Area.findAll({ where: _where, raw: true });
+                const _areas = await Area.findAll({
+                    where : _where,
+                    raw   : true,
+                });
                 for (const _area of _areas) {
                     _area.leaf = _area.depth === 3;
                     _datas.push(_area);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;
@@ -261,10 +356,10 @@ class AreaRepos {
    */
     async getTree () {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -275,7 +370,10 @@ class AreaRepos {
             for (const _data of datas) {
                 if (_data.parentId == id) {
                     _data.level = level;
-                    _areas.push({ ..._data, ...{ parentName: name } });
+                    _areas.push({
+                        ..._data,
+                        ...{ parentName: name },
+                    });
                 }
             }
             for (const _area of _areas) {
@@ -289,10 +387,10 @@ class AreaRepos {
 
         try {
             const _areas = await Area.findAll({
-                attributes: Area.getAttributes(),
-                where: _where,
-                order: [['sort', 'ASC']],
-                raw: true,
+                attributes : Area.getAttributes(),
+                where      : _where,
+                order      : [['sort', 'ASC']],
+                raw        : true,
             });
             const _level = 1;
             for (const _area of _areas) {
@@ -305,14 +403,18 @@ class AreaRepos {
                 _data.children = _getSubTrees(_data.id, _data.name, _areas, _level);
             }
             _result = {
-                succeed: 1,
-                code: 200,
-                description: '成功',
-                data: { list: _datas },
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+                data        : { list: _datas },
             };
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -324,14 +426,17 @@ class AreaRepos {
    */
     async getReversePath (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         const _getAreaPath = async (id) => {
             const _areaPath = [];
-            const _area = await Area.findOne({ attributes: Area.getAttributes(), where: { id } });
+            const _area = await Area.findOne({
+                attributes : Area.getAttributes(),
+                where      : { id },
+            });
             if (_area) {
                 _areaPath.push(_area.name);
                 if (_area.parentId > 0) {
@@ -345,14 +450,18 @@ class AreaRepos {
         try {
             const _areaPath = await _getAreaPath(id);
             Object.assign(_result, {
-                succeed: 1,
-                code: 200,
-                description: '成功',
-                data: _areaPath,
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+                data        : _areaPath,
             });
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
     }
 

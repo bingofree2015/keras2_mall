@@ -9,10 +9,10 @@ class WeixinMediaMessageRepos {
 
     async create (weixinMediaMessage) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -23,30 +23,41 @@ class WeixinMediaMessageRepos {
             });
             if (weixinMediaMessage.title) {
                 let _weixinMediaMessage = await WeixinMediaMessage.findOne({
-                    where: { title: weixinMediaMessage.title },
-                    raw: true,
+                    where : { title: weixinMediaMessage.title },
+                    raw   : true,
                 });
                 if (_weixinMediaMessage) {
-                    _result = { succeed: 0, code: 101, description: '标题重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '标题重复',
+                    };
                 } else {
                     _weixinMediaMessage = await WeixinMediaMessage.create(weixinMediaMessage);
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: { ...weixinMediaMessage, id: _weixinMediaMessage.id },
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : {
+                            ...weixinMediaMessage,
+                            id: _weixinMediaMessage.id,
+                        },
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> weixinMediaMessage:${JSON.stringify(weixinMediaMessage)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> weixinMediaMessage:${JSON.stringify(weixinMediaMessage)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -54,26 +65,42 @@ class WeixinMediaMessageRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await WeixinMediaMessage.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -81,10 +108,10 @@ class WeixinMediaMessageRepos {
 
     async update (id, weixinMediaMessage) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -97,40 +124,64 @@ class WeixinMediaMessageRepos {
                 const _title = weixinMediaMessage.title;
                 if (_title) {
                     let _weixinMediaMessage = await WeixinMediaMessage.findOne({
-                        where: { id, title: _title },
+                        where: {
+                            id,
+                            title: _title,
+                        },
                         raw: true,
                     });
                     if (_weixinMediaMessage) {
                         const _ret = await WeixinMediaMessage.update(weixinMediaMessage, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...weixinMediaMessage, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...weixinMediaMessage,
+                                    id,
+                                },
                             };
                         }
                     } else {
                         _weixinMediaMessage = await WeixinMediaMessage.findOne({
-                            where: { title: _title, id: { $ne: id } },
+                            where: {
+                                title : _title,
+                                id    : { $ne: id },
+                            },
                             raw: true,
                         });
                         if (_weixinMediaMessage) {
-                            _result = { succeed: 0, code: 101, description: `名称 [${_title}] 重复` };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : `名称 [${_title}] 重复`,
+                            };
                         } else {
                             const _ret = await WeixinMediaMessage.update(weixinMediaMessage, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...weixinMediaMessage, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...weixinMediaMessage,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -139,22 +190,37 @@ class WeixinMediaMessageRepos {
                     const _ret = await WeixinMediaMessage.update(weixinMediaMessage, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...weixinMediaMessage, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...weixinMediaMessage,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -162,10 +228,10 @@ class WeixinMediaMessageRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -174,27 +240,35 @@ class WeixinMediaMessageRepos {
             });
             if (_weixinMediaMessage) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _weixinMediaMessage,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _weixinMediaMessage,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -228,10 +302,13 @@ class WeixinMediaMessageRepos {
                     _datas.push(_weixinMediaMessage);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _weixinMediaMessages.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _weixinMediaMessages.count,
+                    },
                 };
             } else {
                 const _weixinMediaMessages = await WeixinMediaMessage.findAll({
@@ -241,15 +318,19 @@ class WeixinMediaMessageRepos {
                     _datas.push(_weixinMediaMessage);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;

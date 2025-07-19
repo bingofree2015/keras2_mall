@@ -7,12 +7,15 @@ module.exports = (sequelize, DataTypes) => {
         'DbBackup',
         {
             path: {
-                type: DataTypes.STRING(255),
-                allowNull: true,
-                comment: '备份文件路径',
+                type      : DataTypes.STRING(255),
+                allowNull : true,
+                comment   : '备份文件路径',
             },
         },
-        { hideDefaultArribute: false, comment: '数据库备份日志' },
+        {
+            hideDefaultArribute : false,
+            comment             : '数据库备份日志',
+        },
     );
 
     DbBackup.associate = () => {};

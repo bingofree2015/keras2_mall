@@ -8,29 +8,32 @@ module.exports = (sequelize, DataTypes) => {
         {
             // 属性对象
             type: {
-                type: DataTypes.STRING(32),
-                allowNull: true,
-                comment: '消息类型',
+                type      : DataTypes.STRING(32),
+                allowNull : true,
+                comment   : '消息类型',
             },
             code: {
-                type: DataTypes.STRING(32),
-                allowNull: true,
-                comment: '单号',
+                type      : DataTypes.STRING(32),
+                allowNull : true,
+                comment   : '单号',
             },
             formId: {
-                type: DataTypes.STRING(64),
-                field: 'form_id',
-                allowNull: true,
-                comment: '要发生给的用户',
+                type      : DataTypes.STRING(64),
+                field     : 'form_id',
+                allowNull : true,
+                comment   : '要发生给的用户',
             },
             status: {
-                type: DataTypes.BOOLEAN,
-                allowNull: true,
-                defaultValue: false,
-                comment: '发送状态 1=未发送 2=已发送',
+                type         : DataTypes.BOOLEAN,
+                allowNull    : true,
+                defaultValue : false,
+                comment      : '发送状态 1=未发送 2=已发送',
             },
         },
-        { hideDefaultArribute: false, comment: '模板消息表' },
+        {
+            hideDefaultArribute : false,
+            comment             : '模板消息表',
+        },
     );
 
     TemplateMessage.associate = (models) => {};

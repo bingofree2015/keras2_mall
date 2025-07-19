@@ -38,8 +38,8 @@ koa.use(async (ctx, next) => {
                 const _payload = await verify(_token.split(' ')[1], JWT.secret); // 解密payload，获取用户名和ID
 
                 ctx.jwtdata = {
-                    username: _payload.username,
-                    pwd: _payload.pwd,
+                    username : _payload.username,
+                    pwd      : _payload.pwd,
                 };
             } catch (err) {
                 logger.error(err.message);
@@ -49,11 +49,19 @@ koa.use(async (ctx, next) => {
     } catch (err) {
         if (err.status === 401) {
             ctx.status = 401;
-            ctx.body = { succeed: 0, code: 401, description: '认证失败' };
+            ctx.body = {
+                succeed     : 0,
+                code        : 401,
+                description : '认证失败',
+            };
         } else {
             err.status = 404;
             ctx.status = 404;
-            ctx.body = { succeed: 0, code: 404, description: '请求地址不存在' };
+            ctx.body = {
+                succeed     : 0,
+                code        : 404,
+                description : '请求地址不存在',
+            };
             logger.error(err.stack);
         }
     }
@@ -61,9 +69,9 @@ koa.use(async (ctx, next) => {
 
 koa.use(
     koaJwt({
-        secret: JWT.secret,
+        secret : JWT.secret,
         // passthrough: true,
-        key: 'jwtdata',
+        key    : 'jwtdata',
     }).unless({
         path: [/^\/assets\/(.*)/, /^\/upload\/(.*)/, /^\/jwt_auth/, /^\/cms\/permission\/login/],
     }),
@@ -71,8 +79,8 @@ koa.use(
 
 koa.use(
     koaBody({
-        multipart: true, // 允许解析'multipart/form-data'类型的文件
-        formidable: {
+        multipart  : true, // 允许解析'multipart/form-data'类型的文件
+        formidable : {
             uploadDir: SERVER_UPLOAD_TEMP_DIR, // 设置文件上传临时保存路径
         },
     }),

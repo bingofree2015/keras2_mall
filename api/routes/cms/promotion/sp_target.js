@@ -15,33 +15,33 @@ spTargetRouter.get('/', (ctx) => {
  * 功能信息 */
 spTargetRouter.post('/get_target_types', async (ctx) => {
     const _result = {
-        succeed: 1,
-        code: 200,
-        description: '成功',
-        data: {
+        succeed     : 1,
+        code        : 200,
+        description : '成功',
+        data        : {
             GOODS_ALL: {
-                name: '所有商品满足条件',
-                type: 'goods',
+                name : '所有商品满足条件',
+                type : 'goods',
             },
             GOODS_IDS: {
-                name: '指定某些商品满足条件',
-                type: 'goods',
+                name : '指定某些商品满足条件',
+                type : 'goods',
             },
             GOODS_CATS: {
-                name: '指定商品分类满足条件',
-                type: 'goods',
+                name : '指定商品分类满足条件',
+                type : 'goods',
             },
             GOODS_BRANDS: {
-                name: '指定商品品牌满足条件',
-                type: 'goods',
+                name : '指定商品品牌满足条件',
+                type : 'goods',
             },
             ORDER_FULL: {
-                name: '订单满XX金额满足条件',
-                type: 'order',
+                name : '订单满XX金额满足条件',
+                type : 'order',
             },
             USER_GRADE: {
-                name: '用户符合指定等级',
-                type: 'user',
+                name : '用户符合指定等级',
+                type : 'user',
             },
         },
     };

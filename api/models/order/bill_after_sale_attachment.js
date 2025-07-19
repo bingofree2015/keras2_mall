@@ -8,19 +8,22 @@ module.exports = (sequelize, DataTypes) => {
         {
             // 属性对象
             afterSaleId: {
-                type: DataTypes.STRING(20),
-                field: 'after_sale_id',
-                allowNull: false,
-                comment: '售后单id',
+                type      : DataTypes.STRING(20),
+                field     : 'after_sale_id',
+                allowNull : false,
+                comment   : '售后单id',
             },
             attachmentId: {
-                type: DataTypes.INTEGER,
-                field: 'attachment_id',
-                allowNull: false,
-                comment: '图片ID',
+                type      : DataTypes.INTEGER,
+                field     : 'attachment_id',
+                allowNull : false,
+                comment   : '图片ID',
             },
         },
-        { hideDefaultArribute: false, comment: '商品图片关联表' },
+        {
+            hideDefaultArribute : false,
+            comment             : '商品图片关联表',
+        },
     );
 
     BillAfterSaleAttachment.associate = (models) => {};

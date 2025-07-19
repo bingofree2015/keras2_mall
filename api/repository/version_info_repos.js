@@ -9,10 +9,10 @@ class VersionInfoRepos {
 
     async create (versionInfo) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -23,30 +23,38 @@ class VersionInfoRepos {
             });
             if (versionInfo.appName) {
                 let _versionInfo = await VersionInfo.findOne({
-                    where: { appName: versionInfo.appName },
-                    raw: true,
+                    where : { appName: versionInfo.appName },
+                    raw   : true,
                 });
                 if (_versionInfo) {
-                    _result = { succeed: 0, code: 101, description: '记录重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '记录重复',
+                    };
                 } else {
                     _versionInfo = await VersionInfo.create(versionInfo);
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: _versionInfo,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : _versionInfo,
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> versionInfo:${JSON.stringify(versionInfo)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> versionInfo:${JSON.stringify(versionInfo)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -54,26 +62,42 @@ class VersionInfoRepos {
 
     async batchDelete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await VersionInfo.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -81,10 +105,10 @@ class VersionInfoRepos {
 
     async update (id, versionInfo) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -97,21 +121,36 @@ class VersionInfoRepos {
                 const _ret = await VersionInfo.update(versionInfo, { where: { id } });
                 const _affectedCount = _ret[0];
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: { ...versionInfo, id },
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : {
+                            ...versionInfo,
+                            id,
+                        },
                     };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -119,44 +158,55 @@ class VersionInfoRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
-            const _versionInfo = await VersionInfo.findOne({ where: { id }, raw: true });
+            const _versionInfo = await VersionInfo.findOne({
+                where : { id },
+                raw   : true,
+            });
             if (_versionInfo) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _versionInfo,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _versionInfo,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async getLastVersionInfo (appName, version) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             const _versionInfo = await VersionInfo.findOne({
-                where: { appName },
-                order: [['id', 'DESC']],
-                raw: true,
+                where : { appName },
+                order : [['id', 'DESC']],
+                raw   : true,
             });
             if (_versionInfo) {
                 const _minVersion = _versionInfo.minVersion;
@@ -167,45 +217,57 @@ class VersionInfoRepos {
                     _versionInfo.update = true;
                     _versionInfo.mandatory = true;
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '强制更新',
-                        data: _versionInfo,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '强制更新',
+                        data        : _versionInfo,
                     };
                 } else if (version > _minVersion && version < _currentVersion) {
                     _versionInfo.update = true;
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '可选更新',
-                        data: _versionInfo,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '可选更新',
+                        data        : _versionInfo,
                     };
                 } else if (version == _currentVersion) {
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '最新版本',
-                        data: _versionInfo,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '最新版本',
+                        data        : _versionInfo,
                     };
                 } else {
-                    _result = { succeed: 0, code: 103, description: '超过当前最新版本号' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 103,
+                        description : '超过当前最新版本号',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '没有可用版本信息' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '没有可用版本信息',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -231,35 +293,45 @@ class VersionInfoRepos {
         try {
             if ((offset == 0 || offset) && limit) {
                 const _versionInfos = await VersionInfo.findAndCountAll({
-                    where: _where,
+                    where : _where,
                     offset,
                     limit,
-                    raw: true,
+                    raw   : true,
                 });
                 for (const _versionInfo of _versionInfos.rows) {
                     _datas.push(_versionInfo);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _versionInfos.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _versionInfos.count,
+                    },
                 };
             } else {
-                const _versionInfos = await VersionInfo.findAll({ where: _where, raw: true });
+                const _versionInfos = await VersionInfo.findAll({
+                    where : _where,
+                    raw   : true,
+                });
                 for (const _versionInfo of _versionInfos) {
                     _datas.push(_versionInfo);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;

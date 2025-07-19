@@ -8,9 +8,9 @@ module.exports = (sequelize, DataTypes, table, attributes, options) => {
         {
             id: {
                 // 自增ID
-                type: DataTypes.BIGINT,
-                primaryKey: true,
-                autoIncrement: true,
+                type          : DataTypes.BIGINT,
+                primaryKey    : true,
+                autoIncrement : true,
             },
             ...attributes,
             ...getDefaultAttributes(options, DataTypes),
@@ -44,8 +44,8 @@ function getDefaultAttributes (options, DataTypes) {
 
     const defaultAttributes = {
         createdAt: {
-            type: DATE(),
-            field: 'created_at',
+            type  : DATE(),
+            field : 'created_at',
             get () {
                 const _createdAt = this.getDataValue('createdAt');
                 const _formatDateTime = options.formatDateTime === undefined ? true : options.formatDateTime;
@@ -55,8 +55,8 @@ function getDefaultAttributes (options, DataTypes) {
             },
         },
         updatedAt: {
-            type: DATE(),
-            field: 'updated_at',
+            type  : DATE(),
+            field : 'updated_at',
             get () {
                 const _updatedAt = this.getDataValue('updatedAt');
                 const _formatDateTime = options.formatDateTime === undefined ? true : options.formatDateTime;

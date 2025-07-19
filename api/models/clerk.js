@@ -8,19 +8,22 @@ module.exports = (sequelize, DataTypes) => {
         {
             // 属性对象
             store_id: {
-                type: DataTypes.INTEGER(10).UNSIGNED,
-                field: 'store_id',
-                allowNull: true,
-                comment: '店铺ID',
+                type      : DataTypes.INTEGER(10).UNSIGNED,
+                field     : 'store_id',
+                allowNull : true,
+                comment   : '店铺ID',
             },
             userId: {
-                type: DataTypes.INTEGER(10).UNSIGNED,
-                field: 'user_id',
-                allowNull: true,
-                comment: '用户ID',
+                type      : DataTypes.INTEGER(10).UNSIGNED,
+                field     : 'user_id',
+                allowNull : true,
+                comment   : '用户ID',
             },
         },
-        { hideDefaultArribute: false, comment: '店铺店员关联表' },
+        {
+            hideDefaultArribute : false,
+            comment             : '店铺店员关联表',
+        },
     );
 
     Clerk.associate = (models) => {};

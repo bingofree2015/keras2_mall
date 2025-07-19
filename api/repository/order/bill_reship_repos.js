@@ -29,10 +29,10 @@ class BillReshipRepos {
      */
     async create (billReship) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -44,33 +44,41 @@ class BillReshipRepos {
             if (billReship.userId && billReship.orderId && billReship.afterSaleId) {
                 let _billReship = await BillReship.findOne({
                     where: {
-                        userId: billReship.userId,
-                        orderId: billReship.orderId,
-                        afterSaleId: billReship.afterSaleId,
+                        userId      : billReship.userId,
+                        orderId     : billReship.orderId,
+                        afterSaleId : billReship.afterSaleId,
                     },
                     raw: true,
                 });
                 if (_billReship) {
-                    _result = { succeed: 0, code: 101, description: '退货单重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '退货单重复',
+                    };
                 } else {
                     _billReship = await BillReship.create(billReship);
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: _billReship,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : _billReship,
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> billReship:${JSON.stringify(billReship)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> billReship:${JSON.stringify(billReship)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -78,26 +86,42 @@ class BillReshipRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await BillReship.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -105,10 +129,10 @@ class BillReshipRepos {
 
     async update (id, billReship) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -125,9 +149,9 @@ class BillReshipRepos {
                     let _billReship = await BillReship.findOne({
                         where: {
                             id,
-                            userId: _userId,
-                            orderId: _orderId,
-                            afterSaleId: _afterSaleId,
+                            userId      : _userId,
+                            orderId     : _orderId,
+                            afterSaleId : _afterSaleId,
                         },
                         raw: true,
                     });
@@ -135,38 +159,56 @@ class BillReshipRepos {
                         const _ret = await BillReship.update(billReship, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...billReship, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...billReship,
+                                    id,
+                                },
                             };
                         }
                     } else {
                         _billReship = await BillReship.findOne({
                             where: {
-                                userId: _userId,
-                                orderId: _orderId,
-                                afterSaleId: _afterSaleId,
-                                id: { $ne: id },
+                                userId      : _userId,
+                                orderId     : _orderId,
+                                afterSaleId : _afterSaleId,
+                                id          : { $ne: id },
                             },
                             raw: true,
                         });
                         if (_billReship) {
-                            _result = { succeed: 0, code: 101, description: '退货单重复' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : '退货单重复',
+                            };
                         } else {
                             const _ret = await BillReship.update(billReship, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...billReship, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...billReship,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -175,22 +217,37 @@ class BillReshipRepos {
                     const _ret = await BillReship.update(billReship, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...billReship, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...billReship,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -198,59 +255,67 @@ class BillReshipRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             const _billReship = await BillReship.findOne({
                 include: [
                     {
-                        model: User,
-                        as: 'user',
-                        attributes: ['id', 'username', 'nickname'],
-                        require: false,
+                        model      : User,
+                        as         : 'user',
+                        attributes : ['id', 'username', 'nickname'],
+                        require    : false,
                     },
                     {
-                        model: Logistics,
-                        as: 'logistics',
-                        attributes: Logistics.getAttributes(),
-                        require: false,
+                        model      : Logistics,
+                        as         : 'logistics',
+                        attributes : Logistics.getAttributes(),
+                        require    : false,
                     },
                     {
-                        model: BillReshipItem,
-                        as: 'billReshipItems',
-                        attributes: BillReshipItem.getAttributes(),
-                        require: false,
+                        model      : BillReshipItem,
+                        as         : 'billReshipItems',
+                        attributes : BillReshipItem.getAttributes(),
+                        require    : false,
                     },
                 ],
                 where: { id },
             });
             if (_billReship) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _billReship,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _billReship,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -278,26 +343,26 @@ class BillReshipRepos {
                 const _billReships = await BillReship.findAndCountAll({
                     include: [
                         {
-                            model: User,
-                            as: 'user',
-                            attributes: ['id', 'username', 'nickname'],
-                            require: false,
+                            model      : User,
+                            as         : 'user',
+                            attributes : ['id', 'username', 'nickname'],
+                            require    : false,
                         },
                         {
-                            model: Logistics,
-                            as: 'logistics',
-                            attributes: Logistics.getAttributes(),
-                            require: false,
+                            model      : Logistics,
+                            as         : 'logistics',
+                            attributes : Logistics.getAttributes(),
+                            require    : false,
                         },
                         {
-                            model: BillReshipItem,
-                            as: 'billReshipItems',
-                            attributes: BillReshipItem.getAttributes(),
-                            require: false,
+                            model      : BillReshipItem,
+                            as         : 'billReshipItems',
+                            attributes : BillReshipItem.getAttributes(),
+                            require    : false,
                         },
                     ],
-                    distinct: true,
-                    where: _where,
+                    distinct : true,
+                    where    : _where,
                     offset,
                     limit,
                 });
@@ -305,31 +370,34 @@ class BillReshipRepos {
                     _datas.push(_billReship);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _billReships.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _billReships.count,
+                    },
                 };
             } else {
                 const _billReships = await BillReship.findAll({
                     include: [
                         {
-                            model: User,
-                            as: 'user',
-                            attributes: ['id', 'username', 'nickname'],
-                            require: false,
+                            model      : User,
+                            as         : 'user',
+                            attributes : ['id', 'username', 'nickname'],
+                            require    : false,
                         },
                         {
-                            model: Logistics,
-                            as: 'logistics',
-                            attributes: Logistics.getAttributes(),
-                            require: false,
+                            model      : Logistics,
+                            as         : 'logistics',
+                            attributes : Logistics.getAttributes(),
+                            require    : false,
                         },
                         {
-                            model: BillReshipItem,
-                            as: 'billReshipItems',
-                            attributes: BillReshipItem.getAttributes(),
-                            require: false,
+                            model      : BillReshipItem,
+                            as         : 'billReshipItems',
+                            attributes : BillReshipItem.getAttributes(),
+                            require    : false,
                         },
                     ],
                     where: _where,
@@ -338,15 +406,19 @@ class BillReshipRepos {
                     _datas.push(_billReship);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;
@@ -358,10 +430,10 @@ class BillReshipRepos {
    */
     async getBillReshipState (afterSaleId) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
             let _data = '';
@@ -380,14 +452,18 @@ class BillReshipRepos {
                 _data = '待发退货';
             }
             Object.assign(_result, {
-                succeed: 1,
-                code: 200,
-                description: '成功',
-                data: _data,
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+                data        : _data,
             });
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;

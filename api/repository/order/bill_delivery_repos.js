@@ -13,10 +13,10 @@ class BillDeliveryRepos {
 
     async create (billDelivery) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -27,30 +27,41 @@ class BillDeliveryRepos {
             });
             if (billDelivery.userId && billDelivery.orderId) {
                 let _billDelivery = await BillDelivery.findOne({
-                    where: { userId: billDelivery.userId, orderId: billDelivery.orderId },
+                    where: {
+                        userId  : billDelivery.userId,
+                        orderId : billDelivery.orderId,
+                    },
                     raw: true,
                 });
                 if (_billDelivery) {
-                    _result = { succeed: 0, code: 101, description: '发货单重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '发货单重复',
+                    };
                 } else {
                     _billDelivery = await BillDelivery.create(billDelivery);
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: _billDelivery,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : _billDelivery,
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> billDelivery:${JSON.stringify(billDelivery)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> billDelivery:${JSON.stringify(billDelivery)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -58,26 +69,42 @@ class BillDeliveryRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await BillDelivery.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -85,10 +112,10 @@ class BillDeliveryRepos {
 
     async update (id, billDelivery) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -102,40 +129,66 @@ class BillDeliveryRepos {
                 const _orderId = billDelivery.orderId;
                 if (_userId && _orderId) {
                     let _billDelivery = await BillDelivery.findOne({
-                        where: { id, userId: _userId, orderId: _orderId },
+                        where: {
+                            id,
+                            userId  : _userId,
+                            orderId : _orderId,
+                        },
                         raw: true,
                     });
                     if (_billDelivery) {
                         const _ret = await BillDelivery.update(billDelivery, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...billDelivery, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...billDelivery,
+                                    id,
+                                },
                             };
                         }
                     } else {
                         _billDelivery = await BillDelivery.findOne({
-                            where: { userId: _userId, orderId: _orderId, id: { $ne: id } },
+                            where: {
+                                userId  : _userId,
+                                orderId : _orderId,
+                                id      : { $ne: id },
+                            },
                             raw: true,
                         });
                         if (_billDelivery) {
-                            _result = { succeed: 0, code: 101, description: '发货单重复' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : '发货单重复',
+                            };
                         } else {
                             const _ret = await BillDelivery.update(billDelivery, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...billDelivery, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...billDelivery,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -144,22 +197,37 @@ class BillDeliveryRepos {
                     const _ret = await BillDelivery.update(billDelivery, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...billDelivery, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...billDelivery,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -167,67 +235,75 @@ class BillDeliveryRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             const _billDelivery = await BillDelivery.findOne({
                 include: [
                     {
-                        model: User,
-                        as: 'user',
-                        attributes: ['id', 'username', 'nickname'],
-                        require: false,
+                        model      : User,
+                        as         : 'user',
+                        attributes : ['id', 'username', 'nickname'],
+                        require    : false,
                     },
                     {
-                        model: Logistics,
-                        as: 'logistics',
-                        attributes: Logistics.getAttributes(),
-                        require: false,
+                        model      : Logistics,
+                        as         : 'logistics',
+                        attributes : Logistics.getAttributes(),
+                        require    : false,
                     },
                     {
                         include: [
                             {
-                                model: OrderItem,
-                                as: 'orderItem',
-                                attributes: OrderItem.getAttributes(),
-                                require: false,
+                                model      : OrderItem,
+                                as         : 'orderItem',
+                                attributes : OrderItem.getAttributes(),
+                                require    : false,
                             },
                         ],
-                        model: BillDeliveryItem,
-                        as: 'billDeliveryItems',
-                        attributes: BillDeliveryItem.getAttributes(),
-                        require: false,
+                        model      : BillDeliveryItem,
+                        as         : 'billDeliveryItems',
+                        attributes : BillDeliveryItem.getAttributes(),
+                        require    : false,
                     },
                 ],
                 where: { id },
             });
             if (_billDelivery) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _billDelivery,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _billDelivery,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -255,28 +331,28 @@ class BillDeliveryRepos {
                 const _billDeliverys = await BillDelivery.findAndCountAll({
                     include: [
                         {
-                            model: User,
-                            as: 'user',
-                            attributes: ['id', 'username', 'nickname'],
-                            require: false,
+                            model      : User,
+                            as         : 'user',
+                            attributes : ['id', 'username', 'nickname'],
+                            require    : false,
                         },
                         {
                             include: [
                                 {
-                                    model: OrderItem,
-                                    as: 'orderItem',
-                                    attributes: OrderItem.getAttributes(),
-                                    require: false,
+                                    model      : OrderItem,
+                                    as         : 'orderItem',
+                                    attributes : OrderItem.getAttributes(),
+                                    require    : false,
                                 },
                             ],
-                            model: BillDeliveryItem,
-                            as: 'billDeliveryItems',
-                            attributes: BillDeliveryItem.getAttributes(),
-                            require: false,
+                            model      : BillDeliveryItem,
+                            as         : 'billDeliveryItems',
+                            attributes : BillDeliveryItem.getAttributes(),
+                            require    : false,
                         },
                     ],
-                    distinct: true,
-                    where: _where,
+                    distinct : true,
+                    where    : _where,
                     offset,
                     limit,
                 });
@@ -284,33 +360,36 @@ class BillDeliveryRepos {
                     _datas.push(_billDelivery);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _billDeliverys.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _billDeliverys.count,
+                    },
                 };
             } else {
                 const _billDeliverys = await BillDelivery.findAll({
                     include: [
                         {
-                            model: User,
-                            as: 'user',
-                            attributes: ['id', 'username', 'nickname'],
-                            require: false,
+                            model      : User,
+                            as         : 'user',
+                            attributes : ['id', 'username', 'nickname'],
+                            require    : false,
                         },
                         {
                             include: [
                                 {
-                                    model: OrderItem,
-                                    as: 'orderItem',
-                                    attributes: OrderItem.getAttributes(),
-                                    require: false,
+                                    model      : OrderItem,
+                                    as         : 'orderItem',
+                                    attributes : OrderItem.getAttributes(),
+                                    require    : false,
                                 },
                             ],
-                            model: BillDeliveryItem,
-                            as: 'billDeliveryItems',
-                            attributes: BillDeliveryItem.getAttributes(),
-                            require: false,
+                            model      : BillDeliveryItem,
+                            as         : 'billDeliveryItems',
+                            attributes : BillDeliveryItem.getAttributes(),
+                            require    : false,
                         },
                     ],
                     where: _where,
@@ -319,15 +398,19 @@ class BillDeliveryRepos {
                     _datas.push(_billDelivery);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;

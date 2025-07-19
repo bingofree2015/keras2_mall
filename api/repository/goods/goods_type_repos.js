@@ -27,7 +27,10 @@ class GoodsTypeRepos {
                     _specObj = await GoodsSpec.create(_spec);
                 }
                 _spec.id = _specObj.id;
-                _goodsTypeSpecDatas.push({ goodsTypeId: id, goodsSpecId: _spec.id });
+                _goodsTypeSpecDatas.push({
+                    goodsTypeId : id,
+                    goodsSpecId : _spec.id,
+                });
 
                 // 更新属性值
                 const _goodsSpecValues = [];
@@ -38,9 +41,15 @@ class GoodsTypeRepos {
                             ? _spec.goodsSpecValues.find((v) => v.value == _value)
                             : null;
                         if (_goodsSpecValue) {
-                            _goodsSpecValues.push({ ..._goodsSpecValue, specId: _spec.id });
+                            _goodsSpecValues.push({
+                                ..._goodsSpecValue,
+                                specId: _spec.id,
+                            });
                         } else {
-                            _goodsSpecValues.push({ value: _value, specId: _spec.id });
+                            _goodsSpecValues.push({
+                                value  : _value,
+                                specId : _spec.id,
+                            });
                         }
                     }
                 }
@@ -72,7 +81,10 @@ class GoodsTypeRepos {
                     await GoodsParam.update(_param, { where: { id: _param.id } });
                 } else {
                     let _paramObj = await GoodsParam.findOne({
-                        where: { name: _param.name, type: _param.type },
+                        where: {
+                            name : _param.name,
+                            type : _param.type,
+                        },
                     });
                     if (_paramObj) {
                         await GoodsParam.update(_param, { where: { id: _paramObj.id } });
@@ -81,7 +93,10 @@ class GoodsTypeRepos {
                     }
                     _param.id = _paramObj.id;
                 }
-                _goodsTypeParamDatas.push({ goodsTypeId: id, goodsParamId: _param.id });
+                _goodsTypeParamDatas.push({
+                    goodsTypeId  : id,
+                    goodsParamId : _param.id,
+                });
             }
             // 删除数据
             await GoodsTypeParam.destroy({ where: { goodsTypeId: id } });
@@ -94,10 +109,10 @@ class GoodsTypeRepos {
 
     async create (goodsType) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -107,30 +122,44 @@ class GoodsTypeRepos {
                 }
             });
             if (goodsType.name) {
-                let _goodsType = await GoodsType.findOne({ where: { name: goodsType.name }, raw: true });
+                let _goodsType = await GoodsType.findOne({
+                    where : { name: goodsType.name },
+                    raw   : true,
+                });
                 if (_goodsType) {
-                    _result = { succeed: 0, code: 101, description: '名称重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '名称重复',
+                    };
                 } else {
                     _goodsType = await GoodsType.create(goodsType);
                     // 更新相关表
                     await this._upsetSpecParam(_goodsType.id, goodsType);
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: { ...goodsType, id: _goodsType.id },
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : {
+                            ...goodsType,
+                            id: _goodsType.id,
+                        },
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> goodsType:${JSON.stringify(goodsType)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> goodsType:${JSON.stringify(goodsType)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -138,29 +167,45 @@ class GoodsTypeRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await GoodsType.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
                     // 删除关联表中的关联关系
                     await GoodsTypeSpec.destroy({ where: { goodsTypeId: ids } });
                     await GoodsTypeParam.destroy({ where: { goodsTypeId: ids } });
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -168,10 +213,10 @@ class GoodsTypeRepos {
 
     async update (id, goodsType) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -183,42 +228,69 @@ class GoodsTypeRepos {
             if (id) {
                 const _name = goodsType.name;
                 if (_name) {
-                    let _goodsType = await GoodsType.findOne({ where: { id, name: _name }, raw: true });
+                    let _goodsType = await GoodsType.findOne({
+                        where: {
+                            id,
+                            name: _name,
+                        },
+                        raw: true,
+                    });
                     if (_goodsType) {
                         const _ret = await GoodsType.update(goodsType, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             // 更新相关表
                             await this._upsetSpecParam(id, goodsType);
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...goodsType, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...goodsType,
+                                    id,
+                                },
                             };
                         }
                     } else {
                         _goodsType = await GoodsType.findOne({
-                            where: { name: _name, id: { $ne: id } },
+                            where: {
+                                name : _name,
+                                id   : { $ne: id },
+                            },
                             raw: true,
                         });
                         if (_goodsType) {
-                            _result = { succeed: 0, code: 101, description: `名称 [${_name}] 重复` };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : `名称 [${_name}] 重复`,
+                            };
                         } else {
                             const _ret = await GoodsType.update(goodsType, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 // 更新相关表
                                 await this._upsetSpecParam(id, goodsType);
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...goodsType, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...goodsType,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -227,24 +299,39 @@ class GoodsTypeRepos {
                     const _ret = await GoodsType.update(goodsType, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         // 更新相关表
                         await this._upsetSpecParam(id, goodsType);
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...goodsType, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...goodsType,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -252,40 +339,40 @@ class GoodsTypeRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             const _goodsType = await GoodsType.findOne({
                 include: [
                     {
-                        model: GoodsSpec,
-                        through: {
+                        model   : GoodsSpec,
+                        through : {
                             attributes: [],
                         },
-                        as: 'specs',
-                        attributes: ['id', 'name', 'sort'],
-                        include: [
+                        as         : 'specs',
+                        attributes : ['id', 'name', 'sort'],
+                        include    : [
                             {
-                                model: GoodsSpecValue,
-                                as: 'goodsSpecValues',
-                                attributes: ['id', 'value', 'sort'],
-                                require: false,
+                                model      : GoodsSpecValue,
+                                as         : 'goodsSpecValues',
+                                attributes : ['id', 'value', 'sort'],
+                                require    : false,
                             },
                         ],
                         require: false,
                     },
                     {
-                        model: GoodsParam,
-                        through: {
+                        model   : GoodsParam,
+                        through : {
                             attributes: [],
                         },
-                        as: 'params',
-                        attributes: ['id', 'name', 'type', 'values'],
-                        require: false,
+                        as         : 'params',
+                        attributes : ['id', 'name', 'type', 'values'],
+                        require    : false,
                     },
                 ],
                 where: { id },
@@ -303,27 +390,35 @@ class GoodsTypeRepos {
                     _goodsType.setDataValue('paramValues', _goodsType.params.map((v) => v.name).join('|'));
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _goodsType,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _goodsType,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -351,34 +446,34 @@ class GoodsTypeRepos {
                 const _goodsTypes = await GoodsType.findAndCountAll({
                     include: [
                         {
-                            model: GoodsSpec,
-                            through: {
+                            model   : GoodsSpec,
+                            through : {
                                 attributes: [],
                             },
-                            as: 'specs',
-                            attributes: ['id', 'name', 'sort'],
-                            include: [
+                            as         : 'specs',
+                            attributes : ['id', 'name', 'sort'],
+                            include    : [
                                 {
-                                    model: GoodsSpecValue,
-                                    as: 'goodsSpecValues',
-                                    attributes: ['id', 'value', 'sort'],
-                                    require: false,
+                                    model      : GoodsSpecValue,
+                                    as         : 'goodsSpecValues',
+                                    attributes : ['id', 'value', 'sort'],
+                                    require    : false,
                                 },
                             ],
                             require: false,
                         },
                         {
-                            model: GoodsParam,
-                            through: {
+                            model   : GoodsParam,
+                            through : {
                                 attributes: [],
                             },
-                            as: 'params',
-                            attributes: ['id', 'name', 'type', 'values'],
-                            require: false,
+                            as         : 'params',
+                            attributes : ['id', 'name', 'type', 'values'],
+                            require    : false,
                         },
                     ],
-                    distinct: true,
-                    where: _where,
+                    distinct : true,
+                    where    : _where,
                     offset,
                     limit,
                 });
@@ -397,39 +492,42 @@ class GoodsTypeRepos {
                     _datas.push(_goodsType);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _goodsTypes.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _goodsTypes.count,
+                    },
                 };
             } else {
                 const _goodsTypes = await GoodsType.findAll({
                     include: [
                         {
-                            model: GoodsSpec,
-                            through: {
+                            model   : GoodsSpec,
+                            through : {
                                 attributes: [],
                             },
-                            as: 'specs',
-                            attributes: ['id', 'name', 'sort'],
-                            include: [
+                            as         : 'specs',
+                            attributes : ['id', 'name', 'sort'],
+                            include    : [
                                 {
-                                    model: GoodsSpecValue,
-                                    as: 'goodsSpecValues',
-                                    attributes: ['id', 'value', 'sort'],
-                                    require: false,
+                                    model      : GoodsSpecValue,
+                                    as         : 'goodsSpecValues',
+                                    attributes : ['id', 'value', 'sort'],
+                                    require    : false,
                                 },
                             ],
                             require: false,
                         },
                         {
-                            model: GoodsParam,
-                            through: {
+                            model   : GoodsParam,
+                            through : {
                                 attributes: [],
                             },
-                            as: 'params',
-                            attributes: ['id', 'name', 'type', 'values'],
-                            require: false,
+                            as         : 'params',
+                            attributes : ['id', 'name', 'type', 'values'],
+                            require    : false,
                         },
                     ],
                     where: _where,
@@ -449,15 +547,19 @@ class GoodsTypeRepos {
                     _datas.push(_goodsType);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;

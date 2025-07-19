@@ -21,10 +21,10 @@ class CouponRepos {
 
     async create (coupon) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -34,28 +34,42 @@ class CouponRepos {
                 }
             });
             if (coupon.name) {
-                let _coupon = await Coupon.findOne({ where: { name: coupon.name }, raw: true });
+                let _coupon = await Coupon.findOne({
+                    where : { name: coupon.name },
+                    raw   : true,
+                });
                 if (_coupon) {
-                    _result = { succeed: 0, code: 101, description: '名称重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '名称重复',
+                    };
                 } else {
                     _coupon = await Coupon.create(coupon);
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: { ...coupon, id: _coupon.id },
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : {
+                            ...coupon,
+                            id: _coupon.id,
+                        },
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> coupon:${JSON.stringify(coupon)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> coupon:${JSON.stringify(coupon)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -63,26 +77,42 @@ class CouponRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await Coupon.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -90,10 +120,10 @@ class CouponRepos {
 
     async update (id, coupon) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -105,35 +135,65 @@ class CouponRepos {
             if (id) {
                 const _name = coupon.name;
                 if (_name) {
-                    let _coupon = await Coupon.findOne({ where: { id, name: _name }, raw: true });
+                    let _coupon = await Coupon.findOne({
+                        where: {
+                            id,
+                            name: _name,
+                        },
+                        raw: true,
+                    });
                     if (_coupon) {
                         const _ret = await Coupon.update(coupon, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...coupon, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...coupon,
+                                    id,
+                                },
                             };
                         }
                     } else {
-                        _coupon = await Coupon.findOne({ where: { name: _name, id: { $ne: id } }, raw: true });
+                        _coupon = await Coupon.findOne({
+                            where: {
+                                name : _name,
+                                id   : { $ne: id },
+                            },
+                            raw: true,
+                        });
                         if (_coupon) {
-                            _result = { succeed: 0, code: 101, description: `名称 [${_name}] 重复` };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : `名称 [${_name}] 重复`,
+                            };
                         } else {
                             const _ret = await Coupon.update(coupon, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...coupon, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...coupon,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -142,22 +202,37 @@ class CouponRepos {
                     const _ret = await Coupon.update(coupon, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...coupon, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...coupon,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -165,56 +240,64 @@ class CouponRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             const _coupon = await Coupon.findOne({
                 include: [
                     {
-                        model: Promotion,
-                        as: 'promotion',
-                        require: false,
+                        model   : Promotion,
+                        as      : 'promotion',
+                        require : false,
                     },
                     {
-                        model: User,
-                        as: 'recipients',
-                        require: false,
+                        model   : User,
+                        as      : 'recipients',
+                        require : false,
                     },
                     {
-                        model: User,
-                        as: 'user',
-                        require: false,
+                        model   : User,
+                        as      : 'user',
+                        require : false,
                     },
                 ],
                 where: { id },
             });
             if (_coupon) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _coupon,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _coupon,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -242,23 +325,23 @@ class CouponRepos {
                 const _coupons = await Coupon.findAndCountAll({
                     include: [
                         {
-                            model: Promotion,
-                            as: 'promotion',
-                            require: false,
+                            model   : Promotion,
+                            as      : 'promotion',
+                            require : false,
                         },
                         {
-                            model: User,
-                            as: 'recipients',
-                            require: false,
+                            model   : User,
+                            as      : 'recipients',
+                            require : false,
                         },
                         {
-                            model: User,
-                            as: 'user',
-                            require: false,
+                            model   : User,
+                            as      : 'user',
+                            require : false,
                         },
                     ],
-                    distinct: true,
-                    where: _where,
+                    distinct : true,
+                    where    : _where,
                     offset,
                     limit,
                 });
@@ -266,28 +349,31 @@ class CouponRepos {
                     _datas.push(_coupon);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _coupons.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _coupons.count,
+                    },
                 };
             } else {
                 const _coupons = await Coupon.findAll({
                     include: [
                         {
-                            model: Promotion,
-                            as: 'promotion',
-                            require: false,
+                            model   : Promotion,
+                            as      : 'promotion',
+                            require : false,
                         },
                         {
-                            model: User,
-                            as: 'recipients',
-                            require: false,
+                            model   : User,
+                            as      : 'recipients',
+                            require : false,
                         },
                         {
-                            model: User,
-                            as: 'user',
-                            require: false,
+                            model   : User,
+                            as      : 'user',
+                            require : false,
                         },
                     ],
                     where: _where,
@@ -296,15 +382,19 @@ class CouponRepos {
                     _datas.push(_coupon);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;
@@ -312,25 +402,36 @@ class CouponRepos {
 
     async build (promotionId, num) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
             const _coupons = [];
             for (let i = 0; i < num; i++) {
                 const _uniqid = uniqid();
-                _coupons.push({ promotionId, couponCode: _uniqid });
+                _coupons.push({
+                    promotionId,
+                    couponCode: _uniqid,
+                });
             }
             const _ret = await Coupon.bulkCreate(_coupons, {
                 updateOnDuplicate: ['promotionId', 'couponCode'],
             });
             console.log(_ret.length);
-            _result = { succeed: 1, code: 200, description: '成功' };
+            _result = {
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+            };
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -346,10 +447,10 @@ class CouponRepos {
    */
     async getReceivedCoupon (userId, offset, limit, type = 'all', promotionId = '') {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
             const _where = { userId };
@@ -378,23 +479,23 @@ class CouponRepos {
                     {
                         include: [
                             {
-                                model: SpTarget,
-                                as: 'spTargets',
-                                require: false,
+                                model   : SpTarget,
+                                as      : 'spTargets',
+                                require : false,
                             },
                             {
-                                model: SpRule,
-                                as: 'spRules',
-                                require: false,
+                                model   : SpRule,
+                                as      : 'spRules',
+                                require : false,
                             },
                         ],
-                        model: Promotion,
-                        as: 'promotion',
-                        where: _assWhere,
+                        model : Promotion,
+                        as    : 'promotion',
+                        where : _assWhere,
                     },
                 ],
-                distinct: true,
-                where: _where,
+                distinct : true,
+                where    : _where,
                 offset,
                 limit,
             });
@@ -467,14 +568,21 @@ class CouponRepos {
                 _datas.push(_coupon);
             }
             _result = {
-                succeed: 1,
-                code: 200,
-                description: '成功',
-                data: { list: _datas, count: _coupons.count },
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+                data        : {
+                    list  : _datas,
+                    count : _coupons.count,
+                },
             };
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -482,44 +590,73 @@ class CouponRepos {
 
     async receiveCoupon (userId, promotionId) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
             // 判断优惠券是否可以领取
             const _promotion = await Promotion.findOne({
                 where: {
-                    endTime: { $gt: Date.now() }, // 判断优惠券失效时间 是否可领取
-                    state: 1, // 启用状态
-                    type: 2, // 促销 类型
-                    autoReceive: 1, // 自动领取状态
-                    id: promotionId,
+                    endTime     : { $gt: Date.now() }, // 判断优惠券失效时间 是否可领取
+                    state       : 1, // 启用状态
+                    type        : 2, // 促销 类型
+                    autoReceive : 1, // 自动领取状态
+                    id          : promotionId,
                 },
                 raw: true,
             });
             if (_promotion) {
                 // 判断用户是否已领取
-                const _coupon = await Coupon.findOne({ where: { userId, promotionId } });
+                const _coupon = await Coupon.findOne({
+                    where: {
+                        userId,
+                        promotionId,
+                    },
+                });
                 if (_coupon) {
-                    _result = { succeed: 0, code: 105, description: '优惠券已领取过了' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 105,
+                        description : '优惠券已领取过了',
+                    };
                 } else {
                     const _couponCode = uniqid();
-                    const _ret = await Coupon.create({ couponCode: _couponCode, promotionId, userId });
+                    const _ret = await Coupon.create({
+                        couponCode: _couponCode,
+                        promotionId,
+                        userId,
+                    });
                     const _affectedCount = _ret[0];
                     if (_affectedCount > 0) {
-                        _result = { succeed: 1, code: 200, description: '领取成功' };
+                        _result = {
+                            succeed     : 1,
+                            code        : 200,
+                            description : '领取成功',
+                        };
                     } else {
-                        _result = { succeed: 0, code: 103, description: '领取失败' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 103,
+                            description : '领取失败',
+                        };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 104, description: '没有可用的优惠券' };
+                _result = {
+                    succeed     : 0,
+                    code        : 104,
+                    description : '没有可用的优惠券',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -527,32 +664,44 @@ class CouponRepos {
 
     async receiveCouponWithCode (userId, couponCode) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
             // 判断用户是否已领取
             const _coupon = await Coupon.findOne({ where: { couponCode } });
             if (_coupon) {
                 if (_coupon.usedId) {
-                    _result = { succeed: 0, code: 105, description: '该优惠券已被使用' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 105,
+                        description : '该优惠券已被使用',
+                    };
                 } else if (_coupon.userId) {
                     if (_coupon.userId == userId) {
-                        _result = { succeed: 0, code: 105, description: '优惠券已被您领取过了' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 105,
+                            description : '优惠券已被您领取过了',
+                        };
                     } else if (_coupon.userId && _coupon.userId != userId) {
-                        _result = { succeed: 0, code: 105, description: '优惠券已被其它用户领取过了' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 105,
+                            description : '优惠券已被其它用户领取过了',
+                        };
                     }
                 } else {
                     // 判断优惠券是否可以领取
                     const _promotion = await Promotion.findOne({
                         where: {
-                            endTime: { $gt: Date.now() }, // 判断优惠券失效时间 是否可领取
-                            state: 1, // 启用状态
-                            type: 2, // 促销 类型
-                            autoReceive: 1, // 自动领取状态
-                            id: _coupon.promotionId,
+                            endTime     : { $gt: Date.now() }, // 判断优惠券失效时间 是否可领取
+                            state       : 1, // 启用状态
+                            type        : 2, // 促销 类型
+                            autoReceive : 1, // 自动领取状态
+                            id          : _coupon.promotionId,
                         },
                         raw: true,
                     });
@@ -562,22 +711,34 @@ class CouponRepos {
                         const _affectedCount = _ret[0];
                         if (_affectedCount > 0) {
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '领取成功',
-                                data: { couponName: _promotion.name },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '领取成功',
+                                data        : { couponName: _promotion.name },
                             };
                         } else {
-                            _result = { succeed: 0, code: 103, description: '领取失败' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 103,
+                                description : '领取失败',
+                            };
                         }
                     } else {
-                        _result = { succeed: 0, code: 104, description: '没有可用的优惠券' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 104,
+                            description : '没有可用的优惠券',
+                        };
                     }
                 }
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;

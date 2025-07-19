@@ -8,19 +8,22 @@ module.exports = (sequelize, DataTypes) => {
         {
             // 属性对象
             actorId: {
-                type: DataTypes.INTEGER(10),
-                field: 'actor_id',
-                allowNull: false,
-                comment: '',
+                type      : DataTypes.INTEGER(10),
+                field     : 'actor_id',
+                allowNull : false,
+                comment   : '',
             },
             operationId: {
-                type: DataTypes.INTEGER(10),
-                field: 'operation_id',
-                allowNull: false,
-                comment: '',
+                type      : DataTypes.INTEGER(10),
+                field     : 'operation_id',
+                allowNull : false,
+                comment   : '',
             },
         },
-        { hideDefaultArribute: false, comment: '店铺角色操作权限关联表' },
+        {
+            hideDefaultArribute : false,
+            comment             : '店铺角色操作权限关联表',
+        },
     );
 
     ActorOperation.associate = (models) => {};

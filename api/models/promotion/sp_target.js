@@ -8,28 +8,31 @@ module.exports = (sequelize, DataTypes) => {
         {
             // 属性对象
             promotionId: {
-                type: DataTypes.INTEGER(10).UNSIGNED,
-                field: 'promotion_id',
-                allowNull: true,
-                comment: '促销ID',
+                type      : DataTypes.INTEGER(10).UNSIGNED,
+                field     : 'promotion_id',
+                allowNull : true,
+                comment   : '促销ID',
             },
             code: {
-                type: DataTypes.STRING(50),
-                allowNull: true,
-                comment: '促销条件编码',
+                type      : DataTypes.STRING(50),
+                allowNull : true,
+                comment   : '促销条件编码',
             },
             name: {
-                type: DataTypes.STRING(120),
-                allowNull: true,
-                comment: '促销条件名称',
+                type      : DataTypes.STRING(120),
+                allowNull : true,
+                comment   : '促销条件名称',
             },
             pattern: {
-                type: DataTypes.JSON(),
-                allowNull: true,
-                comment: '支付配置参数序列号存储',
+                type      : DataTypes.JSON(),
+                allowNull : true,
+                comment   : '支付配置参数序列号存储',
             },
         },
-        { hideDefaultArribute: false, comment: '促销条件表' },
+        {
+            hideDefaultArribute : false,
+            comment             : '促销条件表',
+        },
     );
 
     SpTarget.associate = (models) => {};

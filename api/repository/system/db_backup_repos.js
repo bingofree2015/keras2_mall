@@ -9,10 +9,10 @@ class DbBackupRepos {
 
     async create (dbBackup) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -22,28 +22,39 @@ class DbBackupRepos {
                 }
             });
             if (dbBackup.path) {
-                let _dbBackup = await DbBackup.findOne({ where: { path: dbBackup.path }, raw: true });
+                let _dbBackup = await DbBackup.findOne({
+                    where : { path: dbBackup.path },
+                    raw   : true,
+                });
                 if (_dbBackup) {
-                    _result = { succeed: 0, code: 101, description: '路径重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '路径重复',
+                    };
                 } else {
                     _dbBackup = await DbBackup.create(dbBackup);
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: _dbBackup,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : _dbBackup,
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> log:${JSON.stringify(dbBackup)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> log:${JSON.stringify(dbBackup)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -51,26 +62,42 @@ class DbBackupRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await DbBackup.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -78,10 +105,10 @@ class DbBackupRepos {
 
     async update (id, dbBackup) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -93,38 +120,65 @@ class DbBackupRepos {
             if (id) {
                 const _path = dbBackup.path;
                 if (_path) {
-                    let _dbBackup = await DbBackup.findOne({ where: { id, path: _path }, raw: true });
+                    let _dbBackup = await DbBackup.findOne({
+                        where: {
+                            id,
+                            path: _path,
+                        },
+                        raw: true,
+                    });
                     if (_dbBackup) {
                         const _ret = await DbBackup.update(dbBackup, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...dbBackup, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...dbBackup,
+                                    id,
+                                },
                             };
                         }
                     } else {
                         _dbBackup = await DbBackup.findOne({
-                            where: { path: _path, id: { $ne: id } },
+                            where: {
+                                path : _path,
+                                id   : { $ne: id },
+                            },
                             raw: true,
                         });
                         if (_dbBackup) {
-                            _result = { succeed: 0, code: 101, description: `路径 [${_path}] 重复` };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : `路径 [${_path}] 重复`,
+                            };
                         } else {
                             const _ret = await DbBackup.update(dbBackup, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...dbBackup, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...dbBackup,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -133,22 +187,37 @@ class DbBackupRepos {
                     const _ret = await DbBackup.update(dbBackup, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...dbBackup, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...dbBackup,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -156,37 +225,48 @@ class DbBackupRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
-            const _dbBackup = await DbBackup.findOne({ where: { id }, raw: true });
+            const _dbBackup = await DbBackup.findOne({
+                where : { id },
+                raw   : true,
+            });
             if (_dbBackup) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _dbBackup,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _dbBackup,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -212,40 +292,47 @@ class DbBackupRepos {
         try {
             if ((offset == 0 || offset) && limit) {
                 const _dbBackups = await DbBackup.findAndCountAll({
-                    where: _where,
+                    where : _where,
                     offset,
                     limit,
-                    raw: true,
-                    order: [['id', 'desc']],
+                    raw   : true,
+                    order : [['id', 'desc']],
                 });
                 for (const _dbBackup of _dbBackups.rows) {
                     _datas.push(_dbBackup);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _dbBackups.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _dbBackups.count,
+                    },
                 };
             } else {
                 const _dbBackups = await DbBackup.findAll({
-                    where: _where,
-                    raw: true,
-                    order: [['id', 'desc']],
+                    where : _where,
+                    raw   : true,
+                    order : [['id', 'desc']],
                 });
                 for (const _dbBackup of _dbBackups) {
                     _datas.push(_dbBackup);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;

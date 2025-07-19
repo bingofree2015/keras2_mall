@@ -8,12 +8,15 @@ module.exports = (sequelize, DataTypes) => {
         {
             // 属性对象
             name: {
-                type: DataTypes.STRING(50),
-                allowNull: true,
-                comment: '角色名称',
+                type      : DataTypes.STRING(50),
+                allowNull : true,
+                comment   : '角色名称',
             },
         },
-        { hideDefaultArribute: false, comment: '' },
+        {
+            hideDefaultArribute : false,
+            comment             : '',
+        },
     );
 
     Actor.associate = (models) => {};

@@ -45,6 +45,12 @@
   - 格式化后状态
   - 剩余问题分析
 
+- **[ESLINT_FORMATTING_RULES_SUMMARY.md](./ESLINT_FORMATTING_RULES_SUMMARY.md)** - ESLint格式化规则配置总结
+  - key-spacing规则配置（冒号对齐）
+  - object-property-newline规则配置（属性换行）
+  - 格式化效果展示
+  - 自动修复结果统计
+
 ### 📊 业务文档
 
 #### 数据库相关
@@ -89,6 +95,7 @@
 | upgrade-summary.md | 2025-01-19 | 依赖升级总结 |
 | CODE_FORMATTING_FINAL_SUMMARY.md | 2025-01-19 | 代码格式化最终总结 |
 | CODE_FORMATTING_SUMMARY.md | 2025-01-19 | 代码格式化总结 |
+| ESLINT_FORMATTING_RULES_SUMMARY.md | 2025-01-19 | ESLint格式化规则配置总结 |
 
 ## 📝 文档维护
 

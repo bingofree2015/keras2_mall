@@ -21,10 +21,10 @@ class ReportRepos {
                 data: [],
             },
             grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true,
+                left         : '3%',
+                right        : '4%',
+                bottom       : '3%',
+                containLabel : true,
             },
             toolbox: {
                 feature: {
@@ -32,13 +32,13 @@ class ReportRepos {
                 },
             },
             xAxis: {
-                type: 'category',
-                boundaryGap: false,
-                data: [],
+                type        : 'category',
+                boundaryGap : false,
+                data        : [],
             },
             yAxis: {
-                type: 'value',
-                name: '元',
+                type : 'value',
+                name : '元',
             },
             series: [],
         };
@@ -52,10 +52,10 @@ class ReportRepos {
    */
     async getOrderData (startTime, endTime, unit = 0) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
             startTime = moment(startTime).format('YYYY-MM-DD HH:mm:ss');
@@ -88,9 +88,18 @@ class ReportRepos {
                 // 生成X轴数据
                 _options.title.text = '订单统计';
                 const _legend = [
-                    { key: 'all', value: '全部' },
-                    { key: 'nopay', value: '待付款' },
-                    { key: 'payed', value: '已付款' },
+                    {
+                        key   : 'all',
+                        value : '全部',
+                    },
+                    {
+                        key   : 'nopay',
+                        value : '待付款',
+                    },
+                    {
+                        key   : 'payed',
+                        value : '已付款',
+                    },
                 ];
                 _options.legend.data = _legend.map((v) => v.value);
 
@@ -157,25 +166,33 @@ class ReportRepos {
                         }
                         const _name = item.value;
                         const _serie = {
-                            name: _name,
-                            type: 'line',
-                            data: _data.map((v) => v.val),
+                            name : _name,
+                            type : 'line',
+                            data : _data.map((v) => v.val),
                         };
                         _options.series.push(_serie);
                     }
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _options,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _options,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -213,10 +230,10 @@ class ReportRepos {
 
     async getPayData (startTime, endTime, unit = 0) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
             startTime = moment(startTime).format('YYYY-MM-DD HH:mm:ss');
@@ -250,11 +267,26 @@ class ReportRepos {
                 _options.title.text = '财务统计';
 
                 const _legend = [
-                    { key: 'all', value: '收款单' },
-                    { key: 'order', value: '订单收款' },
-                    { key: 'refund', value: '订单退款' },
-                    { key: 'recharge', value: '充值' },
-                    { key: 'tocash', value: '提现' },
+                    {
+                        key   : 'all',
+                        value : '收款单',
+                    },
+                    {
+                        key   : 'order',
+                        value : '订单收款',
+                    },
+                    {
+                        key   : 'refund',
+                        value : '订单退款',
+                    },
+                    {
+                        key   : 'recharge',
+                        value : '充值',
+                    },
+                    {
+                        key   : 'tocash',
+                        value : '提现',
+                    },
                 ];
                 _options.legend.data = _legend.map((v) => v.value);
 
@@ -323,25 +355,33 @@ class ReportRepos {
                         }
                         const _name = item.value;
                         const _serie = {
-                            name: _name,
-                            type: 'line',
-                            data: _data.map((v) => v.val),
+                            name : _name,
+                            type : 'line',
+                            data : _data.map((v) => v.val),
                         };
                         _options.series.push(_serie);
                     }
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _options,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _options,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -418,10 +458,10 @@ class ReportRepos {
 
     async getGoodsCollections (searchKey) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -447,39 +487,43 @@ class ReportRepos {
         const _datas = [];
         try {
             const _goodsCollections = await GoodsCollection.findAll({
-                attributes: [[sequelize.fn('COUNT', sequelize.col('goods_id')), 'count']],
-                include: [
+                attributes : [[sequelize.fn('COUNT', sequelize.col('goods_id')), 'count']],
+                include    : [
                     {
-                        model: Goods,
-                        attributes: ['id', 'name'],
-                        include: [
+                        model      : Goods,
+                        attributes : ['id', 'name'],
+                        include    : [
                             {
-                                model: Attachment,
-                                attributes: ['path'],
-                                as: 'attachment',
-                                require: false,
+                                model      : Attachment,
+                                attributes : ['path'],
+                                as         : 'attachment',
+                                require    : false,
                             },
                         ],
-                        as: 'goods',
-                        require: true,
+                        as      : 'goods',
+                        require : true,
                     },
                 ],
-                distinct: true,
-                group: ['goods.id', 'goods.name', 'goods->attachment.path'],
-                where: _where,
+                distinct : true,
+                group    : ['goods.id', 'goods.name', 'goods->attachment.path'],
+                where    : _where,
             });
             for (const _goodsCollection of _goodsCollections) {
                 _datas.push(_goodsCollection);
             }
             _result = {
-                succeed: 1,
-                code: 200,
-                description: '成功',
-                data: { list: _datas },
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+                data        : { list: _datas },
             };
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;
@@ -491,10 +535,10 @@ class ReportRepos {
    */
     async getGoods (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
 
         const _where = {};
@@ -530,14 +574,14 @@ class ReportRepos {
                     ],
                     include: [
                         {
-                            model: Order,
-                            attributes: [],
-                            as: 'order',
-                            required: true,
+                            model      : Order,
+                            attributes : [],
+                            as         : 'order',
+                            required   : true,
                         },
                     ],
-                    group: ['sn', 'name', 'imageUrl', 'specs'],
-                    order: [
+                    group : ['sn', 'name', 'imageUrl', 'specs'],
+                    order : [
                         [sequelize.literal('SUM(num)'), 'DESC'],
                         [sequelize.literal('SUM(amount)'), 'DESC'],
                     ],
@@ -549,10 +593,13 @@ class ReportRepos {
                     _datas.push(_orderItem);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _orderItems.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _orderItems.count,
+                    },
                 };
             } else {
                 const _orderItems = await OrderItem.findAll({
@@ -566,14 +613,14 @@ class ReportRepos {
                     ],
                     include: [
                         {
-                            model: Order,
-                            attributes: [],
-                            as: 'order',
-                            required: true,
+                            model      : Order,
+                            attributes : [],
+                            as         : 'order',
+                            required   : true,
                         },
                     ],
-                    group: ['sn', 'name', 'imageUrl', 'specs'],
-                    order: [
+                    group : ['sn', 'name', 'imageUrl', 'specs'],
+                    order : [
                         [sequelize.literal('SUM(num)'), 'DESC'],
                         [sequelize.literal('SUM(amount)'), 'DESC'],
                     ],
@@ -582,15 +629,19 @@ class ReportRepos {
                     _datas.push(_orderItem);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;

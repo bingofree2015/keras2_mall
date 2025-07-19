@@ -10,10 +10,10 @@ class GoodsCatRepos {
 
     async create (goodsCat) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -24,31 +24,42 @@ class GoodsCatRepos {
             });
             if (goodsCat.name && Number.isInteger(goodsCat.parentId)) {
                 let _goodsCat = await GoodsCat.findOne({
-                    where: { name: goodsCat.name, parentId: goodsCat.parentId },
+                    where: {
+                        name     : goodsCat.name,
+                        parentId : goodsCat.parentId,
+                    },
                     raw: true,
                 });
                 if (_goodsCat) {
-                    _result = { succeed: 0, code: 101, description: '名称重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '名称重复',
+                    };
                 } else {
                     _goodsCat = await GoodsCat.create(goodsCat);
                     _goodsCat.setDataValue('children', []);
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: _goodsCat,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : _goodsCat,
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> goodsCat:${JSON.stringify(goodsCat)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> goodsCat:${JSON.stringify(goodsCat)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -56,26 +67,42 @@ class GoodsCatRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await GoodsCat.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -83,10 +110,10 @@ class GoodsCatRepos {
 
     async update (id, goodsCat) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -98,38 +125,66 @@ class GoodsCatRepos {
             if (id) {
                 const _name = goodsCat.name;
                 if (_name) {
-                    let _goodsCat = await GoodsCat.findOne({ where: { id, name: _name }, raw: true });
+                    let _goodsCat = await GoodsCat.findOne({
+                        where: {
+                            id,
+                            name: _name,
+                        },
+                        raw: true,
+                    });
                     if (_goodsCat) {
                         const _ret = await GoodsCat.update(goodsCat, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...goodsCat, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...goodsCat,
+                                    id,
+                                },
                             };
                         }
                     } else {
                         _goodsCat = await GoodsCat.findOne({
-                            where: { name: _name, parentId: goodsCat.parentId, id: { $ne: id } },
+                            where: {
+                                name     : _name,
+                                parentId : goodsCat.parentId,
+                                id       : { $ne: id },
+                            },
                             raw: true,
                         });
                         if (_goodsCat) {
-                            _result = { succeed: 0, code: 101, description: `名称 [${_name}] 重复` };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : `名称 [${_name}] 重复`,
+                            };
                         } else {
                             const _ret = await GoodsCat.update(goodsCat, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...goodsCat, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...goodsCat,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -138,22 +193,37 @@ class GoodsCatRepos {
                     const _ret = await GoodsCat.update(goodsCat, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...goodsCat, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...goodsCat,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -161,37 +231,48 @@ class GoodsCatRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
-            const _goodsCat = await GoodsCat.findOne({ where: { id }, raw: true });
+            const _goodsCat = await GoodsCat.findOne({
+                where : { id },
+                raw   : true,
+            });
             if (_goodsCat) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _goodsCat,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _goodsCat,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -217,35 +298,45 @@ class GoodsCatRepos {
         try {
             if ((offset == 0 || offset) && limit) {
                 const _goodsCats = await GoodsCat.findAndCountAll({
-                    where: _where,
+                    where : _where,
                     offset,
                     limit,
-                    raw: true,
+                    raw   : true,
                 });
                 for (const _goodsCat of _goodsCats.rows) {
                     _datas.push(_goodsCat);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _goodsCats.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _goodsCats.count,
+                    },
                 };
             } else {
-                const _goodsCats = await GoodsCat.findAll({ where: _where, raw: true });
+                const _goodsCats = await GoodsCat.findAll({
+                    where : _where,
+                    raw   : true,
+                });
                 for (const _goodsCat of _goodsCats) {
                     _datas.push(_goodsCat);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;
@@ -257,10 +348,10 @@ class GoodsCatRepos {
    */
     async getTree () {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -271,7 +362,10 @@ class GoodsCatRepos {
             for (const _data of datas) {
                 if (_data.parentId == id) {
                     _data.level = level;
-                    _goodsCats.push({ ..._data, ...{ parentName: name } });
+                    _goodsCats.push({
+                        ..._data,
+                        ...{ parentName: name },
+                    });
                 }
             }
             for (const _goodsCat of _goodsCats) {
@@ -287,21 +381,21 @@ class GoodsCatRepos {
         };
         try {
             let _goodsCats = await GoodsCat.findAll({
-                attributes: GoodsCat.getAttributes(),
-                include: [
+                attributes : GoodsCat.getAttributes(),
+                include    : [
                     {
-                        model: Attachment,
-                        as: 'attachment',
-                        attributes: ['id', 'path'],
+                        model      : Attachment,
+                        as         : 'attachment',
+                        attributes : ['id', 'path'],
                     },
                     {
-                        model: GoodsType,
-                        as: 'type',
-                        attributes: ['id', 'name'],
+                        model      : GoodsType,
+                        as         : 'type',
+                        attributes : ['id', 'name'],
                     },
                 ],
-                where: _where,
-                order: [['sort', 'ASC']],
+                where : _where,
+                order : [['sort', 'ASC']],
             });
             _goodsCats = _goodsCats.map((v) => v.dataValues);
             const _level = 1;
@@ -315,14 +409,18 @@ class GoodsCatRepos {
                 _data.children = _getSubTrees(_data.id, _data.name, _goodsCats, _level);
             }
             _result = {
-                succeed: 1,
-                code: 200,
-                description: '成功',
-                data: { list: _datas },
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+                data        : { list: _datas },
             };
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;

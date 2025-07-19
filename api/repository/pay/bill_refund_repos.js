@@ -18,10 +18,10 @@ class BillRefundRepos {
 
     async create (billRefund) {
         let _result = {
-            succeed: 0, // 1:成功0:失败
-            code: 0, // 错误码
-            description: '', // 错误信息
-            data: null, // 本身就是一个json字符串
+            succeed     : 0, // 1:成功0:失败
+            code        : 0, // 错误码
+            description : '', // 错误信息
+            data        : null, // 本身就是一个json字符串
         };
 
         try {
@@ -32,30 +32,41 @@ class BillRefundRepos {
             });
             if (billRefund.userId && billRefund.afterSaleId) {
                 let _billRefund = await BillRefund.findOne({
-                    where: { userId: billRefund.userId, afterSaleId: billRefund.afterSaleId },
+                    where: {
+                        userId      : billRefund.userId,
+                        afterSaleId : billRefund.afterSaleId,
+                    },
                     raw: true,
                 });
                 if (_billRefund) {
-                    _result = { succeed: 0, code: 101, description: '记录重复' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 101,
+                        description : '记录重复',
+                    };
                 } else {
                     _billRefund = await BillRefund.create(billRefund);
                     _result = {
-                        succeed: 1,
-                        code: 200,
-                        description: '成功',
-                        data: _billRefund,
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                        data        : _billRefund,
                     };
                 }
             } else {
                 _result = {
-                    succeed: 0,
-                    code: 100,
-                    description: `参数错误 -> billRefund:${JSON.stringify(billRefund)}`,
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> billRefund:${JSON.stringify(billRefund)}`,
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -63,26 +74,42 @@ class BillRefundRepos {
 
     async delete (ids) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await BillRefund.destroy({ where: { id: ids } });
                 if (_affectedCount == 0) {
-                    _result = { succeed: 0, code: 102, description: '记录不存在' };
+                    _result = {
+                        succeed     : 0,
+                        code        : 102,
+                        description : '记录不存在',
+                    };
                 } else {
-                    _result = { succeed: 1, code: 200, description: '成功' };
+                    _result = {
+                        succeed     : 1,
+                        code        : 200,
+                        description : '成功',
+                    };
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: '参数错误' };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : '参数错误',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -90,10 +117,10 @@ class BillRefundRepos {
 
     async update (id, billRefund) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
@@ -107,40 +134,66 @@ class BillRefundRepos {
                 const _afterSaleId = billRefund.afterSaleId;
                 if (_userId && _afterSaleId) {
                     let _billRefund = await BillRefund.findOne({
-                        where: { id, userId: _userId, afterSaleId: _afterSaleId },
+                        where: {
+                            id,
+                            userId      : _userId,
+                            afterSaleId : _afterSaleId,
+                        },
                         raw: true,
                     });
                     if (_billRefund) {
                         const _ret = await BillRefund.update(billRefund, { where: { id } });
                         const _affectedCount = _ret[0];
                         if (_affectedCount == 0) {
-                            _result = { succeed: 0, code: 102, description: '记录不存在' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 102,
+                                description : '记录不存在',
+                            };
                         } else {
                             _result = {
-                                succeed: 1,
-                                code: 200,
-                                description: '成功',
-                                data: { ...billRefund, id },
+                                succeed     : 1,
+                                code        : 200,
+                                description : '成功',
+                                data        : {
+                                    ...billRefund,
+                                    id,
+                                },
                             };
                         }
                     } else {
                         _billRefund = await BillRefund.findOne({
-                            where: { userId: _userId, afterSaleId: _afterSaleId, id: { $ne: id } },
+                            where: {
+                                userId      : _userId,
+                                afterSaleId : _afterSaleId,
+                                id          : { $ne: id },
+                            },
                             raw: true,
                         });
                         if (_billRefund) {
-                            _result = { succeed: 0, code: 101, description: '记录重复' };
+                            _result = {
+                                succeed     : 0,
+                                code        : 101,
+                                description : '记录重复',
+                            };
                         } else {
                             const _ret = await BillRefund.update(billRefund, { where: { id } });
                             const _affectedCount = _ret[0];
                             if (_affectedCount == 0) {
-                                _result = { succeed: 0, code: 102, description: '记录不存在' };
+                                _result = {
+                                    succeed     : 0,
+                                    code        : 102,
+                                    description : '记录不存在',
+                                };
                             } else {
                                 _result = {
-                                    succeed: 1,
-                                    code: 200,
-                                    description: '成功',
-                                    data: { ...billRefund, id },
+                                    succeed     : 1,
+                                    code        : 200,
+                                    description : '成功',
+                                    data        : {
+                                        ...billRefund,
+                                        id,
+                                    },
                                 };
                             }
                         }
@@ -149,22 +202,37 @@ class BillRefundRepos {
                     const _ret = await BillRefund.update(billRefund, { where: { id } });
                     const _affectedCount = _ret[0];
                     if (_affectedCount == 0) {
-                        _result = { succeed: 0, code: 102, description: '记录不存在' };
+                        _result = {
+                            succeed     : 0,
+                            code        : 102,
+                            description : '记录不存在',
+                        };
                     } else {
                         _result = {
-                            succeed: 1,
-                            code: 200,
-                            description: '成功',
-                            data: { ...billRefund, id },
+                            succeed     : 1,
+                            code        : 200,
+                            description : '成功',
+                            data        : {
+                                ...billRefund,
+                                id,
+                            },
                         };
                     }
                 }
             } else {
-                _result = { succeed: 0, code: 100, description: `参数错误 -> id:${id}` };
+                _result = {
+                    succeed     : 0,
+                    code        : 100,
+                    description : `参数错误 -> id:${id}`,
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;
@@ -172,47 +240,55 @@ class BillRefundRepos {
 
     async get (id) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         try {
             const _billRefund = await BillRefund.findOne({
                 include: [
                     {
-                        model: User,
-                        attributes: User.getAttributes(),
-                        as: 'user',
-                        require: false,
+                        model      : User,
+                        attributes : User.getAttributes(),
+                        as         : 'user',
+                        require    : false,
                     },
                 ],
                 where: { id },
             });
             if (_billRefund) {
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: _billRefund,
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : _billRefund,
                 };
             } else {
-                _result = { succeed: 0, code: 102, description: '数据不存在' };
+                _result = {
+                    succeed     : 0,
+                    code        : 102,
+                    description : '数据不存在',
+                };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
         return _result;
     }
 
     async list (searchKey, offset, limit) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '',
+            data        : null,
         };
 
         const _where = {};
@@ -240,14 +316,14 @@ class BillRefundRepos {
                 const _billRefunds = await BillRefund.findAndCountAll({
                     include: [
                         {
-                            model: User,
-                            attributes: User.getAttributes(),
-                            as: 'user',
-                            require: false,
+                            model      : User,
+                            attributes : User.getAttributes(),
+                            as         : 'user',
+                            require    : false,
                         },
                     ],
-                    distinct: true,
-                    where: _where,
+                    distinct : true,
+                    where    : _where,
                     offset,
                     limit,
                 });
@@ -255,19 +331,22 @@ class BillRefundRepos {
                     _datas.push(_billRefund);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas, count: _billRefunds.count },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : {
+                        list  : _datas,
+                        count : _billRefunds.count,
+                    },
                 };
             } else {
                 const _billRefunds = await BillRefund.findAll({
                     include: [
                         {
-                            model: User,
-                            attributes: User.getAttributes(),
-                            as: 'user',
-                            require: false,
+                            model      : User,
+                            attributes : User.getAttributes(),
+                            as         : 'user',
+                            require    : false,
                         },
                     ],
                     where: _where,
@@ -276,15 +355,19 @@ class BillRefundRepos {
                     _datas.push(_billRefund);
                 }
                 _result = {
-                    succeed: 1,
-                    code: 200,
-                    description: '成功',
-                    data: { list: _datas },
+                    succeed     : 1,
+                    code        : 200,
+                    description : '成功',
+                    data        : { list: _datas },
                 };
             }
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err,
+            };
         }
 
         return _result;
@@ -296,10 +379,10 @@ class BillRefundRepos {
    */
     async getBillRefundState (afterSaleId) {
         let _result = {
-            succeed: 0,
-            code: 0,
-            description: '未知错误',
-            data: null,
+            succeed     : 0,
+            code        : 0,
+            description : '未知错误',
+            data        : null,
         };
         try {
             let _data = '';
@@ -320,14 +403,18 @@ class BillRefundRepos {
                 _data = '未退款';
             }
             Object.assign(_result, {
-                succeed: 1,
-                code: 200,
-                description: '成功',
-                data: _data,
+                succeed     : 1,
+                code        : 200,
+                description : '成功',
+                data        : _data,
             });
         } catch (err) {
             logger.error(err);
-            _result = { succeed: 0, code: 500, description: err.message || err.stack || '系统错误' };
+            _result = {
+                succeed     : 0,
+                code        : 500,
+                description : err.message || err.stack || '系统错误',
+            };
         }
 
         return _result;

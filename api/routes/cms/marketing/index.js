@@ -17,7 +17,7 @@ router.use(advertisementRouter.routes());
 router.use(noticeRouter.routes());
 
 router.get('/', (ctx) => {
-  ctx.body = '市场运营接口';
+    ctx.body = '市场运营接口';
 });
 
 module.exports = router;

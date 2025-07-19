@@ -1,1 +1,0 @@
-radio:单选;checbox:复选;text:文本框;textarea:文本域;date:日期;time:时间;goods:商品;money:金额;password:密码;area:省市区;image:图片;coordinate:坐标;

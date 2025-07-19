@@ -8,42 +8,42 @@ const operationLogRepo = require('../../../repository/preference/operation_log_r
 const operationLogRouter = Router({ prefix: '/operation_log' });
 
 operationLogRouter.get('/', (ctx) => {
-  ctx.body = '功能';
+    ctx.body = '功能';
 });
 
 operationLogRouter.post('/save', async (ctx) => {
-  let _operationLog = ctx.request.body;
+    let _operationLog = ctx.request.body;
 
-  let _result = {};
-  if (_operationLog.id) {
-    const _id = _operationLog.id;
-    _operationLog = omit(_operationLog, 'id');
-    _result = await operationLogRepo.update(_id, _operationLog);
-  } else {
-    _result = await operationLogRepo.create(_operationLog);
-  }
-  ctx.body = _result;
+    let _result = {};
+    if (_operationLog.id) {
+        const _id = _operationLog.id;
+        _operationLog = omit(_operationLog, 'id');
+        _result = await operationLogRepo.update(_id, _operationLog);
+    } else {
+        _result = await operationLogRepo.create(_operationLog);
+    }
+    ctx.body = _result;
 });
 
 operationLogRouter.post('/delete', async (ctx) => {
-  const { ids } = ctx.request.body;
+    const { ids } = ctx.request.body;
 
-  const _result = await operationLogRepo.delete(ids);
-  ctx.body = _result;
+    const _result = await operationLogRepo.delete(ids);
+    ctx.body = _result;
 });
 
 operationLogRouter.post('/get', async (ctx) => {
-  const { id } = ctx.request.body;
+    const { id } = ctx.request.body;
 
-  const _result = await operationLogRepo.get(id);
-  ctx.body = _result;
+    const _result = await operationLogRepo.get(id);
+    ctx.body = _result;
 });
 
 operationLogRouter.post('/list', async (ctx) => {
-  const { searchKey, offset, limit } = ctx.request.body;
+    const { searchKey, offset, limit } = ctx.request.body;
 
-  const _result = await operationLogRepo.list(searchKey, offset, limit);
-  ctx.body = _result;
+    const _result = await operationLogRepo.list(searchKey, offset, limit);
+    ctx.body = _result;
 });
 
 module.exports = operationLogRouter;

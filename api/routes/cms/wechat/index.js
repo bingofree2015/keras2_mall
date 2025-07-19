@@ -11,7 +11,7 @@ router.use(weixinMessageRouter.routes());
 router.use(weixinMediaMessageRouter.routes());
 
 router.get('/', (ctx) => {
-  ctx.body = '微信相关接口';
+    ctx.body = '微信相关接口';
 });
 
 module.exports = router;

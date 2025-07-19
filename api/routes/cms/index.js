@@ -49,53 +49,53 @@ router.use(page.routes());
 router.use(form.routes());
 
 router.get('/map_alias', async (ctx) => {
-  ctx.body = mapAlias;
+    ctx.body = mapAlias;
 });
 
 router.get('/', async (ctx) => {
-  ctx.body = 'cms后台接口';
+    ctx.body = 'cms后台接口';
 });
 
 /**
  * 通用上传文件接口（1：图片、2：视频、3：音频）
  */
 router.post('/upload', async (ctx) => {
-  const { pathType, width, height } = ctx.request.body;
-  let _result = {};
+    const { pathType, width, height } = ctx.request.body;
+    let _result = {};
 
-  _result = await upload(ctx, pathType, width, height);
+    _result = await upload(ctx, pathType, width, height);
 
-  ctx.body = _result;
+    ctx.body = _result;
 });
 
 /**
  * 面板 */
 router.post('/welcome', async (ctx) => {
-  let _result = {};
-  const _items = {};
+    let _result = {};
+    const _items = {};
 
-  // 未发货数量
-  _result = await orderRepo.getCount(1, 1, 1);
-  if (_result.succeed == 1 && _result.code == 200) {
-    _items.unpaidCount = _result.data;
-  }
-  // 待发货数量
-  _result = await orderRepo.getCount(1, 2, 1);
-  if (_result.succeed == 1 && _result.code == 200) {
-    _items.unshipCount = _result.data;
-  }
-  // 待售后数量
-  _result = await getCount();
-  if (_result.succeed == 1 && _result.code == 200) {
-    _items.afterSalesCount = _result.data;
-  }
-  _result = await getStatistics();
-  if (_result.succeed == 1 && _result.code == 200) {
-    _items.goodsStatistics = _result.data;
-  }
-  Object.assign(_result, { data: _items });
+    // 未发货数量
+    _result = await orderRepo.getCount(1, 1, 1);
+    if (_result.succeed == 1 && _result.code == 200) {
+        _items.unpaidCount = _result.data;
+    }
+    // 待发货数量
+    _result = await orderRepo.getCount(1, 2, 1);
+    if (_result.succeed == 1 && _result.code == 200) {
+        _items.unshipCount = _result.data;
+    }
+    // 待售后数量
+    _result = await getCount();
+    if (_result.succeed == 1 && _result.code == 200) {
+        _items.afterSalesCount = _result.data;
+    }
+    _result = await getStatistics();
+    if (_result.succeed == 1 && _result.code == 200) {
+        _items.goodsStatistics = _result.data;
+    }
+    Object.assign(_result, { data: _items });
 
-  ctx.body = _result;
+    ctx.body = _result;
 });
 
 module.exports = router;

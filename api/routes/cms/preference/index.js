@@ -23,7 +23,7 @@ router.use(areaRouter.routes());
 router.use(logisticsRouter.routes());
 
 router.get('/', (ctx) => {
-  ctx.body = '配置接口';
+    ctx.body = '配置接口';
 });
 
 module.exports = router;

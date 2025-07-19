@@ -82,7 +82,7 @@ class SPRuleRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await SpRule.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -141,7 +141,7 @@ class SPRuleRepos {
                     if (_spRule) {
                         const _ret = await SpRule.update(spRule, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -175,7 +175,7 @@ class SPRuleRepos {
                         } else {
                             const _ret = await SpRule.update(spRule, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -197,7 +197,7 @@ class SPRuleRepos {
                 } else {
                     const _ret = await SpRule.update(spRule, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -300,7 +300,7 @@ class SPRuleRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _spRules = await SpRule.findAndCountAll({
                     where: _where,
                     offset,

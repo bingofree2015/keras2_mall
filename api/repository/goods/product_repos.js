@@ -74,7 +74,7 @@ class ProductRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await Product.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -135,7 +135,7 @@ class ProductRepos {
                     if (_product) {
                         const _ret = await Product.update(product, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -170,7 +170,7 @@ class ProductRepos {
                         } else {
                             const _ret = await Product.update(product, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -192,7 +192,7 @@ class ProductRepos {
                 } else {
                     const _ret = await Product.update(product, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -296,7 +296,7 @@ class ProductRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _products = await Product.findAndCountAll({
                     where : _where,
                     offset,

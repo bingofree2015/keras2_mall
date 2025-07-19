@@ -80,7 +80,7 @@ class ArticleTypeRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await ArticleType.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -144,7 +144,7 @@ class ArticleTypeRepos {
                     if (_articleType) {
                         const _ret = await ArticleType.update(articleType, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -179,7 +179,7 @@ class ArticleTypeRepos {
                         } else {
                             const _ret = await ArticleType.update(articleType, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -201,7 +201,7 @@ class ArticleTypeRepos {
                 } else {
                     const _ret = await ArticleType.update(articleType, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -294,7 +294,7 @@ class ArticleTypeRepos {
             const _articleTypes = [];
             ++level;
             for (const _data of datas) {
-                if (_data.pid == id) {
+                if (_data.pid === id) {
                     _data.level = level;
                     _articleTypes.push({
                         ..._data,
@@ -318,7 +318,7 @@ class ArticleTypeRepos {
             _articleTypes = _articleTypes.map((v) => v.dataValues);
             const _level = 1;
             for (const _articleType of _articleTypes) {
-                if (_articleType.pid == 0) {
+                if (_articleType.pid === 0) {
                     _articleType.level = _level;
                     _datas.push(_articleType);
                 }

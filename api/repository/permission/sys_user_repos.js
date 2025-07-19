@@ -100,7 +100,7 @@ class SysUserRepos {
                     transaction : _trans,
                 });
                 await _trans.commit(); // 事务提交
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -194,7 +194,7 @@ class SysUserRepos {
                     if (_sysUser) {
                         const _ret = await SysUser.update(sysUser, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -231,7 +231,7 @@ class SysUserRepos {
                                 where: { id },
                             });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -256,7 +256,7 @@ class SysUserRepos {
                         where: { id },
                     });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -423,7 +423,7 @@ class SysUserRepos {
                 if (_sysUser) {
                     const _ret = await SysUser.update({ pwd: newPwd }, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -495,7 +495,7 @@ class SysUserRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _sysUsers = await SysUser.findAndCountAll({
                     include: [
                         {
@@ -584,7 +584,7 @@ class SysUserRepos {
 
         try {
             const _perms = [];
-            if (sysUserId == 1) {
+            if (sysUserId === 1) {
                 const _menus = await Menu.findAll({ raw: true });
                 for (const _menu of _menus) {
                     if (_menu.perms && !_perms.includes(_menu.perms)) {

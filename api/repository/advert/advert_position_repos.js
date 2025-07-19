@@ -73,7 +73,7 @@ class AdvertPositionRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await AdvertPosition.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -127,7 +127,7 @@ class AdvertPositionRepos {
             if (id) {
                 const _ret = await AdvertPosition.update(item, { where: { id } });
                 const _affectedCount = _ret[0];
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     Object.assign(_result, {
                         code        : 102,
                         description : '记录不存在',
@@ -241,7 +241,7 @@ class AdvertPositionRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _advertPositions = await AdvertPosition.findAndCountAll({
                     where : _where,
                     offset,

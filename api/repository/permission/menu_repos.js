@@ -75,7 +75,7 @@ class MenuRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await Menu.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -134,7 +134,7 @@ class MenuRepos {
                     if (_menu) {
                         const _ret = await Menu.update(menu, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -169,7 +169,7 @@ class MenuRepos {
                         } else {
                             const _ret = await Menu.update(menu, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -191,7 +191,7 @@ class MenuRepos {
                 } else {
                     const _ret = await Menu.update(menu, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -291,8 +291,8 @@ class MenuRepos {
             const _menus = [];
             ++level;
             for (const _data of datas) {
-                if (_data.parentId == id && types.includes(_data.type)) {
-                    _data.isShow = _data.isShow == 1;
+                if (_data.parentId === id && types.includes(_data.type)) {
+                    _data.isShow = _data.isShow === 1;
                     _data.level = level;
                     _menus.push({
                         ..._data,
@@ -303,7 +303,7 @@ class MenuRepos {
             for (const _menu of _menus) {
                 _menu.children = _getSubTrees(_menu.id, _menu.name, datas, types, level);
             }
-            if (_menus.length == 0) {
+            if (_menus.length === 0) {
                 return [];
             }
             return _menus;
@@ -349,8 +349,8 @@ class MenuRepos {
             });
             const _level = 1;
             for (const _menu of _menus) {
-                if (_menu.parentId == 0) {
-                    _menu.isShow = _menu.isShow == 1;
+                if (_menu.parentId === 0) {
+                    _menu.isShow = _menu.isShow === 1;
                     _menu.level = _level;
                     _datas.push(_menu);
                 }

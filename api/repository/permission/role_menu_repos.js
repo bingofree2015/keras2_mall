@@ -59,7 +59,7 @@ class RoleMenuRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await RoleMenu.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -120,7 +120,7 @@ class RoleMenuRepos {
                     if (_roleMenu) {
                         const _ret = await RoleMenu.update(roleMenu, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -155,7 +155,7 @@ class RoleMenuRepos {
                         } else {
                             const _ret = await RoleMenu.update(roleMenu, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -177,7 +177,7 @@ class RoleMenuRepos {
                 } else {
                     const _ret = await RoleMenu.update(roleMenu, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -281,7 +281,7 @@ class RoleMenuRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _roleMenus = await RoleMenu.findAndCountAll({
                     attributes : RoleMenu.getAttributes(),
                     include    : [

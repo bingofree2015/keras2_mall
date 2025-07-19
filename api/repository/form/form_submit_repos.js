@@ -108,7 +108,7 @@ class FormSubmitRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await FormSubmit.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -167,7 +167,7 @@ class FormSubmitRepos {
                     if (_formSubmit) {
                         const _ret = await FormSubmit.update(formSubmit, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -201,7 +201,7 @@ class FormSubmitRepos {
                         } else {
                             const _ret = await FormSubmit.update(formSubmit, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -223,7 +223,7 @@ class FormSubmitRepos {
                 } else {
                     const _ret = await FormSubmit.update(formSubmit, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -363,7 +363,7 @@ class FormSubmitRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _formSubmits = await FormSubmit.findAndCountAll({
                     include: [
                         {

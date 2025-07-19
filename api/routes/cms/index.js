@@ -76,21 +76,21 @@ router.post('/welcome', async (ctx) => {
 
     // 未发货数量
     _result = await orderRepo.getCount(1, 1, 1);
-    if (_result.succeed == 1 && _result.code == 200) {
+    if (_result.succeed === 1 && _result.code === 200) {
         _items.unpaidCount = _result.data;
     }
     // 待发货数量
     _result = await orderRepo.getCount(1, 2, 1);
-    if (_result.succeed == 1 && _result.code == 200) {
+    if (_result.succeed === 1 && _result.code === 200) {
         _items.unshipCount = _result.data;
     }
     // 待售后数量
     _result = await getCount();
-    if (_result.succeed == 1 && _result.code == 200) {
+    if (_result.succeed === 1 && _result.code === 200) {
         _items.afterSalesCount = _result.data;
     }
     _result = await getStatistics();
-    if (_result.succeed == 1 && _result.code == 200) {
+    if (_result.succeed === 1 && _result.code === 200) {
         _items.goodsStatistics = _result.data;
     }
     Object.assign(_result, { data: _items });

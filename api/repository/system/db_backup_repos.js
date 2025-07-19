@@ -71,7 +71,7 @@ class DbBackupRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await DbBackup.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -130,7 +130,7 @@ class DbBackupRepos {
                     if (_dbBackup) {
                         const _ret = await DbBackup.update(dbBackup, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -164,7 +164,7 @@ class DbBackupRepos {
                         } else {
                             const _ret = await DbBackup.update(dbBackup, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -186,7 +186,7 @@ class DbBackupRepos {
                 } else {
                     const _ret = await DbBackup.update(dbBackup, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -290,7 +290,7 @@ class DbBackupRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _dbBackups = await DbBackup.findAndCountAll({
                     where : _where,
                     offset,

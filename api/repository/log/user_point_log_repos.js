@@ -59,7 +59,7 @@ class UserPointLogRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await UserPointLog.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -108,7 +108,7 @@ class UserPointLogRepos {
             if (id) {
                 const _ret = await UserPointLog.update(userPointLog, { where: { id } });
                 const _affectedCount = _ret[0];
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -211,7 +211,7 @@ class UserPointLogRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _userPointLogs = await UserPointLog.findAndCountAll({
                     where : _where,
                     offset,

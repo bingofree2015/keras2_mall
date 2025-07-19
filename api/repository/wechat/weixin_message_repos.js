@@ -77,7 +77,7 @@ class WeixinMessageRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await WeixinMessage.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -138,7 +138,7 @@ class WeixinMessageRepos {
                     if (_weixinMessage) {
                         const _ret = await WeixinMessage.update(weixinMessage, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -173,7 +173,7 @@ class WeixinMessageRepos {
                         } else {
                             const _ret = await WeixinMessage.update(weixinMessage, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -195,7 +195,7 @@ class WeixinMessageRepos {
                 } else {
                     const _ret = await WeixinMessage.update(weixinMessage, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -298,7 +298,7 @@ class WeixinMessageRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _weixinMessages = await WeixinMessage.findAndCountAll({
                     where: _where,
                     offset,

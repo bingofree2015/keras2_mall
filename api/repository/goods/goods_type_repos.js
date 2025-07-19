@@ -38,7 +38,7 @@ class GoodsTypeRepos {
                     const _values = _spec.values.split(' ');
                     for (const _value of _values) {
                         const _goodsSpecValue = Array.isArray(_spec.goodsSpecValues)
-                            ? _spec.goodsSpecValues.find((v) => v.value == _value)
+                            ? _spec.goodsSpecValues.find((v) => v.value === _value)
                             : null;
                         if (_goodsSpecValue) {
                             _goodsSpecValues.push({
@@ -176,7 +176,7 @@ class GoodsTypeRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await GoodsType.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -238,7 +238,7 @@ class GoodsTypeRepos {
                     if (_goodsType) {
                         const _ret = await GoodsType.update(goodsType, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -274,7 +274,7 @@ class GoodsTypeRepos {
                         } else {
                             const _ret = await GoodsType.update(goodsType, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -298,7 +298,7 @@ class GoodsTypeRepos {
                 } else {
                     const _ret = await GoodsType.update(goodsType, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -442,7 +442,7 @@ class GoodsTypeRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _goodsTypes = await GoodsType.findAndCountAll({
                     include: [
                         {

@@ -77,7 +77,7 @@ class ArticleRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await Article.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -143,7 +143,7 @@ class ArticleRepos {
                     if (_article) {
                         const _ret = await Article.update(article, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -178,7 +178,7 @@ class ArticleRepos {
                         } else {
                             const _ret = await Article.update(article, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -200,7 +200,7 @@ class ArticleRepos {
                 } else {
                     const _ret = await Article.update(article, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -317,7 +317,7 @@ class ArticleRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _articles = await Article.findAndCountAll({
                     include: [
                         {

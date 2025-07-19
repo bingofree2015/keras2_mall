@@ -78,7 +78,7 @@ class BillDeliveryRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await BillDelivery.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -139,7 +139,7 @@ class BillDeliveryRepos {
                     if (_billDelivery) {
                         const _ret = await BillDelivery.update(billDelivery, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -174,7 +174,7 @@ class BillDeliveryRepos {
                         } else {
                             const _ret = await BillDelivery.update(billDelivery, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -196,7 +196,7 @@ class BillDeliveryRepos {
                 } else {
                     const _ret = await BillDelivery.update(billDelivery, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -327,7 +327,7 @@ class BillDeliveryRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _billDeliverys = await BillDelivery.findAndCountAll({
                     include: [
                         {

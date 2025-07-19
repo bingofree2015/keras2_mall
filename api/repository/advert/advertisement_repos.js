@@ -101,7 +101,7 @@ class AdvertisementRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _advertisements = await Advertisement.findAndCountAll({
                     include: [
                         {
@@ -237,7 +237,7 @@ class AdvertisementRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await Advertisement.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,

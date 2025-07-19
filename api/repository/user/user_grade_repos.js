@@ -34,7 +34,7 @@ class UserGradeRepos {
                     };
                 } else {
                     _userGrade = await UserGrade.create(userGrade);
-                    if (userGrade.isDef == true) {
+                    if (userGrade.isDef === true) {
                         await UserGrade.update({ isDef: false }, { where: { id: { $ne: _userGrade.id } } });
                     }
                     _result = {
@@ -74,7 +74,7 @@ class UserGradeRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await UserGrade.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -134,11 +134,11 @@ class UserGradeRepos {
                     });
                     if (_userGrade) {
                         const _ret = await UserGrade.update(userGrade, { where: { id } });
-                        if (userGrade.isDef == true) {
+                        if (userGrade.isDef === true) {
                             await UserGrade.update({ isDef: false }, { where: { id: { $ne: id } } });
                         }
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -172,11 +172,11 @@ class UserGradeRepos {
                             };
                         } else {
                             const _ret = await UserGrade.update(userGrade, { where: { id } });
-                            if (userGrade.isDef == true) {
+                            if (userGrade.isDef === true) {
                                 await UserGrade.update({ isDef: false }, { where: { id: { $ne: id } } });
                             }
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -197,11 +197,11 @@ class UserGradeRepos {
                     }
                 } else {
                     const _ret = await UserGrade.update(userGrade, { where: { id } });
-                    if (userGrade.isDef == true) {
+                    if (userGrade.isDef === true) {
                         await UserGrade.update({ isDef: false }, { where: { id: { $ne: id } } });
                     }
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -305,7 +305,7 @@ class UserGradeRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _userGrades = await UserGrade.findAndCountAll({
                     where : _where,
                     offset,

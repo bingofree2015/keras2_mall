@@ -165,7 +165,7 @@ class GoodsRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await Goods.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -372,7 +372,7 @@ class GoodsRepos {
                     if (_goods) {
                         const _ret = await Goods.update(goods, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -410,7 +410,7 @@ class GoodsRepos {
                         } else {
                             const _ret = await Goods.update(goods, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -436,7 +436,7 @@ class GoodsRepos {
                 } else {
                     const _ret = await Goods.update(goods, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -603,7 +603,7 @@ class GoodsRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _goods = await Goods.findAndCountAll({
                     include: [
                         {
@@ -722,7 +722,7 @@ class GoodsRepos {
             // 警戒库存
             let _goodsStockWarn = 10;
             _result = await setting.get('goods_stocks_warn');
-            if (_result.succeed == 1 && _result.code == 200) {
+            if (_result.succeed === 1 && _result.code === 200) {
                 _goodsStockWarn = _result.data;
             }
             const _totalWarn = await Product.findAll({
@@ -794,7 +794,7 @@ class GoodsRepos {
                         { where: _where },
                     );
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -842,7 +842,7 @@ class GoodsRepos {
             }
             if (_ret) {
                 const _affectedCount = _ret[0];
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,

@@ -59,7 +59,7 @@ class BillPaymentRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await BillPayment.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -108,7 +108,7 @@ class BillPaymentRepos {
             if (id) {
                 const _ret = await BillPayment.update(billPayment, { where: { id } });
                 const _affectedCount = _ret[0];
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -224,7 +224,7 @@ class BillPaymentRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _billPayments = await BillPayment.findAndCountAll({
                     include: [
                         {

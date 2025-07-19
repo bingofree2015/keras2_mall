@@ -37,7 +37,7 @@ router.post('/login', async (ctx) => {
 
     let _result = {};
     _result = await login(username, pwd);
-    if (_result.succeed == 1 && _result.code == 200) {
+    if (_result.succeed === 1 && _result.code === 200) {
         const _payload = {
             username,
             pwd,

@@ -95,7 +95,7 @@ class BillReshipRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await BillReship.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -158,7 +158,7 @@ class BillReshipRepos {
                     if (_billReship) {
                         const _ret = await BillReship.update(billReship, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -194,7 +194,7 @@ class BillReshipRepos {
                         } else {
                             const _ret = await BillReship.update(billReship, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -216,7 +216,7 @@ class BillReshipRepos {
                 } else {
                     const _ret = await BillReship.update(billReship, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -339,7 +339,7 @@ class BillReshipRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _billReships = await BillReship.findAndCountAll({
                     include: [
                         {
@@ -439,11 +439,11 @@ class BillReshipRepos {
             let _data = '';
             const _billReship = await BillReship.findOne({ where: { afterSaleId } });
             if (_billReship) {
-                if (_billReship.status == this.STATUS_WAIT_SHIP) {
+                if (_billReship.status === this.STATUS_WAIT_SHIP) {
                     _data = '待发退货';
-                } else if (_billReship.status == this.STATUS_SHIPPED) {
+                } else if (_billReship.status === this.STATUS_SHIPPED) {
                     _data = '已发退货';
-                } else if (_billReship.status == this.STATUS_SUCCESS) {
+                } else if (_billReship.status === this.STATUS_SUCCESS) {
                     _data = '已收退货';
                 } else {
                     _data = '状态异常';

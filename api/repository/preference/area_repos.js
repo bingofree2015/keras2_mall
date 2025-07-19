@@ -76,7 +76,7 @@ class AreaRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await Area.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -135,7 +135,7 @@ class AreaRepos {
                     if (_area) {
                         const _ret = await Area.update(area, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -170,7 +170,7 @@ class AreaRepos {
                         } else {
                             const _ret = await Area.update(area, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -192,7 +192,7 @@ class AreaRepos {
                 } else {
                     const _ret = await Area.update(area, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -302,7 +302,7 @@ class AreaRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _areas = await Area.findAndCountAll({
                     where : _where,
                     offset,
@@ -368,7 +368,7 @@ class AreaRepos {
             const _areas = [];
             ++level;
             for (const _data of datas) {
-                if (_data.parentId == id) {
+                if (_data.parentId === id) {
                     _data.level = level;
                     _areas.push({
                         ..._data,
@@ -394,7 +394,7 @@ class AreaRepos {
             });
             const _level = 1;
             for (const _area of _areas) {
-                if (_area.parentId == 0) {
+                if (_area.parentId === 0) {
                     _area.level = _level;
                     _datas.push(_area);
                 }

@@ -71,7 +71,7 @@ class VersionInfoRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await VersionInfo.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -120,7 +120,7 @@ class VersionInfoRepos {
             if (id) {
                 const _ret = await VersionInfo.update(versionInfo, { where: { id } });
                 const _affectedCount = _ret[0];
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -230,7 +230,7 @@ class VersionInfoRepos {
                         description : '可选更新',
                         data        : _versionInfo,
                     };
-                } else if (version == _currentVersion) {
+                } else if (version === _currentVersion) {
                     _result = {
                         succeed     : 1,
                         code        : 200,
@@ -291,7 +291,7 @@ class VersionInfoRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _versionInfos = await VersionInfo.findAndCountAll({
                     where : _where,
                     offset,

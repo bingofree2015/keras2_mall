@@ -82,7 +82,7 @@ class SPTargetRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await SpTarget.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -141,7 +141,7 @@ class SPTargetRepos {
                     if (_spTarget) {
                         const _ret = await SpTarget.update(spTarget, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -175,7 +175,7 @@ class SPTargetRepos {
                         } else {
                             const _ret = await SpTarget.update(spTarget, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -197,7 +197,7 @@ class SPTargetRepos {
                 } else {
                     const _ret = await SpTarget.update(spTarget, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -300,7 +300,7 @@ class SPTargetRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _spTargets = await SpTarget.findAndCountAll({
                     where: _where,
                     offset,

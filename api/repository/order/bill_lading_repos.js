@@ -76,7 +76,7 @@ class BillLadingRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await BillLading.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -137,7 +137,7 @@ class BillLadingRepos {
                     if (_billLading) {
                         const _ret = await BillLading.update(billLading, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -172,7 +172,7 @@ class BillLadingRepos {
                         } else {
                             const _ret = await BillLading.update(billLading, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -194,7 +194,7 @@ class BillLadingRepos {
                 } else {
                     const _ret = await BillLading.update(billLading, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -305,7 +305,7 @@ class BillLadingRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _billLadings = await BillLading.findAndCountAll({
                     include: [
                         {

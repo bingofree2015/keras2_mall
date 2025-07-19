@@ -47,9 +47,7 @@ userRouter.post('/sms_login', async (ctx) => {
 userRouter.post('/wx_login', async (ctx) => {
     const { type = 'weixin', code } = ctx.request.body;
     const _result = null;
-    if (type == 'weixin') {
-    } else if (type == 'alipay') {
-    }
+    if ($1) { /* empty */ } else if ($1) { /* empty */ }
     ctx.body = _result;
 });
 /**

@@ -97,7 +97,7 @@ class BillAfterSaleRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await BillAfterSale.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -158,7 +158,7 @@ class BillAfterSaleRepos {
                     if (_billAfterSale) {
                         const _ret = await BillAfterSale.update(billAfterSale, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -193,7 +193,7 @@ class BillAfterSaleRepos {
                         } else {
                             const _ret = await BillAfterSale.update(billAfterSale, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -215,7 +215,7 @@ class BillAfterSaleRepos {
                 } else {
                     const _ret = await BillAfterSale.update(billAfterSale, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -332,7 +332,7 @@ class BillAfterSaleRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _billAfterSales = await BillAfterSale.findAndCountAll({
                     include: [
                         {
@@ -449,35 +449,35 @@ class BillAfterSaleRepos {
             const _states = [];
             const _billAfterSale = await BillAfterSale.findOne({ where: { orderId } });
             if (_billAfterSale) {
-                if (_billAfterSale.status == this.STATUS_WAITAUDIT) {
+                if (_billAfterSale.status === this.STATUS_WAITAUDIT) {
                     _states.push('待审核');
-                } else if (_billAfterSale.status == this.STATUS_SUCCESS) {
-                    if (_billAfterSale.type == this.TYPE_REFUND) {
+                } else if (_billAfterSale.status === this.STATUS_SUCCESS) {
+                    if (_billAfterSale.type === this.TYPE_REFUND) {
                         // 从退款单表中查原因
                         const _billRefundState = await billRefundRepo.getBillRefundState(
                             _billAfterSale.afterSaleId,
                         );
-                        if (_billRefundState.succeed == 1 && _billRefundState.code == 200) {
+                        if (_billRefundState.succeed === 1 && _billRefundState.code === 200) {
                             _states.push(_billRefundState.data);
                         }
-                    } else if (_billAfterSale.type == this.TYPE_RESHIP) {
+                    } else if (_billAfterSale.type === this.TYPE_RESHIP) {
                         // 从退款、退货单表中找原因
                         const _billRefundState = await billRefundRepo.getBillRefundState(
                             _billAfterSale.afterSaleId,
                         );
-                        if (_billRefundState.succeed == 1 && _billRefundState.code == 200) {
+                        if (_billRefundState.succeed === 1 && _billRefundState.code === 200) {
                             _states.push(_billRefundState.data);
                         }
                         const _billReshipState = await billReshipRepo.getBillReshipState(
                             _billAfterSale.afterSaleId,
                         );
-                        if (_billReshipState.succeed == 1 && _billReshipState.code == 200) {
+                        if (_billReshipState.succeed === 1 && _billReshipState.code === 200) {
                             _states.push(_billReshipState.data);
                         }
                     } else {
                         _states.push('状态异常');
                     }
-                } else if (_billAfterSale.status == this.STATUS_REFUSE) {
+                } else if (_billAfterSale.status === this.STATUS_REFUSE) {
                     _states.push('审核拒绝');
                 } else {
                     _states.push('状态异常');

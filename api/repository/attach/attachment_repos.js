@@ -82,7 +82,7 @@ class AttachmentRepos {
                     _filePaths.push(_attachment.path);
                 }
                 const _affectedCount = await Attachment.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -153,7 +153,7 @@ class AttachmentRepos {
                     if (_attachment) {
                         const _ret = await Attachment.update(attachment, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -187,7 +187,7 @@ class AttachmentRepos {
                         } else {
                             const _ret = await Attachment.update(attachment, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -209,7 +209,7 @@ class AttachmentRepos {
                 } else {
                     const _ret = await Attachment.update(attachment, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -313,7 +313,7 @@ class AttachmentRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _attachments = await Attachment.findAndCountAll({
                     where : _where,
                     offset,

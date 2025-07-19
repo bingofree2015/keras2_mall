@@ -51,6 +51,12 @@
   - 格式化效果展示
   - 自动修复结果统计
 
+- **[ESLINT_ISSUES_FIX_SUMMARY.md](./ESLINT_ISSUES_FIX_SUMMARY.md)** - ESLint问题修复总结
+  - 问题分析和修复策略
+  - 修复结果统计（减少43.7%问题）
+  - 项目功能验证
+  - 剩余问题处理建议
+
 ### 📊 业务文档
 
 #### 数据库相关
@@ -96,6 +102,7 @@
 | CODE_FORMATTING_FINAL_SUMMARY.md | 2025-01-19 | 代码格式化最终总结 |
 | CODE_FORMATTING_SUMMARY.md | 2025-01-19 | 代码格式化总结 |
 | ESLINT_FORMATTING_RULES_SUMMARY.md | 2025-01-19 | ESLint格式化规则配置总结 |
+| ESLINT_ISSUES_FIX_SUMMARY.md | 2025-01-19 | ESLint问题修复总结 |
 
 ## 📝 文档维护
 

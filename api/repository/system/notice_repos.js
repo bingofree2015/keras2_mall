@@ -81,7 +81,7 @@ class NoticeRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await Notice.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -141,7 +141,7 @@ class NoticeRepos {
                     if (_notice) {
                         const _ret = await Notice.update(notice, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -175,7 +175,7 @@ class NoticeRepos {
                         } else {
                             const _ret = await Notice.update(notice, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -197,7 +197,7 @@ class NoticeRepos {
                 } else {
                     const _ret = await Notice.update(notice, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -301,7 +301,7 @@ class NoticeRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _notices = await Notice.findAndCountAll({
                     where : _where,
                     offset,

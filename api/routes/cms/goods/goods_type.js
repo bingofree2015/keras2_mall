@@ -24,7 +24,7 @@ goodsTypeRouter.post('/save', async (ctx) => {
     } else {
         _result = await goodsTypeRepo.create(_goodsParam);
     }
-    if (_result.succeed == 1 && _result.code == 200) {
+    if (_result.succeed === 1 && _result.code === 200) {
         _result.data.specValues = _result.data.specs.map((v) => v.name).join('|');
         _result.data.paramValues = _result.data.params.map((v) => v.name).join('|');
     // "specValues": "颜色|容量|产地|毛重", "paramValues": "风格|大小"

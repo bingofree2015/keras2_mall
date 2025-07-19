@@ -71,7 +71,7 @@ class UserRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await User.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -130,7 +130,7 @@ class UserRepos {
                     if (_user) {
                         const _ret = await User.update(user, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -164,7 +164,7 @@ class UserRepos {
                         } else {
                             const _ret = await User.update(user, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -186,7 +186,7 @@ class UserRepos {
                 } else {
                     const _ret = await User.update(user, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -303,7 +303,7 @@ class UserRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _users = await User.findAndCountAll({
                     include: [
                         {

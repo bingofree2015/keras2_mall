@@ -74,7 +74,7 @@ class OperationLogRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await OperationLog.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -180,7 +180,7 @@ class OperationLogRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _logs = await OperationLog.findAndCountAll({
                     include: [
                         {

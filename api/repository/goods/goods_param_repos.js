@@ -71,7 +71,7 @@ class GoodsParamRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await GoodsParam.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -130,7 +130,7 @@ class GoodsParamRepos {
                     if (_goodsParam) {
                         const _ret = await GoodsParam.update(goodsParam, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -164,7 +164,7 @@ class GoodsParamRepos {
                         } else {
                             const _ret = await GoodsParam.update(goodsParam, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -186,7 +186,7 @@ class GoodsParamRepos {
                 } else {
                     const _ret = await GoodsParam.update(goodsParam, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -289,7 +289,7 @@ class GoodsParamRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _goodsParams = await GoodsParam.findAndCountAll({
                     where: _where,
                     offset,

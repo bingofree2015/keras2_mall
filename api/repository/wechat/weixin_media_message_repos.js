@@ -74,7 +74,7 @@ class WeixinMediaMessageRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await WeixinMediaMessage.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -133,7 +133,7 @@ class WeixinMediaMessageRepos {
                     if (_weixinMediaMessage) {
                         const _ret = await WeixinMediaMessage.update(weixinMediaMessage, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -167,7 +167,7 @@ class WeixinMediaMessageRepos {
                         } else {
                             const _ret = await WeixinMediaMessage.update(weixinMediaMessage, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -189,7 +189,7 @@ class WeixinMediaMessageRepos {
                 } else {
                     const _ret = await WeixinMediaMessage.update(weixinMediaMessage, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -292,7 +292,7 @@ class WeixinMediaMessageRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _weixinMediaMessages = await WeixinMediaMessage.findAndCountAll({
                     where: _where,
                     offset,

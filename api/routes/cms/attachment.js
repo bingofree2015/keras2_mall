@@ -62,7 +62,7 @@ attachmentRouter.post('/download', async (ctx) => {
     } = ctx.request.body;
 
     let _result = await download(pathType, imgUrl, width, height);
-    if (_result.succeed == 1 && _result.code == 200) {
+    if (_result.succeed === 1 && _result.code === 200) {
         const _attachment = {
             attachGroupId,
             name : _result.data.fileName,

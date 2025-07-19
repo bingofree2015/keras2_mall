@@ -59,7 +59,7 @@ class CartRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await Cart.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -108,7 +108,7 @@ class CartRepos {
             if (id) {
                 const _ret = await Cart.update(cart, { where: { id } });
                 const _affectedCount = _ret[0];
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -211,7 +211,7 @@ class CartRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _carts = await Cart.findAndCountAll({
                     where : _where,
                     offset,

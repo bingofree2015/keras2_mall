@@ -101,7 +101,7 @@ class GoodsSpecRepos {
                     transaction : _trans,
                 });
                 await _trans.commit(); // 事务提交
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -199,7 +199,7 @@ class GoodsSpecRepos {
                     if (_goodsSpec) {
                         const _ret = await GoodsSpec.update(goodsSpec, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -241,7 +241,7 @@ class GoodsSpecRepos {
                         } else {
                             const _ret = await GoodsSpec.update(goodsSpec, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -271,7 +271,7 @@ class GoodsSpecRepos {
                 } else {
                     const _ret = await GoodsSpec.update(goodsSpec, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -396,7 +396,7 @@ class GoodsSpecRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _goodsSpecs = await GoodsSpec.findAndCountAll({
                     include: [
                         {

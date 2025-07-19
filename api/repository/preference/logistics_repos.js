@@ -71,7 +71,7 @@ class LogisticsRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await Logistics.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -130,7 +130,7 @@ class LogisticsRepos {
                     if (_logistics) {
                         const _ret = await Logistics.update(logistics, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -164,7 +164,7 @@ class LogisticsRepos {
                         } else {
                             const _ret = await Logistics.update(logistics, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -186,7 +186,7 @@ class LogisticsRepos {
                 } else {
                     const _ret = await Logistics.update(logistics, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -290,7 +290,7 @@ class LogisticsRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _logisticses = await Logistics.findAndCountAll({
                     where : _where,
                     offset,

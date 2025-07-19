@@ -67,5 +67,5 @@ function getDefaultAttributes (options, DataTypes) {
         },
     };
 
-    return options.hideDefaultArribute == true ? {} : defaultAttributes || {};
+    return options.hideDefaultArribute === true ? {} : defaultAttributes || {};
 }

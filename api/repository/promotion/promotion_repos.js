@@ -117,7 +117,7 @@ class PromotionRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await Promotion.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -256,7 +256,7 @@ class PromotionRepos {
                     if (_promotion) {
                         const _ret = await Promotion.update(promotion, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -292,7 +292,7 @@ class PromotionRepos {
                         } else {
                             const _ret = await Promotion.update(promotion, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -316,7 +316,7 @@ class PromotionRepos {
                 } else {
                     const _ret = await Promotion.update(promotion, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -433,7 +433,7 @@ class PromotionRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _promotions = await Promotion.findAndCountAll({
                     where: _where,
                     offset,

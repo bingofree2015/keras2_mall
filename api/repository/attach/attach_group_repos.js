@@ -70,7 +70,7 @@ class AttachGroupRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await AttachGroup.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -129,7 +129,7 @@ class AttachGroupRepos {
                     if (_attachGroup) {
                         const _ret = await AttachGroup.update(attachGroup, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -163,7 +163,7 @@ class AttachGroupRepos {
                         } else {
                             const _ret = await AttachGroup.update(attachGroup, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -185,7 +185,7 @@ class AttachGroupRepos {
                 } else {
                     const _ret = await AttachGroup.update(attachGroup, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -289,7 +289,7 @@ class AttachGroupRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _attachGroups = await AttachGroup.findAndCountAll({
                     where : _where,
                     offset,

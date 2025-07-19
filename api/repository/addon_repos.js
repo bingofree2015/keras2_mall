@@ -237,7 +237,7 @@ class AddonRepos {
                 });
                 if (_addon) {
                     const _status =
-            _addon.status == this.INSTALL_STATUS ? this.STATUS_DISENABLE : this.INSTALL_STATUS;
+            _addon.status === this.INSTALL_STATUS ? this.STATUS_DISENABLE : this.INSTALL_STATUS;
                     _addon = await Addon.update({ status: _status }, { where: { id: _addon.id } });
                     Object.assign(_result, {
                         succeed     : 1,

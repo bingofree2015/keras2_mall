@@ -86,7 +86,7 @@ class CouponRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await Coupon.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -145,7 +145,7 @@ class CouponRepos {
                     if (_coupon) {
                         const _ret = await Coupon.update(coupon, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -179,7 +179,7 @@ class CouponRepos {
                         } else {
                             const _ret = await Coupon.update(coupon, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -201,7 +201,7 @@ class CouponRepos {
                 } else {
                     const _ret = await Coupon.update(coupon, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -321,7 +321,7 @@ class CouponRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _coupons = await Coupon.findAndCountAll({
                     include: [
                         {
@@ -680,13 +680,13 @@ class CouponRepos {
                         description : '该优惠券已被使用',
                     };
                 } else if (_coupon.userId) {
-                    if (_coupon.userId == userId) {
+                    if (_coupon.userId === userId) {
                         _result = {
                             succeed     : 0,
                             code        : 105,
                             description : '优惠券已被您领取过了',
                         };
-                    } else if (_coupon.userId && _coupon.userId != userId) {
+                    } else if (_coupon.userId && _coupon.userId !== userId) {
                         _result = {
                             succeed     : 0,
                             code        : 105,

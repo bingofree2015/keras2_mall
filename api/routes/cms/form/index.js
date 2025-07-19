@@ -46,12 +46,12 @@ router.post('/save', async (ctx) => {
      */
     let _result = {};
     let _headTypeValue = '';
-    if (_form.headType == 1 || _form.headType == 3) {
+    if (_form.headType === 1 || _form.headType === 3) {
         _headTypeValue =
       Array.isArray(_form.headTypeValues) && _form.headTypeValues.length > 0
           ? _form.headTypeValues[0].id.toString()
           : '';
-    } else if (_form.headType == 2) {
+    } else if (_form.headType === 2) {
         _headTypeValue = Array.isArray(_form.headTypeValues)
             ? _form.headTypeValues.map((v) => v.id).join(',')
             : '';

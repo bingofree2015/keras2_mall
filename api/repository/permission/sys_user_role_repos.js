@@ -59,7 +59,7 @@ class SysUserRoleRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await SysUserRole.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -120,7 +120,7 @@ class SysUserRoleRepos {
                     if (_sysUserRole) {
                         const _ret = await SysUserRole.update(sysUserRole, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -155,7 +155,7 @@ class SysUserRoleRepos {
                         } else {
                             const _ret = await SysUserRole.update(sysUserRole, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -177,7 +177,7 @@ class SysUserRoleRepos {
                 } else {
                     const _ret = await SysUserRole.update(sysUserRole, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -281,7 +281,7 @@ class SysUserRoleRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _sysUserRoles = await SysUserRole.findAndCountAll({
                     attributes : SysUserRole.getAttributes(),
                     include    : [

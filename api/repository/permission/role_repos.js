@@ -76,7 +76,7 @@ class RoleRepos {
                         name : { $ne: 'admin' },
                     },
                 });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -135,7 +135,7 @@ class RoleRepos {
                     if (_role) {
                         const _ret = await Role.update(role, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -169,7 +169,7 @@ class RoleRepos {
                         } else {
                             const _ret = await Role.update(role, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -191,7 +191,7 @@ class RoleRepos {
                 } else {
                     const _ret = await Role.update(role, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -305,7 +305,7 @@ class RoleRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _roles = await Role.findAndCountAll({
                     where : _where,
                     offset,

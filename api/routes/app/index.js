@@ -28,7 +28,7 @@ router.post('/upload', async (ctx) => {
 router.get('/get_setting', async (ctx) => {
     const _result = await settingRepos.get('global_variables');
 
-    if (_result.succeed == 1 && _result.code == 200) {
+    if (_result.succeed === 1 && _result.code === 200) {
         const _data = _.pick(_result.data, [
             'shopLogo', // 店铺logo
             'shopName', // 店铺名称

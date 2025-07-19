@@ -75,7 +75,7 @@ class MessageCenterRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await MessageCenter.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -134,7 +134,7 @@ class MessageCenterRepos {
                     if (_messageCenter) {
                         const _ret = await MessageCenter.update(messageCenter, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -168,7 +168,7 @@ class MessageCenterRepos {
                         } else {
                             const _ret = await MessageCenter.update(messageCenter, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -190,7 +190,7 @@ class MessageCenterRepos {
                 } else {
                     const _ret = await MessageCenter.update(messageCenter, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -293,7 +293,7 @@ class MessageCenterRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _messageCenters = await MessageCenter.findAndCountAll({
                     where: _where,
                     offset,

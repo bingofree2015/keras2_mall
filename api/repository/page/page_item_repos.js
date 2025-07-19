@@ -74,7 +74,7 @@ class PageItemRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await PageItem.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -133,7 +133,7 @@ class PageItemRepos {
                     if (_pageItem) {
                         const _ret = await PageItem.update(pageItem, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -167,7 +167,7 @@ class PageItemRepos {
                         } else {
                             const _ret = await PageItem.update(pageItem, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -189,7 +189,7 @@ class PageItemRepos {
                 } else {
                     const _ret = await PageItem.update(pageItem, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -299,7 +299,7 @@ class PageItemRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _pageItems = await PageItem.findAndCountAll({
                     include: [
                         {

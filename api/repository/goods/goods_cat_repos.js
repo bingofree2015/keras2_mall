@@ -76,7 +76,7 @@ class GoodsCatRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await GoodsCat.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -135,7 +135,7 @@ class GoodsCatRepos {
                     if (_goodsCat) {
                         const _ret = await GoodsCat.update(goodsCat, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -170,7 +170,7 @@ class GoodsCatRepos {
                         } else {
                             const _ret = await GoodsCat.update(goodsCat, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -192,7 +192,7 @@ class GoodsCatRepos {
                 } else {
                     const _ret = await GoodsCat.update(goodsCat, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -296,7 +296,7 @@ class GoodsCatRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _goodsCats = await GoodsCat.findAndCountAll({
                     where : _where,
                     offset,
@@ -360,7 +360,7 @@ class GoodsCatRepos {
             const _goodsCats = [];
             ++level;
             for (const _data of datas) {
-                if (_data.parentId == id) {
+                if (_data.parentId === id) {
                     _data.level = level;
                     _goodsCats.push({
                         ..._data,
@@ -374,7 +374,7 @@ class GoodsCatRepos {
                     _goodsCat.children = _subTrees;
                 }
             }
-            if (_goodsCats.length == 0) {
+            if (_goodsCats.length === 0) {
                 return [];
             }
             return _goodsCats;
@@ -400,7 +400,7 @@ class GoodsCatRepos {
             _goodsCats = _goodsCats.map((v) => v.dataValues);
             const _level = 1;
             for (const _goodsCat of _goodsCats) {
-                if (_goodsCat.parentId == 0) {
+                if (_goodsCat.parentId === 0) {
                     _goodsCat.level = _level;
                     _datas.push(_goodsCat);
                 }

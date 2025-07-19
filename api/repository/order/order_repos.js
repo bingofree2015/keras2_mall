@@ -124,7 +124,7 @@ class OrderRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await Order.destroy({ where: { orderId: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -185,7 +185,7 @@ class OrderRepos {
                     if (_order) {
                         const _ret = await Order.update(order, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -221,7 +221,7 @@ class OrderRepos {
                         } else {
                             const _ret = await Order.update(order, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -243,7 +243,7 @@ class OrderRepos {
                 } else {
                     const _ret = await Order.update(order, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -309,7 +309,7 @@ class OrderRepos {
                     require    : false,
                 },
             ];
-            if (type == 1) {
+            if (type === 1) {
                 _include = _include.concat(
                     {
                         model   : BillPayment,
@@ -405,7 +405,7 @@ class OrderRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _orders = await Order.findAndCountAll({
                     include: [
                         {
@@ -438,7 +438,7 @@ class OrderRepos {
                     _order.source = mapAlias.order.source[_order.source];
                     // 订单售后状态
                     const _afterSaleState = await billAfterSaleRepos.getAfterSaleState(_order.orderId);
-                    if (_afterSaleState.succeed == 1 && _afterSaleState.code == 200) {
+                    if (_afterSaleState.succeed === 1 && _afterSaleState.code === 200) {
                         _order.setDataValue('afterSaleState', _afterSaleState.data);
                     }
 
@@ -483,7 +483,7 @@ class OrderRepos {
                     _order.source = mapAlias.order.source[_order.source];
                     // 订单售后状态
                     const _afterSaleState = await billAfterSaleRepos.getAfterSaleState(_order.orderId);
-                    if (_afterSaleState.succeed == 1 && _afterSaleState.code == 200) {
+                    if (_afterSaleState.succeed === 1 && _afterSaleState.code === 200) {
                         _order.setDataValue('afterSaleState', _afterSaleState.data);
                     }
 
@@ -555,51 +555,51 @@ class OrderRepos {
    * @param {是否评论} isComment
    */
     getOrderState (orderState, payState, shipState, confirm, isComment) {
-        if (orderState == this.ORDER_STATUS_NORMAL && payState == this.PAY_STATUS_NO) {
+        if (orderState === this.ORDER_STATUS_NORMAL && payState === this.PAY_STATUS_NO) {
             // 待付款
             return this.ALL_PENDING_PAYMENT;
         }
         if (
-            orderState == this.ORDER_STATUS_NORMAL &&
-      payState == this.PAY_STATUS_YES &&
-      shipState == this.SHIP_STATUS_NO
+            orderState === this.ORDER_STATUS_NORMAL &&
+      payState === this.PAY_STATUS_YES &&
+      shipState === this.SHIP_STATUS_NO
         ) {
             // 待发货
             return this.ALL_PENDING_DELIVERY;
         }
         if (
-            orderState == this.ORDER_STATUS_NORMAL &&
-      shipState == this.SHIP_STATUS_YES &&
-      confirm == this.RECEIPT_NOT_CONFIRMED
+            orderState === this.ORDER_STATUS_NORMAL &&
+      shipState === this.SHIP_STATUS_YES &&
+      confirm === this.RECEIPT_NOT_CONFIRMED
         ) {
             // 待收货
             return this.ALL_PENDING_RECEIPT;
         }
         if (
-            orderState == this.ORDER_STATUS_NORMAL &&
+            orderState === this.ORDER_STATUS_NORMAL &&
       payState > this.PAY_STATUS_NO &&
-      shipState == this.SHIP_STATUS_YES &&
-      confirm == this.CONFIRM_RECEIPT &&
-      isComment == this.NO_COMMENT
+      shipState === this.SHIP_STATUS_YES &&
+      confirm === this.CONFIRM_RECEIPT &&
+      isComment === this.NO_COMMENT
         ) {
             // 待评价
             return this.ALL_PENDING_EVALUATE;
         }
         if (
-            orderState == this.ORDER_STATUS_NORMAL &&
+            orderState === this.ORDER_STATUS_NORMAL &&
       payState > this.PAY_STATUS_NO &&
-      shipState == this.SHIP_STATUS_YES &&
-      confirm == this.CONFIRM_RECEIPT &&
-      isComment == this.ALREADY_COMMENT
+      shipState === this.SHIP_STATUS_YES &&
+      confirm === this.CONFIRM_RECEIPT &&
+      isComment === this.ALREADY_COMMENT
         ) {
             // 已评价
             return this.ALL_COMPLETED_EVALUATE;
         }
-        if (orderState == this.ORDER_STATUS_COMPLETE) {
+        if (orderState === this.ORDER_STATUS_COMPLETE) {
             // 已完成
             return this.ALL_COMPLETED;
         }
-        if (orderState == this.ORDER_STATUS_CANCEL) {
+        if (orderState === this.ORDER_STATUS_CANCEL) {
             // 已取消
             return this.ALL_CANCEL;
         }
@@ -614,9 +614,9 @@ class OrderRepos {
                 perms  : 'order:view',
             },
         ];
-        if (orderState == this.ORDER_STATUS_NORMAL) {
+        if (orderState === this.ORDER_STATUS_NORMAL) {
             // 正常
-            if (payState == this.PAY_STATUS_NO && from == 'seller') {
+            if (payState === this.PAY_STATUS_NO && from == 'seller') {
                 _permits.push({
                     action : 'action.pay',
                     label  : '支付',
@@ -624,9 +624,9 @@ class OrderRepos {
                     perms  : 'order:pay',
                 });
             }
-            if (payState != this.PAY_STATUS_NO) {
+            if (payState !== this.PAY_STATUS_NO) {
                 if (
-                    (shipState == this.SHIP_STATUS_NO || shipState == this.SHIP_STATUS_PARTIAL_YES) &&
+                    (shipState === this.SHIP_STATUS_NO || shipState === this.SHIP_STATUS_PARTIAL_YES) &&
           from == 'seller'
                 ) {
                     _permits.push({
@@ -649,7 +649,7 @@ class OrderRepos {
                     perms  : 'order:finished',
                 });
             }
-            if (payState == this.PAY_STATUS_NO) {
+            if (payState === this.PAY_STATUS_NO) {
                 if (from == 'seller') {
                     _permits.push({
                         action : 'action.edit',
@@ -666,7 +666,7 @@ class OrderRepos {
                 });
             }
         }
-        if (orderState == this.ORDER_STATUS_CANCEL) {
+        if (orderState === this.ORDER_STATUS_CANCEL) {
             _permits.push({
                 action : 'action.delete',
                 label  : '删除',

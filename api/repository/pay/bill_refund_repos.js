@@ -83,7 +83,7 @@ class BillRefundRepos {
         try {
             if (Array.isArray(ids) && ids.length > 0) {
                 const _affectedCount = await BillRefund.destroy({ where: { id: ids } });
-                if (_affectedCount == 0) {
+                if (_affectedCount === 0) {
                     _result = {
                         succeed     : 0,
                         code        : 102,
@@ -144,7 +144,7 @@ class BillRefundRepos {
                     if (_billRefund) {
                         const _ret = await BillRefund.update(billRefund, { where: { id } });
                         const _affectedCount = _ret[0];
-                        if (_affectedCount == 0) {
+                        if (_affectedCount === 0) {
                             _result = {
                                 succeed     : 0,
                                 code        : 102,
@@ -179,7 +179,7 @@ class BillRefundRepos {
                         } else {
                             const _ret = await BillRefund.update(billRefund, { where: { id } });
                             const _affectedCount = _ret[0];
-                            if (_affectedCount == 0) {
+                            if (_affectedCount === 0) {
                                 _result = {
                                     succeed     : 0,
                                     code        : 102,
@@ -201,7 +201,7 @@ class BillRefundRepos {
                 } else {
                     const _ret = await BillRefund.update(billRefund, { where: { id } });
                     const _affectedCount = _ret[0];
-                    if (_affectedCount == 0) {
+                    if (_affectedCount === 0) {
                         _result = {
                             succeed     : 0,
                             code        : 102,
@@ -312,7 +312,7 @@ class BillRefundRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _billRefunds = await BillRefund.findAndCountAll({
                     include: [
                         {
@@ -388,13 +388,13 @@ class BillRefundRepos {
             let _data = '';
             const _billRefund = await BillRefund.findOne({ where: { afterSaleId } });
             if (_billRefund) {
-                if (_billRefund.status == this.STATUS_NOREFUND) {
+                if (_billRefund.status === this.STATUS_NOREFUND) {
                     _data = '未退款';
-                } else if (_billRefund.status == this.STATUS_REFUND) {
+                } else if (_billRefund.status === this.STATUS_REFUND) {
                     _data = '已退款';
-                } else if (_billRefund.status == this.STATUS_FAIL) {
+                } else if (_billRefund.status === this.STATUS_FAIL) {
                     _data = '退款失败';
-                } else if (_billRefund.status == this.STATUS_REFUSE) {
+                } else if (_billRefund.status === this.STATUS_REFUSE) {
                     _data = '退款拒绝';
                 } else {
                     _data = '状态异常';

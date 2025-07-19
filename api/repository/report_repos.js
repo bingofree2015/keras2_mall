@@ -129,7 +129,7 @@ class ReportRepos {
                     break;
                 }
                 for (let i = 0; i < _splitNumber; i++) {
-                    if (unit == 0) {
+                    if (unit === 0) {
                         _xAxisData.push(_startTime.add(1, 'hours').format(_format));
                     } else {
                         _xAxisData.push(_startTime.add(1, 'days').format(_format));
@@ -207,7 +207,7 @@ class ReportRepos {
    * @param {*} unit
    */
     async _orderItems (where, columm, startTime, splitNumber, unit) {
-        const _seconds = unit == 0 ? 60 * 60 : 24 * 60 * 60;
+        const _seconds = unit === 0 ? 60 * 60 : 24 * 60 * 60;
 
         const _exeSql = `
             select tmp_x.x,ifnull(sum(o.order_amount),0) as val,count(o.order_id) as num
@@ -316,7 +316,7 @@ class ReportRepos {
                     break;
                 }
                 for (let i = 0; i < _splitNumber; i++) {
-                    if (unit == 0) {
+                    if (unit === 0) {
                         _xAxisData.push(_startTime.add(1, 'hours').format(_format));
                     } else {
                         _xAxisData.push(_startTime.add(1, 'days').format(_format));
@@ -388,7 +388,7 @@ class ReportRepos {
     }
 
     async _payItems (where, columm, startTime, splitNumber, unit) {
-        const _seconds = unit == 0 ? 60 * 60 : 24 * 60 * 60;
+        const _seconds = unit === 0 ? 60 * 60 : 24 * 60 * 60;
 
         const _exeSql = `
             select tmp_x.x,ifnull(sum(o.money),0) as val,count(o.payment_id) as num
@@ -411,7 +411,7 @@ class ReportRepos {
     }
 
     async _refundItems (where, columm, startTime, splitNumber, unit) {
-        const _seconds = unit == 0 ? 60 * 60 : 24 * 60 * 60;
+        const _seconds = unit === 0 ? 60 * 60 : 24 * 60 * 60;
 
         const _exeSql = `
             select tmp_x.x,ifnull(sum(o.money),0) as val,count(o.refund_id) as num
@@ -434,7 +434,7 @@ class ReportRepos {
     }
 
     async _toCashItems (where, columm, startTime, splitNumber, unit) {
-        const _seconds = unit == 0 ? 60 * 60 : 24 * 60 * 60;
+        const _seconds = unit === 0 ? 60 * 60 : 24 * 60 * 60;
 
         const _exeSql = `
             select tmp_x.x,ifnull(sum(o.money),0) as val,count(o.id) as num
@@ -562,7 +562,7 @@ class ReportRepos {
 
         const _datas = [];
         try {
-            if ((offset == 0 || offset) && limit) {
+            if ((offset === 0 || offset) && limit) {
                 const _orderItems = await OrderItem.findAndCountAll({
                     attributes: [
                         'sn',

@@ -1,9 +1,9 @@
 /**
  * 商品分类管理 */
-import { omit } from 'lodash';
-import Router from '@koa/router';
+const { omit } = require('lodash');
+const Router = require('@koa/router');
 
-import goodsCatRepo from '../../../repository/goods/goods_cat_repos';
+const goodsCatRepo = require('../../../repository/goods/goods_cat_repos');
 
 const goodsCatRouter = Router({ prefix: '/goods_cat' });
 

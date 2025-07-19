@@ -1,11 +1,11 @@
-import {
+const {
   GoodsType,
   GoodsSpec,
   GoodsTypeSpec,
   GoodsSpecValue,
   GoodsParam,
   GoodsTypeParam,
-} from '../../models';
+} = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -472,4 +472,4 @@ class GoodsTypeRepos {
   }
 }
 
-export default GoodsTypeRepos.getInstance();
+module.exports = GoodsTypeRepos.getInstance();

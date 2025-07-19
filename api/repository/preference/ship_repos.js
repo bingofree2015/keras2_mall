@@ -1,5 +1,5 @@
-import _ from 'lodash';
-import { Ship, Logistics } from '../../models';
+const _ = require('lodash');
+const { Ship, Logistics } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -317,4 +317,4 @@ class ShipRepos {
   }
 }
 
-export default ShipRepos.getInstance();
+module.exports = ShipRepos.getInstance();

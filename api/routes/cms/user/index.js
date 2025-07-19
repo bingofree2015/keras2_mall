@@ -1,12 +1,12 @@
 /**
  * 管理员权限管理 */
-import _ from 'lodash';
-import Router from '@koa/router';
+const _ = require('lodash');
+const Router = require('@koa/router');
 
-import {
+const {
   create, batchDelete, update, get, list,
-} from '../../../repository/user/user_repos';
-import userGradeRouter from './user_grade';
+} = require('../../../repository/user/user_repos');
+const userGradeRouter = require('./user_grade');
 
 const router = Router({ prefix: '/user' });
 

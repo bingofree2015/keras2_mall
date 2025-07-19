@@ -1,6 +1,6 @@
-import {
+const {
   sequelize, SysUser, Role, Menu, SysUserRole, RoleMenu, Attachment,
-} from '../../models';
+} = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -531,4 +531,4 @@ class SysUserRepos {
   }
 }
 
-export default SysUserRepos.getInstance();
+module.exports = SysUserRepos.getInstance();

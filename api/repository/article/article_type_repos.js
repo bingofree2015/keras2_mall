@@ -1,5 +1,5 @@
-import _ from 'lodash';
-import { ArticleType } from '../../models';
+const _ = require('lodash');
+const { ArticleType } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -268,4 +268,4 @@ class ArticleTypeRepos {
   }
 }
 
-export default ArticleTypeRepos.getInstance();
+module.exports = ArticleTypeRepos.getInstance();

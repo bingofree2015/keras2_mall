@@ -1,4 +1,4 @@
-import { PageItem } from '../../models';
+const { PageItem } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -280,4 +280,4 @@ class PageItemRepos {
   }
 }
 
-export default PageItemRepos.getInstance();
+module.exports = PageItemRepos.getInstance();

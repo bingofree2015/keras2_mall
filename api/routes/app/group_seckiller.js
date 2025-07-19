@@ -1,9 +1,9 @@
 /**
  * Created by bingofree.
  */
-import _ from 'lodash';
-import Router from '@koa/router';
-import promotionRepos from '../../repository/promotion/promotion_repos';
+const _ = require('lodash');
+const Router = require('@koa/router');
+const promotionRepos = require('../../repository/promotion/promotion_repos');
 
 const router = Router({ prefix: '/group_seckiller' });
 

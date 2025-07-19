@@ -1,4 +1,4 @@
-import { Logistics } from '../../models';
+const { Logistics } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -261,4 +261,4 @@ class LogisticsRepos {
   }
 }
 
-export default LogisticsRepos.getInstance();
+module.exports = LogisticsRepos.getInstance();

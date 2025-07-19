@@ -1,6 +1,6 @@
-import base from '../base';
+const base = require('../base');
 
-export default (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
   const GoodsCollection = base(
     sequelize,
     DataTypes,

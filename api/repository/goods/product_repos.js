@@ -1,4 +1,4 @@
-import { Product } from '../../models';
+const { Product } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -262,4 +262,4 @@ class ProductRepos {
   }
 }
 
-export default ProductRepos.getInstance();
+module.exports = ProductRepos.getInstance();

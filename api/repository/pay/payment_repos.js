@@ -1,4 +1,4 @@
-import { Payment } from '../../models';
+const { Payment } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -265,4 +265,4 @@ class PaymentRepos {
   }
 }
 
-export default PaymentRepos.getInstance();
+module.exports = PaymentRepos.getInstance();

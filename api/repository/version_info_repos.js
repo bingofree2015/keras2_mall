@@ -1,4 +1,4 @@
-import { VersionInfo } from '../models';
+const { VersionInfo } = require('../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -274,4 +274,4 @@ class VersionInfoRepos {
   }
 }
 
-export default VersionInfoRepos.getInstance();
+module.exports = VersionInfoRepos.getInstance();

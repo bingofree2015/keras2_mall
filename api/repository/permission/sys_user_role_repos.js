@@ -1,4 +1,4 @@
-import { SysUserRole, SysUser } from '../../models';
+const { SysUserRole, SysUser } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -262,4 +262,4 @@ class SysUserRoleRepos {
   }
 }
 
-export default SysUserRoleRepos.getInstance();
+module.exports = SysUserRoleRepos.getInstance();

@@ -1,9 +1,9 @@
 /**
  * 任务接口 */
-import { omit } from 'lodash';
-import Router from '@koa/router';
+const { omit } = require('lodash');
+const Router = require('@koa/router');
 
-import MessageCenterRepo from '../../../repository/preference/message_center_repos';
+const MessageCenterRepo = require('../../../repository/preference/message_center_repos');
 
 const messageCenterRouter = Router({ prefix: '/message_center' });
 

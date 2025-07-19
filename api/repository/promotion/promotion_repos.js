@@ -1,4 +1,4 @@
-import { Promotion, SpTarget, SpRule } from '../../models';
+const { Promotion, SpTarget, SpRule } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -509,4 +509,4 @@ class PromotionRepos {
   }
 }
 
-export default PromotionRepos.getInstance();
+module.exports = PromotionRepos.getInstance();

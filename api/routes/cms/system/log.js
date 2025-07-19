@@ -1,9 +1,9 @@
 /**
  * 管理员权限管理 */
-import { omit } from 'lodash';
-import Router from '@koa/router';
+const { omit } = require('lodash');
+const Router = require('@koa/router');
 
-import logRepo from '../../../repository/system/log_repos';
+const logRepo = require('../../../repository/system/log_repos');
 
 const logRouter = Router({ prefix: '/log' });
 

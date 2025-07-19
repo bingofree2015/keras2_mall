@@ -1,9 +1,9 @@
 /**
  * Created by bingofree.
  */
-import _ from 'lodash';
-import Router from '@koa/router';
-import noticeRepos from '../../repository/system/notice_repos';
+const _ = require('lodash');
+const Router = require('@koa/router');
+const noticeRepos = require('../../repository/system/notice_repos');
 
 const router = Router({ prefix: '/notice' });
 

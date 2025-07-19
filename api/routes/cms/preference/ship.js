@@ -1,9 +1,9 @@
 /**
  * 配送方式接口 */
-import { omit } from 'lodash';
-import Router from '@koa/router';
+const { omit } = require('lodash');
+const Router = require('@koa/router');
 
-import shipRepo from '../../../repository/preference/ship_repos';
+const shipRepo = require('../../../repository/preference/ship_repos');
 
 const shipRouter = Router({ prefix: '/ship' });
 

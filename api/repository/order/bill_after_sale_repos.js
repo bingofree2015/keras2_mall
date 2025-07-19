@@ -1,6 +1,6 @@
-import { BillAfterSale, BillAfterSaleItem, User } from '../../models';
-import billReshipRepo from './bill_reship_repos';
-import billRefundRepo from '../pay/bill_refund_repos';
+const { BillAfterSale, BillAfterSaleItem, User } = require('../../models');
+const billReshipRepo = require('./bill_reship_repos');
+const billRefundRepo = require('../pay/bill_refund_repos');
 
 const logger = require('tracer').colorConsole();
 /**
@@ -419,4 +419,4 @@ class BillAfterSaleRepos {
   }
 }
 
-export default BillAfterSaleRepos.getInstance();
+module.exports = BillAfterSaleRepos.getInstance();

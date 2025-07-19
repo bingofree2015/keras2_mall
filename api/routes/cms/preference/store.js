@@ -1,9 +1,9 @@
 /**
  * 门店接口 */
-import { omit } from 'lodash';
-import Router from '@koa/router';
+const { omit } = require('lodash');
+const Router = require('@koa/router');
 
-import storeRepo from '../../../repository/preference/store_repos';
+const storeRepo = require('../../../repository/preference/store_repos');
 
 const storeRouter = Router({ prefix: '/store' });
 

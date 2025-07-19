@@ -1,8 +1,8 @@
-import { ADDON_PATH } from 'config';
-import { exists } from 'mz/fs';
-import { pick } from 'lodash';
+const { ADDON_PATH } = require('config');
+const { exists } = require('mz/fs');
+const { pick } = require('lodash');
 
-import { Addon } from '../models';
+const { Addon } = require('../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -230,4 +230,4 @@ class AddonRepos {
   }
 }
 
-export default AddonRepos.getInstance();
+module.exports = AddonRepos.getInstance();

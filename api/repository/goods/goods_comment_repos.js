@@ -1,4 +1,4 @@
-import { GoodsComment, User, Goods } from '../../models';
+const { GoodsComment, User, Goods } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -313,4 +313,4 @@ class GoodsCommentRepos {
   }
 }
 
-export default GoodsCommentRepos.getInstance();
+module.exports = GoodsCommentRepos.getInstance();

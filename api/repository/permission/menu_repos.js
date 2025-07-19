@@ -1,4 +1,4 @@
-import { Menu, SysUserRole, RoleMenu } from '../../models';
+const { Menu, SysUserRole, RoleMenu } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -293,4 +293,4 @@ class MenuRepos {
   }
 }
 
-export default MenuRepos.getInstance();
+module.exports = MenuRepos.getInstance();

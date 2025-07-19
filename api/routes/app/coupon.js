@@ -1,10 +1,10 @@
 /**
  * Created by bingofree.
  */
-import _ from 'lodash';
-import Router from '@koa/router';
-import promotionRepos from '../../repository/promotion/promotion_repos';
-import couponRepos from '../../repository/promotion/coupon_repos';
+const _ = require('lodash');
+const Router = require('@koa/router');
+const promotionRepos = require('../../repository/promotion/promotion_repos');
+const couponRepos = require('../../repository/promotion/coupon_repos');
 
 const router = Router({ prefix: '/coupon' });
 

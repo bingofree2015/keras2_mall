@@ -1,9 +1,9 @@
 /**
  * Created by bingofree.
  */
-import _ from 'lodash';
-import Router from '@koa/router';
-import formRepos from '../../repository/form/form_repos';
+const _ = require('lodash');
+const Router = require('@koa/router');
+const formRepos = require('../../repository/form/form_repos');
 
 const router = Router({ prefix: '/form' });
 

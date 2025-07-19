@@ -1,5 +1,5 @@
-import _ from 'lodash';
-import { AdvertPosition } from '../../models';
+const _ = require('lodash');
+const { AdvertPosition } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -238,4 +238,4 @@ class AdvertPositionRepos {
   }
 }
 
-export default AdvertPositionRepos.getInstance();
+module.exports = AdvertPositionRepos.getInstance();

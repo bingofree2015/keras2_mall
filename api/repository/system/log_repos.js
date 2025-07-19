@@ -1,4 +1,4 @@
-import { Log } from '../../models';
+const { Log } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -252,4 +252,4 @@ class LogRepos {
   }
 }
 
-export default LogRepos.getInstance();
+module.exports = LogRepos.getInstance();

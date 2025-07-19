@@ -1,9 +1,9 @@
 /**
  * 管理员权限管理 */
-import { omit } from 'lodash';
-import Router from '@koa/router';
+const { omit } = require('lodash');
+const Router = require('@koa/router');
 
-import noticeRepo from '../../../repository/system/notice_repos';
+const noticeRepo = require('../../../repository/system/notice_repos');
 
 const noticeRouter = Router({ prefix: '/notice' });
 

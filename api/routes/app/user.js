@@ -1,8 +1,8 @@
 /**
  * 会员等级 */
-import Router from '@koa/router';
-import _ from 'lodash';
-import userRepos from '../../repository/user/user_repos';
+const Router = require('@koa/router');
+const _ = require('lodash');
+const userRepos = require('../../repository/user/user_repos');
 
 const userRouter = Router({ prefix: '/user' });
 

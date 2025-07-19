@@ -1,7 +1,7 @@
-import uniqid from 'uniqid';
-import {
+const uniqid = require('uniqid');
+const {
   Coupon, Promotion, SpTarget, SpRule, User,
-} from '../../models';
+} = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -592,4 +592,4 @@ class CouponRepos {
   }
 }
 
-export default CouponRepos.getInstance();
+module.exports = CouponRepos.getInstance();

@@ -1,4 +1,4 @@
-import {
+const {
   Order,
   OrderItem,
   BillPayment,
@@ -11,11 +11,11 @@ import {
   Store,
   BillAfterSale,
   Setting,
-} from '../../models';
-import mapAlias from '../../config/map_alias';
-import billAfterSaleRepos from './bill_after_sale_repos';
-import userPointLogRepos from '../log/user_point_log_repos';
-import goodsRepos from '../goods/goods_repos';
+} = require('../../models');
+const mapAlias = require('../../config/map_alias');
+const billAfterSaleRepos = require('./bill_after_sale_repos');
+const userPointLogRepos = require('../log/user_point_log_repos');
+const goodsRepos = require('../goods/goods_repos');
 
 const logger = require('tracer').colorConsole();
 
@@ -756,4 +756,4 @@ class OrderRepos {
   }
 }
 
-export default OrderRepos.getInstance();
+module.exports = OrderRepos.getInstance();

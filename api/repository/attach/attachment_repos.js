@@ -1,6 +1,6 @@
-import { join } from 'path';
-import { unlinkSync, access } from 'mz/fs';
-import { Attachment } from '../../models';
+const { join } = require('path');
+const { unlinkSync, access } = require('mz/fs');
+const { Attachment } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -280,4 +280,4 @@ class AttachmentRepos {
   }
 }
 
-export default AttachmentRepos.getInstance();
+module.exports = AttachmentRepos.getInstance();

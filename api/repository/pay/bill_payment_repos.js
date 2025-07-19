@@ -1,4 +1,4 @@
-import { BillPayment, BillPaymentItem, User } from '../../models';
+const { BillPayment, BillPaymentItem, User } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -256,4 +256,4 @@ class BillPaymentRepos {
   }
 }
 
-export default BillPaymentRepos.getInstance();
+module.exports = BillPaymentRepos.getInstance();

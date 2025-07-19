@@ -1,11 +1,11 @@
 /**
  * 会员等级 */
-import _ from 'lodash';
-import Router from '@koa/router';
+const _ = require('lodash');
+const Router = require('@koa/router');
 
-import form from '../../../repository/form/form_repos';
+const form = require('../../../repository/form/form_repos');
 
-import formSubmitRouter from './form_submit';
+const formSubmitRouter = require('./form_submit');
 
 const router = Router({ prefix: '/form' });
 

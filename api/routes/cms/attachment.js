@@ -1,11 +1,11 @@
 /**
  * 会员等级 */
-import Router from '@koa/router';
-import { omit } from 'lodash';
-import {
+const Router = require('@koa/router');
+const { omit } = require('lodash');
+const {
   update, create, batchDelete, get, list,
-} from '../../repository/attach/attachment_repos';
-import { download } from '../../utils/uploader';
+} = require('../../repository/attach/attachment_repos');
+const { download } = require('../../utils/uploader');
 
 const attachmentRouter = Router({ prefix: '/attachment' });
 

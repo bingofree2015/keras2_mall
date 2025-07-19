@@ -1,4 +1,4 @@
-import { Balance, User } from '../../models';
+const { Balance, User } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -241,4 +241,4 @@ class BalanceRepos {
   }
 }
 
-export default BalanceRepos.getInstance();
+module.exports = BalanceRepos.getInstance();

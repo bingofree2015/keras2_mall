@@ -1,4 +1,4 @@
-import { Cart, User } from '../../models';
+const { Cart, User } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -206,4 +206,4 @@ class CartRepos {
   }
 }
 
-export default CartRepos.getInstance();
+module.exports = CartRepos.getInstance();

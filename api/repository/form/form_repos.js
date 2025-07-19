@@ -1,6 +1,6 @@
-import _ from 'lodash';
-import validator from 'validator';
-import { Form, FormItem, Attachment } from '../../models';
+const _ = require('lodash');
+const validator = require('validator');
+const { Form, FormItem, Attachment } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -411,4 +411,4 @@ class FormRepos {
   }
 }
 
-export default FormRepos.getInstance();
+module.exports = FormRepos.getInstance();

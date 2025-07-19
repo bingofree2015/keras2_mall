@@ -3,11 +3,11 @@
     "version": "0.1.0",
     "license": "MIT",
     "scripts": {
-        "start": "nodemon bin/run",
-        "dev": "nodemon bin/run",
+        "start": "node server.js",
+        "dev": "nodemon server.js",
         "start:check": "./scripts/start-dev.sh",
         "prettier": "prettier --write './**/*.js'",
-        "pm2": "pm2 start bin/run --name 优惠券商城-api",
+        "pm2": "pm2 start server.js --name 优惠券商城-api",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix"
     },
@@ -61,8 +61,7 @@
         "memeye": "^1.0.3",
         "nodemon": "^3.1.0",
         "prettier": "^3.2.5",
-        "run-sequence": "^2.2.1",
-        "runkoa": "^1.5.9"
+        "run-sequence": "^2.2.1"
     },
     "engines": {
         "node": ">=16.0.0"

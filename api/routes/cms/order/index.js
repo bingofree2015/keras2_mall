@@ -1,14 +1,14 @@
 /**
  * 会员等级 */
-import _ from 'lodash';
-import Router from '@koa/router';
+const _ = require('lodash');
+const Router = require('@koa/router');
 
-import orderRepo from '../../../repository/order/order_repos';
+const orderRepo = require('../../../repository/order/order_repos');
 
-import billDeliveryRouter from './bill_delivery';
-import billLadingRouter from './bill_lading';
-import billAfterSaleRouter from './bill_after_sale';
-import billReshipRouter from './bill_reship';
+const billDeliveryRouter = require('./bill_delivery');
+const billLadingRouter = require('./bill_lading');
+const billAfterSaleRouter = require('./bill_after_sale');
+const billReshipRouter = require('./bill_reship');
 
 const router = Router({ prefix: '/order' });
 

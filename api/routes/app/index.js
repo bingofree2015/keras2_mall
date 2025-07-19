@@ -1,10 +1,10 @@
 /**
  * Created by bingofree.
  */
-import _ from 'lodash';
-import Router from '@koa/router';
-import { upload } from '../../utils/uploader';
-import settingRepos from '../../repository/preference/setting_repos';
+const _ = require('lodash');
+const Router = require('@koa/router');
+const { upload } = require('../../utils/uploader');
+const settingRepos = require('../../repository/preference/setting_repos');
 
 const router = Router({ prefix: '/app' });
 

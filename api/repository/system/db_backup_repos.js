@@ -1,4 +1,4 @@
-import { DbBackup } from '../../models';
+const { DbBackup } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -260,4 +260,4 @@ class DbBackupRepos {
   }
 }
 
-export default DbBackupRepos.getInstance();
+module.exports = DbBackupRepos.getInstance();

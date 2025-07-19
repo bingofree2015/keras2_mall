@@ -1,4 +1,4 @@
-import { OperationLog, SysUser } from '../../models';
+const { OperationLog, SysUser } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -208,4 +208,4 @@ class OperationLogRepos {
   }
 }
 
-export default OperationLogRepos.getInstance();
+module.exports = OperationLogRepos.getInstance();

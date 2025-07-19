@@ -1,4 +1,4 @@
-import { BillLading, Store } from '../../models';
+const { BillLading, Store } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 /**
@@ -292,4 +292,4 @@ class BillLadingRepos {
   }
 }
 
-export default BillLadingRepos.getInstance();
+module.exports = BillLadingRepos.getInstance();

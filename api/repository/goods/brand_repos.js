@@ -1,4 +1,4 @@
-import { Brand, Attachment } from '../../models';
+const { Brand, Attachment } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -277,4 +277,4 @@ class BrandRepos {
   }
 }
 
-export default BrandRepos.getInstance();
+module.exports = BrandRepos.getInstance();

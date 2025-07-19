@@ -1,4 +1,4 @@
-import { MessageCenter } from '../../models';
+const { MessageCenter } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -268,4 +268,4 @@ class MessageCenterRepos {
   }
 }
 
-export default MessageCenterRepos.getInstance();
+module.exports = MessageCenterRepos.getInstance();

@@ -1,11 +1,11 @@
 /**
  * 管理员权限管理 */
-import Router from '@koa/router';
-import { omit } from 'lodash';
-import { JWT } from 'config';
-import { sign } from 'jsonwebtoken';
+const Router = require('@koa/router');
+const { omit } = require('lodash');
+const { JWT } = require('config');
+const { sign } = require('jsonwebtoken');
 
-import {
+const {
   login,
   resetPwd,
   update,
@@ -14,11 +14,11 @@ import {
   get,
   list,
   getPermits,
-} from '../../../repository/permission/sys_user_repos';
+} = require('../../../repository/permission/sys_user_repos');
 
-import roleRouter from './role';
-import menuRouter from './menu';
-import roleMenuRouter from './role_menu';
+const roleRouter = require('./role');
+const menuRouter = require('./menu');
+const roleMenuRouter = require('./role_menu');
 
 const router = Router({ prefix: '/permission' });
 

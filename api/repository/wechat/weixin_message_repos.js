@@ -1,4 +1,4 @@
-import { WeixinMessage } from '../../models';
+const { WeixinMessage } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -265,4 +265,4 @@ class WeixinMessageRepos {
   }
 }
 
-export default WeixinMessageRepos.getInstance();
+module.exports = WeixinMessageRepos.getInstance();

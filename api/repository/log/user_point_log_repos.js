@@ -1,4 +1,4 @@
-import { UserPointLog, User } from '../../models';
+const { UserPointLog, User } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -257,4 +257,4 @@ class UserPointLogRepos {
   }
 }
 
-export default UserPointLogRepos.getInstance();
+module.exports = UserPointLogRepos.getInstance();

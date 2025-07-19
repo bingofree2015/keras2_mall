@@ -1,13 +1,13 @@
 /**
  * 管理员权限管理 */
-import _ from 'lodash';
-import Router from '@koa/router';
+const _ = require('lodash');
+const Router = require('@koa/router');
 
-import paymentRepo from '../../../repository/pay/payment_repos';
-import balanceRouter from './balance';
-import billPaymentRouter from './bill_payment';
-import billRefundRouter from './bill_refund';
-import userToCashRouter from './user_to_cash';
+const paymentRepo = require('../../../repository/pay/payment_repos');
+const balanceRouter = require('./balance');
+const billPaymentRouter = require('./bill_payment');
+const billRefundRouter = require('./bill_refund');
+const userToCashRouter = require('./user_to_cash');
 
 const router = Router({ prefix: '/pay' });
 

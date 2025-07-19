@@ -1,4 +1,4 @@
-import { Task } from '../../models';
+const { Task } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -255,4 +255,4 @@ class TaskRepos {
   }
 }
 
-export default TaskRepos.getInstance();
+module.exports = TaskRepos.getInstance();

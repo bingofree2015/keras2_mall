@@ -1,9 +1,9 @@
-import _ from 'lodash';
-import moment from 'moment';
-import validator from 'validator';
-import {
+const _ = require('lodash');
+const moment = require('moment');
+const validator = require('validator');
+const {
   sequelize, Attachment, Goods, Order, GoodsCollection, OrderItem,
-} from '../models';
+} = require('../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -599,4 +599,4 @@ class ReportRepos {
   }
 }
 
-export default ReportRepos.getInstance();
+module.exports = ReportRepos.getInstance();

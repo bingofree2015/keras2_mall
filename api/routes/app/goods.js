@@ -1,10 +1,10 @@
 /**
  * Created by bingofree.
  */
-import _ from 'lodash';
-import Router from '@koa/router';
-import goodsCatRepos from '../../repository/goods/goods_cat_repos';
-import goodsRepos from '../../repository/goods/goods_repos';
+const _ = require('lodash');
+const Router = require('@koa/router');
+const goodsCatRepos = require('../../repository/goods/goods_cat_repos');
+const goodsRepos = require('../../repository/goods/goods_repos');
 
 const router = Router({ prefix: '/goods' });
 

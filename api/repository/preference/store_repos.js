@@ -1,4 +1,4 @@
-import { Store, Attachment } from '../../models';
+const { Store, Attachment } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -284,4 +284,4 @@ class StoreRepos {
   }
 }
 
-export default StoreRepos.getInstance();
+module.exports = StoreRepos.getInstance();

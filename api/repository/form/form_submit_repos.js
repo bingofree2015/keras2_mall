@@ -1,7 +1,7 @@
-import moment from 'moment';
-import {
+const moment = require('moment');
+const {
   FormSubmit, Form, FormItem, FormSubmitDetail, User, sequelize,
-} from '../../models';
+} = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -412,4 +412,4 @@ class FormSubmitRepos {
   }
 }
 
-export default FormSubmitRepos.getInstance();
+module.exports = FormSubmitRepos.getInstance();

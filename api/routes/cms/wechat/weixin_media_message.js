@@ -1,9 +1,9 @@
 /**
  * 品牌接口 */
-import { omit } from 'lodash';
-import Router from '@koa/router';
+const { omit } = require('lodash');
+const Router = require('@koa/router');
 
-import weixinMediaMessageRepo from '../../../repository/wechat/weixin_media_message_repos';
+const weixinMediaMessageRepo = require('../../../repository/wechat/weixin_media_message_repos');
 
 const weixinMediaMessageRouter = Router({ prefix: '/weixin_media_message' });
 

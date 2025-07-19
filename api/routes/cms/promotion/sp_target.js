@@ -1,9 +1,9 @@
 /**
  * 品牌接口 */
-import _ from 'lodash';
-import Router from '@koa/router';
+const _ = require('lodash');
+const Router = require('@koa/router');
 
-import spTargetRepo from '../../../repository/promotion/sp_target_repos';
+const spTargetRepo = require('../../../repository/promotion/sp_target_repos');
 
 const spTargetRouter = Router({ prefix: '/sp_target' });
 

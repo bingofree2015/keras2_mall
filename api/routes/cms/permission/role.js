@@ -1,9 +1,9 @@
 /**
  * 管理员权限管理 */
-import { omit } from 'lodash';
-import Router from '@koa/router';
+const { omit } = require('lodash');
+const Router = require('@koa/router');
 
-import roleRepo from '../../../repository/permission/role_repos';
+const roleRepo = require('../../../repository/permission/role_repos');
 
 const roleRouter = Router({ prefix: '/role' });
 

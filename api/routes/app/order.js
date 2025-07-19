@@ -1,9 +1,9 @@
 /**
  * Created by bingofree.
  */
-import _ from 'lodash';
-import Router from '@koa/router';
-import orderRepos from '../../repository/order/order_repos';
+const _ = require('lodash');
+const Router = require('@koa/router');
+const orderRepos = require('../../repository/order/order_repos');
 
 const router = Router({ prefix: '/order' });
 

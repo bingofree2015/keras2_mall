@@ -1,9 +1,9 @@
 /**
  * 管理员权限管理 */
-import { omit } from 'lodash';
-import Router from '@koa/router';
+const { omit } = require('lodash');
+const Router = require('@koa/router');
 
-import menuRepo from '../../../repository/permission/menu_repos';
+const menuRepo = require('../../../repository/permission/menu_repos');
 
 const menuRouter = Router({ prefix: '/menu' });
 

@@ -1,4 +1,4 @@
-import { Article, ArticleType, Attachment } from '../../models';
+const { Article, ArticleType, Attachment } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -315,4 +315,4 @@ class ArticleRepos {
   }
 }
 
-export default ArticleRepos.getInstance();
+module.exports = ArticleRepos.getInstance();

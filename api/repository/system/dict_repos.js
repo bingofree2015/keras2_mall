@@ -1,4 +1,4 @@
-import { Dict } from '../../models';
+const { Dict } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -278,4 +278,4 @@ class DictRepos {
   }
 }
 
-export default DictRepos.getInstance();
+module.exports = DictRepos.getInstance();

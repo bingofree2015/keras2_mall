@@ -1,4 +1,4 @@
-import { UserToCash, User } from '../../models';
+const { UserToCash, User } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -238,4 +238,4 @@ class UserToCashRepos {
   }
 }
 
-export default UserToCashRepos.getInstance();
+module.exports = UserToCashRepos.getInstance();

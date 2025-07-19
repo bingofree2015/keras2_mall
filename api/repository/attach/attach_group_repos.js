@@ -1,4 +1,4 @@
-import { AttachGroup } from '../../models';
+const { AttachGroup } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -257,4 +257,4 @@ class AttachGroupRepos {
   }
 }
 
-export default AttachGroupRepos.getInstance();
+module.exports = AttachGroupRepos.getInstance();

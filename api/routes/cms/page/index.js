@@ -1,9 +1,9 @@
 /**
  * 管理员权限管理 */
-import _ from 'lodash';
-import Router from '@koa/router';
+const _ = require('lodash');
+const Router = require('@koa/router');
 
-import page from '../../../repository/page/page_repos';
+const page = require('../../../repository/page/page_repos');
 
 const router = Router({ prefix: '/page' });
 

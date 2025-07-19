@@ -1,5 +1,5 @@
-import _ from 'lodash';
-import { GoodsCat, Attachment, GoodsType } from '../../models';
+const _ = require('lodash');
+const { GoodsCat, Attachment, GoodsType } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -337,4 +337,4 @@ class GoodsCatRepos {
   }
 }
 
-export default GoodsCatRepos.getInstance();
+module.exports = GoodsCatRepos.getInstance();

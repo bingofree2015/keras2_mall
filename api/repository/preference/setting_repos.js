@@ -1,7 +1,7 @@
-import isJSON from 'is-json';
-import _ from 'lodash';
-import validator from 'validator';
-import { Setting } from '../../models';
+const isJSON = require('is-json');
+const _ = require('lodash');
+const validator = require('validator');
+const { Setting } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -367,4 +367,4 @@ class SettingRepos {
   }
 }
 
-export default SettingRepos.getInstance();
+module.exports = SettingRepos.getInstance();

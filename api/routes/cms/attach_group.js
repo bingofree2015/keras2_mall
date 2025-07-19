@@ -1,10 +1,10 @@
 /**
  * 会员等级 */
-import { omit } from 'lodash';
-import Router from '@koa/router';
-import {
+const { omit } = require('lodash');
+const Router = require('@koa/router');
+const {
   update, create, batchDelete, get, list,
-} from '../../repository/attach/attach_group_repos';
+} = require('../../repository/attach/attach_group_repos');
 
 const attachGroupRouter = Router({ prefix: '/attach_group' });
 

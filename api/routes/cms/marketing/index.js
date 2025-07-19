@@ -1,12 +1,12 @@
 /**
  * 管理员权限管理 */
-import Router from '@koa/router';
+const Router = require('@koa/router');
 
-import articleTypeRouter from './article_type';
-import articleRouter from './article';
-import advertPositionRouter from './advert_position';
-import advertisementRouter from './advertisement';
-import noticeRouter from './notice';
+const articleTypeRouter = require('./article_type');
+const articleRouter = require('./article');
+const advertPositionRouter = require('./advert_position');
+const advertisementRouter = require('./advertisement');
+const noticeRouter = require('./notice');
 
 const router = Router({ prefix: '/marketing' });
 

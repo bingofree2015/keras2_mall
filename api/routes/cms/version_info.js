@@ -1,9 +1,9 @@
 /**
  * 会员等级 */
-import Router from '@koa/router';
-import {
+const Router = require('@koa/router');
+const {
   create, batchDelete, update, get, list,
-} from '../../repository/version_info_repos';
+} = require('../../repository/version_info_repos');
 
 const versionInfoRouter = Router({ prefix: '/version_info' });
 

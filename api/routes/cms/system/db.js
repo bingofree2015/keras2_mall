@@ -1,12 +1,12 @@
 /**
  * 数据库备份 */
-import { unlinkSync } from 'mz/fs';
-import Router from '@koa/router';
-import { DB } from 'config';
-import moment from 'moment';
+const { unlinkSync } = require('mz/fs');
+const Router = require('@koa/router');
+const { DB } = require('config');
+const moment = require('moment');
 
-import { backup, restore } from '../../../utils/db';
-import dbBackupRepo from '../../../repository/system/db_backup_repos';
+const { backup, restore } = require('../../../utils/db');
+const dbBackupRepo = require('../../../repository/system/db_backup_repos');
 
 const dbRouter = Router({ prefix: '/db' });
 

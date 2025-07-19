@@ -1,15 +1,15 @@
 /**
  * 管理员权限管理 */
-import Router from '@koa/router';
+const Router = require('@koa/router');
 
-import settingRouter from './setting';
-import operationLogRouter from './operation_log';
-import shipRouter from './ship';
-import storeRouter from './store';
-import taskRouter from './task';
-import messageCenterRouter from './message_center';
-import areaRouter from './area';
-import logisticsRouter from './logistics';
+const settingRouter = require('./setting');
+const operationLogRouter = require('./operation_log');
+const shipRouter = require('./ship');
+const storeRouter = require('./store');
+const taskRouter = require('./task');
+const messageCenterRouter = require('./message_center');
+const areaRouter = require('./area');
+const logisticsRouter = require('./logistics');
 
 const router = Router({ prefix: '/preference' });
 

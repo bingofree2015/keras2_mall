@@ -1,9 +1,9 @@
 /**
  * 任务接口 */
-import { omit } from 'lodash';
-import Router from '@koa/router';
+const { omit } = require('lodash');
+const Router = require('@koa/router');
 
-import TaskRepo from '../../../repository/preference/task_repos';
+const TaskRepo = require('../../../repository/preference/task_repos');
 
 const taskRouter = Router({ prefix: '/task' });
 

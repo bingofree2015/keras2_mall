@@ -1,6 +1,6 @@
-import {
+const {
   BillReship, User, BillReshipItem, Logistics,
-} from '../../models';
+} = require('../../models');
 
 const logger = require('tracer').colorConsole();
 /**
@@ -402,4 +402,4 @@ class BillReshipRepos {
   }
 }
 
-export default BillReshipRepos.getInstance();
+module.exports = BillReshipRepos.getInstance();

@@ -1,9 +1,9 @@
 /**
  * 品牌接口 */
-import { omit } from 'lodash';
-import Router from '@koa/router';
+const { omit } = require('lodash');
+const Router = require('@koa/router');
 
-import userToCashRepo from '../../../repository/pay/user_to_cash_repos';
+const userToCashRepo = require('../../../repository/pay/user_to_cash_repos');
 
 const userToCashRouter = Router({ prefix: '/user_to_cash' });
 

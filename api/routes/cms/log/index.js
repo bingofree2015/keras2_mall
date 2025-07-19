@@ -1,6 +1,6 @@
 /**
  * 日志管理 */
-import Router from '@koa/router';
+const Router = require('@koa/router');
 
 const router = Router({ prefix: '/log' });
 

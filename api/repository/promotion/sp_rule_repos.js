@@ -1,4 +1,4 @@
-import { SpRule } from '../../models';
+const { SpRule } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -263,4 +263,4 @@ class SPRuleRepos {
   }
 }
 
-export default SPRuleRepos.getInstance();
+module.exports = SPRuleRepos.getInstance();

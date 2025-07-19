@@ -1,5 +1,5 @@
-import _ from 'lodash';
-import { Area } from '../../models';
+const _ = require('lodash');
+const { Area } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -365,4 +365,4 @@ class AreaRepos {
   }
 }
 
-export default AreaRepos.getInstance();
+module.exports = AreaRepos.getInstance();

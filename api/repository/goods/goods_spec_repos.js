@@ -1,4 +1,4 @@
-import { GoodsSpec, GoodsSpecValue, sequelize } from '../../models';
+const { GoodsSpec, GoodsSpecValue, sequelize } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -382,4 +382,4 @@ class GoodsSpecRepos {
   }
 }
 
-export default GoodsSpecRepos.getInstance();
+module.exports = GoodsSpecRepos.getInstance();

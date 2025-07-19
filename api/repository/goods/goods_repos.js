@@ -1,4 +1,4 @@
-import {
+const {
   Goods,
   Attachment,
   GoodsAttachment,
@@ -9,9 +9,9 @@ import {
   GoodsGrade,
   Sequelize,
   sequelize,
-} from '../../models';
-import couponUtil from '../../utils/coupon_util';
-import setting from '../preference/setting_repos';
+} = require('../../models');
+const couponUtil = require('../../utils/coupon_util');
+const setting = require('../preference/setting_repos');
 
 const logger = require('tracer').colorConsole();
 
@@ -770,4 +770,4 @@ class GoodsRepos {
   }
 }
 
-export default GoodsRepos.getInstance();
+module.exports = GoodsRepos.getInstance();

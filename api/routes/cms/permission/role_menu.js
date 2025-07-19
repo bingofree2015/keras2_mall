@@ -1,8 +1,8 @@
 /**
  * 管理员权限管理 */
-import Router from '@koa/router';
+const Router = require('@koa/router');
 
-import roleMenuRepo from '../../../repository/permission/role_menu_repos';
+const roleMenuRepo = require('../../../repository/permission/role_menu_repos');
 
 const roleMenuRouter = Router({ prefix: '/role_menu' });
 

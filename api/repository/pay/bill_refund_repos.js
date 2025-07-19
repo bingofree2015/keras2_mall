@@ -1,4 +1,4 @@
-import { BillRefund, User } from '../../models';
+const { BillRefund, User } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 /**
@@ -342,4 +342,4 @@ class BillRefundRepos {
   }
 }
 
-export default BillRefundRepos.getInstance();
+module.exports = BillRefundRepos.getInstance();

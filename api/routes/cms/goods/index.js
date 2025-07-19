@@ -1,16 +1,16 @@
 /**
  * 商品 */
-import _ from 'lodash';
-import Router from '@koa/router';
+const _ = require('lodash');
+const Router = require('@koa/router');
 
-import goodsRepos from '../../../repository/goods/goods_repos';
+const goodsRepos = require('../../../repository/goods/goods_repos');
 
-import brandRouter from './brand';
-import goodsCatRouter from './goods_cat';
-import goodsSpecRouter from './goods_spec';
-import goodsParamRouter from './goods_param';
-import goodsTypeRouter from './goods_type';
-import goodsCommentRouter from './goods_comment';
+const brandRouter = require('./brand');
+const goodsCatRouter = require('./goods_cat');
+const goodsSpecRouter = require('./goods_spec');
+const goodsParamRouter = require('./goods_param');
+const goodsTypeRouter = require('./goods_type');
+const goodsCommentRouter = require('./goods_comment');
 
 const router = Router({ prefix: '/goods' });
 

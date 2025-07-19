@@ -1,12 +1,12 @@
 /**
  * 管理员权限管理 */
-import _ from 'lodash';
-import Router from '@koa/router';
+const _ = require('lodash');
+const Router = require('@koa/router');
 
-import promotion from '../../../repository/promotion/promotion_repos';
-import promotionConditionRouter from './sp_target';
-import promotionResultRouter from './sp_rule';
-import couponRouter from './coupon';
+const promotion = require('../../../repository/promotion/promotion_repos');
+const promotionConditionRouter = require('./sp_target');
+const promotionResultRouter = require('./sp_rule');
+const couponRouter = require('./coupon');
 
 const router = Router({ prefix: '/promotion' });
 

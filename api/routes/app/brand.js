@@ -1,10 +1,10 @@
 /**
  * Created by bingofree.
  */
-import _ from 'lodash';
-import Router from '@koa/router';
-import advertPositionRepos from '../../repository/advert/advert_position_repos';
-import advertisementRepos from '../../repository/advert/advertisement_repos';
+const _ = require('lodash');
+const Router = require('@koa/router');
+const advertPositionRepos = require('../../repository/advert/advert_position_repos');
+const advertisementRepos = require('../../repository/advert/advertisement_repos');
 
 const router = Router({ prefix: '/brand' });
 

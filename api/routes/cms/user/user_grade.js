@@ -1,9 +1,9 @@
 /**
  * 品牌接口 */
-import { omit } from 'lodash';
-import Router from '@koa/router';
+const { omit } = require('lodash');
+const Router = require('@koa/router');
 
-import userGradeRepo from '../../../repository/user/user_grade_repos';
+const userGradeRepo = require('../../../repository/user/user_grade_repos');
 
 const userGradeRouter = Router({ prefix: '/user_grade' });
 

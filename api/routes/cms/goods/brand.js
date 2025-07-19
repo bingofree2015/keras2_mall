@@ -1,9 +1,9 @@
 /**
  * 品牌接口 */
-import { omit } from 'lodash';
-import Router from '@koa/router';
+const { omit } = require('lodash');
+const Router = require('@koa/router');
 
-import brandRepo from '../../../repository/goods/brand_repos';
+const brandRepo = require('../../../repository/goods/brand_repos');
 
 const brandRouter = Router({ prefix: '/brand' });
 

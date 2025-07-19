@@ -1,9 +1,9 @@
 /**
  * 会员等级 */
-import Router from '@koa/router';
+const Router = require('@koa/router');
 
-import weixinMessageRouter from './weixin_message';
-import weixinMediaMessageRouter from './weixin_media_message';
+const weixinMessageRouter = require('./weixin_message');
+const weixinMediaMessageRouter = require('./weixin_media_message');
 
 const router = Router({ prefix: '/wechat' });
 

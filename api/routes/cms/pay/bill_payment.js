@@ -1,9 +1,9 @@
 /**
  * 品牌接口 */
-import { omit } from 'lodash';
-import Router from '@koa/router';
+const { omit } = require('lodash');
+const Router = require('@koa/router');
 
-import billPaymentRepo from '../../../repository/pay/bill_payment_repos';
+const billPaymentRepo = require('../../../repository/pay/bill_payment_repos');
 
 const billPaymentRouter = Router({ prefix: '/bill_payment' });
 

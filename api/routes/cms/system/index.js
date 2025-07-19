@@ -1,10 +1,10 @@
 /**
  * 管理员权限管理 */
-import Router from '@koa/router';
+const Router = require('@koa/router');
 
-import dictRouter from './dict';
-import logRouter from './log';
-import dbRouter from './db';
+const dictRouter = require('./dict');
+const logRouter = require('./log');
+const dbRouter = require('./db');
 
 const router = Router({ prefix: '/system' });
 

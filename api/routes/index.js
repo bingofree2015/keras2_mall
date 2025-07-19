@@ -1,17 +1,17 @@
 /**
  * Created by bingofree.
  */
-import Router from '@koa/router';
-import { JWT } from 'config';
-import { join } from 'path';
-import { getType } from 'mime';
-import { exists, readFile, readFileSync } from 'mz/fs';
-import { parse } from 'papaparse';
-import { sign } from 'jsonwebtoken';
-import { create } from 'svg-captcha';
+const Router = require('@koa/router');
+const { JWT } = require('config');
+const { join } = require('path');
+const { getType } = require('mime');
+const { exists, readFile, readFileSync } = require('mz/fs');
+const { parse } = require('papaparse');
+const { sign } = require('jsonwebtoken');
+const { create } = require('svg-captcha');
 
-import { upload } from '../utils/uploader';
-import { getLastVersionInfo } from '../repository/version_info_repos';
+const { upload } = require('../utils/uploader');
+const { getLastVersionInfo } = require('../repository/version_info_repos');
 
 const SERVER_UPLOAD_DIR = join(process.cwd(), '/upload/');
 const logger = require('tracer').colorConsole();
@@ -170,4 +170,4 @@ router.get('/captcha', async (ctx) => {
   ctx.body = _captcha.data;
 });
 
-export default router;
+module.exports = router;

@@ -1,31 +1,31 @@
 /**
  * Created by bingofree.
  */
-import Router from '@koa/router';
-import orderRepo from '../../repository/order/order_repos';
-import { getCount } from '../../repository/order/bill_after_sale_repos';
-import { getStatistics } from '../../repository/goods/goods_repos';
-import { upload } from '../../utils/uploader';
-import systemRouter from './system';
-import logRouter from './log';
-import permissionRouter from './permission';
-import preferenceRouter from './preference';
-import versionInfoRouter from './version_info';
-import attachGroupRouter from './attach_group';
-import attachmentRouter from './attachment';
-import goodsRouter from './goods';
-import userRouter from './user';
-import orderRouter from './order';
-import payRouter from './pay';
-import marketingRouter from './marketing';
-import promotionRouter from './promotion';
-import reportRouter from './report';
+const Router = require('@koa/router');
+const orderRepo = require('../../repository/order/order_repos');
+const { getCount } = require('../../repository/order/bill_after_sale_repos');
+const { getStatistics } = require('../../repository/goods/goods_repos');
+const { upload } = require('../../utils/uploader');
+const systemRouter = require('./system');
+const logRouter = require('./log');
+const permissionRouter = require('./permission');
+const preferenceRouter = require('./preference');
+const versionInfoRouter = require('./version_info');
+const attachGroupRouter = require('./attach_group');
+const attachmentRouter = require('./attachment');
+const goodsRouter = require('./goods');
+const userRouter = require('./user');
+const orderRouter = require('./order');
+const payRouter = require('./pay');
+const marketingRouter = require('./marketing');
+const promotionRouter = require('./promotion');
+const reportRouter = require('./report');
 
-import wechatRouter from './wechat';
-import form from './form';
-import page from './page';
+const wechatRouter = require('./wechat');
+const form = require('./form');
+const page = require('./page');
 
-import mapAlias from '../../config/map_alias';
+const mapAlias = require('../../config/map_alias');
 
 const router = Router({ prefix: '/cms' });
 router.use(systemRouter.routes());

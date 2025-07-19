@@ -1,9 +1,9 @@
 /**
  * Created by bingofree.
  */
-import _ from 'lodash';
-import Router from '@koa/router';
-import cartRepos from '../../repository/order/cart_repos';
+const _ = require('lodash');
+const Router = require('@koa/router');
+const cartRepos = require('../../repository/order/cart_repos');
 
 const router = Router({ prefix: '/cart' });
 

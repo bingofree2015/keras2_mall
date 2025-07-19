@@ -1,4 +1,4 @@
-import { Notice } from '../../models';
+const { Notice } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -263,4 +263,4 @@ class NoticeRepos {
   }
 }
 
-export default NoticeRepos.getInstance();
+module.exports = NoticeRepos.getInstance();

@@ -1,6 +1,6 @@
-import {
+const {
   BillDelivery, BillDeliveryItem, User, Logistics, OrderItem,
-} from '../../models';
+} = require('../../models');
 
 const logger = require('tracer').colorConsole();
 /**
@@ -342,4 +342,4 @@ class BillDeliveryRepos {
   }
 }
 
-export default BillDeliveryRepos.getInstance();
+module.exports = BillDeliveryRepos.getInstance();

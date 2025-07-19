@@ -1,8 +1,8 @@
 /**
  * 管理员权限管理 */
-import Router from '@koa/router';
+const Router = require('@koa/router');
 
-import report from '../../../repository/report_repos';
+const report = require('../../../repository/report_repos');
 
 const router = Router({ prefix: '/report' });
 

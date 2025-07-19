@@ -1,4 +1,4 @@
-import { GoodsParam, Attachment } from '../../models';
+const { GoodsParam, Attachment } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -258,4 +258,4 @@ class GoodsParamRepos {
   }
 }
 
-export default GoodsParamRepos.getInstance();
+module.exports = GoodsParamRepos.getInstance();

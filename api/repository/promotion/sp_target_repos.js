@@ -1,4 +1,4 @@
-import { SpTarget } from '../../models';
+const { SpTarget } = require('../../models');
 
 const logger = require('tracer').colorConsole();
 
@@ -266,4 +266,4 @@ class SPTargetRepos {
   }
 }
 
-export default SPTargetRepos.getInstance();
+module.exports = SPTargetRepos.getInstance();

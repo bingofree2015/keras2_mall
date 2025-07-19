@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+
+/**
+ * Created by bingofree.
+ */
+ 
+const logger = require('tracer').colorConsole()
+const app_path = process.cwd()
+require('runkoa')(app_path + '/bin/www')
+
+process.on('uncaughtException', (err) => {
+    //打印出错误
+    logger.error('--uncaughtException--')
+    logger.error(err)
+    //打印出错误的调用栈方便调试
+    logger.error(err.stack)
+})
+
+process.on('unhandledRejection', (reason, p) => {
+    logger.error('--unhandledRejection--')
+    logger.error("Unhandled Rejection at: Promise ", p, " reason: ", reason.stack)
+    // application specific logging, throwing an error, or other logic here
+})

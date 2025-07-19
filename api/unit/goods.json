@@ -1,0 +1,375 @@
+{
+    "id": 4,
+    "bn": "zhanlang_007",
+    "name": "这是一件狼衣",
+    "brief": "好彣",
+    "price": "0.00",
+    "costPrice": "0.00",
+    "mktPrice": "0.00",
+    "attachmentId": 166,
+    "attachment": {
+        "id": 166,
+        "path": "attachment/image/f67221cgf3i.png"
+    },
+    "goodsAttachments": [
+        {
+            "createdAt": "2019-09-15 17:15:32",
+            "updatedAt": "2019-09-15 17:15:32",
+            "id": 166,
+            "attachGroupId": 1,
+            "name": "f67221cgf3i.png",
+            "path": "attachment/image/f67221cgf3i.png",
+            "type": "image",
+            "size": "865"
+        },
+        {
+            "createdAt": "2019-09-15 17:15:46",
+            "updatedAt": "2019-09-15 17:15:46",
+            "id": 167,
+            "attachGroupId": 1,
+            "name": "f67222173cj.png",
+            "path": "attachment/image/f67222173cj.png",
+            "type": "image",
+            "size": "791"
+        },
+        {
+            "createdAt": "2019-09-15 17:15:58",
+            "updatedAt": "2019-09-23 08:30:32",
+            "id": 168,
+            "attachGroupId": 1,
+            "name": "f69dch59d66.png",
+            "path": "attachment/image/f69dch59d66.png",
+            "type": "image",
+            "size": "252"
+        }
+    ],
+    "goodsCatId": 0,
+    "goodsTypeId": 2,
+    "goodsType": {
+        "id": 2,
+        "name": "手机",
+        "specs": [
+            {
+                "id": 12,
+                "name": "颜色",
+                "sort": 1,
+                "goodsSpecValues": [
+                    {
+                        "id": 30,
+                        "value": "玫瑰金",
+                        "sort": 0,
+                        "checked": true
+                    },
+                    {
+                        "id": 29,
+                        "value": "白",
+                        "sort": 0,
+                        "checked": true
+                    },
+                    {
+                        "id": 28,
+                        "value": "银",
+                        "sort": 0
+                    }
+                ],
+                "values": [
+                    {
+                        "id": 30,
+                        "value": "玫瑰金",
+                        "sort": 0,
+                        "checked": true
+                    },
+                    {
+                        "id": 29,
+                        "value": "白",
+                        "sort": 0,
+                        "checked": true
+                    },
+                    {
+                        "id": 28,
+                        "value": "银",
+                        "sort": 0,
+                        "checked": true
+                    }
+                ]
+            },
+            {
+                "id": 13,
+                "name": "容量",
+                "sort": 2,
+                "goodsSpecValues": [
+                    {
+                        "id": 33,
+                        "value": "128G",
+                        "sort": 0
+                    },
+                    {
+                        "id": 31,
+                        "value": "16G",
+                        "sort": 0
+                    },
+                    {
+                        "id": 32,
+                        "value": "64G",
+                        "sort": 0
+                    }
+                ],
+                "values": [
+                    {
+                        "id": 33,
+                        "value": "128G",
+                        "sort": 0,
+                        "checked": true
+                    },
+                    {
+                        "id": 31,
+                        "value": "16G",
+                        "sort": 0,
+                        "checked": true
+                    },
+                    {
+                        "id": 32,
+                        "value": "64G",
+                        "sort": 0,
+                        "checked": true
+                    }
+                ]
+            },
+            {
+                "id": 14,
+                "name": "产地",
+                "sort": 3,
+                "goodsSpecValues": [
+                    {
+                        "id": 34,
+                        "value": "中国大陆",
+                        "sort": 0
+                    },
+                    {
+                        "id": 36,
+                        "value": "新加坡",
+                        "sort": 0
+                    },
+                    {
+                        "id": 35,
+                        "value": "越南",
+                        "sort": 0
+                    }
+                ],
+                "values": [
+                    {
+                        "id": 34,
+                        "value": "中国大陆",
+                        "sort": 0
+                    },
+                    {
+                        "id": 36,
+                        "value": "新加坡",
+                        "sort": 0
+                    },
+                    {
+                        "id": 35,
+                        "value": "越南",
+                        "sort": 0
+                    }
+                ]
+            },
+            {
+                "id": 15,
+                "name": "毛重",
+                "sort": 4,
+                "goodsSpecValues": [
+                    {
+                        "id": 37,
+                        "value": "129g",
+                        "sort": 0
+                    },
+                    {
+                        "id": 38,
+                        "value": "138g",
+                        "sort": 0
+                    }
+                ],
+                "values": [
+                    {
+                        "id": 37,
+                        "value": "129g",
+                        "sort": 0
+                    },
+                    {
+                        "id": 38,
+                        "value": "138g",
+                        "sort": 0
+                    }
+                ]
+            }
+        ],
+        "params": [
+            {
+                "id": 4,
+                "name": "材质",
+                "type": "radio",
+                "values": "金属"
+            }
+        ]
+    },
+    "openSpec": true,
+    "products": [
+        {
+            "id": 1,
+            "isDefault": true,
+            "attachment": {
+                "id": 0,
+                "path": ""
+            },
+            "sn": "",
+            "specsJson": "容量:128G,颜色:玫瑰金",
+            "stock": 0,
+            "price": 0,
+            "costPrice": 0,
+            "mktPrice": 0
+        },
+        {
+            "id": 2,
+            "isDefault": false,
+            "attachment": {
+                "id": 0,
+                "path": ""
+            },
+            "sn": "",
+            "specsJson": "容量:128G,颜色:白",
+            "stock": 0,
+            "price": 0,
+            "costPrice": 0,
+            "mktPrice": 0
+        },
+        {
+            "id": 3,
+            "isDefault": false,
+            "attachment": {
+                "id": 0,
+                "path": ""
+            },
+            "sn": "",
+            "specsJson": "容量:128G,颜色:银",
+            "stock": 0,
+            "price": 0,
+            "costPrice": 0,
+            "mktPrice": 0
+        },
+        {
+            "id": 4,
+            "isDefault": false,
+            "attachment": {
+                "id": 0,
+                "path": ""
+            },
+            "sn": "",
+            "specsJson": "容量:16G,颜色:玫瑰金",
+            "stock": 0,
+            "price": 0,
+            "costPrice": 0,
+            "mktPrice": 0
+        },
+        {
+            "id": 5,
+            "isDefault": false,
+            "attachment": {
+                "id": 0,
+                "path": ""
+            },
+            "sn": "",
+            "specsJson": "容量:16G,颜色:白",
+            "stock": 0,
+            "price": 0,
+            "costPrice": 0,
+            "mktPrice": 0
+        },
+        {
+            "id": 6,
+            "isDefault": false,
+            "attachment": {
+                "id": 0,
+                "path": ""
+            },
+            "sn": "",
+            "specsJson": "容量:16G,颜色:银",
+            "stock": 0,
+            "price": 0,
+            "costPrice": 0,
+            "mktPrice": 0
+        },
+        {
+            "id": 7,
+            "isDefault": false,
+            "attachment": {
+                "id": 0,
+                "path": ""
+            },
+            "sn": "",
+            "specsJson": "容量:64G,颜色:玫瑰金",
+            "stock": 0,
+            "price": 0,
+            "costPrice": 0,
+            "mktPrice": 0
+        },
+        {
+            "id": 8,
+            "isDefault": false,
+            "attachment": {
+                "id": 0,
+                "path": ""
+            },
+            "sn": "",
+            "specsJson": "容量:64G,颜色:白",
+            "stock": 0,
+            "price": 0,
+            "costPrice": 0,
+            "mktPrice": 0
+        },
+        {
+            "id": 9,
+            "isDefault": false,
+            "attachment": {
+                "id": 0,
+                "path": ""
+            },
+            "sn": "",
+            "specsJson": "容量:64G,颜色:银",
+            "stock": 0,
+            "price": 0,
+            "costPrice": 0,
+            "mktPrice": 0
+        }
+    ],
+    "defaultProduct": 1,
+    "brandId": 2,
+    "isNomalVirtual": 1,
+    "marketable": 1,
+    "stock": 0,
+    "freezeStock": 0,
+    "weight": "0.00",
+    "unit": "",
+    "intro": "<p><img style=\"max-width: 380px;\" src=\"http://127.0.0.1:8080/upload/attachment/image/f67221cgf3i.png\" /></p>",
+    "specsJson": "",
+    "paramsJson": "",
+    "commentCount": 0,
+    "viewCount": 0,
+    "buyCount": 0,
+    "upTime": 0,
+    "downTime": 0,
+    "sort": 0,
+    "isRecommend": true,
+    "isHot": true,
+    "labelIds": "",
+    "newSpec": "",
+    "gradePrice": {},
+    "createdAt": "2019-09-25 16:06:04",
+    "updatedAt": "2019-09-25 16:38:03",
+    "goodsCat": null,
+    "brand": {
+        "id": 2,
+        "name": "依嬅莎"
+    },
+    "goodsGrades": []
+}

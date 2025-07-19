@@ -1,0 +1,2124 @@
+[
+    {
+        "type": "search",
+        "value": {
+            "keywords": "请输入关键字搜索",
+            "style": "round"
+        },
+        "key": "search_1566447053143_117174"
+    },
+    {
+        "type": "imgSlide",
+        "value": {
+            "duration": 2500,
+            "list": [
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "",
+                    "linkValue": ""
+                },
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "",
+                    "linkValue": ""
+                }
+            ]
+        },
+        "key": "imgSlide_1566447053143_388883"
+    },
+    {
+        "type": "notice",
+        "value": {
+            "type": "auto",
+            "list": [
+                {
+                    "id": 1,
+                    "title": "TESG",
+                    "ctime": 1565773880
+                }
+            ]
+        },
+        "key": "notice_1566447053143_935251"
+    },
+    {
+        "type": "navBar",
+        "value": {
+            "limit": 4,
+            "list": [
+                {
+                    "image": "/static/images/empty.png",
+                    "text": "按钮1",
+                    "linkType": "",
+                    "linkValue": ""
+                },
+                {
+                    "image": "/static/images/empty.png",
+                    "text": "按钮2",
+                    "linkType": "",
+                    "linkValue": ""
+                },
+                {
+                    "image": "/static/images/empty.png",
+                    "text": "按钮3",
+                    "linkType": "",
+                    "linkValue": ""
+                },
+                {
+                    "image": "/static/images/empty.png",
+                    "text": "按钮4",
+                    "linkType": "",
+                    "linkValue": ""
+                }
+            ]
+        },
+        "key": "navBar_1566447053143_586620"
+    },
+    {
+        "type": "goods",
+        "value": {
+            "title": "热门商品",
+            "lookMore": "true",
+            "type": "auto",
+            "classifyId": "",
+            "brandId": "",
+            "limit": 10,
+            "display": "list",
+            "column": 2,
+            "list": [
+                {
+                    "id": 1,
+                    "name": "DKCHENPIN2018秋新款天丝中长款修身风衣外套女",
+                    "bn": "118336505",
+                    "brief": "可调节袖 系带收腰设",
+                    "price": "450.00",
+                    "mktprice": "600.00",
+                    "image_id": "b419e4164d5726d057b2ae195f9a96df",
+                    "goods_cat_id": 18,
+                    "goods_type_id": 1,
+                    "brand_id": 14,
+                    "is_nomal_virtual": 1,
+                    "marketable": 1,
+                    "stock": 2796,
+                    "weight": "400.00",
+                    "unit": "件",
+                    "spes_desc": {
+                        "颜色": [
+                            "红色",
+                            "白色",
+                            "绿色",
+                            "蓝色"
+                        ],
+                        "规格": [
+                            "规格1",
+                            "规格2",
+                            "规格3",
+                            "规格4"
+                        ]
+                    },
+                    "params": "a:1:{s:6:\"材质\";s:6:\"化纤\";}",
+                    "comments_count": 0,
+                    "view_count": 0,
+                    "buy_count": 2,
+                    "sort": 100,
+                    "is_recommend": 1,
+                    "is_hot": 1,
+                    "label_ids": [],
+                    "brand_name": "DKCHENPIN",
+                    "cat_name": "风衣",
+                    "image_url": "http://b2c.jihainet.com/static/uploads/b7/03/ed/5ba9e78922087.jpg",
+                    "product": {
+                        "id": 1,
+                        "goods_id": 1,
+                        "barcode": null,
+                        "sn": "P5378659179491",
+                        "price": "450.00",
+                        "mktprice": "600.00",
+                        "marketable": 1,
+                        "stock": 195,
+                        "spes_desc": "颜色:红色,规格:规格1",
+                        "is_defalut": 1,
+                        "image_id": "",
+                        "isdel": null,
+                        "name": "DKCHENPIN2018秋新款天丝中长款修身风衣外套女",
+                        "bn": "118336505",
+                        "image_path": "http://b2c.jihainet.com/static/uploads/b7/03/ed/5ba9e78922087.jpg",
+                        "total_stock": 198,
+                        "grade_price": [],
+                        "grade_info": {
+                            "id": ""
+                        },
+                        "default_spes_desc": {
+                            "颜色": {
+                                "红色": {
+                                    "name": "红色",
+                                    "is_default": true
+                                },
+                                "白色": {
+                                    "name": "白色",
+                                    "product_id": 2
+                                },
+                                "绿色": {
+                                    "name": "绿色",
+                                    "product_id": 22
+                                },
+                                "蓝色": {
+                                    "name": "蓝色",
+                                    "product_id": 3
+                                }
+                            },
+                            "规格": {
+                                "规格1": {
+                                    "name": "规格1",
+                                    "is_default": true
+                                },
+                                "规格2": {
+                                    "name": "规格2",
+                                    "product_id": 22
+                                },
+                                "规格3": {
+                                    "name": "规格3",
+                                    "product_id": 7
+                                },
+                                "规格4": {
+                                    "name": "规格4",
+                                    "product_id": 11
+                                }
+                            }
+                        },
+                        "amount": "450.00",
+                        "promotion_list": {
+                            "6": {
+                                "name": "test",
+                                "type": 1
+                            }
+                        },
+                        "promotion_amount": 0
+                    },
+                    "album": [
+                        "http://b2c.jihainet.com/static/uploads/b7/03/ed/5ba9e78922087.jpg",
+                        "http://b2c.jihainet.com/static/uploads/5b/ff/67/5ba9e78294c5a.jpg",
+                        "http://b2c.jihainet.com/static/uploads/9f/81/10/5ba9e786c45eb.jpg",
+                        "http://b2c.jihainet.com/static/uploads/df/6d/df/5ba9e78ac77d0.jpg",
+                        "http://b2c.jihainet.com/static/uploads/e9/bc/30/5ba9e786e2f66.jpg"
+                    ],
+                    "isfav": "false"
+                },
+                {
+                    "id": 2,
+                    "name": "七匹狼羽绒服男短款2018冬季新款男士中年休闲爸爸装男装潮流外套",
+                    "bn": "5446546546",
+                    "brief": "8周年店庆，22号10点到11点 全场商品3件6折",
+                    "price": "600.00",
+                    "mktprice": "590.00",
+                    "image_id": "6ee0f5a5ac6c53418852ee6cc78aeb48",
+                    "goods_cat_id": 10,
+                    "goods_type_id": 1,
+                    "brand_id": 11,
+                    "is_nomal_virtual": 1,
+                    "marketable": 1,
+                    "stock": 679,
+                    "weight": "0.00",
+                    "unit": "件",
+                    "spes_desc": {
+                        "颜色": {
+                            "1": "白色",
+                            "3": "蓝色",
+                            "4": "紫色"
+                        },
+                        "规格": [
+                            "规格1",
+                            "规格2"
+                        ]
+                    },
+                    "params": "",
+                    "comments_count": 0,
+                    "view_count": 0,
+                    "buy_count": 1,
+                    "sort": 100,
+                    "is_recommend": 1,
+                    "is_hot": 1,
+                    "label_ids": [],
+                    "brand_name": "千仞岗",
+                    "cat_name": "毛呢外套",
+                    "image_url": "https://b2c.jihainet.com/static/uploads/8c/f8/53/5bc9a3b2916a4.jpg",
+                    "product": {
+                        "id": 23,
+                        "goods_id": 2,
+                        "barcode": null,
+                        "sn": "-1",
+                        "price": "600.00",
+                        "mktprice": "590.00",
+                        "marketable": 1,
+                        "stock": 97,
+                        "spes_desc": "颜色:白色,规格:规格1",
+                        "is_defalut": 1,
+                        "image_id": "",
+                        "isdel": null,
+                        "name": "七匹狼羽绒服男短款2018冬季新款男士中年休闲爸爸装男装潮流外套",
+                        "bn": "5446546546",
+                        "image_path": "https://b2c.jihainet.com/static/uploads/8c/f8/53/5bc9a3b2916a4.jpg",
+                        "total_stock": 97,
+                        "grade_price": [],
+                        "grade_info": {
+                            "id": ""
+                        },
+                        "default_spes_desc": {
+                            "颜色": {
+                                "白色": {
+                                    "name": "白色",
+                                    "is_default": true
+                                },
+                                "蓝色": {
+                                    "name": "蓝色",
+                                    "product_id": 24
+                                },
+                                "紫色": {
+                                    "name": "紫色",
+                                    "product_id": 25
+                                }
+                            },
+                            "规格": {
+                                "规格1": {
+                                    "name": "规格1",
+                                    "is_default": true
+                                },
+                                "规格2": {
+                                    "name": "规格2",
+                                    "product_id": 26
+                                }
+                            }
+                        },
+                        "amount": "600.00",
+                        "promotion_list": {
+                            "6": {
+                                "name": "test",
+                                "type": 1
+                            }
+                        },
+                        "promotion_amount": 0
+                    },
+                    "album": [
+                        "https://b2c.jihainet.com/static/uploads/8c/f8/53/5bc9a3b2916a4.jpg"
+                    ],
+                    "isfav": "false"
+                },
+                {
+                    "id": 4,
+                    "name": "芙娜妮2018秋冬吊带连衣裙女两件套条纹针织打底衫背带PU皮裙套装",
+                    "bn": "78678657865",
+                    "brief": "品牌: 芙娜妮适用年龄: 25-29周岁尺码: S M L XL图案: 条纹风格: 街头街头: 欧美领型: 圆领腰型: 中腰衣门襟: 套头颜色分类: 红色袖型: 其他组合形式: 两件套",
+                    "price": "200.00",
+                    "mktprice": "200.00",
+                    "image_id": "fce63f9c69c6c4ec606b544fcc7610a2",
+                    "goods_cat_id": 4,
+                    "goods_type_id": 1,
+                    "brand_id": 15,
+                    "is_nomal_virtual": 1,
+                    "marketable": 1,
+                    "stock": 560,
+                    "weight": "0.00",
+                    "unit": "件",
+                    "spes_desc": {
+                        "颜色": [
+                            "红色",
+                            "白色"
+                        ],
+                        "规格": [
+                            "规格1",
+                            "规格2"
+                        ]
+                    },
+                    "params": "",
+                    "comments_count": 0,
+                    "view_count": 0,
+                    "buy_count": 1,
+                    "sort": 100,
+                    "is_recommend": 1,
+                    "is_hot": 1,
+                    "label_ids": [],
+                    "brand_name": "薇咔拉",
+                    "cat_name": "浪漫裙装",
+                    "image_url": "https://b2c.jihainet.com/static/uploads/dd/bd/35/5bc9a50154075.jpg",
+                    "product": {
+                        "id": 29,
+                        "goods_id": 4,
+                        "barcode": null,
+                        "sn": "51111",
+                        "price": "200.00",
+                        "mktprice": "200.00",
+                        "marketable": 2,
+                        "stock": 97,
+                        "spes_desc": "颜色:红色,规格:规格1",
+                        "is_defalut": 1,
+                        "image_id": "",
+                        "isdel": null,
+                        "name": "芙娜妮2018秋冬吊带连衣裙女两件套条纹针织打底衫背带PU皮裙套装",
+                        "bn": "78678657865",
+                        "image_path": "https://b2c.jihainet.com/static/uploads/dd/bd/35/5bc9a50154075.jpg",
+                        "total_stock": 98,
+                        "grade_price": [],
+                        "grade_info": {
+                            "id": ""
+                        },
+                        "default_spes_desc": {
+                            "颜色": {
+                                "红色": {
+                                    "name": "红色",
+                                    "is_default": true
+                                },
+                                "白色": {
+                                    "name": "白色",
+                                    "product_id": 30
+                                }
+                            },
+                            "规格": {
+                                "规格1": {
+                                    "name": "规格1",
+                                    "is_default": true
+                                },
+                                "规格2": {
+                                    "name": "规格2",
+                                    "product_id": 31
+                                }
+                            }
+                        },
+                        "amount": "200.00",
+                        "promotion_list": {
+                            "6": {
+                                "name": "test",
+                                "type": 1
+                            }
+                        },
+                        "promotion_amount": 0
+                    },
+                    "album": [
+                        "https://b2c.jihainet.com/static/uploads/dd/bd/35/5bc9a50154075.jpg",
+                        "https://b2c.jihainet.com/static/uploads/b3/16/38/5bc9a50662303.jpg",
+                        "https://b2c.jihainet.com/static/uploads/2e/1b/3b/5bc9a50900998.jpg"
+                    ],
+                    "isfav": "false"
+                },
+                {
+                    "id": 5,
+                    "name": "正品代购PINKO女包2018新款燕子包单肩斜挎压花徽章小香风链条包",
+                    "bn": "5465",
+                    "brief": "PINKO质地: 牛皮皮革材质: 头层牛皮风格: 欧美时尚成色: 全新颜色分类: 热带雨林 黑色勋章 白色勋章 编织小香风 黑色压花 红色压花 黑色镶钻眼 黑色单排 红色单排 白色涂鸦 黑色涂鸦 粉黑涂鸦 黄黑涂鸦 黑色字母可乐 白色字母鳄鱼纹 红色字母 黑色枪排 红色love 白色珍珠 黑色珍珠 黑色镶钻双排 粉色镶钻双排 其他颜色拍下备注颜色有无夹层: 有背包方式: 单肩斜挎手提适用场景: 休闲",
+                    "price": "200.00",
+                    "mktprice": "190.00",
+                    "image_id": "3e1c30dd1125de24e5395d3cd39ef5d8",
+                    "goods_cat_id": 9,
+                    "goods_type_id": 1,
+                    "brand_id": 0,
+                    "is_nomal_virtual": 1,
+                    "marketable": 1,
+                    "stock": 200,
+                    "weight": "0.00",
+                    "unit": "件",
+                    "spes_desc": "",
+                    "params": "",
+                    "comments_count": 0,
+                    "view_count": 0,
+                    "buy_count": 0,
+                    "sort": 100,
+                    "is_recommend": 1,
+                    "is_hot": 1,
+                    "label_ids": [],
+                    "brand_name": null,
+                    "cat_name": "女包",
+                    "image_url": "https://b2c.jihainet.com/static/uploads/af/00/b7/5bc9a5b89bd9a.jpg",
+                    "product": {
+                        "id": 33,
+                        "goods_id": 5,
+                        "barcode": null,
+                        "sn": "564456",
+                        "price": "200.00",
+                        "mktprice": "190.00",
+                        "marketable": 1,
+                        "stock": 200,
+                        "spes_desc": null,
+                        "is_defalut": 1,
+                        "image_id": "",
+                        "isdel": null,
+                        "name": "正品代购PINKO女包2018新款燕子包单肩斜挎压花徽章小香风链条包",
+                        "bn": "5465",
+                        "image_path": "https://b2c.jihainet.com/static/uploads/af/00/b7/5bc9a5b89bd9a.jpg",
+                        "total_stock": 200,
+                        "grade_price": [],
+                        "grade_info": {
+                            "id": ""
+                        },
+                        "amount": "200.00",
+                        "promotion_list": {
+                            "6": {
+                                "name": "test",
+                                "type": 1
+                            }
+                        },
+                        "promotion_amount": 0
+                    },
+                    "album": [
+                        "https://b2c.jihainet.com/static/uploads/af/00/b7/5bc9a5b89bd9a.jpg",
+                        "https://b2c.jihainet.com/static/uploads/b7/9f/72/5bc9a5c440801.jpg",
+                        "https://b2c.jihainet.com/static/uploads/4c/28/57/5bc9a5c53aa6e.jpg",
+                        "https://b2c.jihainet.com/static/uploads/76/7e/81/5bc9a5c7bbc8e.jpg"
+                    ],
+                    "isfav": "false"
+                },
+                {
+                    "id": 7,
+                    "name": "太平鸟男装 夏季新品纯棉T恤男士黑色短袖潮字母印花韩版修身T恤",
+                    "bn": "",
+                    "brief": "品牌: PEACEBIRD/太平鸟货号: BWDA82170上市年份季节: 2018年夏季销售渠道类型: 纯电商(只在线上销售)厚薄: 常规面料分类: 棉毛布",
+                    "price": "99.00",
+                    "mktprice": "99.00",
+                    "image_id": "4f86bd749dddd098403fc44a1e473643",
+                    "goods_cat_id": 3,
+                    "goods_type_id": 1,
+                    "brand_id": 12,
+                    "is_nomal_virtual": 1,
+                    "marketable": 1,
+                    "stock": 1741,
+                    "weight": "0.00",
+                    "unit": "",
+                    "spes_desc": {
+                        "颜色": {
+                            "1": "白色",
+                            "5": "黑色"
+                        },
+                        "规格": [
+                            "规格1",
+                            "规格2",
+                            "规格3"
+                        ]
+                    },
+                    "params": "",
+                    "comments_count": 0,
+                    "view_count": 0,
+                    "buy_count": 2,
+                    "sort": 100,
+                    "is_recommend": 1,
+                    "is_hot": 1,
+                    "label_ids": [],
+                    "brand_name": "艾尚臣",
+                    "cat_name": "精选上衣",
+                    "image_url": "https://b2c.jihainet.com/static/uploads/0b/b2/ff/5bc9a6de5361c.jpg",
+                    "product": {
+                        "id": 34,
+                        "goods_id": 7,
+                        "barcode": null,
+                        "sn": "1111",
+                        "price": "99.00",
+                        "mktprice": "99.00",
+                        "marketable": 2,
+                        "stock": 297,
+                        "spes_desc": "颜色:白色,规格:规格1",
+                        "is_defalut": 1,
+                        "image_id": "",
+                        "isdel": null,
+                        "name": "太平鸟男装 夏季新品纯棉T恤男士黑色短袖潮字母印花韩版修身T恤",
+                        "bn": "",
+                        "image_path": "https://b2c.jihainet.com/static/uploads/0b/b2/ff/5bc9a6de5361c.jpg",
+                        "total_stock": 298,
+                        "grade_price": [],
+                        "grade_info": {
+                            "id": ""
+                        },
+                        "default_spes_desc": {
+                            "颜色": {
+                                "白色": {
+                                    "name": "白色",
+                                    "is_default": true
+                                },
+                                "黑色": {
+                                    "name": "黑色",
+                                    "product_id": 37
+                                }
+                            },
+                            "规格": {
+                                "规格1": {
+                                    "name": "规格1",
+                                    "is_default": true
+                                },
+                                "规格2": {
+                                    "name": "规格2",
+                                    "product_id": 35
+                                },
+                                "规格3": {
+                                    "name": "规格3",
+                                    "product_id": 36
+                                }
+                            }
+                        },
+                        "amount": "99.00",
+                        "promotion_list": {
+                            "6": {
+                                "name": "test",
+                                "type": 1
+                            }
+                        },
+                        "promotion_amount": 0
+                    },
+                    "album": [
+                        "https://b2c.jihainet.com/static/uploads/0b/b2/ff/5bc9a6de5361c.jpg",
+                        "https://b2c.jihainet.com/static/uploads/58/57/c8/5bc9a6de50a60.jpg",
+                        "https://b2c.jihainet.com/static/uploads/d1/d7/cb/5bc9a6dee7ebb.jpg"
+                    ],
+                    "isfav": "false"
+                },
+                {
+                    "id": 8,
+                    "name": "秋装连衣裙女2018新款七分袖职业名媛气质中长女装正式场合裙子",
+                    "bn": "",
+                    "brief": "组合形式: 单件裙长: 中长裙款式: 其他/other袖长: 七分袖领型: V领袖型: 其他腰型: 高腰衣门襟: 套头",
+                    "price": "220.00",
+                    "mktprice": "220.00",
+                    "image_id": "1575deb7e275d200f105ba941d815ab5",
+                    "goods_cat_id": 4,
+                    "goods_type_id": 1,
+                    "brand_id": 1,
+                    "is_nomal_virtual": 1,
+                    "marketable": 1,
+                    "stock": 1500,
+                    "weight": "0.00",
+                    "unit": "件",
+                    "spes_desc": {
+                        "颜色": {
+                            "0": "红色",
+                            "3": "蓝色"
+                        },
+                        "规格": [
+                            "规格1",
+                            "规格2",
+                            "规格3"
+                        ]
+                    },
+                    "params": "",
+                    "comments_count": 0,
+                    "view_count": 0,
+                    "buy_count": 0,
+                    "sort": 100,
+                    "is_recommend": 1,
+                    "is_hot": 1,
+                    "label_ids": [],
+                    "brand_name": "依嬅莎",
+                    "cat_name": "浪漫裙装",
+                    "image_url": "https://b2c.jihainet.com/static/uploads/ce/ae/8d/5bc9a81609585.jpg",
+                    "product": {
+                        "id": 40,
+                        "goods_id": 8,
+                        "barcode": null,
+                        "sn": "21111",
+                        "price": "220.00",
+                        "mktprice": "220.00",
+                        "marketable": 2,
+                        "stock": 188,
+                        "spes_desc": "颜色:红色,规格:规格1",
+                        "is_defalut": 1,
+                        "image_id": "",
+                        "isdel": null,
+                        "name": "秋装连衣裙女2018新款七分袖职业名媛气质中长女装正式场合裙子",
+                        "bn": "",
+                        "image_path": "https://b2c.jihainet.com/static/uploads/ce/ae/8d/5bc9a81609585.jpg",
+                        "total_stock": 198,
+                        "grade_price": [],
+                        "grade_info": {
+                            "id": ""
+                        },
+                        "default_spes_desc": {
+                            "颜色": {
+                                "红色": {
+                                    "name": "红色",
+                                    "is_default": true
+                                },
+                                "蓝色": {
+                                    "name": "蓝色",
+                                    "product_id": 43
+                                }
+                            },
+                            "规格": {
+                                "规格1": {
+                                    "name": "规格1",
+                                    "is_default": true
+                                },
+                                "规格2": {
+                                    "name": "规格2",
+                                    "product_id": 41
+                                },
+                                "规格3": {
+                                    "name": "规格3",
+                                    "product_id": 42
+                                }
+                            }
+                        },
+                        "amount": "220.00",
+                        "promotion_list": {
+                            "6": {
+                                "name": "test",
+                                "type": 1
+                            }
+                        },
+                        "promotion_amount": 0
+                    },
+                    "album": [
+                        "https://b2c.jihainet.com/static/uploads/ce/ae/8d/5bc9a81609585.jpg",
+                        "https://b2c.jihainet.com/static/uploads/e9/ac/a3/5bc9a8167a827.jpg",
+                        "https://b2c.jihainet.com/static/uploads/7e/18/48/5bc9a816ce21b.jpg",
+                        "https://b2c.jihainet.com/static/uploads/99/3c/3e/5bc9a817e6b9d.jpg"
+                    ],
+                    "isfav": "false"
+                },
+                {
+                    "id": 9,
+                    "name": "2018冷冬新款棉衣男士加肥加大码中长款棉服韩版潮流加厚棉袄外套",
+                    "bn": "",
+                    "brief": "品牌: 奢旺填充物: 仿丝棉货号: 之江A09--MY001基础风格: 青春流行上市年份季节: 2018年秋季厚薄: 常规材质成分: 聚酯纤维100%",
+                    "price": "300.00",
+                    "mktprice": "320.00",
+                    "image_id": "052d4af90ec88851c10982bf7fdfa763",
+                    "goods_cat_id": 3,
+                    "goods_type_id": 1,
+                    "brand_id": 0,
+                    "is_nomal_virtual": 1,
+                    "marketable": 1,
+                    "stock": 500,
+                    "weight": "0.00",
+                    "unit": "",
+                    "spes_desc": "",
+                    "params": "",
+                    "comments_count": 0,
+                    "view_count": 0,
+                    "buy_count": 0,
+                    "sort": 100,
+                    "is_recommend": 1,
+                    "is_hot": 1,
+                    "label_ids": [],
+                    "brand_name": null,
+                    "cat_name": "精选上衣",
+                    "image_url": "https://b2c.jihainet.com/static/uploads/a4/cd/ec/5bc9a989cb351.jpg",
+                    "product": {
+                        "id": 46,
+                        "goods_id": 9,
+                        "barcode": null,
+                        "sn": "23045242",
+                        "price": "300.00",
+                        "mktprice": "320.00",
+                        "marketable": 1,
+                        "stock": 499,
+                        "spes_desc": null,
+                        "is_defalut": 1,
+                        "image_id": "",
+                        "isdel": null,
+                        "name": "2018冷冬新款棉衣男士加肥加大码中长款棉服韩版潮流加厚棉袄外套",
+                        "bn": "",
+                        "image_path": "https://b2c.jihainet.com/static/uploads/a4/cd/ec/5bc9a989cb351.jpg",
+                        "total_stock": 499,
+                        "grade_price": [],
+                        "grade_info": {
+                            "id": ""
+                        },
+                        "amount": "300.00",
+                        "promotion_list": {
+                            "6": {
+                                "name": "test",
+                                "type": 1
+                            }
+                        },
+                        "promotion_amount": 0
+                    },
+                    "album": [
+                        "https://b2c.jihainet.com/static/uploads/a4/cd/ec/5bc9a989cb351.jpg",
+                        "https://b2c.jihainet.com/static/uploads/76/6d/d5/5bc9a988051b3.jpg",
+                        "https://b2c.jihainet.com/static/uploads/51/3a/27/5bc9a98957a8c.jpg",
+                        "https://b2c.jihainet.com/static/uploads/99/99/1d/5bc9a98960531.jpg"
+                    ],
+                    "isfav": "false"
+                },
+                {
+                    "id": 10,
+                    "name": "衬衫男士秋季韩版修身潮流百搭帅气休闲外套白色衬衣加绒长袖寸衫",
+                    "bn": "456546456",
+                    "brief": "品牌: 简旗货号: 22TC144基础风格: 青春流行上市年份季节: 2018年夏季厚薄: 常规材质成分: 棉100%",
+                    "price": 0,
+                    "mktprice": "69.00",
+                    "image_id": "deed2e4f1c54f87eb672ad8c444ba229",
+                    "goods_cat_id": 3,
+                    "goods_type_id": 1,
+                    "brand_id": 14,
+                    "is_nomal_virtual": 1,
+                    "marketable": 1,
+                    "stock": 1880,
+                    "weight": "0.00",
+                    "unit": "件",
+                    "spes_desc": {
+                        "颜色": {
+                            "1": "白色",
+                            "3": "蓝色",
+                            "6": "棕色"
+                        },
+                        "规格": {
+                            "1": "规格2",
+                            "2": "规格3"
+                        }
+                    },
+                    "params": "",
+                    "comments_count": 0,
+                    "view_count": 0,
+                    "buy_count": 3,
+                    "sort": 100,
+                    "is_recommend": 1,
+                    "is_hot": 1,
+                    "label_ids": [],
+                    "brand_name": "DKCHENPIN",
+                    "cat_name": "精选上衣",
+                    "image_url": "https://b2c.jihainet.com/static/uploads/0c/4b/01/5bc9ab85cc335.jpg",
+                    "product": {
+                        "id": 47,
+                        "goods_id": 10,
+                        "barcode": null,
+                        "sn": "61111",
+                        "price": 0,
+                        "mktprice": "69.00",
+                        "marketable": 2,
+                        "stock": 287,
+                        "spes_desc": "颜色:白色,规格:规格2",
+                        "is_defalut": 1,
+                        "image_id": "",
+                        "isdel": null,
+                        "name": "衬衫男士秋季韩版修身潮流百搭帅气休闲外套白色衬衣加绒长袖寸衫",
+                        "bn": "456546456",
+                        "image_path": "https://b2c.jihainet.com/static/uploads/0c/4b/01/5bc9ab85cc335.jpg",
+                        "total_stock": 288,
+                        "grade_price": [],
+                        "grade_info": {
+                            "id": ""
+                        },
+                        "default_spes_desc": {
+                            "颜色": {
+                                "白色": {
+                                    "name": "白色",
+                                    "is_default": true
+                                },
+                                "蓝色": {
+                                    "name": "蓝色",
+                                    "product_id": 48
+                                },
+                                "棕色": {
+                                    "name": "棕色",
+                                    "product_id": 49
+                                }
+                            },
+                            "规格": {
+                                "规格2": {
+                                    "name": "规格2",
+                                    "is_default": true
+                                },
+                                "规格3": {
+                                    "name": "规格3",
+                                    "product_id": 50
+                                }
+                            }
+                        },
+                        "amount": 0,
+                        "promotion_list": {
+                            "4": {
+                                "name": "",
+                                "type": 2
+                            },
+                            "6": {
+                                "name": "test",
+                                "type": 1
+                            },
+                            "7": {
+                                "name": "test",
+                                "type": 2
+                            }
+                        },
+                        "promotion_amount": 69
+                    },
+                    "album": [
+                        "https://b2c.jihainet.com/static/uploads/0c/4b/01/5bc9ab85cc335.jpg",
+                        "https://b2c.jihainet.com/static/uploads/08/d0/3a/5bc9ab837a41a.jpg",
+                        "https://b2c.jihainet.com/static/uploads/46/4e/5e/5bc9ab85b6541.jpg",
+                        "https://b2c.jihainet.com/static/uploads/83/37/8a/5bc9ab85d0414.jpg"
+                    ],
+                    "isfav": "false"
+                },
+                {
+                    "id": 11,
+                    "name": "33",
+                    "bn": "99",
+                    "brief": "999",
+                    "price": "0.00",
+                    "mktprice": "0.00",
+                    "image_id": "48d7337ff7a02c6a98e866752b1292b7",
+                    "goods_cat_id": 3,
+                    "goods_type_id": 1,
+                    "brand_id": 14,
+                    "is_nomal_virtual": 1,
+                    "marketable": 1,
+                    "stock": 0,
+                    "weight": "0.00",
+                    "unit": "",
+                    "spes_desc": "",
+                    "params": "",
+                    "comments_count": 0,
+                    "view_count": 0,
+                    "buy_count": 0,
+                    "sort": 100,
+                    "is_recommend": 2,
+                    "is_hot": 2,
+                    "label_ids": null
+                },
+                {
+                    "id": 12,
+                    "name": "依嬅莎羽绒服2019款",
+                    "bn": "00001",
+                    "brief": "好衣服，穿上才知道",
+                    "price": "2000.00",
+                    "mktprice": "10000.00",
+                    "image_id": "b68a51db26eb5c35e4f9b16f0c41d455",
+                    "goods_cat_id": 11,
+                    "goods_type_id": 1,
+                    "brand_id": 1,
+                    "is_nomal_virtual": 1,
+                    "marketable": 1,
+                    "stock": 0,
+                    "weight": "450.00",
+                    "unit": "件",
+                    "spes_desc": {
+                        "颜色": {
+                            "2": "白色",
+                            "6": "黑色"
+                        },
+                        "规格": {
+                            "20": "规格1",
+                            "21": "规格2"
+                        }
+                    },
+                    "params": "",
+                    "comments_count": 0,
+                    "view_count": 0,
+                    "buy_count": 0,
+                    "sort": 100,
+                    "is_recommend": 1,
+                    "is_hot": 1,
+                    "label_ids": [],
+                    "brand_name": "依嬅莎",
+                    "cat_name": "羽绒服",
+                    "image_url": "https://b2c.jihainet.com/static/uploads/fa/6c/24/5bcd2cd0edf0d.jpg",
+                    "product": {
+                        "id": 57,
+                        "goods_id": 12,
+                        "barcode": null,
+                        "sn": "00001-101-1",
+                        "price": "2000.00",
+                        "mktprice": "10000.00",
+                        "marketable": 2,
+                        "stock": 0,
+                        "spes_desc": "颜色:白色,规格:规格1",
+                        "is_defalut": 1,
+                        "image_id": "b68a51db26eb5c35e4f9b16f0c41d455",
+                        "isdel": null,
+                        "name": "依嬅莎羽绒服2019款",
+                        "bn": "00001",
+                        "image_path": "https://b2c.jihainet.com/static/uploads/fa/6c/24/5bcd2cd0edf0d.jpg",
+                        "total_stock": 0,
+                        "grade_price": [
+                            {
+                                "id": 1,
+                                "goods_id": 12,
+                                "grade_id": 1,
+                                "grade_price": 1950,
+                                "grade_name": "普通等级"
+                            }
+                        ],
+                        "grade_info": {
+                            "id": ""
+                        },
+                        "default_spes_desc": {
+                            "颜色": {
+                                "白色": {
+                                    "name": "白色",
+                                    "is_default": true
+                                },
+                                "黑色": {
+                                    "name": "黑色",
+                                    "product_id": 58
+                                }
+                            },
+                            "规格": {
+                                "规格1": {
+                                    "name": "规格1",
+                                    "is_default": true
+                                },
+                                "规格2": {
+                                    "name": "规格2",
+                                    "product_id": 59
+                                }
+                            }
+                        },
+                        "amount": "2000.00",
+                        "promotion_list": {
+                            "6": {
+                                "name": "test",
+                                "type": 1
+                            }
+                        },
+                        "promotion_amount": 0
+                    },
+                    "album": [
+                        "https://b2c.jihainet.com/static/uploads/fa/6c/24/5bcd2cd0edf0d.jpg",
+                        "https://b2c.jihainet.com/static/uploads/19/92/5a/5bc9a262427d4.jpg"
+                    ],
+                    "isfav": "false"
+                }
+            ]
+        },
+        "key": "goods_1566447053143_428986"
+    },
+    {
+        "type": "imgSlide",
+        "value": {
+            "duration": 2500,
+            "list": [
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "",
+                    "linkValue": ""
+                },
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "",
+                    "linkValue": ""
+                }
+            ]
+        },
+        "key": "imgSlide_1566447053143_386353"
+    },
+    {
+        "type": "goods",
+        "value": {
+            "title": "推荐商品",
+            "lookMore": "true",
+            "type": "auto",
+            "classifyId": "",
+            "brandId": "",
+            "limit": 10,
+            "display": "list",
+            "column": 2,
+            "list": [
+                {
+                    "id": 1,
+                    "name": "DKCHENPIN2018秋新款天丝中长款修身风衣外套女",
+                    "bn": "118336505",
+                    "brief": "可调节袖 系带收腰设",
+                    "price": "450.00",
+                    "mktprice": "600.00",
+                    "image_id": "b419e4164d5726d057b2ae195f9a96df",
+                    "goods_cat_id": 18,
+                    "goods_type_id": 1,
+                    "brand_id": 14,
+                    "is_nomal_virtual": 1,
+                    "marketable": 1,
+                    "stock": 2796,
+                    "weight": "400.00",
+                    "unit": "件",
+                    "spes_desc": {
+                        "颜色": [
+                            "红色",
+                            "白色",
+                            "绿色",
+                            "蓝色"
+                        ],
+                        "规格": [
+                            "规格1",
+                            "规格2",
+                            "规格3",
+                            "规格4"
+                        ]
+                    },
+                    "params": "a:1:{s:6:\"材质\";s:6:\"化纤\";}",
+                    "comments_count": 0,
+                    "view_count": 0,
+                    "buy_count": 2,
+                    "sort": 100,
+                    "is_recommend": 1,
+                    "is_hot": 1,
+                    "label_ids": [],
+                    "brand_name": "DKCHENPIN",
+                    "cat_name": "风衣",
+                    "image_url": "http://b2c.jihainet.com/static/uploads/b7/03/ed/5ba9e78922087.jpg",
+                    "product": {
+                        "id": 1,
+                        "goods_id": 1,
+                        "barcode": null,
+                        "sn": "P5378659179491",
+                        "price": "450.00",
+                        "mktprice": "600.00",
+                        "marketable": 1,
+                        "stock": 195,
+                        "spes_desc": "颜色:红色,规格:规格1",
+                        "is_defalut": 1,
+                        "image_id": "",
+                        "isdel": null,
+                        "name": "DKCHENPIN2018秋新款天丝中长款修身风衣外套女",
+                        "bn": "118336505",
+                        "image_path": "http://b2c.jihainet.com/static/uploads/b7/03/ed/5ba9e78922087.jpg",
+                        "total_stock": 198,
+                        "grade_price": [],
+                        "grade_info": {
+                            "id": ""
+                        },
+                        "default_spes_desc": {
+                            "颜色": {
+                                "红色": {
+                                    "name": "红色",
+                                    "is_default": true
+                                },
+                                "白色": {
+                                    "name": "白色",
+                                    "product_id": 2
+                                },
+                                "绿色": {
+                                    "name": "绿色",
+                                    "product_id": 22
+                                },
+                                "蓝色": {
+                                    "name": "蓝色",
+                                    "product_id": 3
+                                }
+                            },
+                            "规格": {
+                                "规格1": {
+                                    "name": "规格1",
+                                    "is_default": true
+                                },
+                                "规格2": {
+                                    "name": "规格2",
+                                    "product_id": 22
+                                },
+                                "规格3": {
+                                    "name": "规格3",
+                                    "product_id": 7
+                                },
+                                "规格4": {
+                                    "name": "规格4",
+                                    "product_id": 11
+                                }
+                            }
+                        },
+                        "amount": "450.00",
+                        "promotion_list": {
+                            "6": {
+                                "name": "test",
+                                "type": 1
+                            }
+                        },
+                        "promotion_amount": 0
+                    },
+                    "album": [
+                        "http://b2c.jihainet.com/static/uploads/b7/03/ed/5ba9e78922087.jpg",
+                        "http://b2c.jihainet.com/static/uploads/5b/ff/67/5ba9e78294c5a.jpg",
+                        "http://b2c.jihainet.com/static/uploads/9f/81/10/5ba9e786c45eb.jpg",
+                        "http://b2c.jihainet.com/static/uploads/df/6d/df/5ba9e78ac77d0.jpg",
+                        "http://b2c.jihainet.com/static/uploads/e9/bc/30/5ba9e786e2f66.jpg"
+                    ],
+                    "isfav": "false"
+                },
+                {
+                    "id": 2,
+                    "name": "七匹狼羽绒服男短款2018冬季新款男士中年休闲爸爸装男装潮流外套",
+                    "bn": "5446546546",
+                    "brief": "8周年店庆，22号10点到11点 全场商品3件6折",
+                    "price": "600.00",
+                    "mktprice": "590.00",
+                    "image_id": "6ee0f5a5ac6c53418852ee6cc78aeb48",
+                    "goods_cat_id": 10,
+                    "goods_type_id": 1,
+                    "brand_id": 11,
+                    "is_nomal_virtual": 1,
+                    "marketable": 1,
+                    "stock": 679,
+                    "weight": "0.00",
+                    "unit": "件",
+                    "spes_desc": {
+                        "颜色": {
+                            "1": "白色",
+                            "3": "蓝色",
+                            "4": "紫色"
+                        },
+                        "规格": [
+                            "规格1",
+                            "规格2"
+                        ]
+                    },
+                    "params": "",
+                    "comments_count": 0,
+                    "view_count": 0,
+                    "buy_count": 1,
+                    "sort": 100,
+                    "is_recommend": 1,
+                    "is_hot": 1,
+                    "label_ids": [],
+                    "brand_name": "千仞岗",
+                    "cat_name": "毛呢外套",
+                    "image_url": "https://b2c.jihainet.com/static/uploads/8c/f8/53/5bc9a3b2916a4.jpg",
+                    "product": {
+                        "id": 23,
+                        "goods_id": 2,
+                        "barcode": null,
+                        "sn": "-1",
+                        "price": "600.00",
+                        "mktprice": "590.00",
+                        "marketable": 1,
+                        "stock": 97,
+                        "spes_desc": "颜色:白色,规格:规格1",
+                        "is_defalut": 1,
+                        "image_id": "",
+                        "isdel": null,
+                        "name": "七匹狼羽绒服男短款2018冬季新款男士中年休闲爸爸装男装潮流外套",
+                        "bn": "5446546546",
+                        "image_path": "https://b2c.jihainet.com/static/uploads/8c/f8/53/5bc9a3b2916a4.jpg",
+                        "total_stock": 97,
+                        "grade_price": [],
+                        "grade_info": {
+                            "id": ""
+                        },
+                        "default_spes_desc": {
+                            "颜色": {
+                                "白色": {
+                                    "name": "白色",
+                                    "is_default": true
+                                },
+                                "蓝色": {
+                                    "name": "蓝色",
+                                    "product_id": 24
+                                },
+                                "紫色": {
+                                    "name": "紫色",
+                                    "product_id": 25
+                                }
+                            },
+                            "规格": {
+                                "规格1": {
+                                    "name": "规格1",
+                                    "is_default": true
+                                },
+                                "规格2": {
+                                    "name": "规格2",
+                                    "product_id": 26
+                                }
+                            }
+                        },
+                        "amount": "600.00",
+                        "promotion_list": {
+                            "6": {
+                                "name": "test",
+                                "type": 1
+                            }
+                        },
+                        "promotion_amount": 0
+                    },
+                    "album": [
+                        "https://b2c.jihainet.com/static/uploads/8c/f8/53/5bc9a3b2916a4.jpg"
+                    ],
+                    "isfav": "false"
+                },
+                {
+                    "id": 4,
+                    "name": "芙娜妮2018秋冬吊带连衣裙女两件套条纹针织打底衫背带PU皮裙套装",
+                    "bn": "78678657865",
+                    "brief": "品牌: 芙娜妮适用年龄: 25-29周岁尺码: S M L XL图案: 条纹风格: 街头街头: 欧美领型: 圆领腰型: 中腰衣门襟: 套头颜色分类: 红色袖型: 其他组合形式: 两件套",
+                    "price": "200.00",
+                    "mktprice": "200.00",
+                    "image_id": "fce63f9c69c6c4ec606b544fcc7610a2",
+                    "goods_cat_id": 4,
+                    "goods_type_id": 1,
+                    "brand_id": 15,
+                    "is_nomal_virtual": 1,
+                    "marketable": 1,
+                    "stock": 560,
+                    "weight": "0.00",
+                    "unit": "件",
+                    "spes_desc": {
+                        "颜色": [
+                            "红色",
+                            "白色"
+                        ],
+                        "规格": [
+                            "规格1",
+                            "规格2"
+                        ]
+                    },
+                    "params": "",
+                    "comments_count": 0,
+                    "view_count": 0,
+                    "buy_count": 1,
+                    "sort": 100,
+                    "is_recommend": 1,
+                    "is_hot": 1,
+                    "label_ids": [],
+                    "brand_name": "薇咔拉",
+                    "cat_name": "浪漫裙装",
+                    "image_url": "https://b2c.jihainet.com/static/uploads/dd/bd/35/5bc9a50154075.jpg",
+                    "product": {
+                        "id": 29,
+                        "goods_id": 4,
+                        "barcode": null,
+                        "sn": "51111",
+                        "price": "200.00",
+                        "mktprice": "200.00",
+                        "marketable": 2,
+                        "stock": 97,
+                        "spes_desc": "颜色:红色,规格:规格1",
+                        "is_defalut": 1,
+                        "image_id": "",
+                        "isdel": null,
+                        "name": "芙娜妮2018秋冬吊带连衣裙女两件套条纹针织打底衫背带PU皮裙套装",
+                        "bn": "78678657865",
+                        "image_path": "https://b2c.jihainet.com/static/uploads/dd/bd/35/5bc9a50154075.jpg",
+                        "total_stock": 98,
+                        "grade_price": [],
+                        "grade_info": {
+                            "id": ""
+                        },
+                        "default_spes_desc": {
+                            "颜色": {
+                                "红色": {
+                                    "name": "红色",
+                                    "is_default": true
+                                },
+                                "白色": {
+                                    "name": "白色",
+                                    "product_id": 30
+                                }
+                            },
+                            "规格": {
+                                "规格1": {
+                                    "name": "规格1",
+                                    "is_default": true
+                                },
+                                "规格2": {
+                                    "name": "规格2",
+                                    "product_id": 31
+                                }
+                            }
+                        },
+                        "amount": "200.00",
+                        "promotion_list": {
+                            "6": {
+                                "name": "test",
+                                "type": 1
+                            }
+                        },
+                        "promotion_amount": 0
+                    },
+                    "album": [
+                        "https://b2c.jihainet.com/static/uploads/dd/bd/35/5bc9a50154075.jpg",
+                        "https://b2c.jihainet.com/static/uploads/b3/16/38/5bc9a50662303.jpg",
+                        "https://b2c.jihainet.com/static/uploads/2e/1b/3b/5bc9a50900998.jpg"
+                    ],
+                    "isfav": "false"
+                },
+                {
+                    "id": 5,
+                    "name": "正品代购PINKO女包2018新款燕子包单肩斜挎压花徽章小香风链条包",
+                    "bn": "5465",
+                    "brief": "PINKO质地: 牛皮皮革材质: 头层牛皮风格: 欧美时尚成色: 全新颜色分类: 热带雨林 黑色勋章 白色勋章 编织小香风 黑色压花 红色压花 黑色镶钻眼 黑色单排 红色单排 白色涂鸦 黑色涂鸦 粉黑涂鸦 黄黑涂鸦 黑色字母可乐 白色字母鳄鱼纹 红色字母 黑色枪排 红色love 白色珍珠 黑色珍珠 黑色镶钻双排 粉色镶钻双排 其他颜色拍下备注颜色有无夹层: 有背包方式: 单肩斜挎手提适用场景: 休闲",
+                    "price": "200.00",
+                    "mktprice": "190.00",
+                    "image_id": "3e1c30dd1125de24e5395d3cd39ef5d8",
+                    "goods_cat_id": 9,
+                    "goods_type_id": 1,
+                    "brand_id": 0,
+                    "is_nomal_virtual": 1,
+                    "marketable": 1,
+                    "stock": 200,
+                    "weight": "0.00",
+                    "unit": "件",
+                    "spes_desc": "",
+                    "params": "",
+                    "comments_count": 0,
+                    "view_count": 0,
+                    "buy_count": 0,
+                    "sort": 100,
+                    "is_recommend": 1,
+                    "is_hot": 1,
+                    "label_ids": [],
+                    "brand_name": null,
+                    "cat_name": "女包",
+                    "image_url": "https://b2c.jihainet.com/static/uploads/af/00/b7/5bc9a5b89bd9a.jpg",
+                    "product": {
+                        "id": 33,
+                        "goods_id": 5,
+                        "barcode": null,
+                        "sn": "564456",
+                        "price": "200.00",
+                        "mktprice": "190.00",
+                        "marketable": 1,
+                        "stock": 200,
+                        "spes_desc": null,
+                        "is_defalut": 1,
+                        "image_id": "",
+                        "isdel": null,
+                        "name": "正品代购PINKO女包2018新款燕子包单肩斜挎压花徽章小香风链条包",
+                        "bn": "5465",
+                        "image_path": "https://b2c.jihainet.com/static/uploads/af/00/b7/5bc9a5b89bd9a.jpg",
+                        "total_stock": 200,
+                        "grade_price": [],
+                        "grade_info": {
+                            "id": ""
+                        },
+                        "amount": "200.00",
+                        "promotion_list": {
+                            "6": {
+                                "name": "test",
+                                "type": 1
+                            }
+                        },
+                        "promotion_amount": 0
+                    },
+                    "album": [
+                        "https://b2c.jihainet.com/static/uploads/af/00/b7/5bc9a5b89bd9a.jpg",
+                        "https://b2c.jihainet.com/static/uploads/b7/9f/72/5bc9a5c440801.jpg",
+                        "https://b2c.jihainet.com/static/uploads/4c/28/57/5bc9a5c53aa6e.jpg",
+                        "https://b2c.jihainet.com/static/uploads/76/7e/81/5bc9a5c7bbc8e.jpg"
+                    ],
+                    "isfav": "false"
+                },
+                {
+                    "id": 7,
+                    "name": "太平鸟男装 夏季新品纯棉T恤男士黑色短袖潮字母印花韩版修身T恤",
+                    "bn": "",
+                    "brief": "品牌: PEACEBIRD/太平鸟货号: BWDA82170上市年份季节: 2018年夏季销售渠道类型: 纯电商(只在线上销售)厚薄: 常规面料分类: 棉毛布",
+                    "price": "99.00",
+                    "mktprice": "99.00",
+                    "image_id": "4f86bd749dddd098403fc44a1e473643",
+                    "goods_cat_id": 3,
+                    "goods_type_id": 1,
+                    "brand_id": 12,
+                    "is_nomal_virtual": 1,
+                    "marketable": 1,
+                    "stock": 1741,
+                    "weight": "0.00",
+                    "unit": "",
+                    "spes_desc": {
+                        "颜色": {
+                            "1": "白色",
+                            "5": "黑色"
+                        },
+                        "规格": [
+                            "规格1",
+                            "规格2",
+                            "规格3"
+                        ]
+                    },
+                    "params": "",
+                    "comments_count": 0,
+                    "view_count": 0,
+                    "buy_count": 2,
+                    "sort": 100,
+                    "is_recommend": 1,
+                    "is_hot": 1,
+                    "label_ids": [],
+                    "brand_name": "艾尚臣",
+                    "cat_name": "精选上衣",
+                    "image_url": "https://b2c.jihainet.com/static/uploads/0b/b2/ff/5bc9a6de5361c.jpg",
+                    "product": {
+                        "id": 34,
+                        "goods_id": 7,
+                        "barcode": null,
+                        "sn": "1111",
+                        "price": "99.00",
+                        "mktprice": "99.00",
+                        "marketable": 2,
+                        "stock": 297,
+                        "spes_desc": "颜色:白色,规格:规格1",
+                        "is_defalut": 1,
+                        "image_id": "",
+                        "isdel": null,
+                        "name": "太平鸟男装 夏季新品纯棉T恤男士黑色短袖潮字母印花韩版修身T恤",
+                        "bn": "",
+                        "image_path": "https://b2c.jihainet.com/static/uploads/0b/b2/ff/5bc9a6de5361c.jpg",
+                        "total_stock": 298,
+                        "grade_price": [],
+                        "grade_info": {
+                            "id": ""
+                        },
+                        "default_spes_desc": {
+                            "颜色": {
+                                "白色": {
+                                    "name": "白色",
+                                    "is_default": true
+                                },
+                                "黑色": {
+                                    "name": "黑色",
+                                    "product_id": 37
+                                }
+                            },
+                            "规格": {
+                                "规格1": {
+                                    "name": "规格1",
+                                    "is_default": true
+                                },
+                                "规格2": {
+                                    "name": "规格2",
+                                    "product_id": 35
+                                },
+                                "规格3": {
+                                    "name": "规格3",
+                                    "product_id": 36
+                                }
+                            }
+                        },
+                        "amount": "99.00",
+                        "promotion_list": {
+                            "6": {
+                                "name": "test",
+                                "type": 1
+                            }
+                        },
+                        "promotion_amount": 0
+                    },
+                    "album": [
+                        "https://b2c.jihainet.com/static/uploads/0b/b2/ff/5bc9a6de5361c.jpg",
+                        "https://b2c.jihainet.com/static/uploads/58/57/c8/5bc9a6de50a60.jpg",
+                        "https://b2c.jihainet.com/static/uploads/d1/d7/cb/5bc9a6dee7ebb.jpg"
+                    ],
+                    "isfav": "false"
+                },
+                {
+                    "id": 8,
+                    "name": "秋装连衣裙女2018新款七分袖职业名媛气质中长女装正式场合裙子",
+                    "bn": "",
+                    "brief": "组合形式: 单件裙长: 中长裙款式: 其他/other袖长: 七分袖领型: V领袖型: 其他腰型: 高腰衣门襟: 套头",
+                    "price": "220.00",
+                    "mktprice": "220.00",
+                    "image_id": "1575deb7e275d200f105ba941d815ab5",
+                    "goods_cat_id": 4,
+                    "goods_type_id": 1,
+                    "brand_id": 1,
+                    "is_nomal_virtual": 1,
+                    "marketable": 1,
+                    "stock": 1500,
+                    "weight": "0.00",
+                    "unit": "件",
+                    "spes_desc": {
+                        "颜色": {
+                            "0": "红色",
+                            "3": "蓝色"
+                        },
+                        "规格": [
+                            "规格1",
+                            "规格2",
+                            "规格3"
+                        ]
+                    },
+                    "params": "",
+                    "comments_count": 0,
+                    "view_count": 0,
+                    "buy_count": 0,
+                    "sort": 100,
+                    "is_recommend": 1,
+                    "is_hot": 1,
+                    "label_ids": [],
+                    "brand_name": "依嬅莎",
+                    "cat_name": "浪漫裙装",
+                    "image_url": "https://b2c.jihainet.com/static/uploads/ce/ae/8d/5bc9a81609585.jpg",
+                    "product": {
+                        "id": 40,
+                        "goods_id": 8,
+                        "barcode": null,
+                        "sn": "21111",
+                        "price": "220.00",
+                        "mktprice": "220.00",
+                        "marketable": 2,
+                        "stock": 188,
+                        "spes_desc": "颜色:红色,规格:规格1",
+                        "is_defalut": 1,
+                        "image_id": "",
+                        "isdel": null,
+                        "name": "秋装连衣裙女2018新款七分袖职业名媛气质中长女装正式场合裙子",
+                        "bn": "",
+                        "image_path": "https://b2c.jihainet.com/static/uploads/ce/ae/8d/5bc9a81609585.jpg",
+                        "total_stock": 198,
+                        "grade_price": [],
+                        "grade_info": {
+                            "id": ""
+                        },
+                        "default_spes_desc": {
+                            "颜色": {
+                                "红色": {
+                                    "name": "红色",
+                                    "is_default": true
+                                },
+                                "蓝色": {
+                                    "name": "蓝色",
+                                    "product_id": 43
+                                }
+                            },
+                            "规格": {
+                                "规格1": {
+                                    "name": "规格1",
+                                    "is_default": true
+                                },
+                                "规格2": {
+                                    "name": "规格2",
+                                    "product_id": 41
+                                },
+                                "规格3": {
+                                    "name": "规格3",
+                                    "product_id": 42
+                                }
+                            }
+                        },
+                        "amount": "220.00",
+                        "promotion_list": {
+                            "6": {
+                                "name": "test",
+                                "type": 1
+                            }
+                        },
+                        "promotion_amount": 0
+                    },
+                    "album": [
+                        "https://b2c.jihainet.com/static/uploads/ce/ae/8d/5bc9a81609585.jpg",
+                        "https://b2c.jihainet.com/static/uploads/e9/ac/a3/5bc9a8167a827.jpg",
+                        "https://b2c.jihainet.com/static/uploads/7e/18/48/5bc9a816ce21b.jpg",
+                        "https://b2c.jihainet.com/static/uploads/99/3c/3e/5bc9a817e6b9d.jpg"
+                    ],
+                    "isfav": "false"
+                },
+                {
+                    "id": 9,
+                    "name": "2018冷冬新款棉衣男士加肥加大码中长款棉服韩版潮流加厚棉袄外套",
+                    "bn": "",
+                    "brief": "品牌: 奢旺填充物: 仿丝棉货号: 之江A09--MY001基础风格: 青春流行上市年份季节: 2018年秋季厚薄: 常规材质成分: 聚酯纤维100%",
+                    "price": "300.00",
+                    "mktprice": "320.00",
+                    "image_id": "052d4af90ec88851c10982bf7fdfa763",
+                    "goods_cat_id": 3,
+                    "goods_type_id": 1,
+                    "brand_id": 0,
+                    "is_nomal_virtual": 1,
+                    "marketable": 1,
+                    "stock": 500,
+                    "weight": "0.00",
+                    "unit": "",
+                    "spes_desc": "",
+                    "params": "",
+                    "comments_count": 0,
+                    "view_count": 0,
+                    "buy_count": 0,
+                    "sort": 100,
+                    "is_recommend": 1,
+                    "is_hot": 1,
+                    "label_ids": [],
+                    "brand_name": null,
+                    "cat_name": "精选上衣",
+                    "image_url": "https://b2c.jihainet.com/static/uploads/a4/cd/ec/5bc9a989cb351.jpg",
+                    "product": {
+                        "id": 46,
+                        "goods_id": 9,
+                        "barcode": null,
+                        "sn": "23045242",
+                        "price": "300.00",
+                        "mktprice": "320.00",
+                        "marketable": 1,
+                        "stock": 499,
+                        "spes_desc": null,
+                        "is_defalut": 1,
+                        "image_id": "",
+                        "isdel": null,
+                        "name": "2018冷冬新款棉衣男士加肥加大码中长款棉服韩版潮流加厚棉袄外套",
+                        "bn": "",
+                        "image_path": "https://b2c.jihainet.com/static/uploads/a4/cd/ec/5bc9a989cb351.jpg",
+                        "total_stock": 499,
+                        "grade_price": [],
+                        "grade_info": {
+                            "id": ""
+                        },
+                        "amount": "300.00",
+                        "promotion_list": {
+                            "6": {
+                                "name": "test",
+                                "type": 1
+                            }
+                        },
+                        "promotion_amount": 0
+                    },
+                    "album": [
+                        "https://b2c.jihainet.com/static/uploads/a4/cd/ec/5bc9a989cb351.jpg",
+                        "https://b2c.jihainet.com/static/uploads/76/6d/d5/5bc9a988051b3.jpg",
+                        "https://b2c.jihainet.com/static/uploads/51/3a/27/5bc9a98957a8c.jpg",
+                        "https://b2c.jihainet.com/static/uploads/99/99/1d/5bc9a98960531.jpg"
+                    ],
+                    "isfav": "false"
+                },
+                {
+                    "id": 10,
+                    "name": "衬衫男士秋季韩版修身潮流百搭帅气休闲外套白色衬衣加绒长袖寸衫",
+                    "bn": "456546456",
+                    "brief": "品牌: 简旗货号: 22TC144基础风格: 青春流行上市年份季节: 2018年夏季厚薄: 常规材质成分: 棉100%",
+                    "price": 0,
+                    "mktprice": "69.00",
+                    "image_id": "deed2e4f1c54f87eb672ad8c444ba229",
+                    "goods_cat_id": 3,
+                    "goods_type_id": 1,
+                    "brand_id": 14,
+                    "is_nomal_virtual": 1,
+                    "marketable": 1,
+                    "stock": 1880,
+                    "weight": "0.00",
+                    "unit": "件",
+                    "spes_desc": {
+                        "颜色": {
+                            "1": "白色",
+                            "3": "蓝色",
+                            "6": "棕色"
+                        },
+                        "规格": {
+                            "1": "规格2",
+                            "2": "规格3"
+                        }
+                    },
+                    "params": "",
+                    "comments_count": 0,
+                    "view_count": 0,
+                    "buy_count": 3,
+                    "sort": 100,
+                    "is_recommend": 1,
+                    "is_hot": 1,
+                    "label_ids": [],
+                    "brand_name": "DKCHENPIN",
+                    "cat_name": "精选上衣",
+                    "image_url": "https://b2c.jihainet.com/static/uploads/0c/4b/01/5bc9ab85cc335.jpg",
+                    "product": {
+                        "id": 47,
+                        "goods_id": 10,
+                        "barcode": null,
+                        "sn": "61111",
+                        "price": 0,
+                        "mktprice": "69.00",
+                        "marketable": 2,
+                        "stock": 287,
+                        "spes_desc": "颜色:白色,规格:规格2",
+                        "is_defalut": 1,
+                        "image_id": "",
+                        "isdel": null,
+                        "name": "衬衫男士秋季韩版修身潮流百搭帅气休闲外套白色衬衣加绒长袖寸衫",
+                        "bn": "456546456",
+                        "image_path": "https://b2c.jihainet.com/static/uploads/0c/4b/01/5bc9ab85cc335.jpg",
+                        "total_stock": 288,
+                        "grade_price": [],
+                        "grade_info": {
+                            "id": ""
+                        },
+                        "default_spes_desc": {
+                            "颜色": {
+                                "白色": {
+                                    "name": "白色",
+                                    "is_default": true
+                                },
+                                "蓝色": {
+                                    "name": "蓝色",
+                                    "product_id": 48
+                                },
+                                "棕色": {
+                                    "name": "棕色",
+                                    "product_id": 49
+                                }
+                            },
+                            "规格": {
+                                "规格2": {
+                                    "name": "规格2",
+                                    "is_default": true
+                                },
+                                "规格3": {
+                                    "name": "规格3",
+                                    "product_id": 50
+                                }
+                            }
+                        },
+                        "amount": 0,
+                        "promotion_list": {
+                            "4": {
+                                "name": "",
+                                "type": 2
+                            },
+                            "6": {
+                                "name": "test",
+                                "type": 1
+                            },
+                            "7": {
+                                "name": "test",
+                                "type": 2
+                            }
+                        },
+                        "promotion_amount": 69
+                    },
+                    "album": [
+                        "https://b2c.jihainet.com/static/uploads/0c/4b/01/5bc9ab85cc335.jpg",
+                        "https://b2c.jihainet.com/static/uploads/08/d0/3a/5bc9ab837a41a.jpg",
+                        "https://b2c.jihainet.com/static/uploads/46/4e/5e/5bc9ab85b6541.jpg",
+                        "https://b2c.jihainet.com/static/uploads/83/37/8a/5bc9ab85d0414.jpg"
+                    ],
+                    "isfav": "false"
+                },
+                {
+                    "id": 11,
+                    "name": "33",
+                    "bn": "99",
+                    "brief": "999",
+                    "price": "0.00",
+                    "mktprice": "0.00",
+                    "image_id": "48d7337ff7a02c6a98e866752b1292b7",
+                    "goods_cat_id": 3,
+                    "goods_type_id": 1,
+                    "brand_id": 14,
+                    "is_nomal_virtual": 1,
+                    "marketable": 1,
+                    "stock": 0,
+                    "weight": "0.00",
+                    "unit": "",
+                    "spes_desc": "",
+                    "params": "",
+                    "comments_count": 0,
+                    "view_count": 0,
+                    "buy_count": 0,
+                    "sort": 100,
+                    "is_recommend": 2,
+                    "is_hot": 2,
+                    "label_ids": null
+                },
+                {
+                    "id": 12,
+                    "name": "依嬅莎羽绒服2019款",
+                    "bn": "00001",
+                    "brief": "好衣服，穿上才知道",
+                    "price": "2000.00",
+                    "mktprice": "10000.00",
+                    "image_id": "b68a51db26eb5c35e4f9b16f0c41d455",
+                    "goods_cat_id": 11,
+                    "goods_type_id": 1,
+                    "brand_id": 1,
+                    "is_nomal_virtual": 1,
+                    "marketable": 1,
+                    "stock": 0,
+                    "weight": "450.00",
+                    "unit": "件",
+                    "spes_desc": {
+                        "颜色": {
+                            "2": "白色",
+                            "6": "黑色"
+                        },
+                        "规格": {
+                            "20": "规格1",
+                            "21": "规格2"
+                        }
+                    },
+                    "params": "",
+                    "comments_count": 0,
+                    "view_count": 0,
+                    "buy_count": 0,
+                    "sort": 100,
+                    "is_recommend": 1,
+                    "is_hot": 1,
+                    "label_ids": [],
+                    "brand_name": "依嬅莎",
+                    "cat_name": "羽绒服",
+                    "image_url": "https://b2c.jihainet.com/static/uploads/fa/6c/24/5bcd2cd0edf0d.jpg",
+                    "product": {
+                        "id": 57,
+                        "goods_id": 12,
+                        "barcode": null,
+                        "sn": "00001-101-1",
+                        "price": "2000.00",
+                        "mktprice": "10000.00",
+                        "marketable": 2,
+                        "stock": 0,
+                        "spes_desc": "颜色:白色,规格:规格1",
+                        "is_defalut": 1,
+                        "image_id": "b68a51db26eb5c35e4f9b16f0c41d455",
+                        "isdel": null,
+                        "name": "依嬅莎羽绒服2019款",
+                        "bn": "00001",
+                        "image_path": "https://b2c.jihainet.com/static/uploads/fa/6c/24/5bcd2cd0edf0d.jpg",
+                        "total_stock": 0,
+                        "grade_price": [
+                            {
+                                "id": 1,
+                                "goods_id": 12,
+                                "grade_id": 1,
+                                "grade_price": 1950,
+                                "grade_name": "普通等级"
+                            }
+                        ],
+                        "grade_info": {
+                            "id": ""
+                        },
+                        "default_spes_desc": {
+                            "颜色": {
+                                "白色": {
+                                    "name": "白色",
+                                    "is_default": true
+                                },
+                                "黑色": {
+                                    "name": "黑色",
+                                    "product_id": 58
+                                }
+                            },
+                            "规格": {
+                                "规格1": {
+                                    "name": "规格1",
+                                    "is_default": true
+                                },
+                                "规格2": {
+                                    "name": "规格2",
+                                    "product_id": 59
+                                }
+                            }
+                        },
+                        "amount": "2000.00",
+                        "promotion_list": {
+                            "6": {
+                                "name": "test",
+                                "type": 1
+                            }
+                        },
+                        "promotion_amount": 0
+                    },
+                    "album": [
+                        "https://b2c.jihainet.com/static/uploads/fa/6c/24/5bcd2cd0edf0d.jpg",
+                        "https://b2c.jihainet.com/static/uploads/19/92/5a/5bc9a262427d4.jpg"
+                    ],
+                    "isfav": "false"
+                }
+            ]
+        },
+        "key": "goods_1566447053143_115940"
+    },
+    {
+        "type": "imgSingle",
+        "value": {
+            "list": [
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "",
+                    "linkValue": ""
+                }
+            ]
+        },
+        "key": "imgSingle_1566447053143_807307"
+    },
+    {
+        "type": "imgSingle",
+        "name": "图片",
+        "value": {
+            "list": [
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "1",
+                    "linkValue": ""
+                }
+            ]
+        },
+        "icon": "icon-zhaopiantubiao",
+        "key": "imgSingle_1566447062365_749086"
+    },
+    {
+        "type": "imgWindow",
+        "name": "图片分组",
+        "value": {
+            "style": 2,
+            "margin": 0,
+            "list": [
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "1",
+                    "linkValue": ""
+                },
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "1",
+                    "linkValue": ""
+                },
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "1",
+                    "linkValue": ""
+                },
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "1",
+                    "linkValue": ""
+                }
+            ]
+        },
+        "icon": "icon-zidongchuchuang50",
+        "key": "imgWindow_1566447063516_246273"
+    },
+    {
+        "type": "imgSingle",
+        "name": "图片",
+        "value": {
+            "list": [
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "1",
+                    "linkValue": ""
+                }
+            ]
+        },
+        "icon": "icon-zhaopiantubiao",
+        "key": "imgSingle_1566447064469_813360"
+    },
+    {
+        "type": "imgSlide",
+        "name": "图片轮播",
+        "value": {
+            "duration": 2500,
+            "list": [
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "1",
+                    "linkValue": ""
+                },
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "1",
+                    "linkValue": ""
+                }
+            ]
+        },
+        "icon": "icon-lunbo",
+        "key": "imgSlide_1566447065004_680666"
+    },
+    {
+        "type": "imgSingle",
+        "name": "图片",
+        "value": {
+            "list": [
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "1",
+                    "linkValue": ""
+                }
+            ]
+        },
+        "icon": "icon-zhaopiantubiao",
+        "key": "imgSingle_1566447065637_73161"
+    },
+    {
+        "type": "imgWindow",
+        "name": "图片分组",
+        "value": {
+            "style": 2,
+            "margin": 0,
+            "list": [
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "1",
+                    "linkValue": ""
+                },
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "1",
+                    "linkValue": ""
+                },
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "1",
+                    "linkValue": ""
+                },
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "1",
+                    "linkValue": ""
+                }
+            ]
+        },
+        "icon": "icon-zidongchuchuang50",
+        "key": "imgWindow_1566447066075_975725"
+    },
+    {
+        "type": "article",
+        "name": "文章组",
+        "value": {
+            "list": [
+                {
+                    "title": ""
+                }
+            ]
+        },
+        "icon": "icon-wenzhang1",
+        "key": "article_1566447066524_185148"
+    },
+    {
+        "type": "articleClassify",
+        "name": "文章分类",
+        "value": {
+            "limit": 3,
+            "articleClassifyId": ""
+        },
+        "icon": "icon-wenzhangfenlei",
+        "key": "articleClassify_1566447066932_123265"
+    },
+    {
+        "type": "article",
+        "name": "文章组",
+        "value": {
+            "list": [
+                {
+                    "title": ""
+                }
+            ]
+        },
+        "icon": "icon-wenzhang1",
+        "key": "article_1566447067348_19655"
+    },
+    {
+        "type": "video",
+        "name": "视频组",
+        "value": {
+            "autoplay": "false",
+            "list": [
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "url": "http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400",
+                    "linkType": "",
+                    "linkValue": ""
+                }
+            ]
+        },
+        "icon": "icon-shipin",
+        "key": "video_1566447067739_47198"
+    },
+    {
+        "type": "search",
+        "name": "搜索框",
+        "value": {
+            "keywords": "请输入关键字搜索",
+            "style": "round"
+        },
+        "icon": "icon-sousuokuang",
+        "key": "search_1566447068261_232510"
+    },
+    {
+        "type": "notice",
+        "name": "公告组",
+        "value": {
+            "type": "auto",
+            "list": [
+                {
+                    "title": "这里是第一条公告的标题",
+                    "content": "",
+                    "id": ""
+                }
+            ]
+        },
+        "icon": "icon-gonggao",
+        "key": "notice_1566447068669_377123"
+    }
+]
+}

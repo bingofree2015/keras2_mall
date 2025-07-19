@@ -1,0 +1,104 @@
+[
+    {
+        "type": "imgSlide",
+        "name": "图片轮播",
+        "value": {
+            "duration": 2500,
+            "list": [
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "",
+                    "linkValue": ""
+                },
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "",
+                    "linkValue": ""
+                }
+            ]
+        },
+        "icon": "icon-lunbo"
+    },
+    {
+        "type": "imgSingle",
+        "name": "图片",
+        "value": {
+            "list": [
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "",
+                    "linkValue": ""
+                }
+            ]
+        },
+        "icon": "icon-zhaopiantubiao"
+    },
+    {
+        "type": "imgWindow",
+        "name": "图片分组",
+        "value": {
+            "style": 2,
+            "margin": 0,
+            "list": [
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "",
+                    "linkValue": ""
+                },
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "",
+                    "linkValue": ""
+                },
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "",
+                    "linkValue": ""
+                },
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "linkType": "",
+                    "linkValue": ""
+                }
+            ]
+        },
+        "icon": "icon-zidongchuchuang50"
+    },
+    {
+        "type": "video",
+        "name": "视频组",
+        "value": {
+            "autoplay": "false",
+            "list": [
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "url": "http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400",
+                    "linkType": "",
+                    "linkValue": ""
+                }
+            ]
+        },
+        "icon": "icon-shipin"
+    },
+    {
+        "type": "article",
+        "name": "文章组",
+        "value": {
+            "list": [
+                {
+                    "title": ""
+                }
+            ]
+        },
+        "icon": "icon-wenzhang1"
+    },
+    {
+        "type": "articleClassify",
+        "name": "文章分类",
+        "value": {
+            "limit": 3,
+            "articleClassifyId": ""
+        },
+        "icon": "icon-wenzhangfenlei"
+    }
+]

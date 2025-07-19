@@ -1,0 +1,8 @@
+node_modules/
+upload/
+logs/
+*.min.js
+test.json
+pnpm-lock.yaml
+yarn.lock
+package-lock.json 

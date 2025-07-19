@@ -1,0 +1,6 @@
+// sequelize-auto -h '127.0.0.1' -d 'coupon_mall' -u 'root' -x 'enky123!@#' -p '8889' -t 'dept'
+
+
+sequelize-auto -h 127.0.0.1 -d ocsp -u root -x 123 -p 3306 ---dialect mysql -o "./server/models/"
+
+sequelize-auto -h '127.0.0.1' -d 'coupon_mall' -u 'root' -x 'enky123!@#' -p '8889' ---dialect mysql -o "./auto_models/"

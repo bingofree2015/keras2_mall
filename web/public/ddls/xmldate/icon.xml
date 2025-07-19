@@ -1,0 +1,254 @@
+<krpano>
+<!-- 午门里的 里图标的位置 -->
+
+		<!-- 西雁翅楼 里图标的样式 -->
+
+		<!-- 场景从 1 到 3 -->
+		<hotspot name="AA1" visible="false" style="icongo" tx="-12.18" ty="-0.5" tz="-0.35" rx="-90.0" ry="157" rz="-0.0" aa="1"/>
+		<hotspot name="AA2" visible="false" style="icongo" tx="-11.98" ty="-0.5" tz="-0.84" rx="-90.0" ry="157" rz="-0.0" aa="2"/>
+		<hotspot name="AA3" visible="false" style="icongo" tx="-11.77" ty="-0.5" tz="-1.33" rx="-90.0" ry="157" rz="-0.0" aa="3"/>
+		<hotspot name="AA4" visible="false" style="icongo" tx="-11.57" ty="-0.5" tz="-1.82" rx="-90.0" ry="157" rz="-0.0" aa="4"/>
+		<!-- 场景从 3 到 4 -->
+		<hotspot name="AA5" visible="false" style="icongo" tx="-10.85" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="5"/>
+		<hotspot name="AA6" visible="false" style="icongo" tx="-10.33" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="6"/>
+		<hotspot name="AA7" visible="false" style="icongo" tx="-9.81"  ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="7"/>
+		<hotspot name="AA8" visible="false" style="icongo" tx="-9.29"  ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="8"/>
+		<hotspot name="AA9" visible="false" style="icongo" tx="-8.77"  ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="9"/>
+		<hotspot name="AA10" visible="false" style="icongo" tx="-8.26" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="10"/>
+		<hotspot name="AA11" visible="false" style="icongo" tx="-7.74" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="11"/>
+		<hotspot name="AA12" visible="false" style="icongo" tx="-7.22" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="12"/>
+
+		<!-- 场景从 4 到 7 -->
+		<hotspot name="AA13" visible="false" style="icongo" tx="-6.22" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="13"/>
+		<hotspot name="AA14" visible="false" style="icongo" tx="-5.74" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="14"/>
+		<hotspot name="AA15" visible="false" style="icongo" tx="-5.26" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="15"/>
+		<hotspot name="AA16" visible="false" style="icongo" tx="-4.78" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="16"/>
+
+		<!-- 场景从 7 到 8 -->
+		<hotspot name="AA17" visible="false" style="icongo" tx="-3.85" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="17"/>
+		<hotspot name="AA18" visible="false" style="icongo" tx="-3.40" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="18"/>
+		<hotspot name="AA19" visible="false" style="icongo" tx="-2.94" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="19"/>
+
+		<!-- 场景从 8 到 9 -->
+		<hotspot name="AA20" visible="false" style="icongo" tx="-2.00" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="20"/>
+		<hotspot name="AA21" visible="false" style="icongo" tx="-1.51" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="21"/>
+		<hotspot name="AA22" visible="false" style="icongo" tx="-1.02" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="22"/>
+
+		<!-- 场景从 9 到 10 -->
+		<hotspot name="AA23" visible="false" style="icongo" tx="-0.02" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="23"/>
+		<hotspot name="AA24" visible="false" style="icongo" tx="0.48" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="24"/>
+		<hotspot name="AA25" visible="false" style="icongo" tx="0.98" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="25"/>
+		<hotspot name="AA26" visible="false" style="icongo" tx="1.48" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="26"/>
+
+		<!-- 场景从 10 到 11 -->
+		<hotspot name="AA27" visible="false" style="icongo" tx="2.48" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="27"/>
+		<hotspot name="AA28" visible="false" style="icongo" tx="2.98" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="28"/>
+		<hotspot name="AA29" visible="false" style="icongo" tx="3.48" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="29"/>
+		<hotspot name="AA30" visible="false" style="icongo" tx="3.97" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="30"/>
+
+
+		<!-- 场景从 11 到 12 -->
+		<hotspot name="AA31" visible="false" style="icongo" tx="5.01" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="31"/>
+		<hotspot name="AA32" visible="false" style="icongo" tx="5.55" ty="-0.5" tz="-2.31" rx="-90.0" ry="90" rz="-0.0" aa="32"/>
+
+		<!-- 场景从 12 到 17 -->
+		<hotspot name="AA33" visible="false" style="icongo" tx="6.09" ty="-0.5" tz="-1.78" rx="-90.0" ry="0" rz="-0.0" aa="33"/>
+		<hotspot name="AA34" visible="false" style="icongo" tx="6.09" ty="-0.5" tz="-1.25" rx="-90.0" ry="0" rz="-0.0" aa="34"/>
+		<hotspot name="AA35" visible="false" style="icongo" tx="6.09" ty="-0.5" tz="-0.72" rx="-90.0" ry="0" rz="-0.0" aa="35"/>
+		<hotspot name="AA36" visible="false" style="icongo" tx="6.09" ty="-0.5" tz="-0.19" rx="-90.0" ry="0" rz="-0.0" aa="36"/>
+		<hotspot name="AA37" visible="false" style="icongo" tx="6.09" ty="-0.5" tz="0.34" rx="-90.0" ry="0" rz="-0.0" aa="37"/>
+
+
+		<!-- 场景从 17 到 21 -->
+		<hotspot name="AA38" visible="false" style="icongo" tx="6.09" ty="-0.5" tz="1.34" rx="-90.0" ry="0" rz="-0.0" aa="38"/>
+		<hotspot name="AA39" visible="false" style="icongo" tx="6.09" ty="-0.5" tz="1.80" rx="-90.0" ry="0" rz="-0.0" aa="39"/>
+
+
+		<!-- 场景从 21 到 22 -->
+		<hotspot name="AA40" visible="false" style="icongo" tx="5.60" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="40"/>
+		<hotspot name="AA41" visible="false" style="icongo" tx="5.12" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="41"/>
+		<hotspot name="AA42" visible="false" style="icongo" tx="4.63" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="42"/>
+		<hotspot name="AA43" visible="false" style="icongo" tx="4.15" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="43"/>
+
+		<!-- 场景从 22 到 23 -->
+		<hotspot name="AA44" visible="false" style="icongo" tx="3.16" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="44"/>
+		<hotspot name="AA45" visible="false" style="icongo" tx="2.66" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="45"/>
+
+		<!-- 场景从 23 到 24 -->
+		<hotspot name="AA46" visible="false" style="icongo" tx="1.70" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="46"/>
+		<hotspot name="AA47" visible="false" style="icongo" tx="1.23" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="47"/>
+		<hotspot name="AA48" visible="false" style="icongo" tx="0.77" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="48"/>
+		<hotspot name="AA49" visible="false" style="icongo" tx="0.30" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="49"/>
+		<hotspot name="AA50" visible="false" style="icongo" tx="-0.16" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="50"/>
+
+		<!-- 场景从 24 到 25 -->
+		<hotspot name="AA51" visible="false" style="icongo" tx="-1.14" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="51"/>
+		<hotspot name="AA52" visible="false" style="icongo" tx="-1.65" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="52"/>
+		<hotspot name="AA53" visible="false" style="icongo" tx="-2.16" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="53"/>
+
+		<!-- 场景从 25 到 26 -->
+		<hotspot name="AA54" visible="false" style="icongo" tx="-3.15" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="54"/>
+		<hotspot name="AA55" visible="false" style="icongo" tx="-3.63" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="55"/>
+		<hotspot name="AA56" visible="false" style="icongo" tx="-4.10" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="56"/>
+
+		<!-- 场景从 26 到 27 -->
+		<hotspot name="AA57" visible="false" style="icongo" tx="-5.11" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="57"/>
+		<hotspot name="AA58" visible="false" style="icongo" tx="-5.64" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="58"/>
+		<hotspot name="AA59" visible="false" style="icongo" tx="-6.17" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="59"/>
+		<hotspot name="AA60" visible="false" style="icongo" tx="-6.70" ty="-0.5" tz="2.27" rx="-90.0" ry="-90" rz="-0.0" aa="60"/>
+
+		<!-- 场景从 27 到 28 -->
+		<hotspot name="AA61" visible="false" style="icongo" tx="-7.72" ty="-0.5" tz="2.31" rx="-90.0" ry="-85" rz="-0.0" aa="61"/>
+		<hotspot name="AA62" visible="false" style="icongo" tx="-8.21" ty="-0.5" tz="2.36" rx="-90.0" ry="-85" rz="-0.0" aa="62"/>
+		<hotspot name="AA63" visible="false" style="icongo" tx="-8.70" ty="-0.5" tz="2.40" rx="-90.0" ry="-85" rz="-0.0" aa="63"/>
+		<hotspot name="AA64" visible="false" style="icongo" tx="-9.18" ty="-0.5" tz="2.45" rx="-90.0" ry="-85" rz="-0.0" aa="64"/>
+		<hotspot name="AA65" visible="false" style="icongo" tx="-9.67" ty="-0.5" tz="2.49" rx="-90.0" ry="-85" rz="-0.0" aa="65"/>
+		<hotspot name="AA66" visible="false" style="icongo" tx="-10.16" ty="-0.5" tz="2.54" rx="-90.0" ry="-85" rz="-0.0" aa="66"/>
+		<hotspot name="AA67" visible="false" style="icongo" tx="-10.64" ty="-0.5" tz="2.58" rx="-90.0" ry="-85" rz="-0.0" aa="67"/>
+
+
+		<!-- 二层 图标的位置 -->
+		<!-- 场景从 1 到 30 -->
+		<hotspot name="AB1" visible="false" style="icongo" tx="-4.33" ty="-0.05" tz="-3.04" rx="-90.0" ry="0" rz="-0.0" aa="1"/>
+		<hotspot name="AB2" visible="false" style="icongo" tx="-4.33" ty="-0.05" tz="-2.52" rx="-90.0" ry="0" rz="-0.0" aa="2"/>
+		<hotspot name="AB3" visible="false" style="icongo" tx="-4.33" ty="-0.05" tz="-2.00" rx="-90.0" ry="0" rz="-0.0" aa="3"/>
+		<!-- 场景从 30 到 31 -->
+		<hotspot name="AB5" visible="false" style="icongo" tx="-4.85" ty="-0.05" tz="-1.48" rx="-90.0" ry="-90" rz="-0.0" aa="5"/>
+		<hotspot name="AB6" visible="false" style="icongo" tx="-5.38" ty="-0.05" tz="-1.48" rx="-90.0" ry="-90" rz="-0.0" aa="6"/>
+		<hotspot name="AB7" visible="false" style="icongo" tx="-5.90" ty="-0.05" tz="-1.48" rx="-90.0" ry="-90" rz="-0.0" aa="7"/>
+		<hotspot name="AB8" visible="false" style="icongo" tx="-6.43" ty="-0.05" tz="-1.48" rx="-90.0" ry="-90" rz="-0.0" aa="8"/>
+		<hotspot name="AB9" visible="false" style="icongo" tx="-6.95" ty="-0.05" tz="-1.48" rx="-90.0" ry="-90" rz="-0.0" aa="9"/>
+		<hotspot name="AB10" visible="false" style="icongo" tx="-7.47" ty="-0.05" tz="-1.48" rx="-90.0" ry="-90" rz="-0.0" aa="10"/>
+		<hotspot name="AB11" visible="false" style="icongo" tx="-8.00" ty="-0.05" tz="-1.48" rx="-90.0" ry="-90" rz="-0.0" aa="11"/>
+		<!-- 场景从 31 到 32 -->
+		<hotspot name="AB13" visible="false" style="icongo" tx="-9.05" ty="-0.05" tz="-1.48" rx="-90.0" ry="-90" rz="-0.0" aa="13"/>
+		<hotspot name="AB14" visible="false" style="icongo" tx="-9.57" ty="-0.05" tz="-1.48" rx="-90.0" ry="-90" rz="-0.0" aa="14"/>
+		<hotspot name="AB15" visible="false" style="icongo" tx="-10.09" ty="-0.05" tz="-1.48" rx="-90.0" ry="-90" rz="-0.0" aa="15"/>
+		<hotspot name="AB16" visible="false" style="icongo" tx="-10.61" ty="-0.05" tz="-1.48" rx="-90.0" ry="-90" rz="-0.0" aa="16"/>
+		<hotspot name="AB17" visible="false" style="icongo" tx="-11.13" ty="-0.05" tz="-1.48" rx="-90.0" ry="-90" rz="-0.0" aa="17"/>
+		<hotspot name="AB18" visible="false" style="icongo" tx="-11.65" ty="-0.05" tz="-1.48" rx="-90.0" ry="-90" rz="-0.0" aa="18"/>
+		<!-- 场景从 32 到 33 -->
+		<hotspot name="AB20" visible="false" style="icongo" tx="-12.18" ty="-0.05" tz="-0.95" rx="-90.0" ry="0" rz="-0.0" aa="20"/>
+		<!-- 场景从 33 到 34 -->
+		<hotspot name="AB22" visible="false" style="icongo" tx="-12.18" ty="-0.05" tz="0.12" rx="-90.0" ry="0" rz="-0.0" aa="22"/>
+		<hotspot name="AB23" visible="false" style="icongo" tx="-12.18" ty="-0.05" tz="0.66" rx="-90.0" ry="0" rz="-0.0" aa="23"/>
+		<hotspot name="AB24" visible="false" style="icongo" tx="-12.18" ty="-0.05" tz="1.20" rx="-90.0" ry="0" rz="-0.0" aa="24"/>
+		<hotspot name="AB25" visible="false" style="icongo" tx="-12.18" ty="-0.05" tz="1.74" rx="-90.0" ry="0" rz="-0.0" aa="25"/>
+		<!-- 场景从 34 到 35 -->
+		<hotspot name="AB27" visible="false" style="icongo" tx="-11.73" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="27"/>
+		<hotspot name="AB28" visible="false" style="icongo" tx="-11.29" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="28"/>
+		<hotspot name="AB29" visible="false" style="icongo" tx="-10.84" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="29"/>
+		<!-- 场景从 35 到 36 -->
+		<hotspot name="AB31" visible="false" style="icongo" tx="-9.93" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="31"/>
+		<hotspot name="AB32" visible="false" style="icongo" tx="-9.46" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="32"/>
+		<hotspot name="AB33" visible="false" style="icongo" tx="-8.99" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="33"/>
+		<!-- 场景从 36 到 37 -->
+		<hotspot name="AB35" visible="false" style="icongo" tx="-7.99" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="35"/>
+		<hotspot name="AB36" visible="false" style="icongo" tx="-7.45" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="36"/>
+		<hotspot name="AB37" visible="false" style="icongo" tx="-6.92" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="37"/>
+		<!-- 场景从 37 到 38 -->
+		<hotspot name="AB39" visible="false" style="icongo" tx="-5.87" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="39"/>
+		<hotspot name="AB40" visible="false" style="icongo" tx="-5.35" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="40"/>
+		<hotspot name="AB41" visible="false" style="icongo" tx="-4.84" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="41"/>
+		<!-- 场景从 38 到 39 -->
+		<hotspot name="AB43" visible="false" style="icongo" tx="-3.80" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="43"/>
+		<hotspot name="AB44" visible="false" style="icongo" tx="-3.27" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="44"/>
+		<hotspot name="AB45" visible="false" style="icongo" tx="-2.74" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="45"/>
+		<hotspot name="AB46" visible="false" style="icongo" tx="-2.21" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="46"/>
+		<!-- 场景从 39 到 40 -->
+		<hotspot name="AB48" visible="false" style="icongo" tx="-1.19" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="48"/>
+		<hotspot name="AB49" visible="false" style="icongo" tx="-0.70" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="49"/>
+		<hotspot name="AB50" visible="false" style="icongo" tx="-0.20" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="50"/>
+		<!-- 场景从 40 到 41 -->
+		<hotspot name="AB52" visible="false" style="icongo" tx="0.78" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="52"/>
+		<hotspot name="AB53" visible="false" style="icongo" tx="1.28" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="53"/>
+		<hotspot name="AB54" visible="false" style="icongo" tx="1.78" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="54"/>
+		<!-- 场景从 41 到 42 -->
+		<hotspot name="AB56" visible="false" style="icongo" tx="2.81" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="56"/>
+		<hotspot name="AB57" visible="false" style="icongo" tx="3.34" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="57"/>
+		<hotspot name="AB58" visible="false" style="icongo" tx="3.88" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="58"/>
+		<hotspot name="AB59" visible="false" style="icongo" tx="4.42" ty="-0.05" tz="2.28" rx="-90.0" ry="90" rz="-0.0" aa="59"/>
+		<!-- 场景从 42 到 43 -->
+		<hotspot name="AB61" visible="false" style="icongo" tx="4.42" ty="-0.05" tz="1.87" rx="-90.0" ry="-128" rz="-0.0" aa="61"/>
+		<hotspot name="AB62" visible="false" style="icongo" tx="3.88" ty="-0.05" tz="1.45" rx="-90.0" ry="-128" rz="-0.0" aa="62"/>
+		<hotspot name="AB63" visible="false" style="icongo" tx="3.34" ty="-0.05" tz="1.03" rx="-90.0" ry="-128" rz="-0.0" aa="63"/>
+		<hotspot name="AB64" visible="false" style="icongo" tx="2.81" ty="-0.05" tz="0.61" rx="-90.0" ry="-128" rz="-0.0" aa="64"/>
+		<!-- 场景从 43 到 44 -->
+		<hotspot name="AB66" visible="false" style="icongo" tx="1.78" ty="-0.05" tz="-0.02" rx="-90.0" ry="-113" rz="-0.0" aa="66"/>
+		<hotspot name="AB67" visible="false" style="icongo" tx="1.29" ty="-0.05" tz="-0.23" rx="-90.0" ry="-113" rz="-0.0" aa="67"/>
+		<hotspot name="AB68" visible="false" style="icongo" tx="0.79" ty="-0.05" tz="-0.44" rx="-90.0" ry="-113" rz="-0.0" aa="68"/>
+		<hotspot name="AB69" visible="false" style="icongo" tx="0.30" ty="-0.05" tz="-0.65" rx="-90.0" ry="-113" rz="-0.0" aa="69"/>
+		<hotspot name="AB70" visible="false" style="icongo" tx="-0.20" ty="-0.05" tz="-0.85" rx="-90.0" ry="-113" rz="-0.0" aa="70"/>
+		<hotspot name="AB71" visible="false" style="icongo" tx="-0.69" ty="-0.05" tz="-1.06" rx="-90.0" ry="-113" rz="-0.0" aa="71"/>
+		<hotspot name="AB72" visible="false" style="icongo" tx="-1.18" ty="-0.05" tz="-1.27" rx="-90.0" ry="-113" rz="-0.0" aa="72"/>
+		<!-- 场景从 44 到 45 -->
+		<hotspot name="AB74" visible="false" style="icongo" tx="-1.19" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="74"/>
+		<hotspot name="AB75" visible="false" style="icongo" tx="-0.70" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="75"/>
+		<hotspot name="AB76" visible="false" style="icongo" tx="-0.20" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="76"/>
+		<!-- 场景从 45 到 46 -->
+		<hotspot name="AB78" visible="false" style="icongo" tx="0.78" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="78"/>
+		<hotspot name="AB79" visible="false" style="icongo" tx="1.27" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="79"/>
+		<hotspot name="AB80" visible="false" style="icongo" tx="1.76" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="80"/>
+		<hotspot name="AB81" visible="false" style="icongo" tx="2.25" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="81"/>
+		<hotspot name="AB82" visible="false" style="icongo" tx="2.74" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="82"/>
+		<!-- 场景从 46 到 47 -->
+		<hotspot name="AB84" visible="false" style="icongo" tx="3.81" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="84"/>
+		<hotspot name="AB85" visible="false" style="icongo" tx="4.38" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="85"/>
+		<!-- 场景从 47 到 48 -->
+		<hotspot name="AB87" visible="false" style="icongo" tx="5.46" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="87"/>
+		<hotspot name="AB88" visible="false" style="icongo" tx="5.97" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="88"/>
+		<!-- 场景从 48 到 49 -->
+		<hotspot name="AB90" visible="false" style="icongo" tx="6.98" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="90"/>
+		<hotspot name="AB91" visible="false" style="icongo" tx="7.48" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="91"/>
+		<hotspot name="AB92" visible="false" style="icongo" tx="7.98" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="92"/>
+		<!-- 场景从 49 到 50 -->
+		<hotspot name="AB94" visible="false" style="icongo" tx="8.95" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="94"/>
+		<hotspot name="AB95" visible="false" style="icongo" tx="9.41" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="95"/>
+		<hotspot name="AB96" visible="false" style="icongo" tx="9.88" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="96"/>
+		<!-- 场景从 50 到 51 -->
+		<hotspot name="AB98" visible="false" style="icongo" tx="10.91" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="98"/>
+		<hotspot name="AB99" visible="false" style="icongo" tx="11.48" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="99"/>
+		<!-- 场景从 51 到 52 -->
+		<hotspot name="AB101" visible="false" style="icongo" tx="12.54" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="101"/>
+		<hotspot name="AB102" visible="false" style="icongo" tx="13.03" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="102"/>
+		<hotspot name="AB103" visible="false" style="icongo" tx="13.52" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="103"/>
+		<!-- 场景从 52 到 53 -->
+		<hotspot name="AB105" visible="false" style="icongo" tx="14.49" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="105"/>
+		<hotspot name="AB106" visible="false" style="icongo" tx="14.97" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="106"/>
+		<hotspot name="AB107" visible="false" style="icongo" tx="15.44" ty="-0.05" tz="-1.48" rx="-90.0" ry="90" rz="-0.0" aa="107"/>
+		<!-- 场景从 53 到 54 -->
+		<hotspot name="AB109" visible="false" style="icongo" tx="15.92" ty="-0.05" tz="-0.96" rx="-90.0" ry="0" rz="-0.0" aa="109"/>
+		<hotspot name="AB110" visible="false" style="icongo" tx="15.92" ty="-0.05" tz="-0.43" rx="-90.0" ry="0" rz="-0.0" aa="110"/>
+		<!-- 场景从 54 到 55 -->
+		<hotspot name="AB112" visible="false" style="icongo" tx="15.92" ty="-0.05" tz="0.62" rx="-90.0" ry="0" rz="-0.0" aa="112"/>
+		<hotspot name="AB113" visible="false" style="icongo" tx="15.92" ty="-0.05" tz="1.14" rx="-90.0" ry="0" rz="-0.0" aa="113"/>
+		<hotspot name="AB114" visible="false" style="icongo" tx="15.92" ty="-0.05" tz="1.66" rx="-90.0" ry="0" rz="-0.0" aa="114"/>
+		<!-- 场景从 55 到 56 -->
+		<hotspot name="AB116" visible="false" style="icongo" tx="15.44" ty="-0.05" tz="2.18" rx="-90.0" ry="-90" rz="-0.0" aa="116"/>
+		<hotspot name="AB117" visible="false" style="icongo" tx="14.97" ty="-0.05" tz="2.18" rx="-90.0" ry="-90" rz="-0.0" aa="117"/>
+		<hotspot name="AB118" visible="false" style="icongo" tx="14.49" ty="-0.05" tz="2.18" rx="-90.0" ry="-90" rz="-0.0" aa="118"/>
+		<!-- 场景从 56 到 57 -->
+		<hotspot name="AB120" visible="false" style="icongo" tx="13.52" ty="-0.05" tz="1.77" rx="-90.0" ry="-130" rz="-0.0" aa="120"/>
+		<hotspot name="AB121" visible="false" style="icongo" tx="13.03" ty="-0.05" tz="1.36" rx="-90.0" ry="-130" rz="-0.0" aa="121"/>
+		<hotspot name="AB122" visible="false" style="icongo" tx="12.54" ty="-0.05" tz="0.95" rx="-90.0" ry="-130" rz="-0.0" aa="122"/>
+		<!-- 场景从 57 到 58 -->
+		<hotspot name="AB124" visible="false" style="icongo" tx="11.48" ty="-0.05" tz="1.09" rx="-90.0" ry="-46" rz="-0.0" aa="124"/>
+		<hotspot name="AB125" visible="false" style="icongo" tx="10.91" ty="-0.05" tz="1.64" rx="-90.0" ry="-46" rz="-0.0" aa="125"/>
+		<!-- 场景从 58 到 59 -->
+		<hotspot name="AB127" visible="false" style="icongo" tx="9.84" ty="-0.05" tz="2.50" rx="-90.0" ry="-58" rz="-0.0" aa="127"/>
+		<hotspot name="AB128" visible="false" style="icongo" tx="9.33" ty="-0.05" tz="2.82" rx="-90.0" ry="-58" rz="-0.0" aa="128"/>
+		<hotspot name="AB129" visible="false" style="icongo" tx="8.82" ty="-0.05" tz="3.13" rx="-90.0" ry="-58" rz="-0.0" aa="129"/>
+		<hotspot name="AB130" visible="false" style="icongo" tx="8.31" ty="-0.05" tz="3.45" rx="-90.0" ry="-58" rz="-0.0" aa="130"/>
+
+
+
+
+
+
+
+
+
+
+
+</krpano> 
+ 

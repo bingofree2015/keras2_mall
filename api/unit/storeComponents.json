@@ -1,0 +1,137 @@
+[
+    {
+        "type": "search",
+        "name": "搜索框",
+        "value": {
+            "keywords": "请输入关键字搜索",
+            "style": "round"
+        },
+        "icon": "icon-sousuokuang"
+    },
+    {
+        "type": "notice",
+        "name": "公告组",
+        "value": {
+            "type": "auto",
+            "list": [
+                {
+                    "title": "这里是第一条公告的标题",
+                    "content": "",
+                    "id": ""
+                }
+            ]
+        },
+        "icon": "icon-gonggao"
+    },
+    {
+        "type": "navBar",
+        "name": "导航组",
+        "value": {
+            "limit": 4,
+            "list": [
+                {
+                    "image": "/static/images/empty.png",
+                    "text": "按钮1",
+                    "linkType": "",
+                    "linkValue": ""
+                },
+                {
+                    "image": "/static/images/empty.png",
+                    "text": "按钮2",
+                    "linkType": "",
+                    "linkValue": ""
+                },
+                {
+                    "image": "/static/images/empty.png",
+                    "text": "按钮3",
+                    "linkType": "",
+                    "linkValue": ""
+                },
+                {
+                    "image": "/static/images/empty.png",
+                    "text": "按钮4",
+                    "linkType": "",
+                    "linkValue": ""
+                }
+            ]
+        },
+        "icon": "icon-daohangliebiao"
+    },
+    {
+        "type": "goods",
+        "name": "商品组",
+        "icon": "icon-shangpin",
+        "value": {
+            "title": "商品组名称",
+            "lookMore": "true",
+            "type": "auto",
+            "classifyId": "",
+            "brandId": "",
+            "limit": 10,
+            "display": "list",
+            "column": 2,
+            "list": [
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "name": "",
+                    "price": ""
+                },
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "name": "",
+                    "price": ""
+                },
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "name": "",
+                    "price": ""
+                },
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "name": "",
+                    "price": ""
+                }
+            ]
+        }
+    },
+    {
+        "type": "groupPurchase",
+        "name": "团购秒杀",
+        "value": {
+            "title": "活动名称",
+            "limit": "10",
+            "list": [
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "name": "",
+                    "price": ""
+                },
+                {
+                    "image": "/static/images/empty-banner.png",
+                    "name": "",
+                    "price": ""
+                }
+            ]
+        },
+        "icon": "icon-tuangou"
+    },
+    {
+        "type": "coupon",
+        "name": "优惠券组",
+        "value": {
+            "limit": "2"
+        },
+        "icon": "icon-tubiao-youhuiquan"
+    },
+    {
+        "type": "record",
+        "name": "购买记录",
+        "value": {
+            "style": {
+                "top": 20,
+                "left": 0
+            }
+        },
+        "icon": "icon-jilu"
+    }
+]

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>代达罗斯：希腊克里特岛的神话</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+
+    <!--引入沉浸看展插件，不需要则不引入 先数据，后配置-->
+  <script src="wep/data_manualview.js"></script>
+  <script src="wep/config/manualview.js"></script>
+  <!--引入热点插件，不需要则不引入 先数据，后配置-->
+  <script src="wep/config/autoview.js"></script>
+ 
+
+  <!--引入热点插件，不需要则不引入 先数据，后配置-->
+  <script src="wep/data_hotspot.js"></script>
+  <script src="wep/config/hotspot.js"></script> 
+
+  <!--引入地图插件，不需要则不引入 先数据，后配置-->
+  <script src="wep/data_map.js"></script>
+  <script src="wep/config/map.js"></script>
+
+  <!--引入全屏插件，不需要则不引入 不需要数据配置-->
+  <script src="wep/config/fullscreen.js"></script>
+
+   <script src="wep/vue.min.js"></script>
+   <script src="wep/wep.umd.min.js"></script>
+   <script src="wep/main.js"></script>
+    <script src="./ubs/ui.vue.js" ></script>
+    <link rel="stylesheet" href="./ubs/ui.css">
+    
+    <link rel="stylesheet" href="./listbox/hotspot.css">
+    <style>
+      html {
+        height: 100%;
+      }
+      body {
+        height: 100%;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        color: #ffffff;
+        background-color: #000000;
+        -webkit-tap-highlight-color: transparent;/* 新增：解决移动端点击色块问题 */
+        -webkit-user-select: none; /* Safari, Chrome */
+        -moz-user-select: none;    /* Firefox */
+        -ms-user-select: none;     /* IE 10+ */
+        user-select: none;         /* 标准语法 */
+       }
+      
+      .layout {
+        display: none;
+        position: absolute;
+        top: 40%;
+        left: 40%;
+        width: 20%;
+        height: 20%;
+        z-index: 1001;
+        text-align: center;
+      }
+    </style>
+
+    <script src="./resources/jquery.min.js"></script>
+    <script src="./resources/quickTracking.main.js"></script>
+
+    <script type="text/javaScript">
+      $(function(){
+       // 展览ID从URL地址上获取 var exhibit_id=...
+       var exhibit_str = (window.location.search||'').split('exhibit_id')[1]
+       var exhibit_id=exhibit_str && exhibit_str.split('=')[1]
+       $.ajax({
+        url: `https://gugongzhanlan.dpm.org.cn/api/youmeng/exhibit/${exhibit_id}?format=jsonp`,
+        type:'GET',
+        dataType:'jsonp',
+        jsonp:"callback",
+        jsonpCallback:"success",
+        success:function (response) {
+      var exhibit_name=response.data.name;// 展览名称
+      var exhibit_stage=response.data.stage;// 展览状态
+      const now = new Date();
+      var timer = 0;
+      const {aplus_queue} = window;
+      timer = new Date()-now;
+      timer = timer+'';
+      aplus_queue.push({
+      'action':'aplus.sendPV',
+      'arguments':[{
+      is_auto: false
+      }, {
+      //必传参数
+      ts: new Date(), //当前时间戳
+      path: window.location.href, //当前page的url
+      page_name: "ggzl_360Page", //您当前页面的自定义页面编码
+      duration: timer, // 手动pv,duration信息需要您自己计算
+      // 自定义PV参数key-value键值对
+      Um_Key_ExhibitName:exhibit_name,
+      Um_Key_ExhibitID:exhibit_id,
+      Um_Key_ExhibitStatus:exhibit_stage,
+      }]
+      });
+      console.log("window.onLoad===>>>>",aplus_queue)
+      window.onbeforeunload=function(){
+       QT('ggzl_360Page','OTHER',{'Um_Key_ExhibitName':exhibit_name,'Um_Key_ExhibitID':exhibit_id,'Um_Key_ExhibitStatus':exhibit_stage,'page_name':'ggzl_360Page'})
+       console.log("window.onbeforeunload===>>>>上报OTHER事件")
+       }
+
+        }
+       })
+       })
+    </script>
+  </head>
+  <body>
+    
+    <script src="tour.js"></script>
+    <div id="uibox322">   </div>
+    <script src="./ubs/uibox322.js">  </script>
+    <script src="./ubs/uidate322.js">  </script>
+
+    <div id="uiunit1121"></div>
+    <script src="./ubs/uiunitbox322.js">  </script>
+    <script src="./ubs/uiunitdate322.js">  </script>
+  
+    <!-- 热点列表 -->
+    <div id="listbox322"></div>
+    <script src="./listbox/list.vue.js"></script>
+    <script src="./listbox/hotspot.js"></script>
+    <script src="./listbox/hotdate.js"></script>
+
+    <div id="pano" style="width: 100%; height: 100%">
+      <noscript
+        ><table style="width: 100%; height: 100%">
+          <tr style="vertical-align: middle">
+            <td>
+              <div style="text-align: center">
+                ERROR:<br /><br />Javascript not activated<br /><br />
+              </div>
+            </td>
+          </tr></table
+      ></noscript>
+      <script>
+        embedpano({
+          id: "krpanoSWFObject",
+          swf: "tour.swf",
+          xml: "everpano3d.xml",
+          target: "pano",
+          html15: "webgl+only",
+          wmode: "windoww",
+          consolelog: false,
+          mobilescale: 1,
+          passQueryParameters: true,
+          onready: function (jsapi) {
+                window.krpano = jsapi.get('global')
+
+                // 初始化插件，其他地方进行初始化也可以，但是必须传入 krpano 实例
+                WEP.init(window.krpano)
+            }
+        })
+      </script>
+    </div>
+
+    <div id="layout" class="layout">
+      <!-- < img src="image/loading.gif" /> -->
+      <span
+        id="zc"
+        style="
+          width: 200px;
+          height: 100px;
+          user-select: none;
+          color: aliceblue;
+          margin: 0 auto;
+          display: block;
+          /* vertical-align: middle; */
+        "
+      >
+      </span>
+    </div>
+    <script src="./plugins/loadModelPic.js"></script>
+  <script>
+  
+    function startanimation() {
+    const div = document.getElementById('pano');
+    
+    // 添加过渡效果
+    div.style.transition = 'opacity 0.5s ease-in-out';
+    
+    // 第一步：1秒内淡出
+    div.style.opacity = '0.0';
+    
+    // 第二步：等待1秒后淡入（总时间1秒淡出 + 0.5秒等待 = 1.5秒）
+    setTimeout(() => {
+      div.style.opacity = '1';
+    }, 800); // 调整为1.5秒
+  }
+  </script>
+  </body>
+</html>

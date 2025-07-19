@@ -1,0 +1,30 @@
+http://localhost:8083/manage/index/index.html
+
+http://localhost:8083/manage/index/welcome.html
+
+http://localhost:8083/manage/user/pointlog.html?user_id=3&flag=false
+
+http://localhost:8083/manage/user/pointlog.html?_ajax=1&user_id=3&flag=true&page=1&limit=10
+
+http://localhost:8083/manage/balance/index.html?user_id=3
+
+
+http://localhost:8083/manage/user/edituser.html?user_id=3
+
+http://localhost:8083/manage/user/editmoney.html?user_id=3&flag=false
+
+http://localhost:8083/manage/images/manage.html?action=config&&noCache=1563859797953
+
+http://localhost:8083/manage/user/grade.html
+
+
+http://localhost:8083/manage/goods/index.html?_ajax=1&page=1&limit=20
+http://localhost:8083/manage/goods/index.html?page=1&limit=20
+
+
+
+<img src="https://travis-ci.org/shuzheng/zheng.svg?branch=master" alt="Build Status">&#x000A;
+<img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License">&#x000A;
+<img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome">&#x000A;
+<img src="https://img.shields.io/github/stars/shuzheng/zheng.svg?style=social&amp;label=Stars" alt="GitHub stars">&#x000A;
+<img src="https://img.shields.io/github/forks/shuzheng/zheng.svg?style=social&amp;label=Fork" alt="GitHub forks">

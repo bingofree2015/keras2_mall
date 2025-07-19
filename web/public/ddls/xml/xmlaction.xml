@@ -1,0 +1,593 @@
+<krpano>
+
+
+<!-- tour.xml里面的动作 -->
+
+    <action name="wjonstart">
+		floorindate();
+		view_corotation();
+		<!-- 在外景不显示地面白点 -->
+        <!-- 在外景不显示前进箭头 -->
+	</action>
+	<!-- 场景中的onstart的动作-->
+    <action name="modelonstart">
+        add_mouse_3d_cursor();<!-- 打开三维鼠标 -->
+		floorindate();<!-- 将场景名称放到数据库 -->
+        view_corotation();<!-- 场景内点击旋转正这旋转 -->
+	</action>
+
+	<!-- 外景进入内景的动作 -->
+	<action name="gotoscene">
+		set(scenename,'%1'); 
+		
+		tour3d_loadscene11(%1);
+		subtxt(subscenename, scenename, 0, 7 );	
+		if(subscenename == "scene_a",
+			show_icon1();
+			floorhsspot(1);
+		,);
+		if(subscenename == "scene_b",
+			show_icon2();
+			floorhsspot(2);
+		,);
+		if(subscenename == "scene_c",
+			show_icon3();
+			floorhsspot(3);
+		,);
+		if(subscenename == "scene_d",
+			show_icon4();
+			floorhsspot(4);
+		,);
+		if(subscenename == "scene_e",
+			show_icon5();
+			floorhsspot(5);
+		,);
+
+	</action>
+	<action name="gotowjscene">	
+		tour3d_loadscene11(%1);
+		floorhsspotno();
+		sp_close();	
+	</action>
+	<!-- 热点按钮周边显示色块，告诉读者讲解的是哪个热点 -->
+	<action name="showhotspot">	
+		set(hotspot[HS_ww].visible,true);	 
+		txtadd(showspot,'hss_','%1');
+		set(showspoth,get(hotspot[get(showspot)].ath));
+		set(showspotv,get(hotspot[get(showspot)].atv));	
+		<!-- set(view.hlookat,get(hotspot[get(showspot)].ath));
+		set(view.vlookat,get(hotspot[get(showspot)].atv)); -->
+		set(hotspot[HS_ww].ath,get(hotspot[get(showspot)].ath));
+		set(hotspot[HS_ww].atv,get(hotspot[get(showspot)].atv));					
+	</action>
+
+
+
+<!-- coordinate.xml里面的动作 -->
+    <!-- ，进入当前场景记录当场场景坐标，为点击三维模型离开当前场景时红色图标提供坐标 -->
+	<action name="floorindate"> 
+	set(scene[modedate].num,get(scene[get(xml.scene)].name)); 
+	set(scenename, get(scene[get(xml.scene)].name));	
+	subtxt(subscenename, scenename, 0, 8 );	
+	if(subscenename == "scene_wj", 
+		set(scene[modedate].ntx,false);
+		set(scene[modedate].ntz,false); 
+		,
+
+		for(set(i,0),i LT 610,inc(i),  
+		txtadd(spotname,'HS_c',get(i));
+			if( get(hotspot[get(spotname)].floorindexs) === scenename,
+					
+				<!-- 读取当前场景所在坐标并将值赋予modedate中的ntx和nty -->
+					set(scene[modedate].ntx,get(hotspot[get(spotname)].tx));
+					set(scene[modedate].ntz,get(hotspot[get(spotname)].tz)); 
+										
+				,				    				
+			);			
+	    ); 
+	);
+
+    </action>
+<!-- 从模型进入场景关闭当前位置图标 -->
+	<action name="currentlocation"> 
+		set(hotspot[HS_out].visible, false);
+    </action>
+<!-- 呼出模型显示当前位置 -->
+    <action name="floorhsspotout"> 
+		set(ntxdate,get(scene[modedate].ntx));
+		if(
+			ntxdate == "null",
+			set(hotspot[HS_out].visible, false);
+			,
+			set(hotspot[HS_out].visible, true);
+			set(hotspot[HS_out].tx, get(scene[modedate].ntx));
+			set(hotspot[HS_out].tz, get(scene[modedate].ntz)); 
+
+		);    
+			
+    </action>
+<!-- 通过判断当前场景所在展厅，判断显示那个展厅的地面白点 -->
+    <action name="floorhsspot"> 
+		for(set(i,0),i LT 600,inc(i), 
+			txtadd(spotname,'HS_c',get(i));
+			set(hotspot[get(spotname)].visible, false);
+				if('%1' == get(hotspot[get(spotname)].floorindex),
+					set(hotspot[get(spotname)].visible, true);
+					,
+					set(hotspot[get(spotname)].visible, false);
+				);
+		);	
+		
+    </action>
+
+<!-- 从模型进入场景，通过判断进入场景所在展厅，判断显示那个展厅的地面白点 -->
+    <action name="floorhsspot1"> 
+	set(scenename, '%1');
+	subtxt(subscenename, scenename, 0, 7 );	
+	if(subscenename == "scene_a",
+		floorhsspot(1);
+            ,
+    );
+	if(subscenename == "scene_b",
+		floorhsspot(2);
+            ,
+    );
+	if(subscenename == "scene_c",
+		floorhsspot(3);
+            ,
+    );
+	if(subscenename == "scene_d",
+		floorhsspot(4);
+            ,
+    );
+	if(subscenename == "scene_e",
+		floorhsspot(5);
+            ,
+    );
+	
+    </action>
+
+<!-- 关闭全部地上白点 -->
+    <action name="floorhsspotno"> 
+        for(set(i,0),i LT 800,inc(i),  
+	    txtadd(spotname,'HS_c',get(i));
+	    set(hotspot[get(spotname)].visible, false);
+		);	
+    
+    </action>
+
+<!-- 通过判断当前展厅，判断显示那个展厅的地面透明地板 -->
+    <action name="floorunit">  
+		for(set(i,0),i LT 500,inc(i),  
+			txtadd(spotname,'hs_m',get(i));
+			set(hotspot[get(spotname)].visible, false);
+				if('%1' == get(hotspot[get(spotname)].floorindex),
+					set(hotspot[get(spotname)].visible, true);
+					,
+					set(hotspot[get(spotname)].visible, false);
+				);
+		);	
+		
+    </action>
+<!-- 关闭模型中的透明图标 -->
+    <action name="floorunitno">  
+		for(set(i,0),i LT 500,inc(i),  
+			txtadd(spotname,'hs_m',get(i));
+			set(hotspot[get(spotname)].visible, false);				
+		);	
+		
+    </action>
+<!-- 通过判断当前展厅，判断显示那个展厅的单元标识 -->
+    <action name="floorut">  
+		for(set(i,0),i LT 50,inc(i),  
+			txtadd(spotname,'hs_u',get(i));
+			set(hotspot[get(spotname)].visible, false);
+				if('%1' == get(hotspot[get(spotname)].floorindex),
+					set(hotspot[get(spotname)].visible, true);
+					,
+					set(hotspot[get(spotname)].visible, false);
+				);
+		);	
+		
+    </action>
+<!-- 关闭模型中的单元标识 -->
+    <action name="floorutno">  
+		for(set(i,0),i LT 50,inc(i),  
+			txtadd(spotname,'hs_u',get(i));
+			set(hotspot[get(spotname)].visible, false);				
+		);	
+		
+    </action>
+
+
+
+
+
+
+<!-- icon.xml里面的动作 -->
+
+<!-- 赋予icon开始为显示 -->
+	<action name="startdzg" autorun="onstart">
+		set(scene[modedate].icon, 1);	
+	 </action>
+
+<!-- 判断当前所在展厅，确定显示那个展厅的箭头 -->
+<action name="show_icon1" >
+	set(sceneicon, get(scene[modedate].icon));
+	if(sceneicon == 1,
+				asp_open();
+				bsp_close();
+				csp_close();
+				dsp_close();
+				esp_close();
+				,
+				sp_close();
+			);		
+	</action>	
+	<action name="show_icon2" >
+	set(sceneicon, get(scene[modedate].icon));
+	if(sceneicon == 1,
+				asp_close();
+				bsp_open();
+				csp_close();
+				dsp_close();
+				esp_close();
+				,
+				sp_close();
+			);			
+	</action>
+	<action name="show_icon3" >
+
+	set(sceneicon, get(scene[modedate].icon));
+	if(sceneicon == 1,
+				asp_close();
+				bsp_close();
+				csp_open();
+				dsp_close();
+				esp_close();
+				,
+				sp_close();
+			);					
+	 </action>	
+
+<!-- 沉浸看展切换场景时，判断当前所在展厅，确定显示那个展厅的箭头 -->
+<action name="autoview_icon" >
+	set(sceneicon, '%1');
+	subtxt(subsceneicon, sceneicon, 0, 7 );
+	if( subsceneicon == "scene_a",
+	show_icon1();
+	,
+	);
+	if( subsceneicon == "scene_b",
+	show_icon2();
+	,
+	);
+	if( subsceneicon == "scene_c",
+	show_icon3();
+	,
+	);
+</action>
+
+<!-- 判断当前所在展厅，确定显示那个展厅的箭头 -->
+<action name="st_ico" >
+
+	set(sceneicon, get(scene[modedate].icon));
+	set(scenetit, get(scene[get(xml.scene)].name));
+	subtxt(subscenetit, scenetit, 0, 7 );
+	
+		if(subscenetit=="scene_a",
+			if(sceneicon == 1,
+				asp_open();
+				bsp_close();
+				csp_close();
+				dsp_close();
+				esp_close();
+				,
+				sp_close();
+			);	
+		
+		);
+		if(subscenetit=="scene_b",
+			if(sceneicon == 1,
+				asp_close();
+				bsp_open();
+				csp_close();
+				dsp_close();
+				esp_close();
+				,
+				sp_close();
+			);	
+		
+		);
+		if(subscenetit=="scene_c",
+			if(sceneicon == 1,
+				asp_close();
+				bsp_close();
+				csp_open();
+				dsp_close();
+				esp_close();
+				,
+				sp_close();
+
+			);	
+				
+		);
+		if(subscenetit=="scene_d",
+			if(sceneicon == 1,
+				asp_close();
+				bsp_close();
+				csp_close();
+				dsp_open();
+				esp_close();
+				,
+				sp_close();
+			);					
+		);
+		if(subscenetit=="scene_e",
+			if(sceneicon == 1,
+				asp_close();
+				bsp_close();
+				csp_close();
+				dsp_close();
+				esp_open();
+				,
+				sp_close();
+			);					
+		);		
+				
+	 </action>	
+<!-- 平面地图中判断当前所在展厅，确定显示那个展厅的箭头 -->
+<action name="mapst_ico" >
+
+	set(sceneicon, get(scene[modedate].icon));
+	if(sceneicon == 1,
+		if('%1'== 1,
+			asp_open();
+			bsp_close();
+			csp_close();
+			dsp_close();
+			esp_close();
+		,);
+		if('%1'== 2,
+			asp_close();
+			bsp_open();
+			csp_close();
+			dsp_close();
+			esp_close();
+		,);
+		if('%1'== 3,
+			asp_close();
+			bsp_close();
+			csp_open();
+			dsp_close();
+			esp_close();
+		,);
+		if('%1'== 4,
+			asp_close();
+			bsp_close();
+			csp_close();
+			dsp_open();
+			esp_close();
+		,);
+		if('%1'== 5,
+			asp_close();
+			bsp_close();
+			csp_close();
+			dsp_close();
+			esp_open();
+		,);
+		
+	,
+	sp_close();
+	);
+						
+	 </action>	
+
+	 <!--  呼出模型箭头判断 -->
+	<action name="mst_ico" >
+	
+	set(sceneicon, get(scene[modedate].icon));
+	set(scenetit, get(scene[get(xml.scene)].name));
+		if(scenetit=="model3da",
+			if(sceneicon == 1,
+				asp_open();
+				bsp_close();
+				csp_close();
+				dsp_close();
+				esp_close();
+				,
+				sp_close();
+			);	
+		
+		);
+		if(scenetit=="model3db",
+			if(sceneicon == 1,
+				asp_close();
+				bsp_open();
+				csp_close();
+				dsp_close();
+				esp_close();
+				,
+				sp_close();
+			);	
+		
+		);
+		if(scenetit=="model3dc",
+			if(sceneicon == 1,
+				asp_close();
+				bsp_close();
+				csp_open();
+				dsp_close();
+				esp_close();
+				,
+				sp_close();
+
+			);	
+				
+		);
+		if(scenetit=="model3dd",
+			if(sceneicon == 1,
+				asp_close();
+				bsp_close();
+				csp_close();
+				dsp_open();
+				esp_close();
+				,
+				sp_close();
+			);					
+		);
+		if(scenetit=="model3de",
+			if(sceneicon == 1,
+				asp_close();
+				bsp_close();
+				csp_close();
+				dsp_close();
+				esp_open();
+				,
+				sp_close();
+			);					
+		);
+		</action>
+	 <!-- 打开前进箭头 -->
+	 <action name="sp_open">  
+		
+		set(scenetit, get(scene[get(xml.scene)].name));
+		subtxt(subscenetit, scenetit, 0, 7 );
+		set(scene[modedate].icon, 1);
+
+		if(subscenetit=="scene_a",
+			
+			asp_open();
+			bsp_close();
+			csp_close();
+			dsp_close();
+			esp_close();
+			,		
+		);
+		if(subscenetit=="scene_b",
+			
+			asp_close();
+			bsp_open();
+			csp_close();
+			dsp_close();
+			esp_close();
+			,		
+		);
+		if(subscenetit=="scene_c",
+			
+			asp_close();
+			bsp_close();
+			csp_open();
+			dsp_close();
+			esp_close();
+			,		
+		);
+		if(subscenetit=="scene_d",
+			
+			asp_close();
+			bsp_close();
+			csp_close();
+			dsp_open();
+			esp_close();
+			,		
+		);
+		if(subscenetit=="scene_e",
+			
+			asp_close();
+			bsp_close();
+			csp_close();
+			dsp_close();
+			esp_open();
+			,				
+		);
+	</action>
+	
+		 
+	<action name="sp_close">  
+			asp_close();
+			bsp_close();
+			csp_close();
+			dsp_close();
+			esp_close();
+		set(scene[modedate].icon, 0);	
+    </action>
+	<action name="msp_close">  
+			asp_close();
+			bsp_close();
+			csp_close();
+			dsp_close();
+			esp_close();
+    </action>
+
+	<action name="asp_open">  
+		for(set(i,0),i LT 999,inc(i),  
+			txtadd(spotname,'AA',get(i));
+			set(hotspot[get(spotname)].visible, true);
+		);  
+    </action>
+	<action name="asp_close">  
+		for(set(i,0),i LT 999,inc(i),  
+			txtadd(spotname,'AA',get(i));
+			set(hotspot[get(spotname)].visible, false);
+		);  
+    </action>
+	<action name="bsp_open">  
+		for(set(i,0),i LT 999,inc(i),  
+			txtadd(spotname,'AB',get(i));
+			set(hotspot[get(spotname)].visible, true);
+		);  
+    </action>
+	<action name="bsp_close">  
+		for(set(i,0),i LT 999,inc(i),  
+			txtadd(spotname,'AB',get(i));
+			set(hotspot[get(spotname)].visible, false);
+		);  
+    </action>
+	<action name="csp_open">  
+		for(set(i,0),i LT 999,inc(i),  
+			txtadd(spotname,'AC',get(i));
+			set(hotspot[get(spotname)].visible, true);
+		);  
+    </action>
+	<action name="csp_close">  
+		for(set(i,0),i LT 999,inc(i),  
+			txtadd(spotname,'AC',get(i));
+			set(hotspot[get(spotname)].visible, false);
+		);  
+    </action>
+	<action name="dsp_open">  
+		for(set(i,0),i LT 999,inc(i),  
+			txtadd(spotname,'AD',get(i));
+			set(hotspot[get(spotname)].visible, true);
+		);  
+    </action>
+	<action name="dsp_close">  
+		for(set(i,0),i LT 999,inc(i),  
+			txtadd(spotname,'AD',get(i));
+			set(hotspot[get(spotname)].visible, false);
+		);  
+    </action>
+	<action name="esp_open">  
+		for(set(i,0),i LT 999,inc(i),  
+			txtadd(spotname,'AE',get(i));
+			set(hotspot[get(spotname)].visible, true);
+		);  
+    </action>
+	<action name="esp_close">  
+		for(set(i,0),i LT 999,inc(i),  
+			txtadd(spotname,'AE',get(i));
+			set(hotspot[get(spotname)].visible, false);
+		);  
+    </action>	
+
+	<!--tour.xml  -->
+	<!--窗口反转  -->
+	<action name="view_reversal" >
+    	set(control.invert, true);
+	</action>
+	<!--窗口正转  -->
+	<action name="view_corotation" >
+    	set(control.invert, false);
+	</action>
+    
+</krpano>

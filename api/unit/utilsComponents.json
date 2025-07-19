@@ -1,0 +1,17 @@
+[
+    {
+        "type": "blank",
+        "name": "辅助空白",
+        "icon": "icon-kongbai",
+        "value": {
+            "height": 20,
+            "backgroundColor": "#FFFFFF"
+        }
+    },
+    {
+        "type": "textarea",
+        "name": "文本域",
+        "value": "",
+        "icon": "icon-fuwenben"
+    }
+]

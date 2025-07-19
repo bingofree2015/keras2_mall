@@ -1,0 +1,171 @@
+ /* 基础样式 */
+ * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Microsoft YaHei', sans-serif;
+}
+
+/* 主控制按钮 */
+.control-btn {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #D4AF37;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    z-index: 999;
+    transition: all 0.3s;
+}
+.control-btn:hover {
+    background: #f5f5f5;
+    transform: scale(1.1);
+}
+
+/* 主容器 */
+.hotspot-container {
+    position: fixed;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid #D4AF37;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+}
+ /* 新增关闭按钮样式 */
+ .desktop-close {
+    background: url('image/list-close.png') center/contain no-repeat !important;
+    cursor: pointer !important; /* 添加手型光标 */
+    width: 40px;
+    height: 40px;
+}
+.mobile-close {
+    background: url('image/list-close-m.png') center/contain no-repeat !important;
+    cursor: pointer !important; /* 添加手型光标 */
+    width: 15px;
+    height: 15px;
+}
+ /* 修正搜索图标光标 */
+ .search-icon {
+    cursor: pointer; /* 新增手型光标 */
+}
+
+/* 电脑端样式 */
+@media (min-width: 768px) {
+    .hotspot-container {
+        right: 0;
+        top: 0;
+        width: 450px;
+        height: 100vh;
+        transform: translateX(100%);
+        border-radius: 10px 0 0 10px;
+        background: linear-gradient(131deg,#17140f,#352a1b);
+        z-index:999999999 ;
+    }
+    .active {
+        transform: translateX(0);
+    }
+}
+
+/* 移动端样式 */
+@media (max-width: 767px) {
+    .hotspot-container {
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 60vh;
+        transform: translateY(105%);
+        border-radius: 20px 20px 0 0;
+        background: linear-gradient(131deg,#17140f,#352a1b);
+    }
+    .active {
+        transform: translateY(0);
+    }
+    .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+   
+    cursor: pointer;
+    background-size: contain;
+    }
+    .list-item {
+       padding: 12px;
+       margin: 0px 0;
+       cursor: pointer;
+       transition: all 0.3s;
+       text-align: left!important;
+       -webkit-tap-highlight-color: transparent;/* 新增：解决移动端点击色块问题 */
+    }
+    .list-container {
+    color: hsla(0, 0%, 100%, .5)!important;
+    }
+    .list-item:hover {
+    color: #fff!important;
+    }
+}
+
+/* 关闭按钮 */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+
+    cursor: pointer;
+    background-size: contain;
+    z-index: 2;
+}
+
+/* 搜索区域 */
+.search-box {
+    padding: 60px 20px 20px;
+    position: relative;
+
+}
+
+.search-input {
+    width: 100%;
+    padding: 40px 35px 10px 15px;
+    border-top: none;    /* 移除上边框 */
+    border-left: none;   /* 移除左边框 */
+    border-right: none;  /* 移除右边框 */
+    border-bottom: 1px solid #bbab92; /* 添加底边框 */
+    background: unset;
+    color: aliceblue;
+    outline: none;
+    font-size: 16px;
+}
+
+.search-icon {
+    position: absolute;
+    right: 35px;
+    top: 100px;
+    width: 20px;
+    height: 20px;
+    background: url('image/search-icon.png') center/contain no-repeat;
+}
+
+/* 列表区域 */
+.list-container {
+    padding: 20px;
+    height: calc(100% - 140px);
+    overflow-y: auto;
+    color: hsla(0, 0%, 100%, .8);
+}
+
+.list-item {
+    padding: 12px;
+    margin: 0px 0;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: right;
+    -webkit-tap-highlight-color: transparent;/* 新增：解决移动端点击色块问题 */
+
+}
+
+.list-item:hover {
+    color: #ffe0a8;
+    transform: translateX(5px);
+}

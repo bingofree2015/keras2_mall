@@ -1,0 +1,57 @@
+#!/usr/bin/env node
+/**
+ * Created by bingofree.
+*/
+const schedule = require('node-schedule')
+const config = require('config')
+const logger = require('tracer').colorConsole()
+
+const app = require('../app')
+const { sequelize, GoodsSpec } = require('../models')
+
+sequelize.sync({ logging: false }).then(async () => {
+
+    // 清理过期的任务
+    let _starting = false
+    if (_starting) {
+        schedule.scheduleJob('*/20 * * * * *', async () => {
+
+        })
+    }
+
+    let _specData = {
+        "idx": 0,
+        "id": 10,
+        "name": "1234",
+        "sort": 1,
+        "createdAt": "2019-08-07 13:02:21",
+        "updatedAt": "2019-08-07 13:02:21",
+        "goodsSpecValues": [
+            {
+                "id": 25,
+                "value": "a",
+                "sort": 0
+            },
+            {
+                "id": 26,
+                "value": "b",
+                "sort": 0
+            },
+            {
+                "id": 27,
+                "value": "c",
+                "sort": 0
+            }
+        ],
+        "values": "a b c",
+        "value": "123"
+    }
+    //let _spec = await GoodsSpec.upsert(_specData)
+    //console.log(_spec)
+
+    let port = process.env.PORT || config.App.port
+    app.listen(port, () => {
+        logger.info(`服务启动中 ... 端口: ${port}`)
+        //memeye({ log: 'debug' })
+    })
+})

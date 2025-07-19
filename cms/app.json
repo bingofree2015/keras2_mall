@@ -1,0 +1,19 @@
+{
+    "name": "coupon_mall-cms",
+    "script": "npm run dev",
+    "cwd": "./",
+    "watch": [
+        "./src"
+    ],
+    "ignore_watch": [
+        "node_modules",
+        "logs",
+        "public"
+    ],
+    "watch_options": {
+        "followSymlinks": false
+    },
+    "error_file": "./logs/coupon_mall-cms-err.log",
+    "out_file": "./logs/coupon_mall-cms-out.log",
+    "log_date_format": "YYYY-MM-DD HH:mm Z"
+}

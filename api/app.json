@@ -1,0 +1,24 @@
+{
+    "name": "coupon_mall-api",
+    "script": "./bin/run",
+    "cwd": "./",
+    "watch": [
+        "bin",
+        "config",
+        "routes",
+        "models",
+        "utils",
+        "./app.js"
+    ],
+    "ignore_watch": [
+        "node_modules",
+        "logs",
+        "public"
+    ],
+    "watch_options": {
+        "followSymlinks": false
+    },
+    "error_file": "./logs/coupon_mall-api-err.log",
+    "out_file": "./logs/coupon_mall-api-out.log",
+    "log_date_format": "YYYY-MM-DD HH:mm Z"
+}

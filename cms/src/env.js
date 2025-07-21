@@ -7,11 +7,11 @@ import _ from "lodash";
 import moment from "moment";
 import store from "@/store";
 // 后台管理系统服务器地址
-const baseUrl = "http://122.51.143.12:8080";
+const baseUrl = "http://127.0.0.1:8080";
 const baseImgUrl = `${baseUrl}/upload`;
 const baseAssetsUrl = `${baseUrl}/assets`;
 // 系统数据备份还原服务器地址
-const backupBaseUrl = "http://122.51.143.12:8002";
+const backupBaseUrl = "http://127.0.0.1:8002";
 const getImgUrl = (url, prefix = baseImgUrl) => {
     /*
     // 判断图片是否存在

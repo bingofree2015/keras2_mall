@@ -11,7 +11,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require("path");
-const target = "http://122.51.143.12:8080";
+const target = "http://127.0.0.1:8080";
 module.exports = {
     dev: {
         // Paths

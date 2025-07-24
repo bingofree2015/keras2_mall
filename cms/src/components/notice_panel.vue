@@ -1,6 +1,6 @@
 <template>
     <div class="notice-panel">
-        <div class="header">您有 {{data.length}} 条通知</div>
+        <div class="header">您有 {{ data.length }} 条通知</div>
         <div class="notice-content">
             <div v-for="item in data" :key="item.key" class="notice-item">
                 <span class="notice-icon">
@@ -25,38 +25,37 @@ export default {
                 {
                     key: '1',
                     icon: 'fa fa-envelope-o',
-                    content: '你修改了用户密码'
+                    content: '你修改了用户密码',
                 },
                 {
                     key: '2',
                     icon: 'fa fa-music',
-                    content: '你修改了用户头像'
+                    content: '你修改了用户头像',
                 },
                 {
                     key: '3',
                     icon: 'el-icon-ali-bianji',
-                    content: '今日25名新成员加入'
+                    content: '今日25名新成员加入',
                 },
                 {
                     key: '4',
                     icon: 'el-icon-ali-bianji',
-                    content: '您发表了一篇新随笔'
-                }]
-        }
+                    content: '您发表了一篇新随笔',
+                },
+            ],
+        },
     },
-    data () {
-        return {
-        }
+    data() {
+        return {};
     },
+    mounted() {},
     methods: {
         handleClick: function () {
             // 按钮操作处理函数
-            this.$emit('click', {})
-        }
+            this.$emit('click', {});
+        },
     },
-    mounted () {
-    }
-}
+};
 </script>
 
 <style scoped lang="scss">

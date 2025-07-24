@@ -1,61 +1,67 @@
 <template>
     <div>
         <el-link :underline="false" @click="handleOpenDialog">
-            <el-image :src="env.getImgUrl(iconUrl,env.baseAssetsUrl)" :style="initStyle" fit="contain">
-                <div slot="error">
-                    <i class="el-icon-ali-tupianshibai"></i>
-                </div>
+            <el-image
+                :src="env.getImgUrl(iconUrl, env.baseAssetsUrl)"
+                :style="initStyle"
+                fit="contain"
+            >
+                <template #error>
+                    <div>
+                        <i class="el-icon-ali-tupianshibai"></i>
+                    </div>
+                </template>
             </el-image>
         </el-link>
-        <multi-uploader :visible.sync="imageDialogVisible" @chosedImage="chosedImage"></multi-uploader>
+        <multi-uploader v-model:visible="imageDialogVisible" @chosed-image="chosedImage" />
     </div>
 </template>
 <script>
-import multiUploader from '@/components/multi_uploader'
+import multiUploader from '@/components/multi_uploader.vue';
 export default {
     name: 'ChangeImageIcon',
     components: {
-        multiUploader
+        multiUploader,
     },
     props: {
         imgUrl: {
             type: String,
-            default: ''
+            default: '',
         },
         initStyle: {
             type: Object,
-            default () {
+            default() {
                 return {
                     height: '80px',
                     width: '80px',
                     border: '1px dashed #d9d9d9',
-                    borderRadius: '50%'
-                }
-            }
-        }
+                    borderRadius: '50%',
+                };
+            },
+        },
     },
-    watch: {
-        imgUrl: function (val) { // 监听props中的属性
-            this.iconUrl = val
-        }
-    },
-    data () {
+    data() {
         return {
             iconUrl: this.imgUrl,
-            imageDialogVisible: false
-        }
+            imageDialogVisible: false,
+        };
+    },
+    watch: {
+        imgUrl: function (val) {
+            // 监听props中的属性
+            this.iconUrl = val;
+        },
     },
     methods: {
-        handleOpenDialog () {
-            this.imageDialogVisible = true
+        handleOpenDialog() {
+            this.imageDialogVisible = true;
         },
-        chosedImage (chosed) {
-            this.iconUrl = chosed.path
-            this.$emit('chosedImageIcon', chosed)
-            this.imageDialogVisible = false
-        }
-    }
-}
+        chosedImage(chosed) {
+            this.iconUrl = chosed.path;
+            this.$emit('chosedImageIcon', chosed);
+            this.imageDialogVisible = false;
+        },
+    },
+};
 </script>
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

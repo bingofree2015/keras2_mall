@@ -3,80 +3,134 @@
         <!--导航-->
         <el-row>
             <el-col :span="10">
-                <bread-crumb></bread-crumb>
+                <bread-crumb />
             </el-col>
         </el-row>
         <!--表单-->
-        <el-form :model="formData" :rules="formDataRules" :size="normalSize" class="edit-dialog-container" label-width="150px" ref="formData">
+        <el-form
+            ref="formData"
+            :model="formData"
+            :rules="formDataRules"
+            :size="largeSize"
+            class="edit-dialog-container"
+            label-width="150px"
+        >
             <el-row>
                 <el-col :span="18">
                     <el-tabs v-model="activeName">
                         <el-tab-pane label="平台设置" name="platform">
-                            <span slot="label">
-                                <i class="el-icon-ali-platform-setting"></i> 平台设置
-                            </span>
+                            <template #label>
+                                <span>
+                                    <i class="el-icon-ali-platform-setting"></i>
+                                    平台设置
+                                </span>
+                            </template>
                             <el-form-item label="平台名称" prop="shopName">
                                 <el-col :span="8">
-                                    <el-input placeholder="请输入平台名称" v-model="formData.shopName"></el-input>
+                                    <el-input
+                                        v-model="formData.shopName"
+                                        placeholder="请输入平台名称"
+                                    />
                                 </el-col>
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 平台名称会显示到前台，请合理输入此名称
+                                    <i class="el-icon-ali-tishi"></i>
+                                    平台名称会显示到前台，请合理输入此名称
                                 </span>
                             </el-form-item>
                             <el-form-item label="平台描述" prop="shopDesc">
                                 <el-col :span="16">
-                                    <el-input :rows="2" placeholder="请输入平台描述" type="textarea" v-model="formData.shopDesc"></el-input>
+                                    <el-input
+                                        v-model="formData.shopDesc"
+                                        :rows="2"
+                                        placeholder="请输入平台描述"
+                                        type="textarea"
+                                    />
                                 </el-col>
                             </el-form-item>
                             <el-form-item label="备案信息" prop="shopFiling">
                                 <el-col :span="16">
-                                    <el-input :rows="2" placeholder="请输入备案信息" type="textarea" v-model="formData.shopFiling"></el-input>
+                                    <el-input
+                                        v-model="formData.shopFiling"
+                                        :rows="2"
+                                        placeholder="请输入备案信息"
+                                        type="textarea"
+                                    />
                                 </el-col>
                             </el-form-item>
                             <el-form-item label="联系手机号" prop="shopMobile">
                                 <el-col :span="8">
-                                    <el-input placeholder="请输入联系手机号" v-model="formData.shopMobile"></el-input>
+                                    <el-input
+                                        v-model="formData.shopMobile"
+                                        placeholder="请输入联系手机号"
+                                    />
                                 </el-col>
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 前台下单时发送短信通知
+                                    <i class="el-icon-ali-tishi"></i>
+                                    前台下单时发送短信通知
                                 </span>
                             </el-form-item>
                             <el-row>
                                 <el-col :span="8">
                                     <el-form-item label="平台logo" prop="shopLogo">
-                                        <change-image-icon :imgUrl="formData.shopLogo" @chosedImageIcon="chosedShopLogo"></change-image-icon>
+                                        <change-image-icon
+                                            :img-url="formData.shopLogo"
+                                            @chosed-image-icon="chosedShopLogo"
+                                        />
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="8">
                                     <el-form-item label="默认图" prop="shopDefaultImage">
-                                        <change-image-icon :imgUrl="formData.shopDefaultImage" @chosedImageIcon="chosedShopDefaultImage"></change-image-icon>
+                                        <change-image-icon
+                                            :img-url="formData.shopDefaultImage"
+                                            @chosed-image-icon="chosedShopDefaultImage"
+                                        />
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-row>
                                 <el-col :span="8">
                                     <el-form-item label="自提" prop="selfService">
-                                        <el-switch active-text="开启" inactive-text="关闭" v-model="formData.selfService"></el-switch>
+                                        <el-switch
+                                            v-model="formData.selfService"
+                                            active-text="开启"
+                                            inactive-text="关闭"
+                                        />
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="8">
                                     <el-form-item label="发票" prop="invoicesNeed">
-                                        <el-switch active-text="开启" inactive-text="关闭" v-model="formData.invoicesNeed"></el-switch>
+                                        <el-switch
+                                            v-model="formData.invoicesNeed"
+                                            active-text="开启"
+                                            inactive-text="关闭"
+                                        />
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-form-item label="搜索发现关键词" prop="searchKeywords">
-                                <el-input placeholder="请输入搜索发现关键词" v-model="formData.searchKeywords"></el-input>
+                                <el-input
+                                    v-model="formData.searchKeywords"
+                                    placeholder="请输入搜索发现关键词"
+                                />
                             </el-form-item>
                             <el-form-item label="分类样式" prop="cateStyle">
                                 <el-radio-group v-model="formData.cateStyle">
                                     <el-radio :label="0">
                                         一级大图
                                         <el-card class="card-item">
-                                            <el-image :src="env.getImgUrl('template/style-1.png',env.baseAssetsUrl)">
-                                                <div slot="error">
-                                                    <i class="el-icon-ali-tupianshibai"></i>
-                                                </div>
+                                            <el-image
+                                                :src="
+                                                    env.getImgUrl(
+                                                        'template/style-1.png',
+                                                        env.baseAssetsUrl
+                                                    )
+                                                "
+                                            >
+                                                <template #error>
+                                                    <div>
+                                                        <i class="el-icon-ali-tupianshibai"></i>
+                                                    </div>
+                                                </template>
                                             </el-image>
                                             <div class="summary">尺寸建议：350px*150px</div>
                                         </el-card>
@@ -84,10 +138,19 @@
                                     <el-radio :label="1">
                                         一级小图
                                         <el-card class="card-item">
-                                            <el-image :src="env.getImgUrl('template/style-2.png',env.baseAssetsUrl)">
-                                                <div slot="error">
-                                                    <i class="el-icon-ali-tupianshibai"></i>
-                                                </div>
+                                            <el-image
+                                                :src="
+                                                    env.getImgUrl(
+                                                        'template/style-2.png',
+                                                        env.baseAssetsUrl
+                                                    )
+                                                "
+                                            >
+                                                <template #error>
+                                                    <div>
+                                                        <i class="el-icon-ali-tupianshibai"></i>
+                                                    </div>
+                                                </template>
                                             </el-image>
                                             <div class="summary">尺寸建议：105px*105px</div>
                                         </el-card>
@@ -95,10 +158,19 @@
                                     <el-radio :label="2">
                                         二级小图
                                         <el-card class="card-item">
-                                            <el-image :src="env.getImgUrl('template/style-3.png',env.baseAssetsUrl)">
-                                                <div slot="error">
-                                                    <i class="el-icon-ali-tupianshibai"></i>
-                                                </div>
+                                            <el-image
+                                                :src="
+                                                    env.getImgUrl(
+                                                        'template/style-3.png',
+                                                        env.baseAssetsUrl
+                                                    )
+                                                "
+                                            >
+                                                <template #error>
+                                                    <div>
+                                                        <i class="el-icon-ali-tupianshibai"></i>
+                                                    </div>
+                                                </template>
                                             </el-image>
                                             <div class="summary">尺寸建议：60px*60px</div>
                                         </el-card>
@@ -106,14 +178,23 @@
                                 </el-radio-group>
                             </el-form-item>
                             <el-form-item label="H5分类样式" prop="cateType">
-                                <el-radio-group style="width:100%" v-model="formData.cateType">
+                                <el-radio-group v-model="formData.cateType" style="width: 100%">
                                     <el-radio :label="0">
                                         类型一
                                         <el-card class="card-item">
-                                            <el-image :src="env.getImgUrl('template/h5-style-1.png',env.baseAssetsUrl)">
-                                                <div slot="error">
-                                                    <i class="el-icon-ali-tupianshibai"></i>
-                                                </div>
+                                            <el-image
+                                                :src="
+                                                    env.getImgUrl(
+                                                        'template/h5-style-1.png',
+                                                        env.baseAssetsUrl
+                                                    )
+                                                "
+                                            >
+                                                <template #error>
+                                                    <div>
+                                                        <i class="el-icon-ali-tupianshibai"></i>
+                                                    </div>
+                                                </template>
                                             </el-image>
                                             <div class="summary">此设置只在H5端有效</div>
                                         </el-card>
@@ -122,115 +203,225 @@
                                     <el-radio :label="1">
                                         类型二
                                         <el-card class="card-item">
-                                            <el-image :src="env.getImgUrl('template/h5-style-2.png',env.baseAssetsUrl)">
-                                                <div slot="error">
-                                                    <i class="el-icon-ali-tupianshibai"></i>
-                                                </div>
+                                            <el-image
+                                                :src="
+                                                    env.getImgUrl(
+                                                        'template/h5-style-2.png',
+                                                        env.baseAssetsUrl
+                                                    )
+                                                "
+                                            >
+                                                <template #error>
+                                                    <div>
+                                                        <i class="el-icon-ali-tupianshibai"></i>
+                                                    </div>
+                                                </template>
                                             </el-image>
-                                            <div class="summary">此功能只在 "分类样式" 为 "二级小图" 的时候生效,小程序请忽略</div>
+                                            <div class="summary">
+                                                此功能只在 "分类样式" 为 "二级小图"
+                                                的时候生效,小程序请忽略
+                                            </div>
                                         </el-card>
                                     </el-radio>
                                 </el-radio-group>
                             </el-form-item>
                         </el-tab-pane>
                         <el-tab-pane label="商品设置" name="goods">
-                            <span slot="label">
-                                <i class="el-icon-ali-shangpin-copy"></i> 商品设置
-                            </span>
+                            <template #label>
+                                <span>
+                                    <i class="el-icon-ali-shangpin-copy"></i>
+                                    商品设置
+                                </span>
+                            </template>
                             <el-form-item label="库存警报数量" prop="goodsStocksWarn">
-                                <el-input-number :max="10" :min="1" controls-position="right" label="请输入库存警报数量" v-model="formData.goodsStocksWarn"></el-input-number>
+                                <el-input-number
+                                    v-model="formData.goodsStocksWarn"
+                                    :max="10"
+                                    :min="1"
+                                    controls-position="right"
+                                    label="请输入库存警报数量"
+                                />
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 商品中只要有货品库存低于报警数量，就会在后台提示
+                                    <i class="el-icon-ali-tishi"></i>
+                                    商品中只要有货品库存低于报警数量，就会在后台提示
                                 </span>
                             </el-form-item>
                         </el-tab-pane>
                         <el-tab-pane label="订单设置" name="order">
-                            <span slot="label">
-                                <i class="el-icon-ali-dd"></i> 订单设置
-                            </span>
+                            <template #label>
+                                <span>
+                                    <i class="el-icon-ali-dd"></i>
+                                    订单设置
+                                </span>
+                            </template>
                             <el-form-item label="取消时间" prop="orderCancelTime">
-                                <el-input-number :max="10" :min="1" controls-position="right" label="请输入订单取消时间" v-model="formData.orderCancelTime"></el-input-number>
+                                <el-input-number
+                                    v-model="formData.orderCancelTime"
+                                    :max="10"
+                                    :min="1"
+                                    controls-position="right"
+                                    label="请输入订单取消时间"
+                                />
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 未付款订单取消的时间间隔，单位为 天
+                                    <i class="el-icon-ali-tishi"></i>
+                                    未付款订单取消的时间间隔，单位为 天
                                 </span>
                             </el-form-item>
                             <el-form-item label="完成时间" prop="orderCompleteTime">
-                                <el-input-number :max="10" :min="1" controls-position="right" label="请输入订单完成时间" v-model="formData.orderCompleteTime"></el-input-number>
+                                <el-input-number
+                                    v-model="formData.orderCompleteTime"
+                                    :max="10"
+                                    :min="1"
+                                    controls-position="right"
+                                    label="请输入订单完成时间"
+                                />
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 已付款的订单完成的时间间隔，单位为 天
+                                    <i class="el-icon-ali-tishi"></i>
+                                    已付款的订单完成的时间间隔，单位为 天
                                 </span>
                             </el-form-item>
                             <el-form-item label="确认收货时间" prop="orderAutoSignTime">
-                                <el-input-number :max="10" :min="1" controls-position="right" label="请输入订单确认收货时间" v-model="formData.orderAutoSignTime"></el-input-number>
+                                <el-input-number
+                                    v-model="formData.orderAutoSignTime"
+                                    :max="10"
+                                    :min="1"
+                                    controls-position="right"
+                                    label="请输入订单确认收货时间"
+                                />
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 发货后的订单自动确认收货时间,单位为 天
+                                    <i class="el-icon-ali-tishi"></i>
+                                    发货后的订单自动确认收货时间,单位为 天
                                 </span>
                             </el-form-item>
                             <el-form-item label="自动评价时间" prop="orderAutoEvalTime">
-                                <el-input-number :max="10" :min="1" controls-position="right" label="请输入订单自动评价时间" v-model="formData.orderAutoEvalTime"></el-input-number>
+                                <el-input-number
+                                    v-model="formData.orderAutoEvalTime"
+                                    :max="10"
+                                    :min="1"
+                                    controls-position="right"
+                                    label="请输入订单自动评价时间"
+                                />
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 确认收货后的订单自动评价时间间隔,单位为 天
+                                    <i class="el-icon-ali-tishi"></i>
+                                    确认收货后的订单自动评价时间间隔,单位为 天
                                 </span>
                             </el-form-item>
                             <el-form-item label="提醒付款时间" prop="reminderPaymentTime">
-                                <el-input-number :max="10" :min="1" controls-position="right" label="请输入订单提醒付款时间" v-model="formData.reminderPaymentTime"></el-input-number>
+                                <el-input-number
+                                    v-model="formData.reminderPaymentTime"
+                                    :max="10"
+                                    :min="1"
+                                    controls-position="right"
+                                    label="请输入订单提醒付款时间"
+                                />
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 订单催付款时间,单位为 小时
+                                    <i class="el-icon-ali-tishi"></i>
+                                    订单催付款时间,单位为 小时
                                 </span>
                             </el-form-item>
                             <el-form-item label="退货联系人" prop="returnContact">
                                 <el-col :span="8">
-                                    <el-input placeholder="请输入退货联系人" v-model="formData.returnContact"></el-input>
+                                    <el-input
+                                        v-model="formData.returnContact"
+                                        placeholder="请输入退货联系人"
+                                    />
                                 </el-col>
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 用户退货时的收货人姓名
+                                    <i class="el-icon-ali-tishi"></i>
+                                    用户退货时的收货人姓名
                                 </span>
                             </el-form-item>
                             <el-form-item label="退货联系方式" prop="returnContactInformation">
                                 <el-col :span="8">
-                                    <el-input placeholder="请输入退货联系方式" v-model="formData.returnContactInformation"></el-input>
+                                    <el-input
+                                        v-model="formData.returnContactInformation"
+                                        placeholder="请输入退货联系方式"
+                                    />
                                 </el-col>
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 用户退货时的收货人联系方式
+                                    <i class="el-icon-ali-tishi"></i>
+                                    用户退货时的收货人联系方式
                                 </span>
                             </el-form-item>
                             <el-form-item label="退货区域" prop="returnAreaId">
-                                <el-cascader :options="areaList" :props="cascaderProps" :show-all-levels="false" v-model="formData.returnAreaId"></el-cascader>
+                                <el-cascader
+                                    v-model="formData.returnAreaId"
+                                    :options="areaList"
+                                    :props="cascaderProps"
+                                    :show-all-levels="false"
+                                />
                             </el-form-item>
                             <el-form-item label="退货详细地址" prop="returnAddress">
                                 <el-col :span="18">
-                                    <el-input placeholder="请输入退货详细地址" v-model="formData.returnAddress">
-                                        <el-button @click="changePosition" icon="el-icon-ali-dakai" slot="append"></el-button>
+                                    <el-input
+                                        v-model="formData.returnAddress"
+                                        placeholder="请输入退货详细地址"
+                                    >
+                                        <template #append>
+                                            <el-button
+                                                icon="el-icon-ali-dakai"
+                                                @click="changePosition"
+                                            />
+                                        </template>
                                     </el-input>
                                 </el-col>
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 用户退货时的收货人联系方式
+                                    <i class="el-icon-ali-tishi"></i>
+                                    用户退货时的收货人联系方式
                                 </span>
                             </el-form-item>
                         </el-tab-pane>
                         <el-tab-pane label="积分设置" name="point">
-                            <span slot="label">
-                                <i class="el-icon-ali-jifen1"></i> 积分设置
-                            </span>
+                            <template #label>
+                                <span>
+                                    <i class="el-icon-ali-jifen1"></i>
+                                    积分设置
+                                </span>
+                            </template>
                             <el-form-item label="开启积分功能" prop="openPoint">
-                                <el-switch active-text="开启" inactive-text="关闭" v-model="formData.openPoint"></el-switch>
+                                <el-switch
+                                    v-model="formData.openPoint"
+                                    active-text="开启"
+                                    inactive-text="关闭"
+                                />
                             </el-form-item>
                             <el-form-item label="订单积分折现比例" prop="pointDiscountedProportion">
-                                <el-input-number :max="10" :min="1" controls-position="right" label="请输入订单积分折现比例" v-model="formData.pointDiscountedProportion"></el-input-number>
+                                <el-input-number
+                                    v-model="formData.pointDiscountedProportion"
+                                    :max="10"
+                                    :min="1"
+                                    controls-position="right"
+                                    label="请输入订单积分折现比例"
+                                />
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 未付款订单取消的时间间隔，单位为 天
+                                    <i class="el-icon-ali-tishi"></i>
+                                    未付款订单取消的时间间隔，单位为 天
                                 </span>
                             </el-form-item>
                             <el-form-item label="订单积分使用比例" prop="orderPointProportion">
-                                <el-input-number :max="10" :min="1" controls-position="right" label="请输入订单积分使用比例" v-model="formData.orderPointProportion"></el-input-number>
+                                <el-input-number
+                                    v-model="formData.orderPointProportion"
+                                    :max="10"
+                                    :min="1"
+                                    controls-position="right"
+                                    label="请输入订单积分使用比例"
+                                />
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 未付款订单取消的时间间隔，单位为 天
+                                    <i class="el-icon-ali-tishi"></i>
+                                    未付款订单取消的时间间隔，单位为 天
                                 </span>
                             </el-form-item>
                             <el-form-item label="订单积分奖励比例" prop="orderRewardProportion">
-                                <el-input-number :max="10" :min="1" controls-position="right" label="请输入订单积分奖励比例" v-model="formData.orderRewardProportion"></el-input-number>
+                                <el-input-number
+                                    v-model="formData.orderRewardProportion"
+                                    :max="10"
+                                    :min="1"
+                                    controls-position="right"
+                                    label="请输入订单积分奖励比例"
+                                />
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 未付款订单取消的时间间隔，单位为 天
+                                    <i class="el-icon-ali-tishi"></i>
+                                    未付款订单取消的时间间隔，单位为 天
                                 </span>
                             </el-form-item>
                             <el-form-item label="签到奖励类型" prop="signPointType">
@@ -239,86 +430,153 @@
                                     <el-radio :label="2">随机奖励</el-radio>
                                 </el-radio-group>
                             </el-form-item>
-                            <div v-if="formData.signPointType== 1">
+                            <div v-if="formData.signPointType == 1">
                                 <el-form-item label="首次奖励积分" prop="firstSignPoint">
-                                    <el-input-number :max="10" :min="1" controls-position="right" placeholder="请输入首次奖励积分" v-model="formData.firstSignPoint"></el-input-number>
+                                    <el-input-number
+                                        v-model="formData.firstSignPoint"
+                                        :max="10"
+                                        :min="1"
+                                        controls-position="right"
+                                        placeholder="请输入首次奖励积分"
+                                    />
                                     <span class="tip-info">
-                                        <i class="el-icon-ali-tishi"></i> 起始签到奖励积分
+                                        <i class="el-icon-ali-tishi"></i>
+                                        起始签到奖励积分
                                     </span>
                                 </el-form-item>
                                 <el-form-item label="连续签到追加" prop="continuitySignAdditional">
-                                    <el-input-number :max="10" :min="1" controls-position="right" placeholder="请输入连续签到追加" v-model="formData.continuitySignAdditional"></el-input-number>
+                                    <el-input-number
+                                        v-model="formData.continuitySignAdditional"
+                                        :max="10"
+                                        :min="1"
+                                        controls-position="right"
+                                        placeholder="请输入连续签到追加"
+                                    />
                                     <span class="tip-info">
-                                        <i class="el-icon-ali-tishi"></i> 连续签到追加积分
+                                        <i class="el-icon-ali-tishi"></i>
+                                        连续签到追加积分
                                     </span>
                                 </el-form-item>
                                 <el-form-item label="单日最大奖励" prop="dailySignMaxPoint">
-                                    <el-input-number :max="10" :min="1" controls-position="right" placeholder="请输入单日最大奖励" v-model="formData.dailySignMaxPoint"></el-input-number>
+                                    <el-input-number
+                                        v-model="formData.dailySignMaxPoint"
+                                        :max="10"
+                                        :min="1"
+                                        controls-position="right"
+                                        placeholder="请输入单日最大奖励"
+                                    />
                                     <span class="tip-info">
-                                        <i class="el-icon-ali-tishi"></i> 连续签到奖励积分单日上限
+                                        <i class="el-icon-ali-tishi"></i>
+                                        连续签到奖励积分单日上限
                                     </span>
                                 </el-form-item>
                             </div>
-                            <div v-else-if="formData.signPointType== 2">
+                            <div v-else-if="formData.signPointType == 2">
                                 <el-form-item label="随机奖励积分最小值" prop="signMinRandomPoint">
-                                    <el-input-number :max="10" :min="1" controls-position="right" placeholder="请输入随机奖励积分最小值" v-model="formData.signMinRandomPoint"></el-input-number>
+                                    <el-input-number
+                                        v-model="formData.signMinRandomPoint"
+                                        :max="10"
+                                        :min="1"
+                                        controls-position="right"
+                                        placeholder="请输入随机奖励积分最小值"
+                                    />
                                     <span class="tip-info">
-                                        <i class="el-icon-ali-tishi"></i> 签到随机最小奖励积分
+                                        <i class="el-icon-ali-tishi"></i>
+                                        签到随机最小奖励积分
                                     </span>
                                 </el-form-item>
                                 <el-form-item label="随机奖励积分最大值" prop="signMaxRandomPoint">
-                                    <el-input-number :max="10" :min="1" controls-position="right" placeholder="请输入随机奖励积分最大值" v-model="formData.signMaxRandomPoint"></el-input-number>
+                                    <el-input-number
+                                        v-model="formData.signMaxRandomPoint"
+                                        :max="10"
+                                        :min="1"
+                                        controls-position="right"
+                                        placeholder="请输入随机奖励积分最大值"
+                                    />
                                     <span class="tip-info">
-                                        <i class="el-icon-ali-tishi"></i> 签到随机最大奖励积分
+                                        <i class="el-icon-ali-tishi"></i>
+                                        签到随机最大奖励积分
                                     </span>
                                 </el-form-item>
                             </div>
                         </el-tab-pane>
                         <el-tab-pane label="提现设置" name="cash">
-                            <span slot="label">
-                                <i class="el-icon-ali-tixian-copy"></i> 提现设置
-                            </span>
+                            <template #label>
+                                <span>
+                                    <i class="el-icon-ali-tixian-copy"></i>
+                                    提现设置
+                                </span>
+                            </template>
                             <el-form-item label="最低提现金额" prop="toCashLowMoney">
-                                <el-input-number :max="10" :min="1" controls-position="right" label="请输入最低提现金额" v-model="formData.tocashLowMoney"></el-input-number>
+                                <el-input-number
+                                    v-model="formData.tocashLowMoney"
+                                    :max="10"
+                                    :min="1"
+                                    controls-position="right"
+                                    label="请输入最低提现金额"
+                                />
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 最低提现标准，默认0不限制
+                                    <i class="el-icon-ali-tishi"></i>
+                                    最低提现标准，默认0不限制
                                 </span>
                             </el-form-item>
                             <el-form-item label="提现服务费率" prop="toCashRateMoney">
-                                <el-input-number :max="10" :min="1" controls-position="right" label="请输入提现服务费率" v-model="formData.tocashRateMoney"></el-input-number>
+                                <el-input-number
+                                    v-model="formData.tocashRateMoney"
+                                    :max="10"
+                                    :min="1"
+                                    controls-position="right"
+                                    label="请输入提现服务费率"
+                                />
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 提现费率，默认0% 没有费率
+                                    <i class="el-icon-ali-tishi"></i>
+                                    提现费率，默认0% 没有费率
                                 </span>
                             </el-form-item>
                         </el-tab-pane>
                         <el-tab-pane label="其他设置" name="other">
-                            <span slot="label">
-                                <i class="el-icon-ali-qita"></i> 其他设置
-                            </span>
+                            <template #label>
+                                <span>
+                                    <i class="el-icon-ali-qita"></i>
+                                    其他设置
+                                </span>
+                            </template>
                             <el-divider content-position="left">腾讯地图</el-divider>
                             <el-form-item label="腾讯地图key" prop="qqMapKey">
                                 <el-col :span="12">
-                                    <el-input placeholder="请输入腾讯地图key" v-model="formData.qqMapKey"></el-input>
+                                    <el-input
+                                        v-model="formData.qqMapKey"
+                                        placeholder="请输入腾讯地图key"
+                                    />
                                 </el-col>
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 腾讯地图key，申请地址：https://lbs.qq.com/
+                                    <i class="el-icon-ali-tishi"></i>
+                                    腾讯地图key，申请地址：https://lbs.qq.com/
                                 </span>
                             </el-form-item>
                             <el-divider content-position="left">快递100</el-divider>
                             <el-form-item label="公司编号" prop="kuaidi100CorpCode">
                                 <el-col :span="8">
-                                    <el-input placeholder="请输入公司编号" v-model="formData.kuaidi100CorpCode"></el-input>
+                                    <el-input
+                                        v-model="formData.kuaidi100CorpCode"
+                                        placeholder="请输入公司编号"
+                                    />
                                 </el-col>
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 快递100公司编码，申请地址：https://www.kuaidi100.com
+                                    <i class="el-icon-ali-tishi"></i>
+                                    快递100公司编码，申请地址：https://www.kuaidi100.com
                                 </span>
                             </el-form-item>
                             <el-form-item label="授权key" prop="kuaidi100Key">
                                 <el-col :span="8">
-                                    <el-input placeholder="请输入授权key" v-model="formData.kuaidi100Key"></el-input>
+                                    <el-input
+                                        v-model="formData.kuaidi100Key"
+                                        placeholder="请输入授权key"
+                                    />
                                 </el-col>
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 快递100授权key，申请地址：https://www.kuaidi100.com
+                                    <i class="el-icon-ali-tishi"></i>
+                                    快递100授权key，申请地址：https://www.kuaidi100.com
                                 </span>
                             </el-form-item>
                             <el-divider content-position="left">图片存储</el-divider>
@@ -334,13 +592,17 @@
                                 <el-form-item label="绑定域名" prop="domain">
                                     <el-row>
                                         <el-col :span="8">
-                                            <el-input placeholder="请输入绑定域名" v-model="formData.domain"></el-input>
+                                            <el-input
+                                                v-model="formData.domain"
+                                                placeholder="请输入绑定域名"
+                                            />
                                         </el-col>
                                     </el-row>
                                     <el-row>
-                                        <el-col :span="24" style="text-align:left;">
+                                        <el-col :span="24" style="text-align: left">
                                             <span class="tip-info">
-                                                <i class="el-icon-ali-tishi"></i> 图片分离时使用，使用阿里云OSS时也尽量绑定域名，例如：https://image.couponmall.com
+                                                <i class="el-icon-ali-tishi"></i>
+                                                图片分离时使用，使用阿里云OSS时也尽量绑定域名，例如：https://image.couponmall.com
                                             </span>
                                         </el-col>
                                     </el-row>
@@ -350,13 +612,17 @@
                                 <el-form-item label="绑定域名" prop="domain">
                                     <el-row>
                                         <el-col :span="8">
-                                            <el-input placeholder="请输入绑定域名" v-model="formData.domain"></el-input>
+                                            <el-input
+                                                v-model="formData.domain"
+                                                placeholder="请输入绑定域名"
+                                            />
                                         </el-col>
                                     </el-row>
                                     <el-row>
-                                        <el-col :span="24" style="text-align:left;">
+                                        <el-col :span="24" style="text-align: left">
                                             <span class="tip-info">
-                                                <i class="el-icon-ali-tishi"></i> 图片分离时使用，使用阿里云OSS时也尽量绑定域名，例如：https://image.couponmall.com
+                                                <i class="el-icon-ali-tishi"></i>
+                                                图片分离时使用，使用阿里云OSS时也尽量绑定域名，例如：https://image.couponmall.com
                                             </span>
                                         </el-col>
                                     </el-row>
@@ -364,48 +630,70 @@
                                 <el-form-item label="AccessKeyId" prop="accessKeyId">
                                     <el-row>
                                         <el-col :span="8">
-                                            <el-input placeholder="请输入AccessKeyId" v-model="formData.accessKeyId"></el-input>
+                                            <el-input
+                                                v-model="formData.accessKeyId"
+                                                placeholder="请输入AccessKeyId"
+                                            />
                                         </el-col>
                                     </el-row>
                                     <el-row>
-                                        <el-col :span="24" style="text-align:left;">
+                                        <el-col :span="24" style="text-align: left">
                                             <span class="tip-info">
-                                                <i class="el-icon-ali-tishi"></i> 阿里云AccessKeyId，申请地址：阿里云用户AccessKey控制台地址：https://usercenter.console.aliyun.com/#/manage/ak
+                                                <i class="el-icon-ali-tishi"></i>
+                                                阿里云AccessKeyId，申请地址：阿里云用户AccessKey控制台地址：https://usercenter.console.aliyun.com/#/manage/ak
                                             </span>
                                         </el-col>
                                     </el-row>
                                 </el-form-item>
                                 <el-form-item label="AccessKeySecret" prop="accessKeySecret">
                                     <el-col :span="8">
-                                        <el-input placeholder="请输入AccessKeySecret" v-model="formData.accessKeySecret"></el-input>
+                                        <el-input
+                                            v-model="formData.accessKeySecret"
+                                            placeholder="请输入AccessKeySecret"
+                                        />
                                     </el-col>
                                     <span class="tip-info">
-                                        <i class="el-icon-ali-tishi"></i> 阿里云accessKeySecret
+                                        <i class="el-icon-ali-tishi"></i>
+                                        阿里云accessKeySecret
                                     </span>
                                 </el-form-item>
                                 <el-form-item label="存储节点" prop="endPoint">
                                     <el-col :span="8">
-                                        <el-input placeholder="请输入存储节点" v-model="formData.endPoint"></el-input>
+                                        <el-input
+                                            v-model="formData.endPoint"
+                                            placeholder="请输入存储节点"
+                                        />
                                     </el-col>
                                     <span class="tip-info">
-                                        <i class="el-icon-ali-tishi"></i> 阿里云OSS的 endpoint，例如：oss-cn-beijing.aliyuncs.com
+                                        <i class="el-icon-ali-tishi"></i>
+                                        阿里云OSS的 endpoint，例如：oss-cn-beijing.aliyuncs.com
                                     </span>
                                 </el-form-item>
                                 <el-form-item label="空间名称" prop="bucket">
                                     <el-col :span="8">
-                                        <el-input placeholder="请输入空间名称" v-model="formData.bucket"></el-input>
+                                        <el-input
+                                            v-model="formData.bucket"
+                                            placeholder="请输入空间名称"
+                                        />
                                     </el-col>
                                     <span class="tip-info">
-                                        <i class="el-icon-ali-tishi"></i> 阿里云OSS的 bucket，例如：coupon-mall
+                                        <i class="el-icon-ali-tishi"></i>
+                                        阿里云OSS的 bucket，例如：coupon-mall
                                     </span>
                                 </el-form-item>
                             </div>
 
                             <el-divider content-position="left">统计代码</el-divider>
                             <el-form-item label="百度统计代码" prop="baiduStatisticalCode">
-                                <el-input :rows="4" placeholder="请输入百度统计代码" type="textarea" v-model="formData.baiduStatisticalCode"></el-input>
+                                <el-input
+                                    v-model="formData.baiduStatisticalCode"
+                                    :rows="4"
+                                    placeholder="请输入百度统计代码"
+                                    type="textarea"
+                                />
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 只需要粘贴&gt;script&lt;&gt;/script&lt;内的代码，只统计H5端。微信小程序请使用"小程序数据助手"
+                                    <i class="el-icon-ali-tishi"></i>
+                                    只需要粘贴&gt;script&lt;&gt;/script&lt;内的代码，只统计H5端。微信小程序请使用"小程序数据助手"
                                 </span>
                             </el-form-item>
                         </el-tab-pane>
@@ -414,44 +702,53 @@
             </el-row>
             <el-row>
                 <el-col :span="18" class="footer">
-                    <el-button :size="miniSize" @click="resetForm('formData')" round>{{$t('action.cancel')}}</el-button>
-                    <el-button :loading="editLoading" :size="miniSize" @click.native="submitForm" round type="primary">{{$t('action.submit')}}</el-button>
+                    <el-button :size="largeSize" round @click="resetForm('formData')">
+                        {{ $t('action.cancel') }}
+                    </el-button>
+                    <el-button
+                        :loading="editLoading"
+                        :size="largeSize"
+                        round
+                        type="primary"
+                        @click="submitForm"
+                    >
+                        {{ $t('action.submit') }}
+                    </el-button>
                 </el-col>
             </el-row>
         </el-form>
-        <map-position @chosedLocation="chosedLocation" ref="mapPositionDialog"></map-position>
+        <map-position ref="mapPositionDialog" @chosed-location="chosedLocation" />
     </div>
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
-import breadCrumb from '@/components/bread_crumb'
-import changeImageIcon from '@/components/change_image_icon'
-import mapPosition from '@/components/map_position'
+import { mapMutations } from 'vuex';
+import breadCrumb from '@/components/bread_crumb.vue';
+import changeImageIcon from '@/components/change_image_icon.vue';
+import mapPosition from '@/components/map_position.vue';
 export default {
     components: {
         breadCrumb,
         changeImageIcon,
-        mapPosition
+        mapPosition,
     },
-    data () {
+    data() {
         const checkPrice = (rule, value, callback) => {
-            var reg = /^-?\d{1,5}(?:\.\d{1,3})?$/
+            var reg = /^-?\d{1,5}(?:\.\d{1,3})?$/;
             if (reg.test(value)) {
-                callback()
+                callback();
             } else {
-                callback(new Error('请输入大于零小于十万不超过三位小数的数字'))
+                callback(new Error('请输入大于零小于十万不超过三位小数的数字'));
             }
-        }
+        };
         return {
-            normalSize: 'small',
-            miniSize: 'mini',
+            largeSize: 'large',
             activeName: 'platform',
 
             cascaderProps: {
                 label: 'name',
                 value: 'id',
-                children: 'children'
+                children: 'children',
             },
             areaList: [],
 
@@ -535,88 +832,89 @@ export default {
                 invoicesNeed: 1, // 发票功能
 
                 // APP设置
-                wxAppAppId: '' // 微信APP支付appid
+                wxAppAppId: '', // 微信APP支付appid
             },
             formDataRules: {
-                shopName: [
-                    { required: true, message: '请输入平台名称', trigger: 'blur' }
-                ],
+                shopName: [{ required: true, message: '请输入平台名称', trigger: 'blur' }],
                 goodsStocksWarn: [
                     { required: true, message: '请输入库存警报数量', trigger: 'blur' },
-                    { validator: checkPrice, trigger: 'blur' }
-                ]
-            }
-        }
+                    { validator: checkPrice, trigger: 'blur' },
+                ],
+            },
+        };
     },
     methods: {
-    /**
+        /**
          * 地区列表
          */
-        async getAreaList () {
-            const _result = await this.$api.area.getTree()
+        async getAreaList() {
+            const _result = await this.$api.area.getTree();
             if (_result.succeed === 1 && _result.code === 200) {
-                this.areaList = _result.data.list
+                this.areaList = _result.data.list;
             }
         },
-        changePosition () {
-            this.$refs.mapPositionDialog.setMapDialogVisible(true)
+        changePosition() {
+            this.$refs.mapPositionDialog.setMapDialogVisible(true);
         },
-        chosedLocation (position) {
-            this.formData.returnAddress = position.address
-            this.$refs.mapPositionDialog.setMapDialogVisible(false)
+        chosedLocation(position) {
+            this.formData.returnAddress = position.address;
+            this.$refs.mapPositionDialog.setMapDialogVisible(false);
         },
         ...mapMutations(['setGlobalVariables']),
-        chosedShopLogo (chosed) {
+        chosedShopLogo(chosed) {
             if (chosed) {
-                this.formData.shopLogo = chosed.path
+                this.formData.shopLogo = chosed.path;
             }
         },
-        chosedShopDefaultImage (chosed) {
-            this.formData.shopDefaultImage = chosed.path
+        chosedShopDefaultImage(chosed) {
+            this.formData.shopDefaultImage = chosed.path;
         },
-        submitForm () {
+        submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
                     this.$confirm('确认提交吗？', '提示', {}).then(async () => {
-                        this.editLoading = true
-                        const data = Object.assign({}, this.formData)
+                        this.editLoading = true;
+                        const data = Object.assign({}, this.formData);
 
-                        const _result = await this.$api.setting.save({ key: 'global_variables', value: data })
+                        const _result = await this.$api.setting.save({
+                            key: 'global_variables',
+                            value: data,
+                        });
                         if (_result.succeed === 1 && _result.code === 200) {
-                            this.setGlobalVariables(_result.data)
+                            this.setGlobalVariables(_result.data);
                             this.$notify({
-                    title: '成功',
-                    message: _result.description,
-                    type: 'success'
-                })
+                                title: '成功',
+                                message: _result.description,
+                                type: 'success',
+                            });
                         } else {
                             this.$notify.error({
-                    title: '错误',
-                    message: _result.description
-                })
+                                title: '错误',
+                                message: _result.description,
+                            });
                         }
 
-                        this.editLoading = false
-                    })
+                        this.editLoading = false;
+                    });
                 }
-            })
+            });
         },
-        resetForm (formName) {
-            this.$refs[formName].resetFields()
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
         },
-        async getSettings () {
-            const _result = await this.$api.setting.get({ key: 'global_variables' })
+        async getSettings() {
+            const _result = await this.$api.setting.get({ key: 'global_variables' });
             if (_result.succeed === 1 && _result.code === 200) {
-                Object.assign(this.formData, _result.data)
-                console.log(this.formData)
+                Object.assign(this.formData, _result.data);
+                console.log(this.formData);
             }
-        }
+        },
     },
-    mounted () {
-        this.getSettings()
-        this.getAreaList()
-    }
-}
+    mounted() {
+        this.getSettings();
+        this.getAreaList();
+    },
+};
 </script>
 
 <style scoped lang="scss">

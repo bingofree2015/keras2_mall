@@ -7,12 +7,13 @@
             <p class="demo-summery">输入与分类选择组合框组件，迅速简便地在创建文章时选择分类。</p>
             <el-row>
                 <el-col :span="18">
-                    <el-input class="input-with-select" placeholder="请输入内容" v-model="input3">
-                        <pick-articleType
-                            :selectionType="0"
-                            @chosedArticleTypes="chosedArticleTypes"
-                            slot="append"
-                        ></pick-articleType>
+                    <el-input v-model="input3" class="input-with-select" placeholder="请输入内容">
+                        <template #append>
+                            <pick-articleType
+                                :selection-type="0"
+                                @chosed-article-types="chosedArticleTypes"
+                            />
+                        </template>
                     </el-input>
                 </el-col>
             </el-row>
@@ -20,7 +21,9 @@
                 <i>执行结果</i>
             </h5>
             <el-row>
-                <el-col :span="18">{{articleTypes.length>0?articleTypes.map(v=>v.typeName):''}}</el-col>
+                <el-col :span="18">
+                    {{ articleTypes.length > 0 ? articleTypes.map((v) => v.typeName) : '' }}
+                </el-col>
             </el-row>
             <h5 class="demo-sub-title">
                 <i>演示代码</i>
@@ -32,11 +35,13 @@
 &lt;template&gt;
     &lt;div&gt;
         &lt;el-input class=&quot;input-with-select&quot; placeholder=&quot;请输入内容&quot; v-model=&quot;input3&quot;&gt;
-            &lt;pick-articleType
-                :selectionType=&quot;0&quot;
-                @chosedArticleTypes=&quot;chosedArticleTypes&quot;
-                slot=&quot;append&quot;
-            &gt;&lt;/pick-articleType&gt;
+            &lt;template #append&gt;
+                &lt;pick-articleType
+                    :selectionType=&quot;0&quot;
+                    @chosedArticleTypes=&quot;chosedArticleTypes&quot;
+                    slot=&quot;append&quot;
+                &gt;&lt;/pick-articleType&gt;
+            &lt;/template&gt;
         &lt;/el-input&gt;
         &lt;p&gt;{{articleTypes.map(v=&gt;v.typeName)}}&lt;/p&gt;
     &lt;/div&gt;
@@ -69,27 +74,27 @@ export default {
     </el-container>
 </template>
 <script>
-import pickArticleType from '@/components/pick_articleType'
+import pickArticleType from '@/components/pick_articleType';
 
 export default {
     components: {
         pickArticleType,
     },
-    computed: {},
     data() {
         return {
-            normalSize: "small",
-            miniSize: "mini",
+            normalSize: 'default',
+            smallSize: 'small',
 
             articleTypes: [],
         };
     },
+    computed: {},
+    mounted() {},
     methods: {
-        chosedArticleTypes (articleTypes) {
-            this.articleTypes = articleTypes
+        chosedArticleTypes(articleTypes) {
+            this.articleTypes = articleTypes;
         },
     },
-    mounted() {},
 };
 </script>
 <style scoped lang="scss">

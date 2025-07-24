@@ -1,164 +1,218 @@
 <template>
-	<!--备份还原界面-->
-	<el-dialog :close-on-click-modal="false" :modal="false" :title="$t('common.backupRestore')" v-bind="$attrs" v-on="$listeners" width="40%">
-		<el-divider></el-divider>
-		<el-table :data="paginatedData.list" :element-tableLoading-text="$t('action.loading')" :size="normalSize" @selection-change="selectionChange" v-loading="loading">
-			<el-table-column minWidth="40" type="selection"></el-table-column>
-			<el-table-column label="路径" minWidth="180" prop="path" show-overflow-tooltip></el-table-column>
-			<el-table-column :formatter="env.formatDateTime" label="时间" minWidth="140" prop="createdAt"></el-table-column>
-			<el-table-column :label="$t('action.operation')" fixed="right" minWidth="140">
-				<template slot-scope="scope">
-					<el-button :size="miniSize" @click="handleRestore(scope.row)" round type="primary">{{$t('common.restore')}}</el-button>
-					<el-button :size="miniSize" @click="handleDelete(scope.row)" round type="danger">{{$t('action.delete')}}</el-button>
-				</template>
-			</el-table-column>
-		</el-table>
-		<!--分页栏-->
-		<div style="padding:10px;">
-			<el-button :disabled="this.selections.length === 0" :size="miniSize" @click="handleBatchDelete" round style="float:left;" type="danger">{{$t('action.batchDelete')}}</el-button>
-			<el-pagination :current-page="paginatedAttr.currPage" :page-size="pageSize" :total="paginatedData.count" @current-change="handleCurrentChange" layout="total, prev, pager, next, jumper" style="float:right;"></el-pagination>
-		</div>
-		<span class="dialog-footer" slot="footer">
-			<el-button @click.native="$emit('update:visible', false)" round size="small">{{$t('action.cancel')}}</el-button>
-			<el-button @click="handleBackup" round size="small" type="primary">{{$t('common.backup')}}</el-button>
-		</span>
-	</el-dialog>
+    <!--备份还原界面-->
+    <el-dialog
+        :close-on-click-modal="false"
+        :modal="false"
+        :title="$t('common.backupRestore')"
+        v-bind="$attrs"
+        width="40%"
+        v-on="$attrs"
+    >
+        <el-divider />
+        <el-table
+            v-loading="loading"
+            :data="paginatedData.list"
+            :element-table-loading-text="$t('action.loading')"
+            :size="normalSize"
+            @selection-change="selectionChange"
+        >
+            <el-table-column min-width="40" type="selection" />
+            <el-table-column label="路径" min-width="180" prop="path" show-overflow-tooltip />
+            <el-table-column
+                :formatter="env.formatDateTime"
+                label="时间"
+                min-width="140"
+                prop="createdAt"
+            />
+            <el-table-column :label="$t('action.operation')" fixed="right" min-width="140">
+                <template #default="scope">
+                    <el-button
+                        :size="miniSize"
+                        round
+                        type="primary"
+                        @click="handleRestore(scope.row)"
+                    >
+                        {{ $t('common.restore') }}
+                    </el-button>
+                    <el-button
+                        :size="miniSize"
+                        round
+                        type="danger"
+                        @click="handleDelete(scope.row)"
+                    >
+                        {{ $t('action.delete') }}
+                    </el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <!--分页栏-->
+        <div style="padding: 10px">
+            <el-button
+                :disabled="selections.length === 0"
+                :size="miniSize"
+                round
+                style="float: left"
+                type="danger"
+                @click="handleBatchDelete"
+            >
+                {{ $t('action.batchDelete') }}
+            </el-button>
+            <el-pagination
+                :current-page="paginatedAttr.currPage"
+                :page-size="pageSize"
+                :total="paginatedData.count"
+                layout="total, prev, pager, next, jumper"
+                style="float: right"
+                @current-change="handleCurrentChange"
+            />
+        </div>
+        <template #footer>
+            <span class="dialog-footer">
+                <el-button round size="small" @click.native="$emit('update:visible', false)">
+                    $t('action.cancel') }}
+                </el-button>
+                <el-button round size="small" type="primary" @click="handleBackup">
+                    $t('common.backup')
+                </el-button>
+            </span>
+        </template>
+    </el-dialog>
 </template>
 
 <script>
 export default {
     components: {},
-    data () {
+    data() {
         return {
-            normalSize: 'small',
-            miniSize: 'mini',
+            normalSize: 'large',
+            miniSize: 'default',
             paginatedAttr: { searchKey: {}, currPage: 1, offset: 0, limit: 9 },
             paginatedData: { list: [], count: 0 },
             pageSize: 5,
 
             loading: false, // 表内容加载标识
-            selections: [] // 列表选中列
-        }
+            selections: [], // 列表选中列
+        };
+    },
+    mounted() {
+        this.queryForPaginatedList();
     },
     methods: {
         // 获取分页数据
-        async queryForPaginatedList (data) {
-            this.loading = true
+        async queryForPaginatedList(data) {
+            this.loading = true;
             if (data && data.paginatedAttr) {
-                this.paginatedAttr = data.paginatedAttr
+                this.paginatedAttr = data.paginatedAttr;
             }
-            this.paginatedAttr.searchKey = {}
-            const _result = await this.$api.db.list(this.paginatedAttr)
+            this.paginatedAttr.searchKey = {};
+            const _result = await this.$api.db.list(this.paginatedAttr);
             if (_result.succeed === 1 && _result.code === 200) {
-                this.paginatedData = _result.data
+                this.paginatedData = _result.data;
             } else {
                 this.$notify.error({
                     title: '错误',
-                    message: _result.description
-                })
+                    message: _result.description,
+                });
             }
-            this.loading = false
+            this.loading = false;
         },
 
         // 换页刷新
-        handleCurrentChange (currPage) {
-            this.paginatedAttr.currPage = currPage
-            this.paginatedAttr.offset = (currPage - 1) * this.pageSize
-            this.queryForPaginatedList()
+        handleCurrentChange(currPage) {
+            this.paginatedAttr.currPage = currPage;
+            this.paginatedAttr.offset = (currPage - 1) * this.pageSize;
+            this.queryForPaginatedList();
         },
 
         // 选择切换
-        selectionChange (selections) {
-            this.selections = selections
+        selectionChange(selections) {
+            this.selections = selections;
         },
 
         // 删除
-        async handleDelete (row) {
-            this.loading = true
-            const _result = await this.$api.db.destroy({ ids: [row.id] })
+        async handleDelete(row) {
+            this.loading = true;
+            const _result = await this.$api.db.destroy({ ids: [row.id] });
             if (_result.succeed === 1 && _result.code === 200) {
                 this.$notify({
                     title: '成功',
                     message: _result.description,
-                    type: 'success'
-                })
-                this.queryForPaginatedList()
+                    type: 'success',
+                });
+                this.queryForPaginatedList();
             } else {
                 this.$notify.error({
                     title: '错误',
-                    message: _result.description
-                })
+                    message: _result.description,
+                });
             }
-            this.loading = false
+            this.loading = false;
         },
 
         // 批量删除
-        async handleBatchDelete () {
-            this.loading = true
-            const _ids = []
+        async handleBatchDelete() {
+            this.loading = true;
+            const _ids = [];
             this.selections.map((item) => {
-                _ids.push(item.id)
-            })
-            const _result = await this.$api.db.destroy({ ids: _ids })
+                _ids.push(item.id);
+            });
+            const _result = await this.$api.db.destroy({ ids: _ids });
             if (_result.succeed === 1 && _result.code === 200) {
                 this.$notify({
                     title: '成功',
                     message: _result.description,
-                    type: 'success'
-                })
-                this.queryForPaginatedList()
+                    type: 'success',
+                });
+                this.queryForPaginatedList();
             } else {
                 this.$notify.error({
                     title: '错误',
-                    message: _result.description
-                })
+                    message: _result.description,
+                });
             }
-            this.loading = false
+            this.loading = false;
         },
 
         // 数据备份
-        async handleBackup () {
-            this.loading = true
-            const _result = await this.$api.db.backup()
+        async handleBackup() {
+            this.loading = true;
+            const _result = await this.$api.db.backup();
             if (_result.succeed === 1 && _result.code === 200) {
                 this.$notify({
                     title: '成功',
                     message: '备份成功',
-                    type: 'success'
-                })
-                await this.queryForPaginatedList()
+                    type: 'success',
+                });
+                await this.queryForPaginatedList();
             } else {
                 this.$notify.error({
                     title: '错误',
-                    message: _result.description
-                })
+                    message: _result.description,
+                });
             }
-            this.loading = false
+            this.loading = false;
         },
 
         // 数据还原
-        async handleRestore (row) {
-            this.loading = true
-            const _result = await this.$api.db.restore({ id: row.id })
+        async handleRestore(row) {
+            this.loading = true;
+            const _result = await this.$api.db.restore({ id: row.id });
             if (_result.succeed === 1 && _result.code === 200) {
                 this.$notify({
                     title: '成功',
                     message: _result.description,
-                    type: 'success'
-                })
+                    type: 'success',
+                });
             } else {
                 this.$notify.error({
                     title: '错误',
-                    message: _result.description
-                })
+                    message: _result.description,
+                });
             }
-            this.loading = false
-        }
+            this.loading = false;
+        },
     },
-    mounted () {
-        this.queryForPaginatedList()
-    }
-}
+};
 </script>
 
 <style scoped lang="scss">

@@ -1,21 +1,38 @@
 <template>
     <el-container class="map-container">
         <el-main>
-            <el-amap-search-box :on-search-result="onSearchResult" :search-option="searchOption"></el-amap-search-box>
-            <el-amap :center="center" :events="events" :plugin="plugin" :zoom="zoom" vid="amap">
-                <el-amap-marker :animation="marker.animation" :events="marker.events" :key="marker.index" :position="marker.position" :vid="index" v-for="(marker, index) in markers"></el-amap-marker>
-                <el-amap-info-window :content="position.address" :key="index" :position="marker.position" v-for="(marker, index) in markers"></el-amap-info-window>
+            <el-amap-search-box :on-search-result="onSearchResult" :search-option="searchOption" />
+            <el-amap
+:center="center"
+:events="events" :plugin="plugin" :zoom="zoom" vid="amap"
+>
+                <el-amap-marker
+                    v-for="(marker, index) in markers"
+                    :key="marker.index"
+                    :animation="marker.animation"
+                    :events="marker.events"
+                    :position="marker.position"
+                    :vid="index"
+                />
+                <el-amap-info-window
+                    v-for="(marker, index) in markers"
+                    :key="index"
+                    :content="position.address"
+                    :position="marker.position"
+                />
             </el-amap>
         </el-main>
         <el-footer>
             <el-row>
-                <el-col :span="18" style="font-size:12px;">
+                <el-col :span="18" style="font-size: 12px">
                     当前位置:
-                    <span v-if="loaded">{{position}}</span>
+                    <span v-if="loaded">{{ position }}</span>
                     <span v-else>正在定位(可手动输入定位)</span>
                 </el-col>
                 <el-col :span="6">
-                    <el-button @click="sendLocation" size="mini" type="primary">提交该地址</el-button>
+                    <el-button :size="miniSize" type="primary" @click="sendLocation">
+                        提交该地址
+                    </el-button>
                 </el-col>
             </el-row>
         </el-footer>
@@ -24,17 +41,19 @@
 <script>
 export default {
     name: 'MapPosition',
-    data () {
-        const self = this
+    data() {
+        const self = this;
         return {
+            largeSize: 'large',
+            miniSize: 'default',
             position: {
                 lng: 0,
                 lat: 0,
-                address: ''
+                address: '',
             },
             searchOption: {
                 city: '武汉',
-                citylimit: false
+                citylimit: false,
             },
             center: [114.4248335, 30.456458200000004],
             zoom: 12,
@@ -43,9 +62,9 @@ export default {
                     position: [114.4248335, 30.456458200000004],
                     animation: 'AMAP_ANIMATION_DROP',
                     events: {
-                        click (o) { }
-                    }
-                }
+                        click(o) {},
+                    },
+                },
             ],
             plugin: [
                 // 一些工具插件
@@ -63,132 +82,136 @@ export default {
                     extensions: 'all',
                     pName: 'Geolocation', // 定位
                     events: {
-                        init (o) {
+                        init(o) {
                             // o 是高德地图定位插件实例
                             o.getCurrentPosition((status, result) => {
                                 if (result && result.position) {
-                                    self.position.address = result.formattedAddress
-                                    self.position.lng = result.position.lng // 设置经度
-                                    self.position.lat = result.position.lat // 设置维度
+                                    self.position.address = result.formattedAddress;
+                                    self.position.lng = result.position.lng; // 设置经度
+                                    self.position.lat = result.position.lat; // 设置维度
 
-                                    self.center = [self.lng, self.lat] // 设置中心坐标
-                                    self.markers[0].position = [self.lng, self.lat]
-                                    self.loaded = true // load
+                                    self.center = [self.lng, self.lat]; // 设置中心坐标
+                                    self.markers[0].position = [self.lng, self.lat];
+                                    self.loaded = true; // load
                                     if (typeof AMap !== 'undefined') {
                                         var geocoder = new AMap.Geocoder({
                                             radius: 1000,
-                                            extensions: 'all'
-                                        })
+                                            extensions: 'all',
+                                        });
                                     }
-                                    geocoder.getAddress([self.lng, self.lat], function (status, result) {
-                                        if (status === 'complete' && result.info === 'OK') {
-                                            if (result && result.regeocode) {
-                                                self.loaded = true
-                                                self.position.address = result.regeocode.formattedAddress
-                                                self.$nextTick()
+                                    geocoder.getAddress(
+                                        [self.lng, self.lat],
+                                        function (status, result) {
+                                            if (status === 'complete' && result.info === 'OK') {
+                                                if (result && result.regeocode) {
+                                                    self.loaded = true;
+                                                    self.position.address =
+                                                        result.regeocode.formattedAddress;
+                                                    self.$nextTick();
+                                                }
                                             }
                                         }
-                                    })
-                                    self.$nextTick() // 页面渲染好后
+                                    );
+                                    self.$nextTick(); // 页面渲染好后
                                 }
-                            })
-                        }
-                    }
+                            });
+                        },
+                    },
                 },
                 {
                     pName: 'ToolBar', // 工具栏
                     events: {
-                        init (instance) { }
-                    }
+                        init(instance) {},
+                    },
                 },
                 {
                     pName: 'Scale', // 比例尺
                     events: {
-                        init (instance) { }
-                    }
-                }
+                        init(instance) {},
+                    },
+                },
             ],
             // 这是点击地图上的图标实现定位的事件
             events: {
-                click (e) {
-                    const { lng, lat } = e.lnglat
-                    self.position.lng = lng
-                    self.position.lat = lat
+                click(e) {
+                    const { lng, lat } = e.lnglat;
+                    self.position.lng = lng;
+                    self.position.lat = lat;
 
-                    self.markers[0].position = [self.lng, self.lat]
+                    self.markers[0].position = [self.lng, self.lat];
 
                     // 这里通过高德 SDK 完成。
                     if (typeof AMap !== 'undefined') {
                         var geocoder = new AMap.Geocoder({
                             radius: 1000,
-                            extensions: 'all'
-                        })
+                            extensions: 'all',
+                        });
                     }
                     geocoder.getAddress([lng, lat], function (status, result) {
                         if (status === 'complete' && result.info === 'OK') {
                             if (result && result.regeocode) {
-                                self.loaded = true
-                                self.position.address = result.regeocode.formattedAddress
-                                self.$nextTick()
+                                self.loaded = true;
+                                self.position.address = result.regeocode.formattedAddress;
+                                self.$nextTick();
                             }
                         }
-                    })
-                }
+                    });
+                },
             },
-            loaded: false
-        }
+            loaded: false,
+        };
     },
     methods: {
-    // 这是搜索框搜索完成后的回调函数
-        onSearchResult (pois) {
-            const self = this
-            console.log('pois', pois)
-            let latSum = 0
-            let lngSum = 0
+        // 这是搜索框搜索完成后的回调函数
+        onSearchResult(pois) {
+            const self = this;
+            console.log('pois', pois);
+            let latSum = 0;
+            let lngSum = 0;
             if (pois.length > 0) {
-                pois.forEach(poi => {
-                    const { lng, lat } = poi
-                    lngSum += lng
-                    latSum += lat
-                })
+                pois.forEach((poi) => {
+                    const { lng, lat } = poi;
+                    lngSum += lng;
+                    latSum += lat;
+                });
                 const center = {
                     lng: lngSum / pois.length,
-                    lat: latSum / pois.length
-                }
-                self.position.lng = center.lng
-                self.position.lat = center.lat
+                    lat: latSum / pois.length,
+                };
+                self.position.lng = center.lng;
+                self.position.lat = center.lat;
 
                 // 这里通过高德 SDK 完成。
                 if (typeof AMap !== 'undefined') {
                     const geocoder = new AMap.Geocoder({
                         radius: 1000,
-                        extensions: 'all'
-                    })
+                        extensions: 'all',
+                    });
                 }
                 geocoder.getAddress([center.lng, center.lat], function (status, result) {
                     if (status === 'complete' && result.info === 'OK') {
                         if (result && result.regeocode) {
-                            self.loaded = true
-                            self.position.address = result.regeocode.formattedAddress
-                            self.$nextTick()
+                            self.loaded = true;
+                            self.position.address = result.regeocode.formattedAddress;
+                            self.$nextTick();
                         }
                     }
-                })
-                self.center = [center.lng, center.lat]
-                self.markers[0].position = [center.lng, center.lat]
+                });
+                self.center = [center.lng, center.lat];
+                self.markers[0].position = [center.lng, center.lat];
             }
         },
         // 把经纬度传到父组件
-        sendLocation () {
-            console.log('获取的精度和纬度', this.lng, this.lat)
-            console.log('获取的地址', this.position)
-            this.$emit('leaveSelectAdress', this.position)
-        }
-    }
-}
+        sendLocation() {
+            console.log('获取的精度和纬度', this.lng, this.lat);
+            console.log('获取的地址', this.position);
+            this.$emit('leaveSelectAdress', this.position);
+        },
+    },
+};
 </script>
-<style  lang="scss" scoped>
-.map-container ::v-deep .el-main {
+<style lang="scss" scoped>
+.map-container :deep(.el-main) {
     .el-vue-search-box-container {
         width: 100%;
         height: 40px;

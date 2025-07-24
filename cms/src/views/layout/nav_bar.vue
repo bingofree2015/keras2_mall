@@ -1,114 +1,117 @@
 <template>
-    <div class="menu-bar-container">
+    <div
+        :class="['menu-bar-container', { collapse }]"
+        :style="{ width: collapse ? '65px' : '200px' }"
+    >
         <!-- logo -->
-        <div :class="collapse?'menu-bar-collapse-width':'menu-bar-width'" :style="{'background-color':themeColor}"
-            @click="$router.push('/')" class="logo">
-            <img src="@/assets/image/logo.png" v-if="collapse" />
-            <div v-else>{{appName}}</div>
+        <div class="logo" @click="$router.push('/')">
+            <img v-if="collapse" src="@/assets/image/logo.png" />
+            <div v-else>
+                {{ appName }}
+            </div>
         </div>
         <!-- 导航菜单 -->
-        <el-menu :background-color="themeTintColor" :class="collapse?'menu-bar-collapse-width':'menu-bar-width'"
-            :collapse="collapse" :collapse-transition="false" :unique-opened="true" @close="closeMenu" @open="openMenu"
-            @select="selectMenu" active-text-color="#ffd04b" default-active="1" ref="navMenu" text-color="#fff">
-            <!-- 导航菜单树组件，动态加载菜单 -->
-            <menu-tree :key="item.id" :menu="item" v-for="item in navTree">
-            </menu-tree>
+        <el-menu
+            ref="navMenu"
+            :background-color="themeTintColor"
+            :collapse="collapse"
+            :collapse-transition="false"
+            :unique-opened="true"
+            active-text-color="#ffd04b"
+            default-active="1"
+            text-color="#fff"
+            class="nav-menu"
+            @close="closeMenu"
+            @open="openMenu"
+            @select="selectMenu"
+        >
+            <menu-tree v-for="item in navTree" :key="item.id" :menu="item" />
         </el-menu>
     </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import menuTree from '@/components/menu_tree'
+import { mapState, mapActions } from 'vuex';
+import menuTree from '@/components/menu_tree.vue';
+
 export default {
     components: {
-        menuTree
+        menuTree,
     },
+    emits: ['activeTab'],
     computed: {
         ...mapState({
-            appName: state => state.app.appName,
-            themeColor: state => state.app.themeColor,
-            themeTintColor: state => state.app.themeTintColor,
-            collapse: state => state.app.collapse,
-            navTree: state => state.menu.navTree,
-            mainTabs: state => state.tab.mainTabs,
-            mainActiveTab: state => state.tab.mainActiveTab
+            appName: (state) => state.app.appName,
+            themeColor: (state) => state.app.themeColor,
+            themeTintColor: (state) => state.app.themeTintColor,
+            collapse: (state) => state.app.collapse,
+            navTree: (state) => state.menu.navTree,
+            mainTabs: (state) => state.tab.mainTabs,
+            mainActiveTab: (state) => state.tab.mainActiveTab,
         }),
     },
     watch: {
-        $route: 'openTab'
+        $route: 'openTab',
     },
-    mounted () {
-        this.openTab(this.$route)
+    mounted() {
+        this.openTab(this.$route);
     },
     methods: {
         ...mapActions(['updateMainTabs', 'updateMainActiveTab']),
-        openMenu () { },
-        closeMenu () { },
-        selectMenu (a, b) { },
+        openMenu() {},
+        closeMenu() {},
+        selectMenu() {},
         // 路由操作处理
-        openTab (route) {
-            // tab标签页选中, 如果不存在则先添加
-            let _activeTab = this.mainTabs.find(item => item.name === route.name)
+        openTab(route) {
+            let _activeTab = this.mainTabs.find((item) => item.name === route.name);
             if (!_activeTab) {
                 _activeTab = {
                     name: route.name,
                     path: route.path,
                     icon: route.meta.icon,
-                    closable: (route.name !== '控制面板'),
-                    query: route.query
-                }
-                let _mainTabs = this.mainTabs.concat(_activeTab)
-                this.updateMainTabs(_mainTabs)
+                    closable: route.name !== '控制面板',
+                    query: route.query,
+                };
+                let _mainTabs = this.mainTabs.concat(_activeTab);
+                this.updateMainTabs(_mainTabs);
             }
-            this.updateMainActiveTab(_activeTab)
-            // 把当前的菜单的 name 转给父组件 home
-            this.$emit('activeTab', _activeTab.name)
-            // 切换标签页时同步更新高亮菜单
+            this.updateMainActiveTab(_activeTab);
+            this.$emit('activeTab', _activeTab.name);
             if (this.$refs.navMenu !== null) {
-                this.$refs.navMenu.activeIndex = '' + route.meta.index
-                this.$refs.navMenu.initOpenedMenu()
+                this.$refs.navMenu.activeIndex = '' + route.meta.index;
             }
-        }
-    }
-}
+        },
+    },
+};
 </script>
 
 <style scoped lang="scss">
 .menu-bar-container {
     position: fixed;
-    top: 0px;
+    top: 0;
     left: 0;
     bottom: 0;
     z-index: 1020;
-    .el-menu {
-        position: absolute;
-        top: 60px;
-        bottom: 0px;
-        text-align: left;
-        overflow-y: auto;
-        overflow-x: hidden;
-
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-        overflow: -moz-scrollbars-none;
-        overflow: -moz-scrollbars-none;
-        &::-webkit-scrollbar {
-            display: none;
-        }
+    width: 200px;
+    transition: width 0.2s;
+    display: flex;
+    flex-direction: column;
+    background: #222;
+    &.collapse {
+        width: 65px;
     }
     .logo {
-        position: absolute;
-        top: 0px;
         height: 60px;
         line-height: 60px;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
         img {
             width: 40px;
             height: 40px;
             border-radius: 0px;
-            margin: 10px 10px 10px 10px;
-            float: left;
+            margin: 10px;
         }
         div {
             font-size: 25px;
@@ -117,11 +120,13 @@ export default {
             padding-left: 20px;
         }
     }
-    .menu-bar-width {
-        width: 200px;
-    }
-    .menu-bar-collapse-width {
-        width: 65px;
+    .nav-menu {
+        flex: 1;
+        border-right: none;
+        background: transparent;
+        .el-menu {
+            background: transparent;
+        }
     }
 }
 </style>

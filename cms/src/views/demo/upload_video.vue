@@ -4,10 +4,14 @@
             <h2 class="demo-title">视频上传</h2>
         </el-header>
         <el-main>
-            <p class="demo-summery">通过弹出对话框选择本地视频文件上传至服务器，支持拖拽迅速简便。</p>
+            <p class="demo-summery">
+                通过弹出对话框选择本地视频文件上传至服务器，支持拖拽迅速简便。
+            </p>
             <el-row>
                 <el-col :span="18">
-                    <el-button :size="miniSize" @click="handleClick" round type="primary">上传视频</el-button>
+                    <el-button :size="miniSize" round type="primary" @click="handleClick">
+                        上传视频
+                    </el-button>
                 </el-col>
             </el-row>
             <h5 class="demo-sub-title">
@@ -20,7 +24,7 @@
 &lt;template&gt;
     &lt;div&gt;
         &lt;el-button :size=&quot;miniSize&quot; @click=&quot;handleClick&quot; round type=&quot;primary&quot;&gt;上传视频&lt;/el-button&gt;
-        &lt;video-uploader :visible.sync=&quot;videoDialogVisible&quot;&gt;&lt;/video-uploader&gt;
+        &lt;video-uploader :model-value=&quot;videoDialogVisible&quot;&gt;&lt;/video-uploader&gt;
     &lt;/div&gt;
 &lt;/template&gt;
 &lt;script&gt;
@@ -48,31 +52,31 @@ export default {
                 </el-col>
             </el-row>
         </el-main>
-        <video-uploader :visible.sync="videoDialogVisible"></video-uploader>
+        <video-uploader :model-value="videoDialogVisible" />
     </el-container>
 </template>
 <script>
-import videoUploader from "@/components/video_uploader";
+import videoUploader from '@/components/video_uploader';
 
 export default {
     components: {
         videoUploader,
     },
-    computed: {},
     data() {
         return {
-            normalSize: "small",
-            miniSize: "mini",
+            normalSize: 'default',
+            smallSize: 'small',
 
             videoDialogVisible: false,
         };
     },
+    computed: {},
+    mounted() {},
     methods: {
         handleClick() {
             this.videoDialogVisible = true;
         },
     },
-    mounted() {},
 };
 </script>
 <style scoped lang="scss">

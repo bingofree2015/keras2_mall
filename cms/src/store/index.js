@@ -1,52 +1,48 @@
-import Vue from 'vue'
-import vuex from 'vuex'
-
-import app from './modules/app'
-import tab from './modules/tab'
-import iframe from './modules/iframe'
-import menu from './modules/menu'
-
-Vue.use(vuex)
+import { createStore } from 'vuex';
+import app from './modules/app';
+import tab from './modules/tab';
+import iframe from './modules/iframe';
+import menu from './modules/menu';
 
 const state = {
     loginUser: {
-        perms: [] // 用户权限标识集合
+        perms: [],
     },
-    mapAlias: {}
-}
+    mapAlias: {},
+};
 
-const getters = {}
+const getters = {};
 
 const mutations = {
-    setPerms (state, perms) { // 用户权限标识集合
-        state.loginUser.perms = perms
+    setPerms(state, perms) {
+        state.loginUser.perms = perms;
     },
-    setLoginUser (state, loginUser) {
-        state.loginUser = loginUser
+    setLoginUser(state, loginUser) {
+        state.loginUser = loginUser;
     },
-    setMapAlias (state, mapAlias) {
-        state.mapAlias = mapAlias
-    }
-}
+    setMapAlias(state, mapAlias) {
+        state.mapAlias = mapAlias;
+    },
+};
 
 const actions = {
-    setPerms ({ commit }, perms) {
-        commit('setPerms', perms)
+    setPerms({ commit }, perms) {
+        commit('setPerms', perms);
     },
-    setLoginUser ({ commit }, loginUser) {
-        commit('setLoginUser', loginUser)
+    setLoginUser({ commit }, loginUser) {
+        commit('setLoginUser', loginUser);
     },
-    setMapAlias ({ commit }, mapAlias) {
-        commit('setMapAlias', mapAlias)
-    }
-}
+    setMapAlias({ commit }, mapAlias) {
+        commit('setMapAlias', mapAlias);
+    },
+};
 
-const store = new vuex.Store({
+const store = createStore({
     state,
     getters,
     actions,
     mutations,
-    modules: { app, tab, iframe, menu }
-})
+    modules: { app, tab, iframe, menu },
+});
 
-export default store
+export default store;

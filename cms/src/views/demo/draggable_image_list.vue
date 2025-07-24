@@ -4,15 +4,17 @@
             <h2 class="demo-title">图片拖动排序</h2>
         </el-header>
         <el-main>
-            <p class="demo-summery">通过添加图片至图片列表，实现列表中图片的拖拽式排序、删除、在线裁剪、旋转，迅速简便地对图片排序。</p>
+            <p class="demo-summery">
+                通过添加图片至图片列表，实现列表中图片的拖拽式排序、删除、在线裁剪、旋转，迅速简便地对图片排序。
+            </p>
             <el-row>
                 <el-col :span="24">
                     <draggable-image-list
                         :items="imageItems"
-                        @chosedImage="chosedImage"
+                        @chosed-image="chosedImage"
                         @end="end"
-                        @onRemove="onRemove"
-                    ></draggable-image-list>
+                        @on-remove="onRemove"
+                    />
                 </el-col>
             </el-row>
             <h5 class="demo-sub-title">
@@ -46,6 +48,9 @@ export default {
     computed: {},
     data() {
         return {
+            normalSize: 'default',
+            smallSize: 'small',
+
             imageItems: [
                 { id: 0, path: &quot;attachment/image/156691643755464.jpg&quot; },
                 { id: 1, path: &quot;attachment/image/156691644208066.png&quot; },
@@ -77,25 +82,26 @@ export default {
     </el-container>
 </template>
 <script>
-import draggableImageList from "@/components/draggable_image_list";
+import draggableImageList from '@/components/draggable_image_list';
 
 export default {
     components: {
         draggableImageList,
     },
-    computed: {},
     data() {
         return {
-            normalSize: "small",
-            miniSize: "mini",
+            normalSize: 'default',
+            smallSize: 'small',
 
             imageItems: [
-                { id: 0, path: "attachment/image/156691643755464.jpg" },
-                { id: 1, path: "attachment/image/156691644208066.png" },
-                { id: 2, path: "attachment/image/156691650779637.png" },
+                { id: 0, path: 'attachment/image/156691643755464.jpg' },
+                { id: 1, path: 'attachment/image/156691644208066.png' },
+                { id: 2, path: 'attachment/image/156691650779637.png' },
             ],
         };
     },
+    computed: {},
+    mounted() {},
     methods: {
         chosedImage(chosen) {
             this.imageItems.push(chosen);
@@ -110,7 +116,6 @@ export default {
             );
         },
     },
-    mounted() {},
 };
 </script>
 <style scoped lang="scss">

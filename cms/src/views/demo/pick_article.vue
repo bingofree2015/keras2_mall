@@ -7,14 +7,16 @@
             <p class="demo-summery">通过弹出文章列表对话框，选择文章(支持单选)。</p>
             <el-row>
                 <el-col :span="18">
-                    <pick-article :selectionType="0" @chosedArticles="chosedArticles"></pick-article>
+                    <pick-article :selection-type="0" @chosed-articles="chosedArticles" />
                 </el-col>
             </el-row>
             <h5 class="demo-sub-title">
                 <i>执行结果</i>
             </h5>
             <el-row>
-                <el-col :span="18">{{articles.length>0?articles.map(v=>v.title):''}}</el-col>
+                <el-col :span="18">
+                    {{ articles.length > 0 ? articles.map((v) => v.title) : '' }}
+                </el-col>
             </el-row>
             <h5 class="demo-sub-title">
                 <i>演示代码</i>
@@ -57,27 +59,27 @@ export default {
     </el-container>
 </template>
 <script>
-import pickArticle from "@/components/pick_article";
+import pickArticle from '@/components/pick_article';
 
 export default {
     components: {
         pickArticle,
     },
-    computed: {},
     data() {
         return {
-            normalSize: "small",
-            miniSize: "mini",
+            normalSize: 'default',
+            smallSize: 'small',
 
             articles: [],
         };
     },
+    computed: {},
+    mounted() {},
     methods: {
         chosedArticles(articles) {
             this.articles = articles;
         },
     },
-    mounted() {},
 };
 </script>
 <style scoped lang="scss">

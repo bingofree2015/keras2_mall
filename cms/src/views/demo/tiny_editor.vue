@@ -4,10 +4,12 @@
             <h2 class="demo-title">富文本框</h2>
         </el-header>
         <el-main>
-            <p class="demo-summery">基于tinymce,除了tinymce的基本功能，添加了图片与视频上传的功能。</p>
+            <p class="demo-summery">
+                基于tinymce,除了tinymce的基本功能，添加了图片与视频上传的功能。
+            </p>
             <el-row>
                 <el-col :span="18">
-                    <tinyEditor :content.sync="content"></tinyEditor>
+                    <tinyEditor v-model:content="content" />
                 </el-col>
             </el-row>
             <h5 class="demo-sub-title">
@@ -34,7 +36,7 @@ export default {
     },
     methods: {},
 };
-&lt;/script&gt;                            
+&lt;/script&gt;
                         </code>
                     </pre>
                 </el-col>
@@ -43,20 +45,20 @@ export default {
     </el-container>
 </template>
 <script>
-import tinyEditor from '@/components/tiny_editor'
+import tinyEditor from '@/components/tiny_editor';
 
 export default {
     components: {
         tinyEditor,
     },
-    computed: {},
     data() {
         return {
-            normalSize: "small",
-            miniSize: "mini",
+            normalSize: 'default',
+            smallSize: 'small',
             content: '邮箱:nzb@yeah.net',
         };
     },
+    computed: {},
     mounted() {},
 };
 </script>

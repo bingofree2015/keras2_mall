@@ -1,7 +1,7 @@
 /*
  * 用户管理模块
  */
-export function login () {
+export function login() {
     const loginData = {
         succeed: 1,
         code: 200,
@@ -14,17 +14,17 @@ export function login () {
             createBy: null,
             createTime: null,
             lastUpdateBy: null,
-            lastUpdateTime: '2018-09-01T04:24:50.473+0000'
-        }
-    }
+            lastUpdateTime: '2018-09-01T04:24:50.473+0000',
+        },
+    };
     return {
         url: 'cms/system/login',
         type: 'post',
-        data: loginData
-    }
+        data: loginData,
+    };
 }
 
-export function resetPwd () {
+export function resetPwd() {
     const resetPwdData = {
         succeed: 1,
         code: 200,
@@ -32,33 +32,33 @@ export function resetPwd () {
         data: {
             id: 1,
             pwd: '122222',
-            newPwd: '111111'
-        }
-    }
+            newPwd: '111111',
+        },
+    };
     return {
         url: 'cms/system/resetPwd',
         type: 'post',
-        data: resetPwdData
-    }
+        data: resetPwdData,
+    };
 }
 
 // 登出接口
-export function logout () {
+export function logout() {
     const logoutData = {
         succeed: 1,
         code: 200,
         description: '成功',
-        data: {}
-    }
+        data: {},
+    };
     return {
         url: 'cms/system/logout',
         type: 'post',
-        data: logoutData
-    }
+        data: logoutData,
+    };
 }
 
 // 保存
-export function save () {
+export function save() {
     return {
         url: 'cms/system/save',
         type: 'post',
@@ -66,12 +66,12 @@ export function save () {
             succeed: 1,
             code: 200,
             description: '成功',
-            data: 1
-        }
-    }
+            data: 1,
+        },
+    };
 }
 // 批量删除
-export function destroy () {
+export function destroy() {
     return {
         url: 'cms/system/delete',
         type: 'post',
@@ -79,60 +79,60 @@ export function destroy () {
             succeed: 1,
             code: 200,
             description: '成功',
-            data: 1
-        }
-    }
+            data: 1,
+        },
+    };
 }
 // 分页查询
-export function list (params) {
+export function list(params) {
     const findPageData = {
         succeed: 1,
         code: 200,
         description: '成功',
-        data: {}
-    }
-    const pageNum = 1
-    const pageSize = 8
+        data: {},
+    };
+    const pageNum = 1;
+    const pageSize = 8;
     if (params !== null) {
-    // pageNum = params.pageNum
+        // pageNum = params.pageNum
     }
     if (params !== null) {
-    // pageSize = params.pageSize
+        // pageSize = params.pageSize
     }
-    const content = this.getContent(pageNum, pageSize)
-    findPageData.data.pageNum = pageNum
-    findPageData.data.pageSize = pageSize
-    findPageData.data.totalSize = 50
-    findPageData.data.list = content
+    const content = this.getContent(pageNum, pageSize);
+    findPageData.data.pageNum = pageNum;
+    findPageData.data.pageSize = pageSize;
+    findPageData.data.totalSize = 50;
+    findPageData.data.list = content;
     return {
         url: 'cms/system/list',
         type: 'post',
-        data: findPageData
-    }
+        data: findPageData,
+    };
 }
-export function getContent (pageNum, pageSize) {
-    const content = []
+export function getContent(pageNum, pageSize) {
+    const content = [];
     for (let i = 0; i < pageSize; i++) {
-        const obj = {}
-        const index = ((pageNum - 1) * pageSize) + i + 1
-        obj.id = index
-        obj.name = 'coupon_mall' + index
-        obj.password = '9ec9750e709431dad22365cabc5c625482e574c74adaebba7dd02f1129e4ce1d'
-        obj.salt = 'YzcmCZNvbXocrsz9dm8e'
-        obj.email = 'coupon_mall' + index + '@qq.com'
-        obj.mobile = '18688982323'
-        obj.status = 1
+        const obj = {};
+        const index = (pageNum - 1) * pageSize + i + 1;
+        obj.id = index;
+        obj.name = 'coupon_mall' + index;
+        obj.password = '9ec9750e709431dad22365cabc5c625482e574c74adaebba7dd02f1129e4ce1d';
+        obj.salt = 'YzcmCZNvbXocrsz9dm8e';
+        obj.email = 'coupon_mall' + index + '@qq.com';
+        obj.mobile = '18688982323';
+        obj.status = 1;
 
-        obj.createBy = 'admin'
-        obj.createTime = '2018-08-14 11:11:11'
-        obj.createBy = 'admin'
-        obj.createTime = '2018-09-14 12:12:12'
-        content.push(obj)
+        obj.createBy = 'admin';
+        obj.createTime = '2018-08-14 11:11:11';
+        obj.createBy = 'admin';
+        obj.createTime = '2018-09-14 12:12:12';
+        content.push(obj);
     }
-    return content
+    return content;
 }
 // 查找用户的菜单权限标识集合
-export function getPermits () {
+export function getPermits() {
     const permsData = {
         succeed: 1,
         code: 200,
@@ -156,13 +156,13 @@ export function getPermits () {
                 'sys:menu:view',
                 'sys:menu:edit',
                 'sys:dict:add',
-                'sys:role:add'
-            ]
-        }
-    }
+                'sys:role:add',
+            ],
+        },
+    };
     return {
         url: 'cms/system/get_permits',
         type: 'post',
-        data: permsData
-    }
+        data: permsData,
+    };
 }

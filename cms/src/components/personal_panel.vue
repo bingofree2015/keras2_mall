@@ -1,98 +1,120 @@
 <template>
     <div class="personal-panel">
-        <div :style="{'background':themeColor}" class="personal-desc">
+        <div :style="{ background: themeColor }" class="personal-desc">
             <div class="avatar-container">
-                <img :src="this.env.getImgUrl(loginUser.attachment.path)" class="avatar" v-if="loginUser.attachment" />
+                <img
+                    v-if="loginUser.attachment"
+                    :src="env.getImgUrl(loginUser.attachment.path)"
+                    class="avatar"
+                />
             </div>
             <div class="name-role">
-                <span class="sender">{{ loginUser.username }} - {{ loginUser.roles?loginUser.roles.map((v)=>v.remark).toString():'' }}</span>
+                <span class="sender">
+                    {{ loginUser.username }} -
+                    {{ loginUser.roles ? loginUser.roles.map((v) => v.remark).toString() : '' }}
+                </span>
             </div>
         </div>
         <div class="main-operation">
             <span class="main-operation-item">
-                <el-button @click="showEditUserInfoDialog" icon="el-icon-ali-ziyuan" round size="small">个人中心</el-button>
+                <el-button round size="small" @click="showEditUserInfoDialog">
+                    <i class="el-icon-ali-ziyuan"></i>
+                    个人中心
+                </el-button>
             </span>
             <span class="main-operation-item">
-                <el-button @click="showResetUserPwdDialog" icon="el-icon-ali-changeadmin" round size="small">修改密码</el-button>
+                <el-button round size="small" @click="showResetUserPwdDialog">
+                    <i class="el-icon-ali-changeadmin"></i>
+                    修改密码
+                </el-button>
             </span>
         </div>
         <div class="other-operation">
             <div class="other-operation-item">
-                <li class="el-icon-ali-qingchuhuancun"></li>清除缓存
+                <i class="el-icon-ali-qingchuhuancun"></i>
+                清除缓存
             </div>
-            <div @click="showBackupDialog" class="other-operation-item">
-                <li class="el-icon-ali-beifenhuanyuan1"></li>
-                {{$t("common.backupRestore")}}
+            <div class="other-operation-item" @click="showBackupDialog">
+                <i class="el-icon-ali-beifenhuanyuan1"></i>
+                {{ $t('common.backupRestore') }}
             </div>
         </div>
-        <div @click="logout" class="personal-footer">
-            <li class="el-icon-ali-tuichu"></li>
-            {{$t("common.logout")}}
+        <div class="personal-footer" @click="logout">
+            <i class="el-icon-ali-tuichu"></i>
+            {{ $t('common.logout') }}
         </div>
         <!--备份还原界面-->
-        <database :visible.sync="databaseDialogVisible" @afterRestore="afterRestore"></database>
-        <edit-user-info :visible.sync="editUserInfoDialogVisible"></edit-user-info>
-        <reset-user-pwd :visible.sync="resetUserPwdDialogVisible"></reset-user-pwd>
+        <database v-model:visible="databaseDialogVisible" @after-restore="afterRestore" />
+        <edit-user-info v-model:visible="editUserInfoDialogVisible" />
+        <reset-user-pwd v-model:visible="resetUserPwdDialogVisible" />
     </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import database from './database'
-import editUserInfo from './edit_user_info'
-import resetUserPwd from './reset_user_pwd'
+import { mapState } from 'vuex';
+import database from './database.vue';
+import editUserInfo from './edit_user_info.vue';
+import resetUserPwd from './reset_user_pwd.vue';
 export default {
     name: 'PersonalPanel',
     components: {
         database,
         editUserInfo,
-        resetUserPwd
+        resetUserPwd,
     },
-    data () {
+    data() {
         return {
             editUserInfoDialogVisible: false,
             databaseDialogVisible: false,
-            resetUserPwdDialogVisible: false
-        }
+            resetUserPwdDialogVisible: false,
+        };
     },
+    mounted() {},
     methods: {
-    // 退出登录
-        logout () {
+        // 退出登录
+        logout() {
             this.$confirm('确认退出吗?', '提示', {
-                type: 'warning'
-            }).then(() => {
-                sessionStorage.removeItem('loginUser')
-                this.$router.push('/login')
-                this.$api.sysUser.logout().then((result) => { }).catch((result) => { })
-            }).catch(() => { })
+                type: 'warning',
+            })
+                .then(() => {
+                    sessionStorage.removeItem('loginUser');
+                    this.$router.push('/login');
+                    this.$api.sysUser
+                        .logout()
+                        .then((result) => {})
+                        .catch((result) => {});
+                })
+                .catch(() => {});
         },
         // 打开备份还原界面
-        showBackupDialog () {
-            this.databaseDialogVisible = true
+        showBackupDialog() {
+            this.databaseDialogVisible = true;
         },
-        showEditUserInfoDialog () {
-            this.editUserInfoDialogVisible = true
+        showEditUserInfoDialog() {
+            this.editUserInfoDialogVisible = true;
         },
-        showResetUserPwdDialog () {
-            this.resetUserPwdDialogVisible = true
+        showResetUserPwdDialog() {
+            this.resetUserPwdDialogVisible = true;
         },
         // 成功还原之后，重新登录
-        afterRestore () {
-            this.resetUserPwdDialogVisible = false
-            sessionStorage.removeItem('loginUser')
-            this.$router.push('/login')
-            this.$api.sysUser.logout().then((result) => { }).catch(function (result) { })
-        }
+        afterRestore() {
+            this.resetUserPwdDialogVisible = false;
+            sessionStorage.removeItem('loginUser');
+            this.$router.push('/login');
+            this.$api.sysUser
+                .logout()
+                .then((result) => {})
+                .catch(function (result) {});
+        },
     },
-    mounted () { },
     computed: {
         ...mapState({
-            loginUser: state => state.loginUser,
-            themeColor: state => state.app.themeColor,
-            collapse: state => state.app.collapse
-        })
-    }
-}
+            loginUser: (state) => state.loginUser,
+            themeColor: (state) => state.app.themeColor,
+            collapse: (state) => state.app.collapse,
+        }),
+    },
+};
 </script>
 
 <style scoped lang="scss">
@@ -105,6 +127,7 @@ export default {
     border-style: solid;
     background: rgba(182, 172, 172, 0.1);
     margin: -14px;
+    border-radius: 10px;
 }
 .personal-desc {
     padding: 15px;

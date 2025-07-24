@@ -4,7 +4,9 @@
             <h2 class="demo-title">图片裁剪</h2>
         </el-header>
         <el-main>
-            <p class="demo-summery">通过上传图片，在本地实现对图片的放大、缩小、旋转、裁剪操作，迅速简便地实现简单的在线图片编辑效果。</p>
+            <p class="demo-summery">
+                通过上传图片，在本地实现对图片的放大、缩小、旋转、裁剪操作，迅速简便地实现简单的在线图片编辑效果。
+            </p>
             <el-row>
                 <el-col :span="18">
                     <el-upload
@@ -42,7 +44,7 @@
         &lt;/el-upload&gt;
 
         &lt;!-- vueCropper 剪裁图片实现--&gt;
-        &lt;el-dialog :visible.sync=&quot;cropDialogVisible&quot; append-to-body title=&quot;图片剪裁&quot;&gt;
+        &lt;el-dialog :model-value=&quot;cropDialogVisible&quot; append-to-body title=&quot;图片剪裁&quot;&gt;
             &lt;el-form :inline=&quot;true&quot; :size=&quot;miniSize&quot;&gt;
                 &lt;el-container&gt;
                     &lt;el-main class=&quot;cropper-container&quot;&gt;
@@ -244,88 +246,93 @@ export default {
             </el-row>
         </el-main>
         <!-- vueCropper 剪裁图片实现-->
-        <el-dialog :visible.sync="cropDialogVisible" append-to-body title="图片剪裁">
+        <el-dialog :model-value="cropDialogVisible" append-to-body title="图片剪裁">
             <el-form :inline="true" :size="miniSize">
                 <el-container>
                     <el-main class="cropper-container">
                         <VueCropper
-                            :autoCrop="option.autoCrop"
-                            :canMove="option.canMove"
-                            :canMoveBox="option.canMoveBox"
-                            :centerBox="option.centerBox"
+                            ref="cropper"
+                            :auto-crop="option.autoCrop"
+                            :can-move="option.canMove"
+                            :can-move-box="option.canMoveBox"
+                            :center-box="option.centerBox"
                             :fixed="option.fixed"
-                            :fixedBox="option.fixedBox"
-                            :fixedNumber="option.fixedNumber"
+                            :fixed-box="option.fixedBox"
+                            :fixed-number="option.fixedNumber"
                             :full="option.full"
                             :img="option.img"
                             :info="true"
-                            :infoTrue="option.infoTrue"
+                            :info-true="option.infoTrue"
                             :original="option.original"
-                            :outputSize="option.size"
-                            :outputType="option.outputType"
-                            ref="cropper"
-                        ></VueCropper>
+                            :output-size="option.size"
+                            :output-type="option.outputType"
+                        />
                     </el-main>
                     <el-footer>
                         <el-form-item>
                             <el-button-group>
                                 <el-button
-                                    @click="changeScale(1)"
                                     icon="el-icon-ali-fangda"
                                     round
                                     type="primary"
-                                ></el-button>
+                                    @click="changeScale(1)"
+                                />
                                 <el-button
-                                    @click="changeScale(-1)"
                                     icon="el-icon-ali-suoxiao"
                                     round
                                     type="primary"
-                                ></el-button>
+                                    @click="changeScale(-1)"
+                                />
                                 <el-button
-                                    @click="rotateLeft"
                                     icon="el-icon-ali-left"
                                     round
                                     type="primary"
-                                ></el-button>
+                                    @click="rotateLeft"
+                                />
                                 <el-button
-                                    @click="rotateRight"
                                     icon="el-icon-ali-right"
                                     round
                                     type="primary"
-                                ></el-button>
+                                    @click="rotateRight"
+                                />
                             </el-button-group>
                         </el-form-item>
                     </el-footer>
                 </el-container>
             </el-form>
-            <div class="dialog-footer" slot="footer">
-                <el-button :size="normalSize" @click="cropDialogVisible = false" round>取 消</el-button>
-                <el-button
-                    :loading="loading"
-                    :size="normalSize"
-                    @click="uploadCropData"
-                    round
-                    type="primary"
-                >确认</el-button>
-            </div>
+            <template #footer>
+                <div class="dialog-footer">
+                    <el-button :size="normalSize" round @click="cropDialogVisible = false">
+                        取 消
+                    </el-button>
+                    <el-button
+                        :loading="loading"
+                        :size="normalSize"
+                        round
+                        type="primary"
+                        @click="uploadCropData"
+                    >
+                        确认
+                    </el-button>
+                </div>
+            </template>
         </el-dialog>
     </el-container>
 </template>
 <script>
-import { VueCropper } from "vue-cropper";
+import { VueCropper } from 'vue-cropper';
 export default {
     components: { VueCropper },
-    computed: {},
     props: {
         imgUrl: {
             type: String,
-            default: "",
+            default: '',
         },
     },
     data() {
         return {
-            normalSize: "small",
-            miniSize: "mini",
+            normalSize: 'default',
+            smallSize: 'small',
 
             attachGroupId: 1,
             attachId: 100,
@@ -337,7 +344,7 @@ export default {
                 img: this.imgUrl, // 裁剪图片的地址
                 info: true, // 裁剪框的大小信息
                 outputSize: 0.8, // 裁剪生成图片的质量
-                outputType: "png", // 裁剪生成图片的格式
+                outputType: 'png', // 裁剪生成图片的格式
                 canScale: true, // 图片是否允许滚轮缩放
                 autoCrop: true, // 是否默认生成截图框
                 fixedBox: false, // 固定截图框大小 不允许改变
@@ -351,14 +358,16 @@ export default {
             cropper: null,
         };
     },
+    computed: {},
+    mounted() {},
     methods: {
         // 上传按钮,限制图片大小
         changeUpload(file, fileList) {
             const _isLt5M = file.size / 1024 / 1024 < 5;
             if (!_isLt5M) {
                 this.$notify.error({
-                    title: "错误",
-                    message: "上传文件大小不能超过 5MB!",
+                    title: '错误',
+                    message: '上传文件大小不能超过 5MB!',
                 });
                 return false;
             }
@@ -368,11 +377,9 @@ export default {
                 _reader.readAsDataURL(file.raw);
                 _reader.onload = (e) => {
                     let _data;
-                    if (typeof e.target.result === "object") {
+                    if (typeof e.target.result === 'object') {
                         // 把Array Buffer转化为blob 如果是base64不需要
-                        _data = window.URL.createObjectURL(
-                            new Blob([e.target.result])
-                        );
+                        _data = window.URL.createObjectURL(new Blob([e.target.result]));
                     } else {
                         _data = e.target.result;
                     }
@@ -388,13 +395,13 @@ export default {
             this.$refs.cropper.getCropBlob((blobData) => {
                 this.loading = true;
                 // data是裁剪后图片的blob对象
-                _formData.append("file", blobData);
-                _formData.append("pathType", "attachment");
+                _formData.append('file', blobData);
+                _formData.append('pathType', 'attachment');
                 this.$axios({
-                    url: "cms/upload",
-                    method: "post",
+                    url: 'cms/upload',
+                    method: 'post',
                     data: _formData,
-                    headers: { "Content-Type": "multipart/form-data" },
+                    headers: { 'Content-Type': 'multipart/form-data' },
                 })
                     .then(async (result) => {
                         this.cropDialogVisible = false;
@@ -412,13 +419,13 @@ export default {
                             // const _newFileData = { ...result.data, url: this.env.getImgUrl(result.data.path) }
                             //           file = Object.assign(file, _newFileData)
                             this.$notify({
-                                title: "成功",
+                                title: '成功',
                                 message: result.description,
-                                type: "success",
+                                type: 'success',
                             });
                         } else {
                             this.$notify.error({
-                                title: "错误",
+                                title: '错误',
                                 message: result.description,
                             });
                         }
@@ -444,10 +451,9 @@ export default {
             this.$refs.cropper.rotateRight();
         },
         setDragMode() {
-            this.$refs.cropper.setDragMode("crop");
+            this.$refs.cropper.setDragMode('crop');
         },
     },
-    mounted() {},
 };
 </script>
 <style scoped lang="scss">

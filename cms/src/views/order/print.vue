@@ -1,14 +1,17 @@
 <template>
     <div class="print-container">
-        <template v-if="type=='shopping'">
+        <template v-if="type == 'shopping'">
             <table class="header">
                 <tr>
                     <td class="title">
-                        <h3>{{shopName}}购物清单</h3>
+                        <h3>{{ shopName }}购物清单</h3>
                     </td>
                 </tr>
                 <tr>
-                    <td class="summary">客户：{{printData.shipName}}，地址：{{printData.shipAreaName}} - {{printData.shipAddress}}，电话：{{printData.shipMobile}}</td>
+                    <td class="summary">
+                        客户：{{ printData.shipName }}，地址：{{ printData.shipAreaName }} -
+                        {{ printData.shipAddress }}，电话：{{ printData.shipMobile }}
+                    </td>
                 </tr>
             </table>
             <table class="items-container">
@@ -23,10 +26,10 @@
                 <tbody>
                     <tr>
                         <th class="text-left" colspan="2">
-                            <b>订单号：{{printData.orderId}}</b>
+                            <b>订单号：{{ printData.orderId }}</b>
                         </th>
                         <th class="text-right" colspan="4">
-                            <b>订购日期：{{printData.createdAt}}</b>
+                            <b>订购日期：{{ printData.createdAt }}</b>
                         </th>
                     </tr>
                     <tr>
@@ -37,41 +40,41 @@
                         <th>数量</th>
                         <th>小计</th>
                     </tr>
-                    <tr :key="idx" v-for="(item,idx) in printData.orderItems">
-                        <td>{{item.name}}</td>
-                        <td>{{item.bn}}</td>
-                        <td>{{item.price}}</td>
-                        <td>{{item.weight*item.num}}g</td>
-                        <td>{{item.num}}</td>
-                        <td>{{item.amount}}</td>
+                    <tr v-for="(item, idx) in printData.orderItems" :key="idx">
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.bn }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.weight * item.num }}g</td>
+                        <td>{{ item.num }}</td>
+                        <td>{{ item.amount }}</td>
                     </tr>
                 </tbody>
             </table>
             <table class="footer-total">
                 <tr>
-                    <td>商品总价：￥{{printData.goodsAmount}}</td>
+                    <td>商品总价：￥{{ printData.goodsAmount }}</td>
                 </tr>
                 <tr>
-                    <td>订单优惠：￥{{printData.orderPmt}}</td>
+                    <td>订单优惠：￥{{ printData.orderPmt }}</td>
                 </tr>
                 <tr>
-                    <td>运费价格：￥{{printData.costFreight}}</td>
+                    <td>运费价格：￥{{ printData.costFreight }}</td>
                 </tr>
                 <tr>
-                    <td>订单价格：￥{{printData.orderAmount}}</td>
+                    <td>订单价格：￥{{ printData.orderAmount }}</td>
                 </tr>
                 <tr>
-                    <td class="text-left">订单附言：{{printData.memo}}</td>
+                    <td class="text-left">订单附言：{{ printData.memo }}</td>
                 </tr>
             </table>
             <table class="footer-summary">
                 <tr>
-                    <td class="text-left">商家：{{shopName}}</td>
-                    <td class="text-left">手机：{{shopMobile}}</td>
+                    <td class="text-left">商家：{{ shopName }}</td>
+                    <td class="text-left">手机：{{ shopMobile }}</td>
                 </tr>
             </table>
         </template>
-        <template v-else-if="type=='distribution'">
+        <template v-else-if="type == 'distribution'">
             <table class="header">
                 <colgroup>
                     <col width="40%" />
@@ -81,16 +84,16 @@
                 <tbody>
                     <tr>
                         <td>
-                            <p>订单号:{{printData.orderId}}</p>
-                            <p>日期:{{printData.createdAt}}</p>
+                            <p>订单号:{{ printData.orderId }}</p>
+                            <p>日期:{{ printData.createdAt }}</p>
                         </td>
                         <td class="title">
                             <h3>配货清单</h3>
                         </td>
                         <td class="text-right">
-                            <p>客户:{{printData.user.nickname}}</p>
+                            <p>客户:{{ printData.user.nickname }}</p>
 
-                            <p>电话:{{printData.user.mobile}}</p>
+                            <p>电话:{{ printData.user.mobile }}</p>
                         </td>
                     </tr>
                 </tbody>
@@ -113,12 +116,12 @@
                         <th>数量</th>
                         <th>小计</th>
                     </tr>
-                    <tr :key="idx" v-for="(item,idx) in printData.orderItems">
-                        <td>{{item.name}}</td>
-                        <td>{{item.bn}}</td>
-                        <td>￥{{item.price}}</td>
-                        <td>{{item.num}}</td>
-                        <td>￥{{item.amount}}</td>
+                    <tr v-for="(item, idx) in printData.orderItems" :key="idx">
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.bn }}</td>
+                        <td>￥{{ item.price }}</td>
+                        <td>{{ item.num }}</td>
+                        <td>￥{{ item.amount }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -129,16 +132,18 @@
                     <col width="50%" />
                 </colgroup>
                 <tr>
-                    <td class="text-left">订单附言： {{printData.memo}}</td>
-                    <td class="text-left">配送： {{printData.logisticsName}}</td>
+                    <td class="text-left">订单附言： {{ printData.memo }}</td>
+                    <td class="text-left">配送： {{ printData.logisticsName }}</td>
                 </tr>
                 <tr>
-                    <td class="text-left">地址：{{printData.shipAreaName}} - {{printData.shipAddress}}</td>
-                    <td class="text-left">收货人：{{printData.shipName}}</td>
+                    <td class="text-left">
+                        地址：{{ printData.shipAreaName }} - {{ printData.shipAddress }}
+                    </td>
+                    <td class="text-left">收货人：{{ printData.shipName }}</td>
                 </tr>
                 <tr>
-                    <td class="text-left">手机：{{printData.shipMobile}}</td>
-                    <td class="text-left">订单备注：{{printData.mark}}</td>
+                    <td class="text-left">手机：{{ printData.shipMobile }}</td>
+                    <td class="text-left">订单备注：{{ printData.mark }}</td>
                 </tr>
             </table>
 
@@ -152,15 +157,18 @@
                 </tr>
             </table>
         </template>
-        <template v-else-if="type=='union'">
+        <template v-else-if="type == 'union'">
             <table class="header">
                 <tr>
                     <td class="title">
-                        <h3>{{shopName}}购物清单</h3>
+                        <h3>{{ shopName }}购物清单</h3>
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-left">客户：{{printData.shipName}}，地址：{{printData.shipAreaName}} - {{printData.shipAddress}}，电话：{{printData.shipMobile}}</td>
+                    <td class="text-left">
+                        客户：{{ printData.shipName }}，地址：{{ printData.shipAreaName }} -
+                        {{ printData.shipAddress }}，电话：{{ printData.shipMobile }}
+                    </td>
                 </tr>
             </table>
             <table class="items-container">
@@ -175,10 +183,10 @@
                 <tbody>
                     <tr>
                         <th class="text-left" colspan="2">
-                            <b>订单号：{{printData.orderId}}</b>
+                            <b>订单号：{{ printData.orderId }}</b>
                         </th>
                         <th class="text-right" colspan="4">
-                            <b>订购日期：{{printData.createdAt}}</b>
+                            <b>订购日期：{{ printData.createdAt }}</b>
                         </th>
                     </tr>
                     <tr>
@@ -189,38 +197,38 @@
                         <th>数量</th>
                         <th>小计</th>
                     </tr>
-                    <tr :key="idx" v-for="(item,idx) in printData.orderItems">
-                        <td>{{item.name}}</td>
-                        <td>{{item.bn}}</td>
-                        <td>￥{{item.price}}</td>
-                        <td>{{item.weight*item.num}}g</td>
-                        <td>{{item.num}}</td>
-                        <td>￥{{item.amount}}</td>
+                    <tr v-for="(item, idx) in printData.orderItems" :key="idx">
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.bn }}</td>
+                        <td>￥{{ item.price }}</td>
+                        <td>{{ item.weight * item.num }}g</td>
+                        <td>{{ item.num }}</td>
+                        <td>￥{{ item.amount }}</td>
                     </tr>
                 </tbody>
             </table>
             <table class="footer-total">
                 <tr>
-                    <td>商品总价：￥{{printData.goodsAmount}}</td>
+                    <td>商品总价：￥{{ printData.goodsAmount }}</td>
                 </tr>
                 <tr>
-                    <td>订单优惠：￥{{printData.orderPmt}}</td>
+                    <td>订单优惠：￥{{ printData.orderPmt }}</td>
                 </tr>
                 <tr>
-                    <td>运费价格：￥{{printData.costFreight}}</td>
+                    <td>运费价格：￥{{ printData.costFreight }}</td>
                 </tr>
                 <tr>
-                    <td>订单价格：￥{{printData.orderAmount}}</td>
+                    <td>订单价格：￥{{ printData.orderAmount }}</td>
                 </tr>
                 <tr>
-                    <td align="left">订单附言：{{printData.memo}}</td>
+                    <td align="left">订单附言：{{ printData.memo }}</td>
                 </tr>
             </table>
 
             <table class="footer-summary">
                 <tr>
-                    <td>商家：{{shopName}}</td>
-                    <td>手机：{{shopMobile}}</td>
+                    <td>商家：{{ shopName }}</td>
+                    <td>手机：{{ shopMobile }}</td>
                 </tr>
             </table>
             <br />
@@ -236,15 +244,15 @@
                 <tbody>
                     <tr>
                         <td>
-                            <p>订单号:{{printData.orderId}}</p>
-                            <p>日期:{{printData.createdAt}}</p>
+                            <p>订单号:{{ printData.orderId }}</p>
+                            <p>日期:{{ printData.createdAt }}</p>
                         </td>
                         <td class="title">
                             <h3>配货清单</h3>
                         </td>
                         <td class="text-right">
-                            <p>客户:{{printData.user.nickname}}</p>
-                            <p>电话:{{printData.user.mobile}}</p>
+                            <p>客户:{{ printData.user.nickname }}</p>
+                            <p>电话:{{ printData.user.mobile }}</p>
                         </td>
                     </tr>
                 </tbody>
@@ -267,12 +275,12 @@
                         <th>数量</th>
                         <th>小计</th>
                     </tr>
-                    <tr :key="idx" v-for="(item,idx) in printData.orderItems">
-                        <td>{{item.name}}</td>
-                        <td>{{item.bn}}</td>
-                        <td>￥{{item.price}}</td>
-                        <td>{{item.num}}</td>
-                        <td>￥{{item.amount}}</td>
+                    <tr v-for="(item, idx) in printData.orderItems" :key="idx">
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.bn }}</td>
+                        <td>￥{{ item.price }}</td>
+                        <td>{{ item.num }}</td>
+                        <td>￥{{ item.amount }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -282,38 +290,43 @@
                     <col width="50%" />
                 </colgroup>
                 <tr>
-                    <td>订单附言： {{printData.memo}}</td>
-                    <td>配送： {{printData.logistics}}</td>
+                    <td>订单附言： {{ printData.memo }}</td>
+                    <td>配送： {{ printData.logistics }}</td>
                 </tr>
                 <tr>
-                    <td>地址：{{printData.shipAreaName}} - {{printData.shipAddress}}</td>
-                    <td>收货人：{{printData.shipName}}</td>
+                    <td>地址：{{ printData.shipAreaName }} - {{ printData.shipAddress }}</td>
+                    <td>收货人：{{ printData.shipName }}</td>
                 </tr>
                 <tr>
-                    <td>手机：{{printData.shipMobile}}</td>
-                    <td>订单备注：{{printData.mark}}</td>
+                    <td>手机：{{ printData.shipMobile }}</td>
+                    <td>订单备注：{{ printData.mark }}</td>
                 </tr>
             </table>
             <!--配货清单-->
         </template>
 
         <div class="print-footer">
-            <el-button :loading="loading" :size="miniSize" @click.native="window.print()" round type="primary">{{$t('action.print')}}</el-button>
+            <el-button
+                :loading="loading"
+                :size="normalSize"
+                round
+                type="primary"
+                @click="window.print()"
+            >
+                {{ $t('action.print') }}
+            </el-button>
         </div>
     </div>
 </template>
 
 <script>
-import _ from 'lodash'
+import _ from 'lodash';
 export default {
     components: {},
-    computed: {
-
-    },
-    data () {
+    data() {
         return {
-            normalSize: 'small',
-            miniSize: 'mini',
+            normalSize: 'default',
+            smallSize: 'small',
 
             loading: false,
 
@@ -338,9 +351,7 @@ export default {
                 logisticsName: '', // 配送方式名称
                 costFreight: 0, // 配送费用
                 userId: 0, // 用户id
-                user: {
-
-                }, // 用户信息
+                user: {}, // 用户信息
                 sellerId: 0, // 店铺id
                 confirm: 1, // 售后状态 1:未确认收货 2:已确认收货
                 confirmTime: null, // 确认收货时间
@@ -367,46 +378,56 @@ export default {
                 source: 2, // 订单来源 1:PC页面 2:H5页面 3:微信小程序
                 isComment: 1, // 是否评论，1:未评论 2:已评论
 
-                orderItems: [] // 商品信息
+                orderItems: [], // 商品信息
             },
 
             orderId: '',
-            type: 'shopping'
-        }
+            type: 'shopping',
+        };
     },
+    computed: {},
     // 监听,当路由发生变化的时候执行
     watch: {
         $route: {
-            handler (to, from) {
-                this.type = to.query.type
-                this.orderId = to.query.orderId
+            handler(to, from) {
+                this.type = to.query.type;
+                this.orderId = to.query.orderId;
                 // 更新路由中的 path 参数
-                if (to && to.query && this.$router && this.$router.options && this.$router.options.routes[0] && Array.isArray(this.$router.options.routes[0].children)) {
-                    const _route = this.$router.options.routes[0].children.find(v => v.name === to.name)
-                    Object.assign(_route, _.pick(to, ['path', 'query']))
+                if (
+                    to &&
+                    to.query &&
+                    this.$router &&
+                    this.$router.options &&
+                    this.$router.options.routes[0] &&
+                    Array.isArray(this.$router.options.routes[0].children)
+                ) {
+                    const _route = this.$router.options.routes[0].children.find(
+                        (v) => v.name === to.name
+                    );
+                    Object.assign(_route, _.pick(to, ['path', 'query']));
                 }
             },
             deep: true,
-            immediate: true
+            immediate: true,
         },
         orderId: {
-            handler (val, oldval) {
-                this.getOrderDetail()
+            handler(val, oldval) {
+                this.getOrderDetail();
             },
-            immediate: true
+            immediate: true,
             // 进入立即执行一次
-        }
+        },
     },
+    async mounted() {},
     methods: {
-        async getOrderDetail () {
-            const _result = await this.$api.order.get({ orderId: this.orderId })
+        async getOrderDetail() {
+            const _result = await this.$api.order.get({ orderId: this.orderId });
             if (_result.succeed === 1 && _result.code === 200) {
-                Object.assign(this.printData, _result.data)
+                Object.assign(this.printData, _result.data);
             }
-        }
+        },
     },
-    async mounted () { }
-}
+};
 </script>
 
 <style scoped lang="scss">

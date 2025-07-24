@@ -3,97 +3,262 @@
         <!--导航与工具栏-->
         <el-row>
             <el-col :span="10">
-                <bread-crumb></bread-crumb>
+                <bread-crumb />
             </el-col>
-            <el-col :span="14" class="top-bar"></el-col>
+            <el-col
+                :span="14"
+                class="top-bar"
+            />
         </el-row>
         <el-row :gutter="20">
-            <el-col :span="8" class="page-column">
+            <el-col
+                :span="8"
+                class="page-column"
+            >
                 <el-card>
-                    <div slot="header">
-                        <span>组件库</span>
-                    </div>
+                    <template #header>
+                        <div>
+                            <span>组件库</span>
+                        </div>
+                    </template>
                     <!-- 组件库 -->
                     <el-collapse v-model="activeNames">
-                        <el-collapse-item name="1" title="媒体组件">
-                            <draggable :list="mediaComponents" :options="componentOpts" @end="isDragging=false" @start="isDragging=true" class="component-group" element="ul">
-                                <li :key="index" class="component-item" v-for="(item, index) in mediaComponents">
-                                    <el-card shadow="hover">
-                                        <i :class="item.icon"></i>
-                                        <div>{{ item.name }}</div>
-                                    </el-card>
-                                </li>
+                        <el-collapse-item
+                            name="1"
+                            title="媒体组件"
+                        >
+                            title="媒体组件"
+                            >
+                            :list="mediaComponents"
+                            :options="componentOpts"
+                            class="component-group"
+                            @end="isDragging = false"
+                            element="ul"
+                            @start="isDragging = true"
+                            >
+                            <li
+                                v-for="(item, index) in mediaComponents"
+                                :key="index"
+                                class="component-item"
+                            >
+                                <el-card shadow="hover">
+                                    <i :class="item.icon"></i>
+                                    <div>{{ item.name }}</div>
+                                </el-card>
+                            </li>
                             </draggable>
                         </el-collapse-item>
-                        <el-collapse-item name="2" title="商城组件">
-                            <draggable :list="storeComponents" :options="componentOpts" @end="isDragging=false" @start="isDragging=true" class="component-group" element="ul">
-                                <li :key="index" class="component-item" v-for="(item, index) in storeComponents">
-                                    <el-card shadow="hover">
-                                        <i :class="item.icon"></i>
-                                        <div>{{ item.name }}</div>
-                                    </el-card>
-                                </li>
+                        <el-collapse-item
+                            name="2"
+                            title="商城组件"
+                        >
+                            title="商城组件"
+                            >
+                            :list="storeComponents"
+                            :options="componentOpts"
+                            class="component-group"
+                            @end="isDragging = false"
+                            element="ul"
+                            @start="isDragging = true"
+                            >
+                            <li
+                                v-for="(item, index) in storeComponents"
+                                :key="index"
+                                class="component-item"
+                            >
+                                <el-card shadow="hover">
+                                    <i :class="item.icon"></i>
+                                    <div>{{ item.name }}</div>
+                                </el-card>
+                            </li>
                             </draggable>
                         </el-collapse-item>
-                        <el-collapse-item name="3" title="工具组件">
-                            <draggable :list="utilsComponents" :options="componentOpts" @end="isDragging=false" @start="isDragging=true" class="component-group" element="ul">
-                                <li :key="index" class="component-item" v-for="(item, index) in utilsComponents">
-                                    <el-card shadow="hover">
-                                        <i :class="item.icon"></i>
-                                        <div>{{ item.name }}</div>
-                                    </el-card>
-                                </li>
+                        <el-collapse-item
+                            name="3"
+                            title="工具组件"
+                        >
+                            title="工具组件"
+                            >
+                            :list="utilsComponents"
+                            :options="componentOpts"
+                            class="component-group"
+                            @end="isDragging = false"
+                            element="ul"
+                            @start="isDragging = true"
+                            >
+                            <li
+                                v-for="(item, index) in utilsComponents"
+                                :key="index"
+                                class="component-item"
+                            >
+                                <el-card shadow="hover">
+                                    <i :class="item.icon"></i>
+                                    <div>{{ item.name }}</div>
+                                </el-card>
+                            </li>
                             </draggable>
                         </el-collapse-item>
                     </el-collapse>
                 </el-card>
             </el-col>
-            <el-col :span="8" class="page-column">
+            <el-col
+                :span="8"
+                class="page-column"
+            >
                 <el-card>
-                    <div slot="header">
-                        <span>工作区</span>
-                    </div>
+                    <template #header>
+                        <div>
+                            <span>工作区</span>
+                        </div>
+                    </template>
                     <!-- 工作区 -->
-                    <draggable :class="{ 'widget-empty': pageWidgets.length === 0 }" :options="widgetOpts" @add="handleAddWidget" @end="isDragging=false" @start="isDragging=true" class="widget-container clearfix" v-model="pageWidgets">
+                    <draggable
+                        v-model="pageWidgets"
+                        :class="{ 'widget-empty': pageWidgets.length === 0 }"
+                        :options="widgetOpts"
+                        class="widget-container clearfix"
+                        @add="handleAddWidget"
+                        @end="isDragging = false"
+                        @start="isDragging = true"
+                    >
                         <template v-for="(item, index) in pageWidgets">
                             <!-- 购买记录 -->
-                            <div :class="[item.config.style.align,'record']" :key="index" :style="{top:item.config.style.top+'%'}" @click="handleSelectWidget(index)" v-if="item && item.type==='record'">
+                            <div
+                                v-if="item && item.type === 'record'"
+                                :key="index"
+                                :class="[item.config.style.align, 'record']"
+                                :style="{ top: item.config.style.top + '%' }"
+                                @click="handleSelectWidget(index)"
+                            >
                                 <i class="el-icon-ali-message"></i>
                                 <span>xxx刚刚0.01元买到了xxx</span>
-                                <i @click.stop="handleDeleteWidget(index)" class="el-icon-ali-delete1"></i>
+                                <i
+                                    class="el-icon-ali-delete1"
+                                    @click.stop="handleDeleteWidget(index)"
+                                ></i>
                             </div>
 
-                            <div :key="index" @click="handleSelectWidget(index)" class="widget-item" v-else>
+                            <div
+                                v-else
+                                :key="index"
+                                class="widget-item"
+                                @click="handleSelectWidget(index)"
+                            >
                                 <!--<div>index:{{index}} editWidget.idx:{{editWidget?editWidget.idx:0}}</div>-->
-                                <el-button-group v-if="editWidget && editWidget.idx === index  && editWidget.type !== 'record'">
-                                    <el-button :size="miniSize" @click="handleCloneWidget(index)" icon="el-icon-ali-fuzhi2" round type="primary"></el-button>
-                                    <el-button :size="miniSize" @click="handleDeleteWidget(index)" icon="el-icon-ali-delete" round type="danger"></el-button>
+                                <el-button-group
+                                    v-if="
+                                        editWidget &&
+                                            editWidget.idx === index &&
+                                            editWidget.type !== 'record'
+                                    "
+                                >
+                                    <el-button
+                                        :size="miniSize"
+                                        icon="el-icon-ali-fuzhi2"
+                                        round
+                                        type="primary"
+                                        @click="handleCloneWidget(index)"
+                                    />
+                                    <el-button
+                                        :size="miniSize"
+                                        icon="el-icon-ali-delete"
+                                        round
+                                        type="danger"
+                                        @click="handleDeleteWidget(index)"
+                                    />
                                 </el-button-group>
                                 <!-- 搜索框 -->
-                                <van-search :shape="item.config.style" placeholder="请输入搜索关键词" show-action v-if="item && item.type === 'search'" v-model="item.config.keywords">
-                                    <div slot="action">搜索</div>
+                                <van-search
+                                    v-if="item && item.type === 'search'"
+                                    v-model="item.config.keywords"
+                                    :shape="item.config.style"
+                                    placeholder="请输入搜索关键词"
+                                    show-action
+                                >
+                                    <template #action>
+                                        <div>
+                                            搜索
+                                        </div>
+                                    </template>
                                 </van-search>
                                 <!-- 商品组 -->
-                                <div class="widget-inner-container" v-if="item && item.type === 'goods'">
+                                <div
+                                    v-if="item && item.type === 'goods'"
+                                    class="widget-inner-container"
+                                >
                                     <div class="title">
-                                        {{item.config.title}}
-                                        <el-link class="goods-more" v-if="item.config.more">
+                                        {{ item.config.title }}
+                                        <el-link
+                                            v-if="item.config.more"
+                                            class="goods-more"
+                                        >
                                             <i class="el-icon-ali-s_ic_more"></i>
                                         </el-link>
                                     </div>
-                                    <van-grid :column-num="item.config.column" :gutter="10" v-if="item.config.display === 'list'">
-                                        <van-grid-item :key="key" v-for="(goodsItem,key) in item.config.list">
-                                            <van-image :src="env.getImgUrl(goodsItem.url,env.baseAssetsUrl)" />
-                                            <p class="goods-item-title">{{goodsItem.name||'商品名称'}}</p>
-                                            <p class="goods-item-price">{{ goodsItem && goodsItem.price||'99.00'}}</p>
+                                    <van-grid
+                                        v-if="item.config.display === 'list'"
+                                        :column-num="item.config.column"
+                                        :gutter="10"
+                                    >
+                                        <van-grid-item
+                                            v-for="(goodsItem, key) in item.config.list"
+                                            :key="key"
+                                        >
+                                            <van-image
+                                                :src="
+                                                    env.getImgUrl(goodsItem.url, env.baseAssetsUrl)
+                                                "
+                                            />
+                                            <p class="goods-item-title">
+                                                {{ goodsItem.name || '商品名称' }}
+                                            </p>
+                                            <p class="goods-item-price">
+                                                {{ (goodsItem && goodsItem.price) || '99.00' }}
+                                            </p>
                                         </van-grid-item>
                                     </van-grid>
-                                    <el-carousel :interval="5000" arrow="always" height="150px" v-else-if="item.config.display === 'slide'">
-                                        <el-carousel-item :key="key" v-for="(offset,key) in Math.ceil(item.config.list.length/item.config.column)">
-                                            <van-grid :column-num="item.config.column" :gutter="10">
-                                                <template v-if="item.config.list[(offset -1) * item.config.column + (i - 1)]">
-                                                    <van-grid-item :key="key+'_' + i" v-for="i in item.config.column">
-                                                        <van-image :src="env.getImgUrl(item.config.list[(offset -1) * item.config.column + (i - 1)].url,env.baseAssetsUrl)" />
+                                    <el-carousel
+                                        v-else-if="item.config.display === 'slide'"
+                                        :interval="5000"
+                                        arrow="always"
+                                        height="150px"
+                                    >
+                                        <el-carousel-item
+                                            v-for="(offset, key) in Math.ceil(
+                                                item.config.list.length / item.config.column
+                                            )"
+                                            :key="key"
+                                        >
+                                            <van-grid
+                                                :column-num="item.config.column"
+                                                :gutter="10"
+                                            >
+                                                :gutter="10"
+                                                >
+                                                <template
+                                                    v-if="
+                                                        item.config.list[
+                                                            (offset - 1) * item.config.column +
+                                                            (i - 1)
+                                                        ]
+                                                    "
+                                                >
+                                                    <van-grid-item
+                                                        v-for="i in item.config.column"
+                                                        :key="key + '_' + i"
+                                                    >
+                                                        <van-image
+                                                            :src="
+                                                                env.getImgUrl(
+                                                                    item.config.list[
+                                                                        (offset - 1) *
+                                                                        item.config.column +
+                                                                        (i - 1)
+                                                                    ].url,
+                                                                    env.baseAssetsUrl
+                                                                )
+                                                            "
+                                                        />
                                                     </van-grid-item>
                                                 </template>
                                             </van-grid>
@@ -101,51 +266,129 @@
                                     </el-carousel>
                                 </div>
                                 <!-- 团购秒杀 -->
-                                <van-panel :title="item.config.title" v-if="item && item.type === 'groupPurchase'">
-                                    <el-carousel :interval="5000" arrow="always" height="150px">
-                                        <el-carousel-item :key="key" v-for="(groupPurchaseItem,key) in item.config.list">
+                                <van-panel
+                                    v-if="item && item.type === 'groupPurchase'"
+                                    :title="item.config.title"
+                                >
+                                    <el-carousel
+                                        :interval="5000"
+                                        arrow="always"
+                                        height="150px"
+                                    >
+                                        <el-carousel-item
+                                            v-for="(groupPurchaseItem, key) in item.config.list"
+                                            :key="key"
+                                        >
                                             <van-row>
                                                 <van-col span="8">
-                                                    <van-image :src="env.getImgUrl(groupPurchaseItem.url,env.baseAssetsUrl)" />
+                                                    <van-image
+                                                        :src="
+                                                            env.getImgUrl(
+                                                                groupPurchaseItem.url,
+                                                                env.baseAssetsUrl
+                                                            )
+                                                        "
+                                                    />
                                                 </van-col>
                                                 <van-col span="16">
-                                                    <p>{{groupPurchaseItem.name}}</p>
-                                                    <p>{{groupPurchaseItem.price}}</p>
+                                                    <p>{{ groupPurchaseItem.name }}</p>
+                                                    <p>{{ groupPurchaseItem.price }}</p>
                                                 </van-col>
                                             </van-row>
                                         </el-carousel-item>
                                     </el-carousel>
                                 </van-panel>
                                 <!-- 图片轮播 -->
-                                <van-swipe :autoplay="3000" :duration="item.config.duration" v-if="item && item.type === 'imgSlide'">
-                                    <van-swipe-item :key="key" v-for="(imgSlideItem,key) in item.config.list">
-                                        <van-image :src="env.getImgUrl(imgSlideItem.url,env.baseAssetsUrl)" fit="contain" />
+                                <van-swipe
+                                    v-if="item && item.type === 'imgSlide'"
+                                    :autoplay="3000"
+                                    :duration="item.config.duration"
+                                >
+                                    <van-swipe-item
+                                        v-for="(imgSlideItem, key) in item.config.list"
+                                        :key="key"
+                                    >
+                                        <van-image
+                                            :src="
+                                                env.getImgUrl(imgSlideItem.url, env.baseAssetsUrl)
+                                            "
+                                            fit="contain"
+                                        />
                                     </van-swipe-item>
                                 </van-swipe>
                                 <!-- 单图组 -->
-                                <div class="widget-inner-container" v-if="item && item.type === 'imgSingle'">
-                                    <van-image :src="env.getImgUrl(item.config.url,env.baseAssetsUrl)" fit="contain" />
+                                <div
+                                    v-if="item && item.type === 'imgSingle'"
+                                    class="widget-inner-container"
+                                >
+                                    <van-image
+                                        :src="env.getImgUrl(item.config.url, env.baseAssetsUrl)"
+                                        fit="contain"
+                                    />
                                 </div>
                                 <!-- 图片橱窗 -->
-                                <div class="widget-inner-container" v-if="item && item.type==='imgWindow'">
-                                    <template v-if="item.config.style==5">
+                                <div
+                                    v-if="item && item.type === 'imgWindow'"
+                                    class="widget-inner-container"
+                                >
+                                    <template v-if="item.config.style == 5">
                                         <!--页面布局为 1左3右 -->
                                         <van-row :gutter="item.config.margin">
                                             <van-col :span="12">
-                                                <van-image :src="env.getImgUrl(item.config.list[0]?item.config.list[0].url:'',env.baseAssetsUrl)" fit="contain" />
+                                                <van-image
+                                                    :src="
+                                                        env.getImgUrl(
+                                                            item.config.list[0]
+                                                                ? item.config.list[0].url
+                                                                : '',
+                                                            env.baseAssetsUrl
+                                                        )
+                                                    "
+                                                    fit="contain"
+                                                />
                                             </van-col>
                                             <van-col :span="12">
                                                 <van-row :gutter="item.config.margin">
                                                     <van-col :span="24">
-                                                        <van-image :src="env.getImgUrl(item.config.list[1]?item.config.list[1].url:'',env.baseAssetsUrl)" fit="contain" />
+                                                        <van-image
+                                                            :src="
+                                                                env.getImgUrl(
+                                                                    item.config.list[1]
+                                                                        ? item.config.list[1].url
+                                                                        : '',
+                                                                    env.baseAssetsUrl
+                                                                )
+                                                            "
+                                                            fit="contain"
+                                                        />
                                                     </van-col>
                                                 </van-row>
                                                 <van-row :gutter="item.config.margin">
                                                     <van-col :span="12">
-                                                        <van-image :src="env.getImgUrl(item.config.list[2]?item.config.list[2].url:'',env.baseAssetsUrl)" fit="contain" />
+                                                        <van-image
+                                                            :src="
+                                                                env.getImgUrl(
+                                                                    item.config.list[2]
+                                                                        ? item.config.list[2].url
+                                                                        : '',
+                                                                    env.baseAssetsUrl
+                                                                )
+                                                            "
+                                                            fit="contain"
+                                                        />
                                                     </van-col>
                                                     <van-col :span="12">
-                                                        <van-image :src="env.getImgUrl(item.config.list[3]?item.config.list[3].url:'',env.baseAssetsUrl)" fit="contain" />
+                                                        <van-image
+                                                            :src="
+                                                                env.getImgUrl(
+                                                                    item.config.list[3]
+                                                                        ? item.config.list[3].url
+                                                                        : '',
+                                                                    env.baseAssetsUrl
+                                                                )
+                                                            "
+                                                            fit="contain"
+                                                        />
                                                     </van-col>
                                                 </van-row>
                                             </van-col>
@@ -154,45 +397,126 @@
                                     <template v-else>
                                         <!-- 1行2个; 1行3个; 1行4个 -->
                                         <van-row :gutter="item.config.margin">
-                                            <van-col :key="key" :span="24/item.config.style" v-for="(imgWindowItem,key) in item.config.list">
-                                                <van-image :src="env.getImgUrl(imgWindowItem.url,env.baseAssetsUrl)" fit="contain" />
+                                            <van-col
+                                                v-for="(imgWindowItem, key) in item.config.list"
+                                                :key="key"
+                                                :span="24 / item.config.style"
+                                            >
+                                                <van-image
+                                                    :src="
+                                                        env.getImgUrl(
+                                                            imgWindowItem.url,
+                                                            env.baseAssetsUrl
+                                                        )
+                                                    "
+                                                    fit="contain"
+                                                />
                                             </van-col>
                                         </van-row>
                                     </template>
                                 </div>
                                 <!-- 视频组 -->
-                                <div class="widget-inner-container" v-if="item && item.type==='video'">
-                                    <video :autoplay="item.config.autoplay" :poster="env.getImgUrl(item.config.url,env.baseAssetsUrl)" :src="item.config.videoUrl" controls="controls" style="width:100%;height:100%;object-fit:fill"></video>
+                                <div
+                                    v-if="item && item.type === 'video'"
+                                    class="widget-inner-container"
+                                >
+                                    <video
+                                        :autoplay="item.config.autoplay"
+                                        :poster="env.getImgUrl(item.config.url, env.baseAssetsUrl)"
+                                        :src="item.config.videoUrl"
+                                        controls="controls"
+                                        style="width: 100%; height: 100%; object-fit: fill"
+                                    ></video>
                                 </div>
                                 <!-- 文章组 -->
-                                <div class="widget-inner-container" v-if="item && item.type==='article'">
+                                <div
+                                    v-if="item && item.type === 'article'"
+                                    class="widget-inner-container"
+                                >
                                     <van-row :gutter="8">
-                                        <van-col class="title" span="16">{{item.config.title||'文章标题'}}</van-col>
+                                        <van-col
+                                            class="title"
+                                            span="16"
+                                        >
+                                            span="16"
+                                            >
+                                            {{ item.config.title || '文章标题' }}
+                                        </van-col>
                                         <van-col span="8">
-                                            <van-image :src="env.getImgUrl(item.config.url,env.baseAssetsUrl)" alt fit="contain" />
+                                            <van-image
+                                                :src="
+                                                    env.getImgUrl(
+                                                        item.config.url,
+                                                        env.baseAssetsUrl
+                                                    )
+                                                "
+                                                alt
+                                                fit="contain"
+                                            />
                                         </van-col>
                                     </van-row>
                                 </div>
                                 <!-- 文章分类 -->
-                                <div class="widget-inner-container" v-if="item && item.type==='articleClassify'">
-                                    <van-row :gutter="8" :key="key" v-for="(articleItem,key) in item.config.limit">
-                                        <van-col class="title" span="16">文章标题</van-col>
+                                <div
+                                    v-if="item && item.type === 'articleClassify'"
+                                    class="widget-inner-container"
+                                >
+                                    <van-row
+                                        v-for="(articleItem, key) in item.config.limit"
+                                        :key="key"
+                                        :gutter="8"
+                                    >
+                                        <van-col
+                                            class="title"
+                                            span="16"
+                                        >
+                                            文章标题
+                                        </van-col>
                                         <van-col span="8">
-                                            <van-image :src="env.getImgUrl('',env.baseAssetsUrl)" alt fit="contain" />
+                                            <van-image
+                                                :src="env.getImgUrl('', env.baseAssetsUrl)"
+                                                alt
+                                                fit="contain"
+                                            />
                                         </van-col>
                                     </van-row>
                                 </div>
                                 <!-- 公告组 -->
-                                <div class="widget-inner-container" v-if="item && item.type==='notice'">
-                                    <van-cell :key="key" v-for="(noticeItem,key) in item.config.list">
-                                        <van-notice-bar :text="noticeItem.title" left-icon="volume-o" />
+                                <div
+                                    v-if="item && item.type === 'notice'"
+                                    class="widget-inner-container"
+                                >
+                                    <van-cell
+                                        v-for="(noticeItem, key) in item.config.list"
+                                        :key="key"
+                                    >
+                                        <van-notice-bar
+                                            :text="noticeItem.title"
+                                            left-icon="volume-o"
+                                        />
                                     </van-cell>
                                 </div>
                                 <!-- 优惠券组 -->
-                                <div class="widget-inner-container" v-if="item && item.type==='coupon'">
-                                    <van-cell :key="i" class="coupon" v-for="i in item.config.limit">
-                                        <van-row :gutter="8" justify="center" type="flex">
-                                            <van-col class="coupon-left" span="5">
+                                <div
+                                    v-if="item && item.type === 'coupon'"
+                                    class="widget-inner-container"
+                                >
+                                    <van-cell
+                                        v-for="i in item.config.limit"
+                                        :key="i"
+                                        class="coupon"
+                                    >
+                                        <van-row
+                                            :gutter="8"
+                                            justify="center"
+                                            type="flex"
+                                        >
+                                            <van-col
+                                                class="coupon-left"
+                                                span="5"
+                                            >
+                                                span="5"
+                                                >
                                                 <p>满300减30</p>
                                             </van-col>
                                             <van-col span="19">
@@ -201,356 +525,922 @@
                                                     <p>购买订单满2元</p>
                                                     <p>2019-05-01 - 2019-05-31</p>
                                                 </div>
-                                                <div class="coupon-right">立即领取</div>
+                                                <div class="coupon-right">
+                                                    立即领取
+                                                </div>
                                             </van-col>
                                         </van-row>
                                     </van-cell>
                                 </div>
                                 <!-- 导航组 -->
-                                <van-grid :column-num="item.config.column" :gutter="10" v-if="item && item.type==='navBar'">
-                                    <van-grid-item :key="key" v-for="(navBarItem,key) in item.config.list">
-                                        <van-image :src="env.getImgUrl(navBarItem.url,env.baseAssetsUrl)" round />
-                                        <p>{{navBarItem.text||'名称'}}</p>
+                                <van-grid
+                                    v-if="item && item.type === 'navBar'"
+                                    :column-num="item.config.column"
+                                    :gutter="10"
+                                >
+                                    <van-grid-item
+                                        v-for="(navBarItem, key) in item.config.list"
+                                        :key="key"
+                                    >
+                                        <van-image
+                                            :src="env.getImgUrl(navBarItem.url, env.baseAssetsUrl)"
+                                            round
+                                        />
+                                        <p>{{ navBarItem.text || '名称' }}</p>
                                     </van-grid-item>
                                 </van-grid>
                                 <!-- 辅助空白 -->
-                                <div class="widget-inner-container" v-if="item && item.type==='blank'">
-                                    <div :style="{height:item.config.height+'px',backgroundColor:item.config.backgroundColor,margin:'10px 5px'}"></div>
+                                <div
+                                    v-if="item && item.type === 'blank'"
+                                    class="widget-inner-container"
+                                >
+                                    <div
+                                        :style="{
+                                            height: item.config.height + 'px',
+                                            backgroundColor: item.config.backgroundColor,
+                                            margin: '10px 5px',
+                                        }"
+                                    ></div>
                                 </div>
                                 <!-- 文本域 -->
-                                <div class="widget-inner-container" v-if="item && item.type==='textarea'">
-                                    <div id="textarea-container" style="width:100%;min-height:48px;overflow:hidden;" v-html="item.config"></div>
+                                <div
+                                    v-if="item && item.type === 'textarea'"
+                                    class="widget-inner-container"
+                                >
+                                    <div
+                                        id="textarea-container"
+                                        style="width: 100%; min-height: 48px; overflow: hidden"
+                                        v-html="item.config"
+                                    ></div>
                                 </div>
                             </div>
                         </template>
                     </draggable>
                 </el-card>
             </el-col>
-            <el-col :span="8" class="page-column">
-                <el-card class="properties-container" v-if="editWidget && Object.keys(editWidget).length > 0">
-                    <div slot="header">
-                        <span>{{editWidget.name}}</span>
-                    </div>
+            <el-col
+                :span="8"
+                class="page-column"
+            >
+                <el-card
+                    v-if="editWidget && Object.keys(editWidget).length > 0"
+                    class="properties-container"
+                >
+                    <template #header>
+                        <div>
+                            <span>{{ editWidget.name }}</span>
+                        </div>
+                    </template>
                     <!-- 属性设置 -->
-                    <el-form :size="miniSize" label-position="right" label-width="80px" ref="form">
+                    <el-form
+                        ref="form"
+                        :size="miniSize"
+                        label-position="right"
+                        label-width="80px"
+                    >
                         <!-- 团购秒杀 -->
-                        <template v-if="editWidget.type=='groupPurchase'">
-                            <draggable :list="editWidget.config.list" :options="{group:{ name:'goodsList'}, ghostClass: 'draggable-ghost',animation: 150}" element="ul">
-                                <li :class="['goods-list-item']" :key="key" v-for="(goods,key) in editWidget.config.list">
+                        <template v-if="editWidget.type == 'groupPurchase'">
+                            <draggable
+                                :list="editWidget.config.list"
+                                :options="{
+                                    group: { name: 'goodsList' },
+                                    ghostClass: 'draggable-ghost',
+                                    animation: 150,
+                                }"
+                                element="ul"
+                            >
+                                <li
+                                    v-for="(goods, key) in editWidget.config.list"
+                                    :key="key"
+                                    :class="['goods-list-item']"
+                                >
                                     <slot :goods="goods">
-                                        <i @click.stop="deleteEditWidgetConfigListItem(editWidget.config.list,key)" class="el-icon-ali-delete item-delete goods-delete"></i>
-                                        <img :src="env.getImgUrl(goods.url,env.baseAssetsUrl)" alt />
+                                        <i
+                                            class="el-icon-ali-delete item-delete goods-delete"
+                                            @click.stop="
+                                                deleteEditWidgetConfigListItem(
+                                                    editWidget.config.list,
+                                                    key
+                                                )
+                                            "
+                                        ></i>
+                                        <img
+                                            :src="env.getImgUrl(goods.url, env.baseAssetsUrl)"
+                                            alt
+                                        />
                                     </slot>
                                 </li>
-                                <div class="drag-footer" slot="footer">
-                                    <pick-goods :selectionType="1" @chosedGoods="(goods)=>{addGoodsConfigListItem(editWidget.config.list,goods)}"></pick-goods>
-                                </div>
+                                <template #footer>
+                                    <div class="drag-footer">
+                                        <pick-goods
+                                            :selection-type="1"
+                                            @chosed-goods="
+                                                (goods) => {
+                                                    addGoodsConfigListItem(
+                                                        editWidget.config.list,
+                                                        goods
+                                                    );
+                                                }
+                                            "
+                                        />
+                                    </div>
+                                </template>
                             </draggable>
                             <el-form-item label="活动名称">
-                                <el-input v-model="editWidget.config.title"></el-input>
+                                <el-input v-model="editWidget.config.title" />
                             </el-form-item>
                             <el-form-item label="显示数量">
-                                <el-input-number :max="5" :min="1" controls-position="right" v-model="editWidget.config.limit"></el-input-number>
+                                <el-input-number
+                                    v-model="editWidget.config.limit"
+                                    :max="5"
+                                    :min="1"
+                                    controls-position="right"
+                                />
                             </el-form-item>
                         </template>
 
                         <!-- 优惠券组 -->
-                        <template v-if="editWidget.type=='coupon'">
+                        <template v-if="editWidget.type == 'coupon'">
                             <el-form-item label="显示数量">
-                                <el-input-number :max="10" :min="1" controls-position="right" v-model="editWidget.config.limit"></el-input-number>
+                                <el-input-number
+                                    v-model="editWidget.config.limit"
+                                    :max="10"
+                                    :min="1"
+                                    controls-position="right"
+                                />
                             </el-form-item>
                         </template>
 
                         <!-- 购买记录 -->
-                        <template v-if="editWidget.type=='record'">
+                        <template v-if="editWidget.type == 'record'">
                             <el-form-item label="位置">
                                 <el-radio-group v-model="editWidget.config.style.align">
-                                    <el-radio label="left">居左</el-radio>
-                                    <el-radio label="right">居右</el-radio>
+                                    <el-radio label="left">
+                                        居左
+                                    </el-radio>
+                                    <el-radio label="right">
+                                        居右
+                                    </el-radio>
                                 </el-radio-group>
                             </el-form-item>
                             <el-form-item label="上边距">
-                                <el-slider :max="100" :min="0" v-model="editWidget.config.style.top"></el-slider>
-                                <span>{{editWidget.config.style.top}}%</span>
+                                <el-slider
+                                    v-model="editWidget.config.style.top"
+                                    :max="100"
+                                    :min="0"
+                                />
+                                <span>{{ editWidget.config.style.top }}%</span>
                             </el-form-item>
                         </template>
 
                         <!-- 文本域 -->
-                        <template v-if="editWidget.type=='textarea'">
-                            <tinyEditor :content.sync="editWidget.config"></tinyEditor>
+                        <template v-if="editWidget.type == 'textarea'">
+                            <tinyEditor v-model:content="editWidget.config" />
                         </template>
 
                         <!-- 图片橱窗 -->
-                        <template v-if="editWidget.type=='imgWindow'">
+                        <template v-if="editWidget.type == 'imgWindow'">
                             <el-form-item label="布局方式">
                                 <el-row>
                                     <el-col :span="24">
-                                        <el-radio-group :size="miniSize" class="img-window-list" fill="#fff" text-color="#000" v-model="editWidget.config.style">
-                                            <el-radio-button :key="item.style" :label="item.style" v-for="item in imgWindowStyle">
-                                                <el-image :src="env.getImgUrl(item.url,env.baseAssetsUrl)" fit="contain"></el-image>
-                                                <span>{{item.value}}</span>
+                                        <el-radio-group
+                                            v-model="editWidget.config.style"
+                                            :size="miniSize"
+                                            class="img-window-list"
+                                            fill="#fff"
+                                            text-color="#000"
+                                        >
+                                            <el-radio-button
+                                                v-for="item in imgWindowStyle"
+                                                :key="item.style"
+                                                :label="item.style"
+                                            >
+                                                <el-image
+                                                    :src="
+                                                        env.getImgUrl(item.url, env.baseAssetsUrl)
+                                                    "
+                                                    fit="contain"
+                                                />
+                                                <span>{{ item.value }}</span>
                                             </el-radio-button>
                                         </el-radio-group>
                                     </el-col>
                                 </el-row>
                             </el-form-item>
                             <el-form-item label="图片间距">
-                                <el-slider :max="30" :min="0" v-model="editWidget.config.margin"></el-slider>
-                            </el-form-item>
-                            <draggable :list="editWidget.config.list" :options="{group:{ name:'slideList'}, ghostClass: 'draggable-ghost',animation: 150}" element="el-collapse">
-                                <el-collapse-item :key="key" :name="item.name" v-for="(item,key) in editWidget.config.list">
-                                    <template slot="title">
-                                        <i @click.stop="deleteEditWidgetConfigListItem(editWidget.config.list,key)" class="el-icon-ali-delete item-delete"></i>
-                                        <span style="padding:0px 8px;">第 {{key + 1}} 张图</span>
+                                v-model="editWidget.config.margin" />
+                                <draggable
+                                    :list="editWidget.config.list"
+                                    :options="{
+                                        group: { name: 'slideList' },
+                                        ghostClass: 'draggable-ghost',
+                                        animation: 150,
+                                    }"
+                                    element="el-collapse"
+                                >
+                                    <el-collapse-item
+                                        v-for="(item, key) in editWidget.config.list"
+                                        :key="key"
+                                        :name="item.name"
+                                    >
+                                        <template #title>
+                                            <i
+                                                class="el-icon-ali-delete item-delete"
+                                                @click.stop="
+                                                    deleteEditWidgetConfigListItem(
+                                                        editWidget.config.list,
+                                                        key
+                                                    )
+                                                "
+                                            ></i>
+                                            <span style="padding: 0px 8px">第 {{ key + 1 }} 张图</span>
+                                        </template>
+                                        <change-image-icon
+                                            :img-url="item.url"
+                                            :init-style="{
+                                                width: '100%',
+                                                border: '1px dashed #d9d9d9',
+                                                borderRadius: '4px',
+                                            }"
+                                            @chosed-image-icon="
+                                                (img) => {
+                                                    chosedImage(item, img);
+                                                }
+                                            "
+                                        />
+                                        <el-form-item label="类型">
+                                            <el-select
+                                                v-model="item.type"
+                                                placeholder="请选择"
+                                            >
+                                                placeholder="请选择"
+                                                >
+                                                :key="linkType.key"
+                                                :label="linkType.value"
+                                                v-for="linkType in linkTypes"
+                                                :value="linkType.key"
+                                                />
+                                            </el-select>
+                                        </el-form-item>
+                                        <el-form-item label="指向">
+                                            <el-input
+                                                v-model="item.value"
+                                                placeholder="请选择"
+                                            >
+                                                <template #append>
+                                                    <pick-goods
+                                                        v-if="item.type === 2"
+                                                        :selection-type="0"
+                                                        @chosed-goods="(goods) => { chosedGoods(item, goods); }"
+                                                    />
+                                                    <pick-article
+                                                        v-else-if="item.type === 3"
+                                                        :selection-type="0"
+                                                        @chosed-articles="(articles) => { chosedArticles(item, 'value', articles, 'id'); }"
+                                                    />
+                                                    <pick-articleType
+                                                        v-else-if="item.type === 4"
+                                                        :selection-type="0"
+                                                        @chosed-article-types="(articleTypes) => { chosedArticleTypes(item, 'value', articleTypes); }"
+                                                    />
+                                                    <pick-form
+                                                        v-else-if="item.type === 5"
+                                                        :selection-type="0"
+                                                        @chosed-forms="(forms) => { chosedForms(item, forms); }"
+                                                    />
+                                                </template>
+                                            </el-input>
+                                        </el-form-item>
+                                    </el-collapse-item>
+                                    <template #footer>
+                                        <div class="drag-footer">
+                                            <el-button
+                                                :size="miniSize"
+                                                round
+                                                type="primary"
+                                                @click="
+                                                    addEditWidgetConfigListItem(
+                                                        editWidget.config.list,
+                                                        'imgWindow'
+                                                    )
+                                                "
+                                            >
+                                                <i class="el-icon-ali-add"></i> 添加
+                                            </el-button>
+                                        </div>
                                     </template>
-                                    <change-image-icon :imgUrl="item.url" :initStyle="{width: '100%',border: '1px dashed #d9d9d9', borderRadius: '4px'}" @chosedImageIcon="(img)=>{chosedImage(item,img)}"></change-image-icon>
-                                    <el-form-item label="类型">
-                                        <el-select placeholder="请选择" v-model="item.type">
-                                            <el-option :key="linkType.key" :label="linkType.value" :value="linkType.key" v-for="linkType in linkTypes"></el-option>
-                                        </el-select>
-                                    </el-form-item>
-                                    <el-form-item label="指向">
-                                        <el-input placeholder="请选择" v-model="item.value">
-                                            <pick-goods :selectionType="0" @chosedGoods="(goods)=>{chosedGoods(item,goods)}" slot="append" v-if="item.type === 2"></pick-goods>
-                                            <pick-article :selectionType="0" @chosedArticles="(articles)=>{chosedArticles(item,'value',articles,'id')}" slot="append" v-else-if="item.type === 3"></pick-article>
-                                            <pick-articleType :selectionType="0" @chosedArticleTypes="(articleTypes)=>{chosedArticleTypes(item,'value',articleTypes)}" slot="append" v-else-if="item.type === 4"></pick-articleType>
-                                            <pick-form :selectionType="0" @chosedForms="(forms)=>{chosedForms(item,forms)}" slot="append" v-else-if="item.type === 5"></pick-form>
-                                        </el-input>
-                                    </el-form-item>
-                                </el-collapse-item>
-                                <div class="drag-footer" slot="footer">
-                                    <el-button :size="miniSize" @click="addEditWidgetConfigListItem(editWidget.config.list,'imgWindow')" round type="primary">
-                                        <i class="el-icon-ali-add"></i> 添加
-                                    </el-button>
-                                </div>
-                            </draggable>
+                                </draggable>
+                            </el-form-item>
                         </template>
 
                         <!-- 视频组 -->
-                        <template v-if="editWidget.type=='video'">
+                        <template v-if="editWidget.type == 'video'">
                             <el-form-item label="自动播放">
-                                <el-switch active-color="#13ce66" active-value="true" inactive-color="#ff4949" inactive-value="false" v-model="editWidget.config.autoplay"></el-switch>
+                                <el-switch
+                                    v-model="editWidget.config.autoplay"
+                                    active-color="#13ce66"
+                                    active-value="true"
+                                    inactive-color="#ff4949"
+                                    inactive-value="false"
+                                />
                             </el-form-item>
                             <el-form-item label="视频封面">
-                                <change-image-icon :imgUrl="editWidget.config.url" :initStyle="{width: '100%',border: '1px dashed #d9d9d9', borderRadius: '4px'}" @chosedImageIcon="(img)=>{chosedImage(editWidget.config,img)}"></change-image-icon>
+                                <change-image-icon
+                                    :img-url="editWidget.config.url"
+                                    :init-style="{
+                                        width: '100%',
+                                        border: '1px dashed #d9d9d9',
+                                        borderRadius: '4px',
+                                    }"
+                                    @chosed-image-icon="
+                                        (img) => {
+                                            chosedImage(editWidget.config, img);
+                                        }
+                                    "
+                                />
                             </el-form-item>
                             <el-form-item label="视频地址">
-                                <pick-video v-model="editWidget.config.videoUrl"></pick-video>
+                                <pick-video v-model="editWidget.config.videoUrl" />
                             </el-form-item>
                         </template>
 
                         <!-- 文章组 -->
-                        <template v-if="editWidget.type=='article'">
+                        <template v-if="editWidget.type == 'article'">
                             <el-form-item label="添加文章">
-                                <el-input placeholder="请选择广告文章" v-model="editWidget.config.title">
-                                    <pick-article :selectionType="0" @chosedArticles="(articles)=>{chosedArticles(editWidget.config,'title',articles,'title')}" slot="append"></pick-article>
+                                <el-input
+                                    v-model="editWidget.config.title"
+                                    placeholder="请选择广告文章"
+                                >
+                                    <pick-article
+                                        #append
+                                        :selection-type="0"
+                                        @chosed-articles="
+                                            (articles) => {
+                                                chosedArticles(
+                                                    editWidget.config,
+                                                    'title',
+                                                    articles,
+                                                    'title'
+                                                );
+                                            }
+                                        "
+                                    />
                                 </el-input>
                             </el-form-item>
                         </template>
 
                         <!-- 文章分类 -->
-                        <template v-if="editWidget.type=='articleClassify'">
+                        <template v-if="editWidget.type == 'articleClassify'">
                             <el-form-item label="文章分类">
-                                <el-input placeholder="请选择文章分类" v-model="editWidget.config.articleClassifyId">
-                                    <pick-articleType :selectionType="0" @chosedArticleTypes="(articleTypes)=>{chosedArticleTypes(editWidget.config,'articleClassifyId',articleTypes)}" slot="append"></pick-articleType>
+                                <el-input
+                                    v-model="editWidget.config.articleClassifyId"
+                                    placeholder="请选择文章分类"
+                                >
+                                    <pick-articleType
+                                        #append
+                                        :selection-type="0"
+                                        @chosed-article-types="
+                                            (articleTypes) => {
+                                                chosedArticleTypes(
+                                                    editWidget.config,
+                                                    'articleClassifyId',
+                                                    articleTypes
+                                                );
+                                            }
+                                        "
+                                    />
                                 </el-input>
                             </el-form-item>
                             <el-form-item label="显示数量">
-                                <el-input-number :max="5" :min="1" controls-position="right" v-model="editWidget.config.limit"></el-input-number>
+                                <el-input-number
+                                    v-model="editWidget.config.limit"
+                                    :max="5"
+                                    :min="1"
+                                    controls-position="right"
+                                />
                             </el-form-item>
                         </template>
 
                         <!-- 搜索框 -->
-                        <template v-if="editWidget.type=='search'">
+                        <template v-if="editWidget.type == 'search'">
                             <el-form-item label="提示内容">
-                                <el-input :placeholder="editWidget.placeholder" v-model="editWidget.config.keywords"></el-input>
+                                <el-input
+                                    v-model="editWidget.config.keywords"
+                                    :placeholder="editWidget.placeholder"
+                                />
                             </el-form-item>
                             <el-form-item label="样式">
                                 <el-radio-group v-model="editWidget.config.style">
-                                    <el-radio label="square">方形</el-radio>
-                                    <el-radio label="round">圆弧</el-radio>
+                                    <el-radio label="square">
+                                        方形
+                                    </el-radio>
+                                    <el-radio label="round">
+                                        圆弧
+                                    </el-radio>
                                 </el-radio-group>
                             </el-form-item>
                         </template>
 
                         <!-- 轮播图 -->
-                        <template v-if="editWidget.type=='imgSlide'">
+                        <template v-if="editWidget.type == 'imgSlide'">
                             <el-form-item label="切换时间">
-                                <el-input-number :max="10000" :min="1" controls-position="right" v-model="editWidget.config.duration"></el-input-number>
+                                <el-input-number
+                                    v-model="editWidget.config.duration"
+                                    :max="10000"
+                                    :min="1"
+                                    controls-position="right"
+                                />
                             </el-form-item>
 
-                            <draggable :list="editWidget.config.list" :options="{group:{ name:'slideList'}, ghostClass: 'draggable-ghost',animation: 150}" element="el-collapse">
-                                <el-collapse-item :key="key" :name="item.name" v-for="(item,key) in editWidget.config.list">
-                                    <template slot="title">
-                                        <i @click.stop="deleteEditWidgetConfigListItem(editWidget.config.list,key)" class="el-icon-ali-delete item-delete"></i>
-                                        <span style="padding:0px 8px;">第 {{key + 1}} 张图</span>
+                            <draggable
+                                :list="editWidget.config.list"
+                                :options="{
+                                    group: { name: 'slideList' },
+                                    ghostClass: 'draggable-ghost',
+                                    animation: 150,
+                                }"
+                                element="el-collapse"
+                            >
+                                <el-collapse-item
+                                    v-for="(item, key) in editWidget.config.list"
+                                    :key="key"
+                                    :name="item.name"
+                                >
+                                    <template #title>
+                                        <i
+                                            class="el-icon-ali-delete item-delete"
+                                            @click.stop="
+                                                deleteEditWidgetConfigListItem(
+                                                    editWidget.config.list,
+                                                    key
+                                                )
+                                            "
+                                        ></i>
+                                        <span style="padding: 0px 8px">第 {{ key + 1 }} 张图</span>
                                     </template>
-                                    <change-image-icon :imgUrl="item.url" :initStyle="{width: '100%',border: '1px dashed #d9d9d9', borderRadius: '4px'}" @chosedImageIcon="(img)=>{chosedImage(item,img)}"></change-image-icon>
+                                    <change-image-icon
+                                        :img-url="item.url"
+                                        :init-style="{
+                                            width: '100%',
+                                            border: '1px dashed #d9d9d9',
+                                            borderRadius: '4px',
+                                        }"
+                                        @chosed-image-icon="
+                                            (img) => {
+                                                chosedImage(item, img);
+                                            }
+                                        "
+                                    />
                                     <el-form-item label="类型">
-                                        <el-select placeholder="请选择" v-model="item.type">
-                                            <el-option :key="linkType.key" :label="linkType.value" :value="linkType.key" v-for="linkType in linkTypes"></el-option>
+                                        <el-select
+                                            v-model="item.type"
+                                            placeholder="请选择"
+                                        >
+                                            placeholder="请选择"
+                                            >
+                                            v-for="linkType in linkTypes"
+                                            :key="linkType.key"
+                                            :label="linkType.value"
+                                            :value="linkType.key"
+                                            />
                                         </el-select>
                                     </el-form-item>
                                     <el-form-item label="指向">
-                                        <el-input placeholder="请选择" v-model="item.value">
-                                            <pick-goods :selectionType="0" @chosedGoods="(goods)=>{chosedGoods(item,goods)}" slot="append" v-if="item.type === 2"></pick-goods>
-                                            <pick-article :selectionType="0" @chosedArticles="(articles)=>{chosedArticles(item,'value',articles,'id')}" slot="append" v-else-if="item.type === 3"></pick-article>
-                                            <pick-articleType :selectionType="0" @chosedArticleTypes="(articleTypes)=>{chosedArticleTypes(item,'value',articleTypes)}" slot="append" v-else-if="item.type === 4"></pick-articleType>
-                                            <pick-form :selectionType="0" @chosedForms="(forms)=>{chosedForms(item,forms)}" slot="append" v-else-if="item.type === 5"></pick-form>
+                                        <el-input
+                                            v-model="item.value"
+                                            placeholder="请选择"
+                                        >
+                                            <template #append>
+                                                <pick-goods
+                                                    v-if="item.type === 2"
+                                                    :selection-type="0"
+                                                    @chosed-goods="(goods) => { chosedGoods(item, goods); }"
+                                                />
+                                                <pick-article
+                                                    v-else-if="item.type === 3"
+                                                    :selection-type="0"
+                                                    @chosed-articles="(articles) => { chosedArticles(item, 'value', articles, 'id'); }"
+                                                />
+                                                <pick-articleType
+                                                    v-else-if="item.type === 4"
+                                                    :selection-type="0"
+                                                    @chosed-article-types="(articleTypes) => { chosedArticleTypes(item, 'value', articleTypes); }"
+                                                />
+                                                <pick-form
+                                                    v-else-if="item.type === 5"
+                                                    :selection-type="0"
+                                                    @chosed-forms="(forms) => { chosedForms(item, forms); }"
+                                                />
+                                            </template>
                                         </el-input>
                                     </el-form-item>
                                 </el-collapse-item>
-                                <div class="drag-footer" slot="footer">
-                                    <el-button :size="miniSize" @click="addEditWidgetConfigListItem(editWidget.config.list,'imgSlide')" round type="primary">
-                                        <i class="el-icon-ali-add"></i> 添加
-                                    </el-button>
-                                </div>
+                                <template #footer>
+                                    <div class="drag-footer">
+                                        <el-button
+                                            :size="miniSize"
+                                            round
+                                            type="primary"
+                                            @click="
+                                                addEditWidgetConfigListItem(
+                                                    editWidget.config.list,
+                                                    'imgSlide'
+                                                )
+                                            "
+                                        >
+                                            <i class="el-icon-ali-add"></i> 添加
+                                        </el-button>
+                                    </div>
+                                </template>
                             </draggable>
                         </template>
 
                         <!-- 公告 -->
-                        <template v-if="editWidget.type=='notice'">
+                        <template v-if="editWidget.type == 'notice'">
                             <el-form-item label="获取">
                                 <el-radio-group v-model="editWidget.config.type">
-                                    <el-radio label="auto">自动获取</el-radio>
-                                    <el-radio label="choose">手动选择</el-radio>
+                                    <el-radio label="auto">
+                                        自动获取
+                                    </el-radio>
+                                    <el-radio label="choose">
+                                        手动选择
+                                    </el-radio>
                                 </el-radio-group>
                             </el-form-item>
-                            <div v-if="editWidget.config.type=='choose'">
-                                <draggable :list="editWidget.config.list" :options="{group:{ name:'noticeList'}, ghostClass: 'draggable-ghost',animation: 150}" element="ul">
-                                    <li :key="key" :name="key" class="notice-item" v-for="(item,key) in editWidget.config.list">
-                                        <i @click.stop="deleteEditWidgetConfigListItem(editWidget.config.list,key)" class="el-icon-ali-delete item-delete"></i>
-                                        <span style="padding:0px 8px;">{{item.title}}</span>
+                            <div v-if="editWidget.config.type == 'choose'">
+                                <draggable
+                                    :list="editWidget.config.list"
+                                    :options="{
+                                        group: { name: 'noticeList' },
+                                        ghostClass: 'draggable-ghost',
+                                        animation: 150,
+                                    }"
+                                    element="ul"
+                                >
+                                    <li
+                                        v-for="(item, key) in editWidget.config.list"
+                                        :key="key"
+                                        :name="key"
+                                        class="notice-item"
+                                    >
+                                        <i
+                                            class="el-icon-ali-delete item-delete"
+                                            @click.stop="
+                                                deleteEditWidgetConfigListItem(
+                                                    editWidget.config.list,
+                                                    key
+                                                )
+                                            "
+                                        ></i>
+                                        <span style="padding: 0px 8px">{{ item.title }}</span>
                                     </li>
-                                    <div class="drag-footer" slot="footer">
-                                        <pick-notice :selectionType="1" @chosedNotices="(notices)=>{addNoticeConfigListItem(editWidget.config.list,notices)}"></pick-notice>
-                                    </div>
+                                    <template #footer>
+                                        <div class="drag-footer">
+                                            <pick-notice
+                                                :selection-type="1"
+                                                @chosed-notices="
+                                                    (notices) => {
+                                                        addNoticeConfigListItem(
+                                                            editWidget.config.list,
+                                                            notices
+                                                        );
+                                                    }
+                                                "
+                                            />
+                                        </div>
+                                    </template>
                                 </draggable>
                             </div>
                         </template>
 
                         <!-- 导航组-->
-                        <template v-if="editWidget.type=='navBar'">
+                        <template v-if="editWidget.type == 'navBar'">
                             <el-form-item label="数量">
                                 <el-radio-group v-model="editWidget.config.column">
-                                    <el-radio :label="3">3个</el-radio>
-                                    <el-radio :label="4">4个</el-radio>
-                                    <el-radio :label="5">5个</el-radio>
+                                    <el-radio :label="3">
+                                        3个
+                                    </el-radio>
+                                    <el-radio :label="4">
+                                        4个
+                                    </el-radio>
+                                    <el-radio :label="5">
+                                        5个
+                                    </el-radio>
                                 </el-radio-group>
                             </el-form-item>
-                            <draggable :list="editWidget.config.list" :options="{group:{ name:'slideList'}, ghostClass: 'draggable-ghost',animation: 150}" tag="el-collapse">
-                                <el-collapse-item :key="key" v-for="(item, key) in editWidget.config.list">
-                                    <template slot="title">
-                                        <i @click.stop="deleteEditWidgetConfigListItem(editWidget.config.list,key)" class="el-icon-ali-delete item-delete"></i>
-                                        <span style="padding:0px 8px;">{{item.text}}</span>
+                            <draggable
+                                :list="editWidget.config.list"
+                                :options="{
+                                    group: { name: 'slideList' },
+                                    ghostClass: 'draggable-ghost',
+                                    animation: 150,
+                                }"
+                                tag="el-collapse"
+                            >
+                                <el-collapse-item
+                                    v-for="(item, key) in editWidget.config.list"
+                                    :key="key"
+                                >
+                                    <template #title>
+                                        <i
+                                            class="el-icon-ali-delete item-delete"
+                                            @click.stop="
+                                                deleteEditWidgetConfigListItem(
+                                                    editWidget.config.list,
+                                                    key
+                                                )
+                                            "
+                                        ></i>
+                                        <span style="padding: 0px 8px">{{ item.text }}</span>
                                     </template>
-                                    <change-image-icon :imgUrl="item.url" :initStyle="{width: '100%',border: '1px dashed #d9d9d9', borderRadius: '4px'}" @chosedImageIcon="(img)=>{chosedImage(item,img)}"></change-image-icon>
+                                    <change-image-icon
+                                        :img-url="item.url"
+                                        :init-style="{
+                                            width: '100%',
+                                            border: '1px dashed #d9d9d9',
+                                            borderRadius: '4px',
+                                        }"
+                                        @chosed-image-icon="
+                                            (img) => {
+                                                chosedImage(item, img);
+                                            }
+                                        "
+                                    />
                                     <el-form-item label="文字">
-                                        <input type="text" v-model="item.text" />
+                                        <input
+                                            v-model="item.text"
+                                            type="text"
+                                        />
                                     </el-form-item>
                                     <el-form-item label="类型">
-                                        <el-select placeholder="请选择" v-model="item.type">
-                                            <el-option :key="linkType.key" :label="linkType.value" :value="linkType.key" v-for="linkType in linkTypes"></el-option>
+                                        <el-select
+                                            v-model="item.type"
+                                            placeholder="请选择"
+                                        >
+                                            placeholder="请选择"
+                                            >
+                                            v-for="linkType in linkTypes"
+                                            :key="linkType.key"
+                                            :label="linkType.value"
+                                            :value="linkType.key"
+                                            />
                                         </el-select>
                                     </el-form-item>
                                     <el-form-item label="指向">
-                                        <el-input placeholder="请选择" v-model="item.value">
-                                            <pick-goods :selectionType="0" @chosedGoods="(goods)=>{chosedGoods(item,goods)}" slot="append" v-if="item.type === 2"></pick-goods>
-                                            <pick-article :selectionType="0" @chosedArticles="(articles)=>{chosedArticles(item,'value',articles,'id')}" slot="append" v-else-if="item.type === 3"></pick-article>
-                                            <pick-articleType :selectionType="0" @chosedArticleTypes="(articleTypes)=>{chosedArticleTypes(item,'value',articleTypes)}" slot="append" v-else-if="item.type === 4"></pick-articleType>
-                                            <pick-form :selectionType="0" @chosedForms="(forms)=>{chosedForms(item,forms)}" slot="append" v-else-if="item.type === 5"></pick-form>
+                                        <el-input
+                                            v-model="item.value"
+                                            placeholder="请选择"
+                                        >
+                                            <template #append>
+                                                <pick-goods
+                                                    v-if="item.type === 2"
+                                                    :selection-type="0"
+                                                    @chosed-goods="(goods) => { chosedGoods(item, goods); }"
+                                                />
+                                                <pick-article
+                                                    v-else-if="item.type === 3"
+                                                    :selection-type="0"
+                                                    @chosed-articles="(articles) => { chosedArticles(item, 'value', articles, 'id'); }"
+                                                />
+                                                <pick-articleType
+                                                    v-else-if="item.type === 4"
+                                                    :selection-type="0"
+                                                    @chosed-article-types="(articleTypes) => { chosedArticleTypes(item, 'value', articleTypes); }"
+                                                />
+                                                <pick-form
+                                                    v-else-if="item.type === 5"
+                                                    :selection-type="0"
+                                                    @chosed-forms="(forms) => { chosedForms(item, forms); }"
+                                                />
+                                            </template>
                                         </el-input>
                                     </el-form-item>
                                 </el-collapse-item>
-                                <div class="drag-footer" slot="footer">
-                                    <el-button :size="miniSize" @click="addEditWidgetConfigListItem(editWidget.config.list,'navBar')" round type="primary">
-                                        <i class="el-icon-ali-add"></i> 添加
-                                    </el-button>
-                                </div>
+                                <template #footer>
+                                    <div class="drag-footer">
+                                        <el-button
+                                            :size="miniSize"
+                                            round
+                                            type="primary"
+                                            @click="
+                                                addEditWidgetConfigListItem(
+                                                    editWidget.config.list,
+                                                    'navBar'
+                                                )
+                                            "
+                                        >
+                                            <i class="el-icon-ali-add"></i> 添加
+                                        </el-button>
+                                    </div>
+                                </template>
                             </draggable>
                         </template>
 
                         <!-- 商品组 -->
-                        <template v-if="editWidget.type=='goods'">
+                        <template v-if="editWidget.type == 'goods'">
                             <el-form-item label="来源">
                                 <el-radio-group v-model="editWidget.config.type">
-                                    <el-radio label="auto">自动</el-radio>
-                                    <el-radio label="choose">手动</el-radio>
+                                    <el-radio label="auto">
+                                        自动
+                                    </el-radio>
+                                    <el-radio label="choose">
+                                        手动
+                                    </el-radio>
                                 </el-radio-group>
                             </el-form-item>
-                            <div v-show="editWidget.config.type=='auto'">
+                            <div v-show="editWidget.config.type == 'auto'">
                                 <el-form-item label="分类">
-                                    <el-cascader :options="goodsCatList" :props="cascaderProps" :show-all-levels="false" v-model="editWidget.config.classifyId"></el-cascader>
+                                    <el-cascader
+                                        v-model="editWidget.config.classifyId"
+                                        :options="goodsCatList"
+                                        :props="cascaderProps"
+                                        :show-all-levels="false"
+                                    />
                                 </el-form-item>
                                 <el-form-item label="品牌">
-                                    <el-select placeholder="请选择品牌" v-model="editWidget.config.brandId">
-                                        <el-option :key="item.id" :label="item.name" :value="item.id" v-for="item in brandList"></el-option>
+                                    <el-select
+                                        v-model="editWidget.config.brandId"
+                                        placeholder="请选择品牌"
+                                    >
+                                        <el-option
+                                            v-for="item in brandList"
+                                            :key="item.id"
+                                            :label="item.name"
+                                            :value="item.id"
+                                        />
                                     </el-select>
                                 </el-form-item>
                                 <el-form-item label="数量">
-                                    <el-input-number :max="10" :min="1" controls-position="right" v-model="editWidget.config.limit"></el-input-number>
+                                    <el-input-number
+                                        v-model="editWidget.config.limit"
+                                        :max="10"
+                                        :min="1"
+                                        controls-position="right"
+                                    />
                                 </el-form-item>
                             </div>
-                            <draggable :list="editWidget.config.list" :options="{group:{ name:'goodsList'}, ghostClass: 'draggable-ghost',animation: 150}" element="ul" v-show="editWidget.config.type=='choose'">
-                                <li :class="['goods-list-item']" :key="key" v-for="(goods,key) in editWidget.config.list">
+                            <draggable
+                                v-show="editWidget.config.type == 'choose'"
+                                :list="editWidget.config.list"
+                                :options="{
+                                    group: { name: 'goodsList' },
+                                    ghostClass: 'draggable-ghost',
+                                    animation: 150,
+                                }"
+                                element="ul"
+                            >
+                                <li
+                                    v-for="(goods, key) in editWidget.config.list"
+                                    :key="key"
+                                    :class="['goods-list-item']"
+                                >
                                     <slot :goods="goods">
-                                        <i @click.stop="deleteEditWidgetConfigListItem(editWidget.config.list,key)" class="el-icon-ali-delete item-delete goods-delete"></i>
-                                        <img :src="env.getImgUrl(goods.url,env.baseAssetsUrl)" alt />
+                                        <i
+                                            class="el-icon-ali-delete item-delete goods-delete"
+                                            @click.stop="
+                                                deleteEditWidgetConfigListItem(
+                                                    editWidget.config.list,
+                                                    key
+                                                )
+                                            "
+                                        ></i>
+                                        <img
+                                            :src="env.getImgUrl(goods.url, env.baseAssetsUrl)"
+                                            alt
+                                        />
                                     </slot>
                                 </li>
-                                <div class="drag-footer" slot="footer">
-                                    <pick-goods :selectionType="1" @chosedGoods="(goods)=>{addGoodsConfigListItem(editWidget.config.list,goods)}"></pick-goods>
-                                </div>
+                                <template #footer>
+                                    <div class="drag-footer">
+                                        <pick-goods
+                                            :selection-type="1"
+                                            @chosed-goods="
+                                                (goods) => {
+                                                    addGoodsConfigListItem(
+                                                        editWidget.config.list,
+                                                        goods
+                                                    );
+                                                }
+                                            "
+                                        />
+                                    </div>
+                                </template>
                             </draggable>
                             <el-form-item label="类型">
                                 <el-radio-group v-model="editWidget.config.display">
-                                    <el-radio label="list">列表平铺</el-radio>
-                                    <el-radio :disabled="editWidget.config.column==1" label="slide">横向滚动</el-radio>
+                                    <el-radio label="list">
+                                        列表平铺
+                                    </el-radio>
+                                    <el-radio
+                                        :disabled="editWidget.config.column == 1"
+                                        label="slide"
+                                    >
+                                        横向滚动
+                                    </el-radio>
                                 </el-radio-group>
                             </el-form-item>
                             <el-form-item label="分列数量">
                                 <el-radio-group v-model="editWidget.config.column">
-                                    <el-radio :disabled="editWidget.config.display=='slide'" :label="1">单列</el-radio>
-                                    <el-radio :label="2">两列</el-radio>
-                                    <el-radio :label="3">三列</el-radio>
+                                    <el-radio
+                                        :disabled="editWidget.config.display == 'slide'"
+                                        :label="1"
+                                    >
+                                        单列
+                                    </el-radio>
+                                    <el-radio :label="2">
+                                        两列
+                                    </el-radio>
+                                    <el-radio :label="3">
+                                        三列
+                                    </el-radio>
                                 </el-radio-group>
                             </el-form-item>
                             <el-form-item label="组名称">
-                                <el-input v-model="editWidget.config.title"></el-input>
+                                <el-input v-model="editWidget.config.title" />
                             </el-form-item>
                             <el-form-item label="更多">
                                 <el-radio-group v-model="editWidget.config.more">
-                                    <el-radio label="true">是</el-radio>
-                                    <el-radio label="false">否</el-radio>
+                                    <el-radio label="true">
+                                        是
+                                    </el-radio>
+                                    <el-radio label="false">
+                                        否
+                                    </el-radio>
                                 </el-radio-group>
                             </el-form-item>
                         </template>
 
                         <!-- 单图组 -->
-                        <template v-if="editWidget.type=='imgSingle'">
-                            <change-image-icon :imgUrl="editWidget.config.url" :initStyle="{width: '100%',border: '1px dashed #d9d9d9', borderRadius: '4px'}" @chosedImageIcon="(img)=>{chosedImage(editWidget.config,img)}"></change-image-icon>
+                        <template v-if="editWidget.type == 'imgSingle'">
+                            <change-image-icon
+                                :img-url="editWidget.config.url"
+                                :init-style="{
+                                    width: '100%',
+                                    border: '1px dashed #d9d9d9',
+                                    borderRadius: '4px',
+                                }"
+                                @chosed-image-icon="
+                                    (img) => {
+                                        chosedImage(editWidget.config, img);
+                                    }
+                                "
+                            />
                             <el-form-item label="类型">
-                                <el-select placeholder="请选择" v-model="editWidget.config.type">
-                                    <el-option :key="linkType.key" :label="linkType.value" :value="linkType.key" v-for="linkType in linkTypes"></el-option>
+                                <el-select
+                                    v-model="editWidget.config.type"
+                                    placeholder="请选择"
+                                >
+                                    <el-option
+                                        v-for="linkType in linkTypes"
+                                        :key="linkType.key"
+                                        :label="linkType.value"
+                                        :value="linkType.key"
+                                    />
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="指向">
-                                <el-input placeholder="请选择" v-model="editWidget.config.value">
-                                    <pick-goods :selectionType="0" @chosedGoods="(goods)=>{chosedGoods(editWidget.config,goods)}" slot="append" v-if="editWidget.config.type === 2"></pick-goods>
-                                    <pick-article :selectionType="0" @chosedArticles="(articles)=>{chosedArticles(editWidget.config,'value',articles,'id')}" slot="append" v-else-if="editWidget.config.type === 3"></pick-article>
-                                    <pick-articleType :selectionType="0" @chosedArticleTypes="(articleTypes)=>{chosedArticleTypes(editWidget.config,'value',articleTypes)}" slot="append" v-else-if="editWidget.config.type === 4"></pick-articleType>
-                                    <pick-form :selectionType="0" @chosedForms="(forms)=>{chosedForms(editWidget.config,forms)}" slot="append" v-else-if="editWidget.config.type === 5"></pick-form>
+                                <el-input
+                                    v-model="editWidget.config.value"
+                                    placeholder="请选择"
+                                >
+                                    <template #append>
+                                        <pick-goods
+                                            v-if="editWidget.config.type === 2"
+                                            :selection-type="0"
+                                            @chosed-goods="(goods) => { chosedGoods(editWidget.config, goods); }"
+                                        />
+                                        <pick-article
+                                            v-else-if="editWidget.config.type === 3"
+                                            :selection-type="0"
+                                            @chosed-articles="(articles) => { chosedArticles(editWidget.config, 'value', articles, 'id'); }"
+                                        />
+                                        <pick-articleType
+                                            v-else-if="editWidget.config.type === 4"
+                                            :selection-type="0"
+                                            @chosed-article-types="(articleTypes) => { chosedArticleTypes(editWidget.config, 'value', articleTypes); }"
+                                        />
+                                        <pick-form
+                                            v-else-if="editWidget.config.type === 5"
+                                            :selection-type="0"
+                                            @chosed-forms="(forms) => { chosedForms(editWidget.config, forms); }"
+                                        />
+                                    </template>
                                 </el-input>
                             </el-form-item>
                         </template>
 
                         <!-- 辅助空白 -->
-                        <template v-if="editWidget.type=='blank'">
+                        <template v-if="editWidget.type == 'blank'">
                             <el-form-item label="背景颜色">
-                                <el-color-picker v-model="editWidget.config.backgroundColor"></el-color-picker>
+                                <el-color-picker v-model="editWidget.config.backgroundColor" />
                             </el-form-item>
                             <el-form-item label="组件高度">
-                                <el-slider :max="200" :min="1" v-model="editWidget.config.height"></el-slider>
+                                <el-slider
+                                    v-model="editWidget.config.height"
+                                    :max="200"
+                                    :min="1"
+                                />
+                                />
                             </el-form-item>
                         </template>
                     </el-form>
@@ -561,21 +1451,37 @@
 </template>
 
 <script>
-import { Search, NoticeBar, Panel, Grid, GridItem, Image, Card, Swipe, SwipeItem, Row, Col, CellGroup, Cell, Divider, Field } from 'vant'
-import _ from 'lodash'
-import draggable from 'vuedraggable'
-import breadCrumb from '@/components/bread_crumb'
-import pickGoods from '@/components/pick_goods'
-import pickArticle from '@/components/pick_article'
-import pickArticleType from '@/components/pick_articleType'
-import pickForm from '@/components/pick_form'
-import changeImageIcon from '@/components/change_image_icon'
-import pickVideo from '@/components/pick_video'
-import pickNotice from '@/components/pick_notice'
+import {
+    Search,
+    NoticeBar,
+    Panel,
+    Grid,
+    GridItem,
+    Image,
+    Card,
+    Swipe,
+    SwipeItem,
+    Row,
+    Col,
+    CellGroup,
+    Cell,
+    Divider,
+    Field,
+} from 'vant';
+import _ from 'lodash';
+import draggable from 'vuedraggable';
+import breadCrumb from '@/components/bread_crumb.vue';
+import pickGoods from '@/components/pick_goods';
+import pickArticle from '@/components/pick_article';
+import pickArticleType from '@/components/pick_articleType';
+import pickForm from '@/components/pick_form';
+import changeImageIcon from '@/components/change_image_icon.vue';
+import pickVideo from '@/components/pick_video';
+import pickNotice from '@/components/pick_notice';
 
-import allComponents from './allComponents'
-import pageWidgets from './pageWidgets'
-import tinyEditor from '@/components/tiny_editor'
+import allComponents from './allComponents';
+import pageWidgets from './pageWidgets';
+import tinyEditor from '@/components/tiny_editor';
 
 export default {
     components: {
@@ -603,12 +1509,12 @@ export default {
         [CellGroup.name]: CellGroup,
         [Cell.name]: Cell,
         [Divider.name]: Divider,
-        [Field.name]: Field
+        [Field.name]: Field,
     },
-    data () {
+    data() {
         return {
-            normalSize: 'small',
-            miniSize: 'mini',
+            normalSize: 'default',
+            smallSize: 'small',
             activeNames: ['1'],
             isDragging: false,
             storeComponents: allComponents.storeComponents,
@@ -618,37 +1524,52 @@ export default {
             pageWidgets: pageWidgets,
             editWidget: null,
             imgWindowStyle: [
-                { style: 2, value: '1行2个', url: 'template/col-2.png' },
-                { style: 3, value: '1行3个', url: 'template/col-3.png' },
-                { style: 4, value: '1行4个', url: 'template/col-4.png' },
-                { style: 5, value: '1左3右', url: 'template/col-1-3.png' }
+                { style: 2,
+                  value: '1行2个',
+                  url: 'template/col-2.png' },
+                { style: 3,
+                  value: '1行3个',
+                  url: 'template/col-3.png' },
+                { style: 4,
+                  value: '1行4个',
+                  url: 'template/col-4.png' },
+                { style: 5,
+                  value: '1左3右',
+                  url: 'template/col-1-3.png' },
             ],
             linkTypes: [
-                { key: 1, value: 'URL链接' },
-                { key: 2, value: '商品' },
-                { key: 3, value: '文章' },
-                { key: 4, value: '文章分类' },
-                { key: 5, value: '智能表单' }
+                { key: 1,
+                  value: 'URL链接' },
+                { key: 2,
+                  value: '商品' },
+                { key: 3,
+                  value: '文章' },
+                { key: 4,
+                  value: '文章分类' },
+                { key: 5,
+                  value: '智能表单' },
             ],
             cascaderProps: {
                 label: 'name',
                 value: 'id',
-                children: 'children'
+                children: 'children',
             },
             goodsCatList: [],
-            brandList: []
-        }
+            brandList: [],
+        };
     },
     computed: {
-        componentOpts () {
+        componentOpts() {
             return {
-                group: { name: 'widget', pull: 'clone', put: false }, // 从列表中移出的元素为副本,不接收从其它列表中拖进来的元素
+                group: { name: 'widget',
+                         pull: 'clone',
+                         put: false }, // 从列表中移出的元素为副本,不接收从其它列表中拖进来的元素
                 sort: false,
                 ghostClass: 'draggable-ghost',
-                animation: 150
-            }
+                animation: 150,
+            };
         },
-        widgetOpts () {
+        widgetOpts() {
             return {
                 group: { name: 'widget' },
                 sort: true,
@@ -657,24 +1578,35 @@ export default {
                 scroll: true,
                 scrollSensitivity: 100,
                 scrollSpeed: 1000,
-                animation: 100
-            }
-        }
+                animation: 100,
+            };
+        },
     },
     watch: {
         editWidget: {
-            handler (val, oldval) {
-                this.doChangePageWidgets()
+            handler(val, oldval) {
+                this.doChangePageWidgets();
             },
-            deep: true // 对象内部的属性监听，也叫深度监听
+            deep: true, // 对象内部的属性监听，也叫深度监听
+        },
+    },
+    created() {
+        this.doChangePageWidgets = _.debounce(this.changePageWidgets, 500);
+    },
+    mounted() {
+        this.getGoodsCatList();
+        this.getBrandList();
+
+        const _textArea = document.getElementById('textarea-container');
+        const _img = _textArea.getElementsByTagName('img');
+        for (let i = 0; i < _img.length; i++) {
+            _img[i].style['max-width'] = _textArea.offsetWidth - 40 + 'px'; // 这里-40是padding的左右宽度和
+            _img[i].style.display = 'inline';
         }
     },
-    created () {
-        this.doChangePageWidgets = _.debounce(this.changePageWidgets, 500)
-    },
     methods: {
-        end (list, items) {
-            list = items
+        end(list, items) {
+            list = items;
         },
         /*
         addChosedImage (list, chosen) {
@@ -682,162 +1614,151 @@ export default {
             list.push(chosen)
         },
         */
-        onRemove (list, idx) {
+        onRemove(list, idx) {
             if (Array.isArray(list) && list.length > idx) {
-                list.splice(idx, 1)
+                list.splice(idx, 1);
             }
         },
-        chosedGoods (item, goods) {
+        chosedGoods(item, goods) {
             if (item && Array.isArray(goods) && goods.length > 0) {
-                item.value = goods[0].id
+                item.value = goods[0].id;
             }
         },
-        chosedArticles (item, descColumn, articles, srcColumn) {
+        chosedArticles(item, descColumn, articles, srcColumn) {
             if (item && Array.isArray(articles) && articles.length > 0) {
-                item[descColumn] = articles[0][srcColumn]
+                item[descColumn] = articles[0][srcColumn];
             }
         },
-        chosedArticleTypes (item, column, articleTypes) {
+        chosedArticleTypes(item, column, articleTypes) {
             if (item && Array.isArray(articleTypes) && articleTypes.length > 0) {
-                item[column] = articleTypes[0].id
+                item[column] = articleTypes[0].id;
             }
         },
-        chosedForms (item, forms) {
+        chosedForms(item, forms) {
             if (item && Array.isArray(forms) && forms.length > 0) {
-                item.value = forms[0].id
+                item.value = forms[0].id;
             }
         },
-        chosedImage (item, img) {
+        chosedImage(item, img) {
             if (item && img) {
-                item.url = img.path
+                item.url = img.path;
             }
         },
-        addEditWidgetConfigListItem (list, widgetType) {
+        addEditWidgetConfigListItem(list, widgetType) {
             let _item = {
                 url: 'images/empty-banner.png',
                 type: '',
-                value: ''
-            }
+                value: '',
+            };
             if (widgetType === 'navBar') {
                 _item = {
                     url: 'images/empty-banner.png',
                     text: '按钮',
                     type: '',
-                    value: ''
-                }
+                    value: '',
+                };
             }
             if (Array.isArray(list)) {
                 if (_item.text) {
-                    _item.text = `${_item.text}${list.length}`
+                    _item.text = `${_item.text}${list.length}`;
                 }
-                list.push(_item)
+                list.push(_item);
             }
         },
-        changePageWidgets () {
-            const _editWidget = this.editWidget ? this.pageWidgets[this.editWidget.idx] : null
+        changePageWidgets() {
+            const _editWidget = this.editWidget ? this.pageWidgets[this.editWidget.idx] : null;
             if (_editWidget) {
-                const _cloneEditWidget = _.cloneDeep(this.editWidget)
-                delete _cloneEditWidget.idx
-                Object.assign(_editWidget, _cloneEditWidget)
-                this.pageWidgets = this.pageWidgets.filter(v => v)
-                console.log(`this.pageWidgets.length: ${this.pageWidgets.length}`)
+                const _cloneEditWidget = _.cloneDeep(this.editWidget);
+                delete _cloneEditWidget.idx;
+                Object.assign(_editWidget, _cloneEditWidget);
+                this.pageWidgets = this.pageWidgets.filter((v) => v);
+                console.log(`this.pageWidgets.length: ${this.pageWidgets.length}`);
             }
         },
         // 从组件库拖一个组件进入工作区
-        handleAddWidget (evt) {
-            const _newIdx = evt.newIndex
-            const _cloneWidget = _.cloneDeep(this.pageWidgets[_newIdx])
-            this.$set(this.pageWidgets, _newIdx, _cloneWidget)
+        handleAddWidget(evt) {
+            const _newIdx = evt.newIndex;
+            const _cloneWidget = _.cloneDeep(this.pageWidgets[_newIdx]);
+            this.$set(this.pageWidgets, _newIdx, _cloneWidget);
 
-            console.log('_newIdx:', _newIdx)
-            this.handleSelectWidget(_newIdx)
+            console.log('_newIdx:', _newIdx);
+            this.handleSelectWidget(_newIdx);
         },
         /** 选择一个 Widget */
-        handleSelectWidget (idx) {
-            this.editWidget = _.cloneDeep(this.pageWidgets[idx])
+        handleSelectWidget(idx) {
+            this.editWidget = _.cloneDeep(this.pageWidgets[idx]);
             if (this.editWidget) {
-                this.editWidget.idx = idx
-                console.log(this.editWidget)
+                this.editWidget.idx = idx;
+                console.log(this.editWidget);
             } else {
-                console.log(`${idx} 没有找到`)
+                console.log(`${idx} 没有找到`);
             }
         },
         /** 删除一个 Widget */
-        handleDeleteWidget (idx) {
-            const _widget = this.pageWidgets.splice(idx, 1)
+        handleDeleteWidget(idx) {
+            const _widget = this.pageWidgets.splice(idx, 1);
             if (_widget) {
-                console.log('delete idx:', idx)
-                console.log(_widget)
+                console.log('delete idx:', idx);
+                console.log(_widget);
             }
         },
         /** 克隆一个 Widget */
-        handleCloneWidget (idx) {
-            const _widget = _.cloneDeep(this.pageWidgets[idx])
+        handleCloneWidget(idx) {
+            const _widget = _.cloneDeep(this.pageWidgets[idx]);
             if (_widget) {
-                this.pageWidgets.splice(idx, 0, _widget)
-                console.log(_widget)
+                this.pageWidgets.splice(idx, 0, _widget);
+                console.log(_widget);
             }
         },
-        deleteEditWidgetConfigListItem (list, idx) {
+        deleteEditWidgetConfigListItem(list, idx) {
             if (Array.isArray(list) && list.length > idx) {
-                list.splice(idx, 1)
+                list.splice(idx, 1);
             }
         },
         // 添加商品
-        addGoodsConfigListItem (list, goods) {
+        addGoodsConfigListItem(list, goods) {
             if (Array.isArray(list)) {
                 for (const item of goods) {
                     list.push({
                         id: item.id,
                         name: item.name,
-                        url: item.attachment ? item.attachment.path : ''
-                    })
+                        url: item.attachment ? item.attachment.path : '',
+                    });
                 }
             }
         },
         // 添加公告
-        addNoticeConfigListItem (list, notices) {
+        addNoticeConfigListItem(list, notices) {
             if (Array.isArray(list)) {
                 for (const item of notices) {
                     list.push({
                         id: item.id,
                         title: item.title,
-                        createdAt: item.createdAt
-                    })
+                        createdAt: item.createdAt,
+                    });
                 }
             }
         },
         // 获取商品分类
-        async getGoodsCatList () {
-            const _result = await this.$api.goodsCat.getTree()
+        async getGoodsCatList() {
+            const _result = await this.$api.goodsCat.getTree();
             if (_result.succeed === 1 && _result.code === 200) {
-                this.goodsCatList = _result.data.list
+                this.goodsCatList = _result.data.list;
             }
         },
         // 获取商品品牌
-        async getBrandList () {
-            const _result = await this.$api.brand.list()
+        async getBrandList() {
+            const _result = await this.$api.brand.list();
             if (_result.succeed === 1 && _result.code === 200) {
-                this.brandList = _result.data.list
+                this.brandList = _result.data.list;
             }
-        }
+        },
     },
-    mounted () {
-        this.getGoodsCatList()
-        this.getBrandList()
-
-        const _textArea = document.getElementById('textarea-container')
-        const _img = _textArea.getElementsByTagName('img')
-        for (let i = 0; i < _img.length; i++) {
-            _img[i].style['max-width'] = _textArea.offsetWidth - 40 + 'px' // 这里-40是padding的左右宽度和
-            _img[i].style.display = 'inline'
-        }
-    }
-}
+};
 </script>
 
 <style scoped lang="scss">
-.component-group ::v-deep {
+.component-group :deep() {
     .component-item {
         float: left;
         list-style: none;
@@ -874,7 +1795,7 @@ export default {
         }
     }
 }
-.page-column ::v-deep {
+.page-column :deep() {
     .el-card__header {
         padding: 8px;
         text-align: left;
@@ -984,7 +1905,7 @@ export default {
         width: 100%;
         font-size: 16px;
     }
-    .el-button-group ::v-deep {
+    .el-button-group :deep() {
         position: absolute;
         top: 1px;
         right: 1px;
@@ -1065,7 +1986,7 @@ export default {
     }
 }
 
-.widget-inner-container ::v-deep {
+.widget-inner-container :deep() {
     .coupon {
         width: 100%;
         box-sizing: border-box;
@@ -1116,7 +2037,7 @@ export default {
     }
 }
 
-.img-window-list ::v-deep {
+.img-window-list :deep() {
     span.el-radio-button__inner {
         background: #f2f6fc;
         padding: 5px 10px;

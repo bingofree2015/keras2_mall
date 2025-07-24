@@ -10,25 +10,25 @@ const pageConfig = [
                 {
                     url: 'images/empty-banner.png',
                     name: '寸衫',
-                    price: '199.00'
+                    price: '199.00',
                 },
                 {
                     url: 'images/empty-banner.png',
                     name: '裤子',
-                    price: '120.00'
-                }
-            ]
+                    price: '120.00',
+                },
+            ],
         },
-        key: 'groupPurchase_0'
+        key: 'groupPurchase_0',
     },
     // 优惠券组
     {
         type: 'coupon',
         name: '优惠券组',
         config: {
-            limit: '2'
+            limit: '2',
         },
-        key: 'coupon_0'
+        key: 'coupon_0',
     },
     // 购买记录
     {
@@ -38,10 +38,10 @@ const pageConfig = [
             style: {
                 top: 0,
                 left: 0,
-                align: 'right'
-            }
+                align: 'right',
+            },
         },
-        key: 'record_0'
+        key: 'record_0',
     },
     // 图片分组
     {
@@ -54,26 +54,26 @@ const pageConfig = [
                 {
                     url: 'images/empty-banner.png',
                     type: '',
-                    value: ''
+                    value: '',
                 },
                 {
                     url: 'images/empty-banner.png',
                     type: '',
-                    value: ''
+                    value: '',
                 },
                 {
                     url: 'images/empty-banner.png',
                     type: '',
-                    value: ''
+                    value: '',
                 },
                 {
                     url: 'images/empty-banner.png',
                     type: '',
-                    value: ''
-                }
-            ]
+                    value: '',
+                },
+            ],
         },
-        key: 'imgWindow_0'
+        key: 'imgWindow_0',
     },
     // 辅助空白
     {
@@ -81,16 +81,16 @@ const pageConfig = [
         name: '辅助空白',
         config: {
             height: 20,
-            backgroundColor: '#FFFFFF'
+            backgroundColor: '#FFFFFF',
         },
-        key: 'blank_0'
+        key: 'blank_0',
     },
     // 文本域
     {
         type: 'textarea',
         name: '文本域',
         config: '',
-        key: 'textarea_0'
+        key: 'textarea_0',
     },
     // 视频组
     {
@@ -99,11 +99,12 @@ const pageConfig = [
         config: {
             autoplay: 'false',
             url: 'images/empty-banner.png',
-            videoUrl: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400',
+            videoUrl:
+                'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400',
             type: '',
-            value: ''
+            value: '',
         },
-        key: 'video_0'
+        key: 'video_0',
     },
     // 文章组
     {
@@ -111,9 +112,9 @@ const pageConfig = [
         name: '文章组',
         config: {
             title: '',
-            url: 'images/empty-goods.png'
+            url: 'images/empty-goods.png',
         },
-        key: 'article_0'
+        key: 'article_0',
     },
     // 文章分类
     {
@@ -121,9 +122,9 @@ const pageConfig = [
         name: '文章分类',
         config: {
             limit: 3,
-            articleClassifyId: ''
+            articleClassifyId: '',
         },
-        key: 'articleClassify_0'
+        key: 'articleClassify_0',
     },
     // 搜索框
     {
@@ -131,9 +132,9 @@ const pageConfig = [
         name: '搜索框',
         config: {
             keywords: '请输入关键字搜索',
-            style: 'round'
+            style: 'round',
         },
-        key: 'search_0'
+        key: 'search_0',
     },
     // 图片轮播
     {
@@ -145,16 +146,16 @@ const pageConfig = [
                 {
                     url: 'images/empty-banner.png',
                     type: '',
-                    value: ''
+                    value: '',
                 },
                 {
                     url: 'images/empty-banner.png',
                     type: '',
-                    value: ''
-                }
-            ]
+                    value: '',
+                },
+            ],
         },
-        key: 'imgSlide_1'
+        key: 'imgSlide_1',
     },
     // 公告组
     {
@@ -166,11 +167,11 @@ const pageConfig = [
                 {
                     id: 1,
                     title: '足协杯战线连续第2年上演广州德比战，上赛季半决赛上恒大以两回合5-3的总比分淘汰富力。',
-                    ctime: 1565773880
-                }
-            ]
+                    ctime: 1565773880,
+                },
+            ],
         },
-        key: 'notice_2'
+        key: 'notice_2',
     },
     // 导航组
     {
@@ -183,29 +184,29 @@ const pageConfig = [
                     url: 'images/empty.png',
                     text: '按钮1',
                     type: '',
-                    value: ''
+                    value: '',
                 },
                 {
                     url: 'images/empty.png',
                     text: '按钮2',
                     type: '',
-                    value: ''
+                    value: '',
                 },
                 {
                     url: 'images/empty.png',
                     text: '按钮3',
                     type: '',
-                    value: ''
+                    value: '',
                 },
                 {
                     url: 'images/empty.png',
                     text: '按钮4',
                     type: '',
-                    value: ''
-                }
-            ]
+                    value: '',
+                },
+            ],
         },
-        key: 'navBar_3'
+        key: 'navBar_3',
     },
     // 商品组
     {
@@ -238,18 +239,8 @@ const pageConfig = [
                     weight: '400.00',
                     unit: '件',
                     spes_desc: {
-                        颜色: [
-                            '红色',
-                            '白色',
-                            '绿色',
-                            '蓝色'
-                        ],
-                        规格: [
-                            '规格1',
-                            '规格2',
-                            '规格3',
-                            '规格4'
-                        ]
+                        颜色: ['红色', '白色', '绿色', '蓝色'],
+                        规格: ['规格1', '规格2', '规格3', '规格4'],
                     },
                     params: 'a:1:{s:6:"材质";s:6:"化纤";}',
                     comments_count: 0,
@@ -281,63 +272,63 @@ const pageConfig = [
                         total_stock: 198,
                         grade_price: [],
                         grade_info: {
-                            id: ''
+                            id: '',
                         },
                         default_spes_desc: {
                             颜色: {
                                 红色: {
                                     name: '红色',
-                                    is_default: true
+                                    is_default: true,
                                 },
                                 白色: {
                                     name: '白色',
-                                    product_id: 2
+                                    product_id: 2,
                                 },
                                 绿色: {
                                     name: '绿色',
-                                    product_id: 22
+                                    product_id: 22,
                                 },
                                 蓝色: {
                                     name: '蓝色',
-                                    product_id: 3
-                                }
+                                    product_id: 3,
+                                },
                             },
                             规格: {
                                 规格1: {
                                     name: '规格1',
-                                    is_default: true
+                                    is_default: true,
                                 },
                                 规格2: {
                                     name: '规格2',
-                                    product_id: 22
+                                    product_id: 22,
                                 },
                                 规格3: {
                                     name: '规格3',
-                                    product_id: 7
+                                    product_id: 7,
                                 },
                                 规格4: {
                                     name: '规格4',
-                                    product_id: 11
-                                }
-                            }
+                                    product_id: 11,
+                                },
+                            },
                         },
                         amount: '450.00',
                         promotion_list: {
                             6: {
                                 name: 'test',
-                                type: 1
-                            }
+                                type: 1,
+                            },
                         },
-                        promotion_amount: 0
+                        promotion_amount: 0,
                     },
                     album: [
                         'images/empty-goods.png',
                         'images/empty-goods.png',
                         'images/empty-goods.png',
                         'images/empty-goods.png',
-                        'images/empty-goods.png'
+                        'images/empty-goods.png',
                     ],
-                    isfav: 'false'
+                    isfav: 'false',
                 },
                 {
                     id: 2,
@@ -359,12 +350,9 @@ const pageConfig = [
                         颜色: {
                             1: '白色',
                             3: '蓝色',
-                            4: '紫色'
+                            4: '紫色',
                         },
-                        规格: [
-                            '规格1',
-                            '规格2'
-                        ]
+                        规格: ['规格1', '规格2'],
                     },
                     params: '',
                     comments_count: 0,
@@ -396,47 +384,45 @@ const pageConfig = [
                         total_stock: 97,
                         grade_price: [],
                         grade_info: {
-                            id: ''
+                            id: '',
                         },
                         default_spes_desc: {
                             颜色: {
                                 白色: {
                                     name: '白色',
-                                    is_default: true
+                                    is_default: true,
                                 },
                                 蓝色: {
                                     name: '蓝色',
-                                    product_id: 24
+                                    product_id: 24,
                                 },
                                 紫色: {
                                     name: '紫色',
-                                    product_id: 25
-                                }
+                                    product_id: 25,
+                                },
                             },
                             规格: {
                                 规格1: {
                                     name: '规格1',
-                                    is_default: true
+                                    is_default: true,
                                 },
                                 规格2: {
                                     name: '规格2',
-                                    product_id: 26
-                                }
-                            }
+                                    product_id: 26,
+                                },
+                            },
                         },
                         amount: '600.00',
                         promotion_list: {
                             6: {
                                 name: 'test',
-                                type: 1
-                            }
+                                type: 1,
+                            },
                         },
-                        promotion_amount: 0
+                        promotion_amount: 0,
                     },
-                    album: [
-                        'images/empty-goods.png'
-                    ],
-                    isfav: 'false'
+                    album: ['images/empty-goods.png'],
+                    isfav: 'false',
                 },
                 {
                     id: 4,
@@ -455,14 +441,8 @@ const pageConfig = [
                     weight: '0.00',
                     unit: '件',
                     spes_desc: {
-                        颜色: [
-                            '红色',
-                            '白色'
-                        ],
-                        规格: [
-                            '规格1',
-                            '规格2'
-                        ]
+                        颜色: ['红色', '白色'],
+                        规格: ['规格1', '规格2'],
                     },
                     params: '',
                     comments_count: 0,
@@ -494,45 +474,45 @@ const pageConfig = [
                         total_stock: 98,
                         grade_price: [],
                         grade_info: {
-                            id: ''
+                            id: '',
                         },
                         default_spes_desc: {
                             颜色: {
                                 红色: {
                                     name: '红色',
-                                    is_default: true
+                                    is_default: true,
                                 },
                                 白色: {
                                     name: '白色',
-                                    product_id: 30
-                                }
+                                    product_id: 30,
+                                },
                             },
                             规格: {
                                 规格1: {
                                     name: '规格1',
-                                    is_default: true
+                                    is_default: true,
                                 },
                                 规格2: {
                                     name: '规格2',
-                                    product_id: 31
-                                }
-                            }
+                                    product_id: 31,
+                                },
+                            },
                         },
                         amount: '200.00',
                         promotion_list: {
                             6: {
                                 name: 'test',
-                                type: 1
-                            }
+                                type: 1,
+                            },
                         },
-                        promotion_amount: 0
+                        promotion_amount: 0,
                     },
                     album: [
                         'images/empty-goods.png',
                         'images/empty-goods.png',
-                        'images/empty-goods.png'
+                        'images/empty-goods.png',
                     ],
-                    isfav: 'false'
+                    isfav: 'false',
                 },
                 {
                     id: 5,
@@ -581,28 +561,28 @@ const pageConfig = [
                         total_stock: 200,
                         grade_price: [],
                         grade_info: {
-                            id: ''
+                            id: '',
                         },
                         amount: '200.00',
                         promotion_list: {
                             6: {
                                 name: 'test',
-                                type: 1
-                            }
+                                type: 1,
+                            },
                         },
-                        promotion_amount: 0
+                        promotion_amount: 0,
                     },
                     album: [
                         'images/empty-goods.png',
                         'images/empty-goods.png',
                         'images/empty-goods.png',
-                        'images/empty-goods.png'
+                        'images/empty-goods.png',
                     ],
-                    isfav: 'false'
-                }
-            ]
+                    isfav: 'false',
+                },
+            ],
         },
-        key: 'goods_4'
+        key: 'goods_4',
     },
     // 图片
     {
@@ -611,10 +591,10 @@ const pageConfig = [
         config: {
             url: 'images/empty-banner.png',
             type: '',
-            value: ''
+            value: '',
         },
-        key: 'imgSingle_5'
-    }
-]
+        key: 'imgSingle_5',
+    },
+];
 
-module.exports = pageConfig
+module.exports = pageConfig;

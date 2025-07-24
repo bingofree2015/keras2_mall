@@ -1,16 +1,17 @@
 export default {
     state: {
-        navTree: [] // 导航菜单树
+        navTree: [], // 导航菜单树
     },
     getters: {},
     mutations: {
-        setNavTree (state, navTree) { // 设置导航菜单树
-            state.navTree = navTree
-        }
+        setNavTree(state, navTree) {
+            // 设置导航菜单树
+            state.navTree = navTree;
+        },
     },
     actions: {
-        setNavTree ({ commit }, navTree) {
-            commit('setNavTree', navTree)
-        }
-    }
-}
+        setNavTree({ commit }, navTree) {
+            commit('setNavTree', navTree);
+        },
+    },
+};

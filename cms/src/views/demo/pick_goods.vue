@@ -7,14 +7,16 @@
             <p class="demo-summery">通过弹出商品列表对话框，选择商品(支持多选)。</p>
             <el-row>
                 <el-col :span="18">
-                    <pick-goods :selectionType="1" @chosedGoods="chosedGoods"></pick-goods>
+                    <pick-goods :selection-type="1" @chosed-goods="chosedGoods" />
                 </el-col>
             </el-row>
             <h5 class="demo-sub-title">
                 <i>执行结果</i>
             </h5>
             <el-row>
-                <el-col :span="18" class="demo-result">{{goods.length>0?goods.map(v=>v.name):''}}</el-col>
+                <el-col :span="18" class="demo-result">
+                    {{ goods.length > 0 ? goods.map((v) => v.name) : '' }}
+                </el-col>
             </el-row>
 
             <h5 class="demo-sub-title">
@@ -22,7 +24,6 @@
             </h5>
             <el-row>
                 <el-col :span="18" class="demo-code">
-                    
                     <pre>
                         <code v-pre>
 &lt;template&gt;
@@ -59,27 +60,27 @@ export default {
     </el-container>
 </template>
 <script>
-import pickGoods from "@/components/pick_goods";
+import pickGoods from '@/components/pick_goods';
 
 export default {
     components: {
         pickGoods,
     },
-    computed: {},
     data() {
         return {
-            normalSize: "small",
-            miniSize: "mini",
+            normalSize: 'default',
+            smallSize: 'small',
 
             goods: [],
         };
     },
+    computed: {},
+    mounted() {},
     methods: {
         chosedGoods(goods) {
             this.goods = goods;
         },
     },
-    mounted() {},
 };
 </script>
 <style scoped lang="scss">

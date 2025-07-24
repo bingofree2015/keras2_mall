@@ -1,49 +1,52 @@
 <template>
     <div>
         <el-input :value="value" placeholder="请输入视频地址" readonly>
-            <el-button @click="openVideoUploader" icon="el-icon-ali-camera_rec" slot="append"></el-button>
+            <template #append>
+                <el-button round @click="openVideoUploader">
+                    <i class="el-icon-ali-camera_rec"></i>
+                    上传视频
+                </el-button>
+            </template>
         </el-input>
-        <video-uploader :visible.sync="videoDialogVisible" @chosedVideo="chosedVideo"></video-uploader>
+        <video-uploader v-model:visible="videoDialogVisible" @chosed-video="chosedVideo" />
     </div>
 </template>
 <script>
-import videoUploader from '@/components/video_uploader'
+import videoUploader from '@/components/video_uploader';
 export default {
     name: 'PickVideo',
     components: {
-        videoUploader
+        videoUploader,
     },
     model: [
         {
             prop: 'value',
-            event: 'input'
-        }
+            event: 'input',
+        },
     ],
-    data () {
-        return {
-            miniSize: 'mini',
-            normalSize: 'small',
-            videoDialogVisible: false
-        }
-    },
     props: {
         value: {
             type: null,
-            default: null
-        }
-    },
-    methods: {
-
-        openVideoUploader () {
-            this.videoDialogVisible = true
+            default: null,
         },
-        chosedVideo (videoUrl) {
-            this.$emit('input', videoUrl)
-            this.videoDialogVisible = false
-        }
     },
-    mounted () { }
-}
+    data() {
+        return {
+            smallSize: 'small',
+            normalSize: 'default',
+            videoDialogVisible: false,
+        };
+    },
+    mounted() {},
+    methods: {
+        openVideoUploader() {
+            this.videoDialogVisible = true;
+        },
+        chosedVideo(videoUrl) {
+            this.$emit('input', videoUrl);
+            this.videoDialogVisible = false;
+        },
+    },
+};
 </script>
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

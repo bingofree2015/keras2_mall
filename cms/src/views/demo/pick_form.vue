@@ -4,17 +4,21 @@
             <h2 class="demo-title">表单选择对话框</h2>
         </el-header>
         <el-main>
-            <p class="demo-summery">通过弹出的表彰列表选择表单，通过传入参数selectionType支持单选与多选。</p>
+            <p class="demo-summery">
+                通过弹出的表彰列表选择表单，通过传入参数selectionType支持单选与多选。
+            </p>
             <el-row>
                 <el-col :span="18">
-                    <pick-form :selectionType="0" @chosedForms="chosedForms"></pick-form>
+                    <pick-form :selection-type="0" @chosed-forms="chosedForms" />
                 </el-col>
             </el-row>
             <h5 class="demo-sub-title">
                 <i>执行结果</i>
             </h5>
             <el-row>
-                <el-col :span="18">{{forms.length>0?forms.map(v=>v.name):''}}</el-col>
+                <el-col :span="18">
+                    {{ forms.length > 0 ? forms.map((v) => v.name) : '' }}
+                </el-col>
             </el-row>
             <h5 class="demo-sub-title">
                 <i>演示代码</i>
@@ -57,27 +61,27 @@ export default {
     </el-container>
 </template>
 <script>
-import pickForm from "@/components/pick_form";
+import pickForm from '@/components/pick_form';
 
 export default {
     components: {
         pickForm,
     },
-    computed: {},
     data() {
         return {
-            normalSize: "small",
-            miniSize: "mini",
+            normalSize: 'default',
+            smallSize: 'small',
 
             forms: [],
         };
     },
+    computed: {},
+    mounted() {},
     methods: {
         chosedForms(forms) {
             this.forms = forms;
         },
     },
-    mounted() {},
 };
 </script>
 <style scoped lang="scss">

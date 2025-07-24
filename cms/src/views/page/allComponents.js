@@ -5,9 +5,9 @@ const allComponents = {
             name: '搜索框',
             config: {
                 keywords: '请输入关键字搜索',
-                style: 'round'
+                style: 'round',
             },
-            icon: 'el-icon-ali-sousuo'
+            icon: 'el-icon-ali-sousuo',
         },
         {
             type: 'notice',
@@ -18,11 +18,11 @@ const allComponents = {
                     {
                         title: '这里是第一条公告的标题',
                         content: '',
-                        id: ''
-                    }
-                ]
+                        id: '',
+                    },
+                ],
             },
-            icon: 'el-icon-ali-gonggaozujian'
+            icon: 'el-icon-ali-gonggaozujian',
         },
         {
             type: 'navBar',
@@ -34,29 +34,29 @@ const allComponents = {
                         url: 'images/empty.png',
                         text: '按钮1',
                         type: '',
-                        value: ''
+                        value: '',
                     },
                     {
                         url: 'images/empty.png',
                         text: '按钮2',
                         type: '',
-                        value: ''
+                        value: '',
                     },
                     {
                         url: 'images/empty.png',
                         text: '按钮3',
                         type: '',
-                        value: ''
+                        value: '',
                     },
                     {
                         url: 'images/empty.png',
                         text: '按钮4',
                         type: '',
-                        value: ''
-                    }
-                ]
+                        value: '',
+                    },
+                ],
             },
-            icon: 'el-icon-ali-daohangzujian'
+            icon: 'el-icon-ali-daohangzujian',
         },
         {
             type: 'goods',
@@ -75,25 +75,25 @@ const allComponents = {
                     {
                         url: 'images/empty-goods.png',
                         name: '商品名称',
-                        price: '100.00'
+                        price: '100.00',
                     },
                     {
                         url: 'images/empty-goods.png',
                         name: '商品名称',
-                        price: '59.00'
+                        price: '59.00',
                     },
                     {
                         url: 'images/empty-goods.png',
                         name: '商品名称',
-                        price: '32.00'
+                        price: '32.00',
                     },
                     {
                         url: 'images/empty-goods.png',
                         name: '商品名称',
-                        price: '129.00'
-                    }
-                ]
-            }
+                        price: '129.00',
+                    },
+                ],
+            },
         },
         {
             type: 'groupPurchase',
@@ -105,24 +105,24 @@ const allComponents = {
                     {
                         url: 'images/empty-banner.png',
                         name: '商品名称',
-                        price: '99.00'
+                        price: '99.00',
                     },
                     {
                         url: 'images/empty-banner.png',
                         name: '商品名称',
-                        price: '199.00'
-                    }
-                ]
+                        price: '199.00',
+                    },
+                ],
             },
-            icon: 'el-icon-ali-yingxiaogongju-tuangoumiaosha'
+            icon: 'el-icon-ali-yingxiaogongju-tuangoumiaosha',
         },
         {
             type: 'coupon',
             name: '优惠券组',
             config: {
-                limit: '2'
+                limit: '2',
             },
-            icon: 'el-icon-ali-youhuiquan1'
+            icon: 'el-icon-ali-youhuiquan1',
         },
         {
             type: 'record',
@@ -130,11 +130,11 @@ const allComponents = {
             config: {
                 style: {
                     top: 20,
-                    left: 0
-                }
+                    left: 0,
+                },
             },
-            icon: 'el-icon-ali-goumaijilu'
-        }
+            icon: 'el-icon-ali-goumaijilu',
+        },
     ],
     utilsComponents: [
         {
@@ -143,15 +143,15 @@ const allComponents = {
             icon: 'el-icon-ali-fuzhukongbai',
             config: {
                 height: 20,
-                backgroundColor: '#FFFFFF'
-            }
+                backgroundColor: '#FFFFFF',
+            },
         },
         {
             type: 'textarea',
             name: '文本域',
             config: '',
-            icon: 'el-icon-ali-wenbenyu'
-        }
+            icon: 'el-icon-ali-wenbenyu',
+        },
     ],
     mediaComponents: [
         {
@@ -163,16 +163,16 @@ const allComponents = {
                     {
                         url: 'images/empty-banner.png',
                         type: '',
-                        value: ''
+                        value: '',
                     },
                     {
                         url: 'images/empty-banner.png',
                         type: '',
-                        value: ''
-                    }
-                ]
+                        value: '',
+                    },
+                ],
             },
-            icon: 'el-icon-ali--tupianlunbo'
+            icon: 'el-icon-ali--tupianlunbo',
         },
         {
             type: 'imgSingle',
@@ -180,9 +180,9 @@ const allComponents = {
             config: {
                 url: 'images/empty-banner.png',
                 type: '',
-                value: ''
+                value: '',
             },
-            icon: 'el-icon-ali-tupian'
+            icon: 'el-icon-ali-tupian',
         },
         {
             type: 'imgWindow',
@@ -194,26 +194,26 @@ const allComponents = {
                     {
                         url: 'images/empty-banner.png',
                         type: '',
-                        value: ''
+                        value: '',
                     },
                     {
                         url: 'images/empty-banner.png',
                         type: '',
-                        value: ''
+                        value: '',
                     },
                     {
                         url: 'images/empty-banner.png',
                         type: '',
-                        value: ''
+                        value: '',
                     },
                     {
                         url: 'images/empty-banner.png',
                         type: '',
-                        value: ''
-                    }
-                ]
+                        value: '',
+                    },
+                ],
             },
-            icon: 'el-icon-ali-tupianzu'
+            icon: 'el-icon-ali-tupianzu',
         },
         {
             type: 'video',
@@ -221,31 +221,32 @@ const allComponents = {
             config: {
                 autoplay: 'false',
                 url: 'images/empty-banner.png',
-                videoUrl: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400',
+                videoUrl:
+                    'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400',
                 type: '',
-                value: ''
+                value: '',
             },
-            icon: 'el-icon-ali-shipinzujian'
+            icon: 'el-icon-ali-shipinzujian',
         },
         {
             type: 'article',
             name: '文章组',
             config: {
                 title: '',
-                url: 'images/empty-goods.png'
+                url: 'images/empty-goods.png',
             },
-            icon: 'el-icon-ali-wenzhangzujian'
+            icon: 'el-icon-ali-wenzhangzujian',
         },
         {
             type: 'articleClassify',
             name: '文章分类',
             config: {
                 limit: 3,
-                articleClassifyId: ''
+                articleClassifyId: '',
             },
-            icon: 'el-icon-ali-wenzhangfenlei1'
-        }
-    ]
-}
+            icon: 'el-icon-ali-wenzhangfenlei1',
+        },
+    ],
+};
 
-module.exports = allComponents
+module.exports = allComponents;

@@ -4,14 +4,21 @@
             <h2 class="demo-title">图片上传</h2>
         </el-header>
         <el-main>
-            <p class="demo-summery">通过弹出的图片上传对话框选择图片，并且支持在弹出的对话框中本地、远程上传图片，支持在线图片裁剪、旋转、删除等管理，迅速简便。</p>
+            <p class="demo-summery">
+                通过弹出的图片上传对话框选择图片，并且支持在弹出的对话框中本地、远程上传图片，支持在线图片裁剪、旋转、删除等管理，迅速简便。
+            </p>
             <el-row>
                 <el-col :span="18">
                     <change-image-icon
-                        :imgUrl="imgUrl"
-                        :initStyle="{height: '160px', width: '160px',border: '1px dashed #d9d9d9', borderRadius: '4px'}"
-                        @chosedImageIcon="chosedLogo"
-                    ></change-image-icon>
+                        :img-url="imgUrl"
+                        :init-style="{
+                            height: '160px',
+                            width: '160px',
+                            border: '1px dashed #d9d9d9',
+                            borderRadius: '4px',
+                        }"
+                        @chosed-image-icon="chosedLogo"
+                    />
                 </el-col>
             </el-row>
             <h5 class="demo-sub-title">
@@ -60,29 +67,29 @@ export default {
     </el-container>
 </template>
 <script>
-import changeImageIcon from "@/components/change_image_icon";
+import changeImageIcon from '@/components/change_image_icon.vue';
 
 export default {
     components: {
         changeImageIcon,
     },
-    computed: {},
     data() {
         return {
-            normalSize: "small",
-            miniSize: "mini",
+            normalSize: 'default',
+            smallSize: 'small',
         };
     },
+    computed: {},
+    mounted() {},
     methods: {
         chosedLogo(logo) {
             this.$notify({
-                title: "成功",
+                title: '成功',
                 message: logo,
-                type: "success",
+                type: 'success',
             });
         },
     },
-    mounted() {},
 };
 </script>
 <style scoped lang="scss">

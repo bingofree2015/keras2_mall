@@ -1,91 +1,106 @@
 <template>
     <!--表格显示列界面-->
-    <el-dialog :close-on-click-modal="false" :visible.sync="dialogVisible"
-        title="表格显示列" width="40%">
-        <el-table :data="columns" :size="size"
-            @selection-change="selectionChange" align="left" header-align="left"
-            height="330px" ref="fitlerTable" style="width: 100%"
-            tooltip-effect="dark">
-            <el-table-column type="selection" width="40"></el-table-column>
+    <el-dialog
+        v-model:visible="dialogVisible"
+        :close-on-click-modal="false"
+        title="表格显示列"
+        width="40%"
+    >
+        <el-table
+            ref="fitlerTable"
+            :data="columns"
+            :size="size"
+            align="left"
+            header-align="left"
+            height="330px"
+            style="width: 100%"
+            tooltip-effect="dark"
+            @selection-change="selectionChange"
+        >
+            <el-table-column type="selection" width="40" />
             <el-table-column label="属性">
-                <template slot-scope="scope">{{ scope.row.prop }}</template>
+                <template #default="scope">
+                    {{ scope.row.prop }}
+                </template>
             </el-table-column>
             <el-table-column label="列名">
-                <template slot-scope="scope">
-                    <el-input :size="size" v-model="scope.row.label"></el-input>
+                <template #default="scope">
+                    <el-input v-model="scope.row.label" :size="size" />
                 </template>
             </el-table-column>
             <el-table-column label="最小宽度">
-                <template slot-scope="scope">
-                    <el-input :size="size" v-model="scope.row.minWidth">
-                    </el-input>
+                <template #default="scope">
+                    <el-input v-model="scope.row.minWidth" :size="size" />
                 </template>
             </el-table-column>
         </el-table>
-        <div class="dialog-footer" slot="footer">
-            <el-button :size="size" @click.native="dialogVisible = false" round>
-                {{$t('action.cancel')}}</el-button>
-            <el-button :size="size" @click.native="handleFilterColumns" round
-                type="primary">{{$t('action.comfirm')}}</el-button>
-        </div>
+        <template #footer>
+            <div class="dialog-footer">
+                <el-button :size="size" round @click.native="dialogVisible = false">
+                    {{ $t('action.cancel') }}
+                </el-button>
+                <el-button :size="size" round type="primary" @click.native="handleFilterColumns">
+                    {{ $t('action.comfirm') }}
+                </el-button>
+            </div>
+        </template>
     </el-dialog>
 </template>
 
 <script>
 export default {
     name: 'TableColumnFilterDialog',
-    components: {
-    },
+    components: {},
     props: {
         columns: {
             type: Array,
-            default: () => []
+            default: () => [],
         },
         size: {
             type: String,
-            default: 'mini'
-        }
+            default: 'mini',
+        },
     },
-    data () {
+    data() {
         return {
             selections: () => [], // 列表选中列
-            dialogVisible: false
-        }
+            dialogVisible: false,
+        };
     },
+    mounted() {},
     methods: {
         // 选择切换
         selectionChange: function (selections) {
-            this.selections = selections
+            this.selections = selections;
         },
         // 设置可见性
         setDialogVisible: function (visible) {
-            this.dialogVisible = visible
+            this.dialogVisible = visible;
         },
         // 处理表格列过滤显示
         handleFilterColumns: function () {
-            const filterColumns = []
+            const filterColumns = [];
             for (let i = 0; i < this.columns.length; i++) {
-                const column = this.columns[i]
+                const column = this.columns[i];
                 if (this.hasColumn(column)) {
-                    filterColumns.push(column)
+                    filterColumns.push(column);
                 }
             }
-            this.$emit('handleFilterColumns', { filterColumns: JSON.parse(JSON.stringify(filterColumns)) })
+            this.$emit('handleFilterColumns', {
+                filterColumns: JSON.parse(JSON.stringify(filterColumns)),
+            });
         },
         hasColumn: function (column) {
             for (let i = 0; i < this.selections.length; i++) {
-                const col = this.selections[i]
+                const col = this.selections[i];
                 if (column.prop === col.prop) {
-                    return true
+                    return true;
                 }
             }
-            return false
-        }
+            return false;
+        },
     },
-    mounted () {
-    }
-}
+};
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

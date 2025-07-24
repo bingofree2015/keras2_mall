@@ -1,10 +1,9 @@
-
 export default {
     state: {
         // 主入口标签页
         mainTabs: [],
         // 当前标签页名
-        mainActiveTab: {}
+        mainActiveTab: {},
     },
     mutations: {
         updateMainTabs(state, tabs) {
@@ -12,14 +11,14 @@ export default {
         },
         updateMainActiveTab(state, activeTab) {
             state.mainActiveTab = activeTab;
-        }
+        },
     },
     actions: {
         updateMainTabs({ commit }, tabs) {
-            commit("updateMainTabs", tabs);
+            commit('updateMainTabs', tabs);
         },
         updateMainActiveTab({ commit }, activeTab) {
-            commit("updateMainActiveTab", activeTab);
-        }
-    }
+            commit('updateMainActiveTab', activeTab);
+        },
+    },
 };

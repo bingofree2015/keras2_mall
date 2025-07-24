@@ -4,17 +4,21 @@
             <h2 class="demo-title">视频上传组合框</h2>
         </el-header>
         <el-main>
-            <p class="demo-summery">通过弹出对话框选择本地视频文件上传至服务器，并返回视频路径自动填进输入框。</p>
+            <p class="demo-summery">
+                通过弹出对话框选择本地视频文件上传至服务器，并返回视频路径自动填进输入框。
+            </p>
             <el-row>
                 <el-col :span="18">
-                    <pick-video v-model="videoUrl"></pick-video>
+                    <pick-video v-model="videoUrl" />
                 </el-col>
             </el-row>
             <h5 class="demo-sub-title">
                 <i>执行结果</i>
             </h5>
             <el-row>
-                <el-col :span="18">{{videoUrl}}</el-col>
+                <el-col :span="18">
+                    {{ videoUrl }}
+                </el-col>
             </el-row>
             <h5 class="demo-sub-title">
                 <i>演示代码</i>
@@ -53,21 +57,21 @@ export default {
     </el-container>
 </template>
 <script>
-import pickVideo from "@/components/pick_video";
+import pickVideo from '@/components/pick_video';
 
 export default {
     components: {
         pickVideo,
     },
-    computed: {},
     data() {
         return {
-            normalSize: "small",
-            miniSize: "mini",
+            normalSize: 'default',
+            smallSize: 'small',
 
-            videoUrl: "http://www.baidu.com/",
+            videoUrl: 'http://www.baidu.com/',
         };
     },
+    computed: {},
     mounted() {},
 };
 </script>

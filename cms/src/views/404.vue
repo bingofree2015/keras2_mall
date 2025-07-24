@@ -3,17 +3,27 @@
         <div class="site-content__wrapper">
             <div class="site-content">
                 <h2 class="not-found-title">404</h2>
-                <p class="not-found-desc">抱歉！您访问的页面<em>失联</em>啦 ...</p>
+                <p class="not-found-desc">
+                    抱歉！您访问的页面
+                    <em>失联</em>
+                    啦 ...
+                </p>
                 <el-button round @click="$router.go(-1)">返回上一页</el-button>
-                <el-button round type="primary" class="not-found-btn-gohome" @click="$router.push('/')">进入首页</el-button>
+                <el-button
+                    round
+                    type="primary"
+                    class="not-found-btn-gohome"
+                    @click="$router.push('/')"
+                >
+                    进入首页
+                </el-button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-export default {
-}
+export default {};
 </script>
 
 <style lang="scss">

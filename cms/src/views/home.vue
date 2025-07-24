@@ -1,53 +1,53 @@
 <template>
     <div class="container">
         <!-- 导航菜单栏 -->
-        <nav-bar @activeTab="setActiveTab"></nav-bar>
+        <nav-bar @active-tab="setActiveTab" />
         <!-- 头部区域 -->
-        <head-bar></head-bar>
+        <head-bar />
         <!-- 主内容区域 -->
-        <main-content :activeTabName="activeTabName"></main-content>
+        <main-content :active-tab-name="activeTabName" />
     </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import headBar from './layout/head_bar'
-import navBar from './layout/nav_bar'
-import mainContent from './layout/main_content'
-import { addDynamicMenuAndRoutes } from "@/utils/load_menu";
+import { mapState, mapActions } from 'vuex';
+import headBar from './layout/head_bar.vue';
+import navBar from './layout/nav_bar.vue';
+import mainContent from './layout/main_content.vue';
+import { loadDynamicMenuAndRoutes } from '@/utils/menu_route_loader.js';
 export default {
-    data () {
+    data() {
         return {
-            activeTabName: ''
-        }
+            activeTabName: '',
+        };
     },
-    computed:{
-        ...mapState(['loginUser'])
+    computed: {
+        ...mapState(['loginUser']),
     },
     components: {
         headBar,
         navBar,
-        mainContent
+        mainContent,
     },
     methods: {
         ...mapActions(['setGlobalVariables']),
 
-        async getGlobalVariables () {
-            const _result = await this.$api.setting.get({ key: 'global_variables' })
+        async getGlobalVariables() {
+            const _result = await this.$api.setting.get({ key: 'global_variables' });
             if (_result.succeed === 1 && _result.code === 200) {
-                this.setGlobalVariables(_result.data)
+                this.setGlobalVariables(_result.data);
             }
         },
 
-        setActiveTab (name) {
-            this.activeTabName = name
-        }
+        setActiveTab(name) {
+            this.activeTabName = name;
+        },
     },
-    async mounted () {
-        await this.getGlobalVariables()
-        await addDynamicMenuAndRoutes(this.loginUser.id)
-    }
-}
+    async mounted() {
+        await this.getGlobalVariables();
+        await loadDynamicMenuAndRoutes(this.loginUser.id);
+    },
+};
 </script>
 
 <style scoped lang="scss">

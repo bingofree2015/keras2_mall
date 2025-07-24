@@ -1,73 +1,75 @@
 /*
  * 接口统一集成模块
  */
-import axios from './axios'
+import axios from './axios';
 
-import attachGroup from './moudules/attach/attach_group'
-import attachment from './moudules/attach/attachment'
+import attachGroup from './modules/attach/attach_group';
+import attachment from './modules/attach/attachment';
 
-import brand from './moudules/goods/brand'
-import goods from './moudules/goods'
-import goodsCat from './moudules/goods/goods_cat'
-import goodsSpec from './moudules/goods/goods_spec'
-import goodsParam from './moudules/goods/goods_param'
-import goodsType from './moudules/goods/goods_type'
-import goodsComment from './moudules/goods/goods_comment'
+import brand from './modules/goods/brand';
+import goods from './modules/goods';
+import goodsCat from './modules/goods/goods_cat';
+import goodsSpec from './modules/goods/goods_spec';
+import goodsParam from './modules/goods/goods_param';
+import goodsType from './modules/goods/goods_type';
+import goodsComment from './modules/goods/goods_comment';
 
-import sysUser from './moudules/permission/sys_user'
-import role from './moudules/permission/role'
-import menu from './moudules/permission/menu'
+import sysUser from './modules/permission/sys_user';
+import role from './modules/permission/role';
+import menu from './modules/permission/menu';
 
-import setting from './moudules/preference/setting'
-import operationLog from './moudules/preference/operation_log'
-import ship from './moudules/preference/ship'
-import store from './moudules/preference/store'
-import task from './moudules/preference/task'
-import messageCenter from './moudules/preference/message_center'
-import area from './moudules/preference/area'
-import logistics from './moudules/preference/logistics'
+import setting from './modules/preference/setting';
+import operationLog from './modules/preference/operation_log';
+import ship from './modules/preference/ship';
+import store from './modules/preference/store';
+import task from './modules/preference/task';
+import messageCenter from './modules/preference/message_center';
+import area from './modules/preference/area';
+import logistics from './modules/preference/logistics';
 
-import userGrade from './moudules/user/user_grade'
-import user from './moudules/user'
+import userGrade from './modules/user/user_grade';
+import user from './modules/user';
 
-import order from './moudules/order'
-import delivery from './moudules/order/bill_delivery'
-import lading from './moudules/order/bill_lading'
-import afterSale from './moudules/order/bill_after_sale'
-import reship from './moudules/order/bill_reship'
+import order from './modules/order';
+import delivery from './modules/order/bill_delivery';
+import lading from './modules/order/bill_lading';
+import afterSale from './modules/order/bill_after_sale';
+import reship from './modules/order/bill_reship';
 
-import balance from './moudules/pay/balance'
-import pay from './moudules/pay'
-import billPayment from './moudules/pay/bill_payment'
-import billRefund from './moudules/pay/bill_refund'
-import userToCash from './moudules/pay/user_to_cash'
+import balance from './modules/pay/balance';
+import pay from './modules/pay';
+import billPayment from './modules/pay/bill_payment';
+import billRefund from './modules/pay/bill_refund';
+import userToCash from './modules/pay/user_to_cash';
 
-import dict from './moudules/system/dict'
-import log from './moudules/system/log'
-import db from './moudules/system/db'
+import dict from './modules/system/dict';
+import log from './modules/system/log';
+import db from './modules/system/db';
 
-import articleType from './moudules/marketing/article_type'
-import article from './moudules/marketing/article'
-import advertPosition from './moudules/marketing/advert_position'
-import advertisement from './moudules/marketing/advertisement'
-import notice from './moudules/marketing/notice'
+import articleType from './modules/marketing/article_type';
+import article from './modules/marketing/article';
+import advertPosition from './modules/marketing/advert_position';
+import advertisement from './modules/marketing/advertisement';
+import notice from './modules/marketing/notice';
 
-import promotion from './moudules/promotion'
-import spTarget from './moudules/promotion/sp_target'
-import spRule from './moudules/promotion/sp_rule'
-import coupon from './moudules/promotion/coupon'
+import promotion from './modules/promotion';
+import spTarget from './modules/promotion/sp_target';
+import spRule from './modules/promotion/sp_rule';
+import coupon from './modules/promotion/coupon';
 
-import report from './moudules/report'
+import report from './modules/report';
 
-import weixinMessage from './moudules/wechat/weixin_message'
-import weixinMediaMessage from './moudules/wechat/weixin_media_message'
+import weixinMessage from './modules/wechat/weixin_message';
+import weixinMediaMessage from './modules/wechat/weixin_media_message';
 
-import page from './moudules/page'
+import page from './modules/page';
 
-import form from './moudules/form'
-import formSubmit from './moudules/form/form_submit'
+import form from './modules/form';
+import formSubmit from './modules/form/form_submit';
 
-const mapAlias = () => { return axios({ url: 'cms/map_alias', method: 'get' }) }
+const mapAlias = () => {
+    return axios({ url: 'cms/map_alias', method: 'get' });
+};
 
 // 默认全部导出
 export default {
@@ -121,5 +123,5 @@ export default {
     page,
     form,
     formSubmit,
-    mapAlias
-}
+    mapAlias,
+};

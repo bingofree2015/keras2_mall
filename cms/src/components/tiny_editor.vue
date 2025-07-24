@@ -1,18 +1,18 @@
 <template>
     <div class="tiny-container">
         <textarea ref="editor"></textarea>
-        <video-uploader :visible.sync="videoDialogVisible" @chosedVideo="chosedVideo"></video-uploader>
-        <multi-uploader :visible.sync="imageDialogVisible" @chosedImage="chosedImage"></multi-uploader>
+        <video-uploader v-model:visible="videoDialogVisible" @chosed-video="chosedVideo" />
+        <multi-uploader v-model:visible="imageDialogVisible" @chosed-image="chosedImage" />
     </div>
 </template>
 <script>
-import tinymce from "tinymce";
-import 'tinymce/icons/default'
-import videoUploader from "@/components/video_uploader";
-import multiUploader from "@/components/multi_uploader";
+import tinymce from 'tinymce';
+import 'tinymce/icons/default';
+import videoUploader from '@/components/video_uploader.vue';
+import multiUploader from '@/components/multi_uploader.vue';
 
 export default {
-    name: "TinyEditor",
+    name: 'TinyEditor',
     components: {
         videoUploader,
         multiUploader,
@@ -26,12 +26,12 @@ export default {
         // 触发content同步更新的tinymce Editor Events，其他https://www.tiny.cloud/docs/advanced/events/
         updateEvent: {
             type: String,
-            default: "beforeaddundo undo redo keyup",
+            default: 'beforeaddundo undo redo keyup',
         },
         // tinymce依赖文件的cdn url
         url: {
             type: String,
-            default: "https://cdn.jsdelivr.net/npm/tinymce@~5",
+            default: 'https://cdn.jsdelivr.net/npm/tinymce@~5',
         },
         // tinymce的init方法的config参数，本组件有默认设置，比如不要toolbar3，可以使用该组件时写上 :config="{toolbar2:''}"
         config: {
@@ -47,36 +47,36 @@ export default {
             videoDialogVisible: false,
             imageDialogVisible: false,
             defaultConfig: {
-                themes: "modern",
+                themes: 'modern',
                 allow_script_urls: true,
                 remove_script_host: false,
                 convert_urls: false,
                 relative_urls: false,
                 language_url: `${this.url}/langs/zh_CN.js`,
-                language: "zh_CN",
+                language: 'zh_CN',
                 theme_url: `${this.url}/themes/silver/theme.min.js`,
                 skin_url: `${this.url}/skins/ui/oxide`,
                 branding: false,
                 menubar: false,
-                fontsize_formats: "12px 13px 14px 15px 16px 18px 20px 24px",
+                fontsize_formats: '12px 13px 14px 15px 16px 18px 20px 24px',
                 external_plugins: {},
                 plugins:
-                    "code hr link advlist lists paste table image imagetools media preview autoresize",
-                contextmenu: "selectall copy paste inserttable",
+                    'code hr link advlist lists paste table image imagetools media preview autoresize',
+                contextmenu: 'selectall copy paste inserttable',
                 toolbar1:
-                    "link unlink bold italic forecolor backcolor table alignleft aligncenter alignright alignjustify removeformat imageUpload videoUpload",
+                    'link unlink bold italic forecolor backcolor table alignleft aligncenter alignright alignjustify removeformat imageUpload videoUpload',
                 setup: (editor) => {
                     const self = this;
-                    editor.ui.registry.addButton("imageUpload", {
-                        tooltip: "插入图片",
-                        icon: "image",
+                    editor.ui.registry.addButton('imageUpload', {
+                        tooltip: '插入图片',
+                        icon: 'image',
                         onAction: () => {
                             self.imageDialogVisible = true;
                         },
                     });
-                    editor.ui.registry.addButton("videoUpload", {
-                        tooltip: "插入视频",
-                        icon: "upload",
+                    editor.ui.registry.addButton('videoUpload', {
+                        tooltip: '插入视频',
+                        icon: 'upload',
                         onAction: () => {
                             self.videoDialogVisible = true;
                         },
@@ -97,37 +97,33 @@ export default {
                 Object.assign(this.defaultConfig, val);
                 // ============================================================================
                 // 如果语言相关为默认英语，则修改默认配置为中文
-                const zhCN = "zh_CN";
-                const enUS = "en_US";
+                const zhCN = 'zh_CN';
+                const enUS = 'en_US';
                 // 如果语言没有配置，则默认配置为中文
                 if (!this.defaultConfig.language) {
                     this.defaultConfig.language = zhCN;
                 }
                 // 如果有配置语言，并且不是"en_US"，并且没有配置language_url，则使用本项目的语言包
                 if (
-                    Object.prototype.toString.call(
-                        this.defaultConfig.language
-                    ) === "[object String]" &&
+                    Object.prototype.toString.call(this.defaultConfig.language) ===
+                        '[object String]' &&
                     this.defaultConfig.language !== enUS &&
-                    Object.prototype.toString.call(
-                        this.defaultConfig.language_url
-                    ) !== "[object String]"
+                    Object.prototype.toString.call(this.defaultConfig.language_url) !==
+                        '[object String]'
                 ) {
-                    let langCDN = "https://cdn.jsdelivr.net/npm/";
+                    let langCDN = 'https://cdn.jsdelivr.net/npm/';
                     if (/unpkg.com/.test(this.url)) {
-                        langCDN = "https://unpkg.com/";
+                        langCDN = 'https://unpkg.com/';
                     }
                     this.defaultConfig.language_url = `${langCDN}@panhezeng/vue-tinymce@latest/src/langs/${this.defaultConfig.language}.min.js`;
                 }
                 // 如果语言为中文，并且没有配置字体，则使用内部配置
                 if (
                     this.defaultConfig.language === zhCN &&
-                    Object.prototype.toString.call(
-                        this.defaultConfig.font_formats
-                    ) !== "[object String]"
+                    Object.prototype.toString.call(this.defaultConfig.font_formats) !==
+                    '[object String]'
                 ) {
-                    this.defaultConfig.font_formats =
-                        '微软雅黑="微软雅黑";幼圆="幼圆";Arial=arial';
+                    this.defaultConfig.font_formats = '微软雅黑="微软雅黑";幼圆="幼圆";Arial=arial';
                 }
                 // 如果配置为默认英语，则删除语言相关配置节点
                 if (this.defaultConfig.language === enUS) {
@@ -140,11 +136,11 @@ export default {
             deep: true,
         },
         content: {
-            handler: "setContent",
+            handler: 'setContent',
             immediate: true,
         },
     },
-    beforeDestroy() {
+    beforeUnmount() {
         this.destroy();
     },
     created() {
@@ -162,7 +158,7 @@ export default {
         chosedImage(chosen) {
             const src = this.env.getImgUrl(chosen.path); // 图片地址
             tinymce.execCommand(
-                "mceInsertContent",
+                'mceInsertContent',
                 false,
                 `<img src=${src} style="max-width:380px;">`
             );
@@ -172,20 +168,20 @@ export default {
             const src = this.env.getImgUrl(videoFile); // 视频地址
             const dom = tinymce.activeEditor.dom;
             tinymce.execCommand(
-                "mceInsertContent",
+                'mceInsertContent',
                 false,
-                dom.createHTML("video", {
+                dom.createHTML('video', {
                     src: src,
-                    maxWidth: "380px",
-                    controls: "controls",
+                    maxWidth: '380px',
+                    controls: 'controls',
                 })
             );
             this.videoDialogVisible = false;
         },
         // 插入图片至编辑器
         insertImage(res, file) {
-            const src = ""; // 图片存储地址
-            tinymce.execCommand("mceInsertContent", false, `<img src=${src}>`);
+            const src = ''; // 图片存储地址
+            tinymce.execCommand('mceInsertContent', false, `<img src=${src}>`);
         },
         init() {
             // 编辑器实例初始化
@@ -197,9 +193,7 @@ export default {
                     if (this && this.$refs.editor) {
                         if (
                             /^\[object [^F]*Function\]$/.test(
-                                Object.prototype.toString.call(
-                                    this.config.init_instance_callback
-                                )
+                                Object.prototype.toString.call(this.config.init_instance_callback)
                             )
                         ) {
                             this.config.init_instance_callback(editor);
@@ -247,8 +241,8 @@ export default {
                 // 同步到父组件
                 if (this && this.$refs.editor && this.editor) {
                     const content = this.editor.getContent();
-                    this.$emit("update:content", content);
-                    this.$emit("content-change", content);
+                    this.$emit('update:content', content);
+                    this.$emit('content-change', content);
                 }
             });
         },

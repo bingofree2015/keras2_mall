@@ -1,7 +1,7 @@
 <template>
-    <div class="lang-selector" :style="istyle" v-popover:popover>
+    <div v-popover:popover class="lang-selector" :style="istyle">
         <li :style="iconStyle" :class="icon"></li>
-        <el-popover ref="popover" placement="bottom-start" :trigger="trigger" v-model="visible">
+        <el-popover ref="popover" v-model="visible" placement="bottom-start" :trigger="trigger">
             <div class="item" @click="changeLanguage('zh_cn')">简体中文</div>
             <div class="item" @click="changeLanguage('en_us')">English</div>
         </el-popover>
@@ -14,35 +14,35 @@ export default {
     props: {
         istyle: {
             type: String,
-            default: 'width:60px;'
+            default: 'width:60px;',
         },
         icon: {
             type: String,
-            default: 'fa fa-language fa-lg'
+            default: 'fa fa-language fa-lg',
         },
         iconStyle: {
             type: String,
-            default: 'color:#fff;'
+            default: 'color:#fff;',
         },
         trigger: {
             type: String,
-            default: 'click'
-        }
+            default: 'click',
+        },
     },
-    data () {
+    data() {
         return {
-            visible: false
-        }
+            visible: false,
+        };
     },
     methods: {
-    // 语言切换
-        changeLanguage (lang) {
-            const _lang = lang === '' ? 'zh_cn' : lang
-            this.$i18n.locale = _lang
-            this.visible = false
-        }
-    }
-}
+        // 语言切换
+        changeLanguage(lang) {
+            const _lang = lang === '' ? 'zh_cn' : lang;
+            this.$i18n.locale = _lang;
+            this.visible = false;
+        },
+    },
+};
 </script>
 <style scoped lang="scss">
 .item {

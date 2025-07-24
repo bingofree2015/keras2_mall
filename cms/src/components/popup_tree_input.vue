@@ -1,9 +1,25 @@
 <template>
     <div class="popup-tree">
-        <el-popover :placement="placement" ref="popover" trigger="click">
-            <el-tree :data="data" :default-expand-all="defaultExpandAll" :expand-on-click-node="true" :highlight-current="true" :props="props" @current-change="currentChangeHandle" node-key="nodeKey" ref="popupTree"></el-tree>
+        <el-popover ref="popover" :placement="placement" trigger="click">
+            <el-tree
+                ref="popupTree"
+                :data="data"
+                :default-expand-all="defaultExpandAll"
+                :expand-on-click-node="true"
+                :highlight-current="true"
+                :props="props"
+                node-key="nodeKey"
+                @current-change="currentChangeHandle"
+            />
         </el-popover>
-        <el-input :placeholder="placeholder" :readonly="true" style="cursor:pointer;" v-model="prop" v-popover:popover></el-input>
+        <el-input
+            v-popover:popover
+            :placeholder="placeholder"
+            :readonly="true"
+            style="cursor: pointer"
+            :model-value="modelValue"
+            @update:model-value="$emit('update:modelValue', $event)"
+        />
     </div>
 </template>
 
@@ -13,40 +29,38 @@ export default {
     props: {
         data: {
             type: Array,
-            default: () => []
+            default: () => [],
         },
         props: {
             type: Object,
-            default: () => {}
+            default: () => {},
         },
-        prop: {
+        modelValue: {
             type: String,
-            default: ''
+            default: '',
         },
         nodeKey: {
             type: String,
-            default: ''
+            default: '',
         },
         placeholder: {
             type: String,
-            default: '点击选择内容'
+            default: '点击选择内容',
         },
         placement: {
             type: String,
-            default: 'right-start'
+            default: 'right-start',
         },
         defaultExpandAll: {
             type: Boolean,
-            default: false
+            default: false,
         },
         currentChangeHandle: {
             type: Function,
-            default: null
-        }
-    }
-}
+            default: null,
+        },
+    },
+};
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

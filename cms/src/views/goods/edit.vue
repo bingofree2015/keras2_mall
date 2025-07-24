@@ -1,280 +1,537 @@
 <template>
-	<div class="page-container">
-		<!--新增编辑界面-->
-		<el-form :model="formData" :rules="formDataRules" :size="normalSize" class="edit-dialog-container" label-width="80px" ref="formData">
-			<el-row>
-				<el-col :span="24">
-					<bread-crumb></bread-crumb>
-				</el-col>
-			</el-row>
-			<el-row>
-				<el-col :span="18">
-					<el-tabs>
-						<el-tab-pane>
-							<span slot="label">
-								<i class="el-icon-ali-jichuxinxi"></i> 基础信息
-							</span>
-							<el-row>
-								<el-col :span="10">
-									<el-form-item label="商品分类" prop="goodsCatId">
-										<el-cascader :options="goodsCatList" :props="cascaderProps" :show-all-levels="false" v-model="formData.goodsCatId"></el-cascader>
-									</el-form-item>
-								</el-col>
-								<el-col :span="10">
-									<el-form-item label="商品品牌" prop="brandId">
-										<el-select placeholder="请选择品牌" v-model="formData.brandId">
-											<el-option :key="item.id" :label="item.name" :value="item.id" v-for="item in brandList"></el-option>
-										</el-select>
-									</el-form-item>
-								</el-col>
-							</el-row>
-							<el-row>
-								<el-col :span="16">
-									<el-form-item label="商品名称" prop="name">
-										<el-input placeholder="请输入商品名称" v-model="formData.name"></el-input>
-									</el-form-item>
-								</el-col>
-								<el-col :span="8">
-									<el-form-item label="商品编号" prop="bn">
-										<el-input placeholder="请输入商品编号" v-model="formData.bn"></el-input>
-									</el-form-item>
-								</el-col>
-							</el-row>
-							<el-form-item label="商品简介" prop="brief">
-								<el-input :autosize="{ minRows: 2, maxRows: 4}" maxlength="1024" placeholder="请输入商品简介" show-word-limit type="textarea" v-model="formData.brief"></el-input>
-							</el-form-item>
-							<el-form-item label="商品主图" prop="attachment">
-								<change-image-icon :imgUrl="formData.attachment ? formData.attachment.path : ''" :initStyle="{height: '80px', width: '80px',border: '1px dashed #d9d9d9', borderRadius: '4px'}" @chosedImageIcon="chosedImage"></change-image-icon>
-							</el-form-item>
-							<el-card class="goods-attachments-box">
-								<div class="header" slot="header">
-									<span>其它图片列表</span>
-								</div>
-								<el-row>
-									<el-col :span="24">
-										<draggable-image-list :items="formData.goodsAttachments" :size="74" @chosedImage="addGoodsAttachments" @end="end" @onRemove="onRemove"></draggable-image-list>
-									</el-col>
-								</el-row>
-							</el-card>
-						</el-tab-pane>
-						<el-tab-pane>
-							<span slot="label">
-								<i class="el-icon-ali-xiaoshouxinxi"></i> 销售信息
-							</span>
-							<el-row>
-								<el-col :span="12">
-									<el-form-item label="商品类型" prop="goodsTypeId">
-										<el-select @change="handleChangeGoodsType" placeholder="请选择类型" v-model="formData.goodsTypeId">
-											<el-option :key="item.id" :label="item.name" :value="item.id" v-for="item in goodsTypeList"></el-option>
-										</el-select>
-									</el-form-item>
-								</el-col>
-								<el-col :span="12">
-									<el-form-item label="开启规格" prop="openSpec">
-										<el-switch active-text="开启" inactive-text="关闭" v-model="formData.openSpec"></el-switch>
-									</el-form-item>
-								</el-col>
-							</el-row>
-							<!-- 商品参数 -->
-							<div class="goods-params">
-								<el-divider content-position="left">商品参数</el-divider>
-								<el-form-item :key="idx" :label="param.name" v-for="(param,idx) in formData.goodsType.params">
-									<el-input placeholder="请输入参数值" v-if="param.type === 'text'" v-model="param.values"></el-input>
-									<el-radio-group v-else-if="param.type === 'radio' && param.optionalValues" v-model="param.values">
-										<el-radio :key="key" :label="item" v-for="(item,key) in param.optionalValues.split(' ')">{{item}}</el-radio>
-									</el-radio-group>
-									<el-checkbox-group v-else-if="param.type === 'checkbox' && param.optionalValues" v-model="param.values">
-										<el-checkbox :key="key" :label="item" v-for="(item,key) in param.optionalValues.split(' ')"></el-checkbox>
-									</el-checkbox-group>
-								</el-form-item>
-							</div>
-							<!-- 商品规格 -->
-							<div class="goods-specs" v-if="formData.openSpec">
-								<el-form-item :key="idx" :label="spec.name" prop="name" v-for="(spec,idx) in formData.goodsType.specs">
-									<el-row>
-										<el-col :key="key" :span="6" style="margin-right:10px" v-for="(item,key) in spec.values">
-											<el-form-item prop="value">
-												<el-input placeholder="请输入内容" v-model="item.value">
-													<el-checkbox slot="prepend" v-model="item.checked"></el-checkbox>
-												</el-input>
-											</el-form-item>
-										</el-col>
-									</el-row>
-								</el-form-item>
-								<el-form-item label="生成规格">
-									<ext-button :size="miniSize" @click="handleBuildProducts()" icon="el-icon-ali-goujian" label="生成规格" type="primary" />
-								</el-form-item>
-								<el-table :data="formData.products" :size="miniSize" stripe style="width: 100%">
-									<el-table-column label="默认" min-width="50" prop="id">
-										<template slot-scope="scope">
-											<el-radio :label="scope.row.id" @change="handleSetDefault(scope.row)" v-model="formData.defaultProduct">&nbsp;</el-radio>
-										</template>
-									</el-table-column>
-									<el-table-column label="图片" min-width="50" prop="attachment">
-										<template slot-scope="scope">
-											<change-image-icon :imgUrl="scope.row['attachment']?scope.row['attachment'].path:''" :initStyle="{height: '40px', width: '40px',border: '1px dashed #d9d9d9', borderRadius: '4px'}" @chosedImageIcon="(chosed)=>{chosedProductImage(scope.row,chosed)}"></change-image-icon>
-										</template>
-									</el-table-column>
-									<el-table-column label="货号" min-width="140" prop="sn">
-										<template slot-scope="scope">
-											<el-input :size="miniSize" placeholder="请输入货号" v-model="scope.row['sn']"></el-input>
-										</template>
-									</el-table-column>
-									<el-table-column label="规格" min-width="120" prop="specs" show-overflow-tooltip></el-table-column>
-									<el-table-column label="库存" min-width="50" prop="stock"></el-table-column>
-									<el-table-column label="库存增减量" min-width="160" prop="dynamicStock">
-										<template slot-scope="scope">
-											<el-input :size="miniSize" class="switch-container" placeholder="增减" v-model.number="scope.row['dynamicStock']">
-												<el-switch active-text="+" inactive-text="-" slot="append" v-model="scope.row['dynamicStockDirection']"></el-switch>
-											</el-input>
-										</template>
-									</el-table-column>
-									<el-table-column label="销售价" min-width="90" prop="price">
-										<template slot-scope="scope">
-											<el-input :size="miniSize" placeholder="请输入销售价" v-model="scope.row['price']"></el-input>
-										</template>
-									</el-table-column>
-									<el-table-column label="成本价" min-width="90" prop="costPrice">
-										<template slot-scope="scope">
-											<el-input :size="miniSize" placeholder="请输入成本价" v-model="scope.row['costPrice']"></el-input>
-										</template>
-									</el-table-column>
-									<el-table-column label="市场价" min-width="90" prop="mktPrice">
-										<template slot-scope="scope">
-											<el-input :size="miniSize" placeholder="请输入市场价" v-model="scope.row['mktPrice']"></el-input>
-										</template>
-									</el-table-column>
-									<el-table-column fixed="right" label="操作" min-width="88" prop="operation">
-										<template slot-scope="scope">
-											<ext-button :label="$t('action.delete')" :size="miniSize" @click="handleDeleteProduct(scope.row)" icon="el-icon-ali-shanchu" type="danger" />
-										</template>
-									</el-table-column>
-								</el-table>
-							</div>
-							<!-- 商品销售基本信息 -->
-							<div class="goods-simple" v-else>
-								<el-row>
-									<el-col :span="6">
-										<el-form-item label="销售价" prop="price">
-											<el-input placeholder="请输入销售价" v-model="formData.price"></el-input>
-										</el-form-item>
-									</el-col>
-									<el-col :span="6">
-										<el-form-item label="成本价" prop="costPrice">
-											<el-input placeholder="请输入成本价" v-model="formData.costPrice"></el-input>
-										</el-form-item>
-									</el-col>
-									<el-col :span="6">
-										<el-form-item label="市场价" prop="mktPrice">
-											<el-input placeholder="请输入市场价" v-model="formData.mktPrice"></el-input>
-										</el-form-item>
-									</el-col>
-								</el-row>
-								<el-row>
-									<el-col :span="6">
-										<el-form-item label="货号" prop="sn">
-											<el-input placeholder="请输入货号" v-model="formData.sn"></el-input>
-										</el-form-item>
-									</el-col>
-									<el-col :span="6">
-										<el-form-item label="当前库存" prop="stock">{{formData.stock}}</el-form-item>
-									</el-col>
-									<el-col :span="6">
-										<el-form-item class="switch-container" label="库存" prop="dynamicStock">
-											<el-input placeholder="请输入库存" v-model="formData.dynamicStock">
-												<el-switch active-text="+" inactive-text="-" slot="append" v-model="formData.dynamicStockDirection"></el-switch>
-											</el-input>
-										</el-form-item>
-									</el-col>
-								</el-row>
-							</div>
-						</el-tab-pane>
-						<el-tab-pane>
-							<span slot="label">
-								<i class="el-icon-ali-shangpin-xiangqing"></i> 商品详情
-							</span>
-							<el-row>
-								<el-form-item label="会员价" prop="gradePrice">
-									<el-col :key="idx" :span="6" v-for="(item, idx) in userGradeList">
-										<el-input placeholder="请输入优惠价" v-model="formData.gradePrice[item.id]">
-											<template slot="prepend">{{item.name}}</template>
-										</el-input>
-									</el-col>
-								</el-form-item>
-							</el-row>
-							<el-row>
-								<el-col :span="6">
-									<el-form-item label="重量" prop="weight">
-										<el-input placeholder="请输入成本价" v-model="formData.weight"></el-input>
-									</el-form-item>
-								</el-col>
-								<el-col :span="6">
-									<el-form-item label="单位" prop="unit">
-										<el-input placeholder="请输入市场价" v-model="formData.unit"></el-input>
-									</el-form-item>
-								</el-col>
-							</el-row>
-							<el-row>
-								<el-col :span="6">
-									<el-form-item label="上架" prop="marketable">
-										<el-switch active-text="上架" inactive-text="下架" v-model="formData.marketable"></el-switch>
-									</el-form-item>
-								</el-col>
-								<el-col :span="6">
-									<el-form-item label="推荐" prop="isRecommend">
-										<el-switch active-text="开启" inactive-text="关闭" v-model="formData.isRecommend"></el-switch>
-									</el-form-item>
-								</el-col>
-								<el-col :span="6">
-									<el-form-item label="热门" prop="isHot">
-										<el-switch active-text="开启" inactive-text="关闭" v-model="formData.isHot"></el-switch>
-									</el-form-item>
-								</el-col>
-							</el-row>
-							<el-form-item label="详细介绍" prop="intro">
-								<tinyEditor :content.sync="formData.intro"></tinyEditor>
-							</el-form-item>
-						</el-tab-pane>
-					</el-tabs>
-				</el-col>
-			</el-row>
-			<el-row>
-				<el-col :span="18" class="footer">
-					<el-button :size="miniSize" @click="resetForm('formData')" round>{{$t('action.cancel')}}</el-button>
-					<el-button :loading="editLoading" :size="miniSize" @click.native="submitForm" round type="primary">{{$t('action.submit')}}</el-button>
-				</el-col>
-			</el-row>
-		</el-form>
-	</div>
+    <div class="page-container">
+        <!--新增编辑界面-->
+        <el-form
+            ref="formData"
+            :model="formData"
+            :rules="formDataRules"
+            :size="largeSize"
+            class="edit-dialog-container"
+            label-width="80px"
+        >
+            <el-row>
+                <el-col :span="24">
+                    <bread-crumb />
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="18">
+                    <el-tabs>
+                        <el-tab-pane>
+                            <template #label>
+                                <span>
+                                    <i class="el-icon-ali-jichuxinxi"></i>
+                                    基础信息
+                                </span>
+                            </template>
+                            <el-row>
+                                <el-col :span="10">
+                                    <el-form-item label="商品分类" prop="goodsCatId">
+                                        <el-cascader
+                                            v-model="formData.goodsCatId"
+                                            :options="goodsCatList"
+                                            :props="cascaderProps"
+                                            :show-all-levels="false"
+                                        />
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="10">
+                                    <el-form-item label="商品品牌" prop="brandId">
+                                        <el-select
+                                            v-model="formData.brandId"
+                                            placeholder="请选择品牌"
+                                        >
+                                            <el-option
+                                                v-for="item in brandList"
+                                                :key="item.id"
+                                                :label="item.name"
+                                                :value="item.id"
+                                            />
+                                        </el-select>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-row>
+                                <el-col :span="16">
+                                    <el-form-item label="商品名称" prop="name">
+                                        <el-input
+                                            v-model="formData.name"
+                                            placeholder="请输入商品名称"
+                                        />
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="8">
+                                    <el-form-item label="商品编号" prop="bn">
+                                        <el-input
+                                            v-model="formData.bn"
+                                            placeholder="请输入商品编号"
+                                        />
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-form-item label="商品简介" prop="brief">
+                                <el-input
+                                    v-model="formData.brief"
+                                    :autosize="{ minRows: 2, maxRows: 4 }"
+                                    maxlength="1024"
+                                    placeholder="请输入商品简介"
+                                    show-word-limit
+                                    type="textarea"
+                                />
+                            </el-form-item>
+                            <el-form-item label="商品主图" prop="attachment">
+                                <change-image-icon
+                                    :img-url="formData.attachment ? formData.attachment.path : ''"
+                                    :init-style="{
+                                        height: '80px',
+                                        width: '80px',
+                                        border: '1px dashed #d9d9d9',
+                                        borderRadius: '4px',
+                                    }"
+                                    @chosed-image-icon="chosedImage"
+                                />
+                            </el-form-item>
+                            <el-card class="goods-attachments-box">
+                                <template #header>
+                                    <div class="header">
+                                        <span>其它图片列表</span>
+                                    </div>
+                                </template>
+                                <el-row>
+                                    <el-col :span="24">
+                                        <draggable-image-list
+                                            :items="formData.goodsAttachments"
+                                            :size="74"
+                                            @chosed-image="addGoodsAttachments"
+                                            @end="end"
+                                            @on-remove="onRemove"
+                                        />
+                                    </el-col>
+                                </el-row>
+                            </el-card>
+                        </el-tab-pane>
+                        <el-tab-pane>
+                            <template #label>
+                                <span>
+                                    <i class="el-icon-ali-xiaoshouxinxi"></i>
+                                    销售信息
+                                </span>
+                            </template>
+                            <el-row>
+                                <el-col :span="12">
+                                    <el-form-item label="商品类型" prop="goodsTypeId">
+                                        <el-select
+                                            v-model="formData.goodsTypeId"
+                                            placeholder="请选择类型"
+                                            @change="handleChangeGoodsType"
+                                        >
+                                            <el-option
+                                                v-for="item in goodsTypeList"
+                                                :key="item.id"
+                                                :label="item.name"
+                                                :value="item.id"
+                                            />
+                                        </el-select>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="12">
+                                    <el-form-item label="开启规格" prop="openSpec">
+                                        <el-switch
+                                            v-model="formData.openSpec"
+                                            active-text="开启"
+                                            inactive-text="关闭"
+                                        />
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <!-- 商品参数 -->
+                            <div class="goods-params">
+                                <el-divider content-position="left">商品参数</el-divider>
+                                <el-form-item
+                                    v-for="(param, idx) in formData.goodsType.params"
+                                    :key="idx"
+                                    :label="param.name"
+                                >
+                                    <el-input
+                                        v-if="param.type === 'text'"
+                                        v-model="param.values"
+                                        placeholder="请输入参数值"
+                                    />
+                                    <el-radio-group
+                                        v-else-if="param.type === 'radio' && param.optionalValues"
+                                        v-model="param.values"
+                                    >
+                                        <el-radio
+                                            v-for="(item, key) in param.optionalValues.split(' ')"
+                                            :key="key"
+                                            :label="item"
+                                        >
+                                            {{ item }}
+                                        </el-radio>
+                                    </el-radio-group>
+                                    <el-checkbox-group
+                                        v-else-if="
+                                            param.type === 'checkbox' && param.optionalValues
+                                        "
+                                        v-model="param.values"
+                                    >
+                                        <el-checkbox
+                                            v-for="(item, key) in param.optionalValues.split(' ')"
+                                            :key="key"
+                                            :label="item"
+                                        />
+                                    </el-checkbox-group>
+                                </el-form-item>
+                            </div>
+                            <!-- 商品规格 -->
+                            <div v-if="formData.openSpec" class="goods-specs">
+                                <el-form-item
+                                    v-for="(spec, idx) in formData.goodsType.specs"
+                                    :key="idx"
+                                    :label="spec.name"
+                                    prop="name"
+                                >
+                                    <el-row>
+                                        <el-col
+                                            v-for="(item, key) in spec.values"
+                                            :key="key"
+                                            :span="6"
+                                            style="margin-right: 10px"
+                                        >
+                                            <el-form-item prop="value">
+                                                <el-input
+                                                    v-model="item.value"
+                                                    placeholder="请输入内容"
+                                                >
+                                                    <template #append>
+                                                        <el-checkbox v-model="item.checked" />
+                                                    </template>
+                                                </el-input>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                </el-form-item>
+                                <el-form-item label="生成规格">
+                                    <ext-button
+                                        :size="largeSize"
+                                        icon="el-icon-ali-goujian"
+                                        label="生成规格"
+                                        type="primary"
+                                        @click="handleBuildProducts()"
+                                    />
+                                </el-form-item>
+                                <el-table
+                                    :data="formData.products"
+                                    :size="largeSize"
+                                    stripe
+                                    style="width: 100%"
+                                >
+                                    <el-table-column label="默认" min-width="50" prop="id">
+                                        <template #default="scope">
+                                            <el-radio
+                                                v-model="formData.defaultProduct"
+                                                :label="scope.row.id"
+                                                @change="handleSetDefault(scope.row)"
+                                            >
+                                                &nbsp;
+                                            </el-radio>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column label="图片" min-width="50" prop="attachment">
+                                        <template #default="scope">
+                                            <change-image-icon
+                                                :img-url="
+                                                    scope.row['attachment']
+                                                        ? scope.row['attachment'].path
+                                                        : ''
+                                                "
+                                                :init-style="{
+                                                    height: '40px',
+                                                    width: '40px',
+                                                    border: '1px dashed #d9d9d9',
+                                                    borderRadius: '4px',
+                                                }"
+                                                @chosed-image-icon="
+                                                    (chosed) => {
+                                                        chosedProductImage(scope.row, chosed);
+                                                    }
+                                                "
+                                            />
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column label="货号" min-width="140" prop="sn">
+                                        <template #default="scope">
+                                            <el-input
+                                                v-model="scope.row['sn']"
+                                                :size="largeSize"
+                                                placeholder="请输入货号"
+                                            />
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
+                                        label="规格"
+                                        min-width="120"
+                                        prop="specs"
+                                        show-overflow-tooltip
+                                    />
+                                    <el-table-column label="库存" min-width="50" prop="stock" />
+                                    <el-table-column
+                                        label="库存增减量"
+                                        min-width="160"
+                                        prop="dynamicStock"
+                                    >
+                                        <template #default="scope">
+                                            <el-input
+                                                v-model.number="scope.row['dynamicStock']"
+                                                :size="largeSize"
+                                                class="switch-container"
+                                                placeholder="增减"
+                                            >
+                                                <template #append>
+                                                    <el-switch
+                                                        v-model="scope.row['dynamicStockDirection']"
+                                                        active-text="+"
+                                                        inactive-text="-"
+                                                    />
+                                                </template>
+                                            </el-input>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column label="销售价" min-width="90" prop="price">
+                                        <template #default="scope">
+                                            <el-input
+                                                v-model="scope.row['price']"
+                                                :size="largeSize"
+                                                placeholder="请输入销售价"
+                                            />
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column label="成本价" min-width="90" prop="costPrice">
+                                        <template #default="scope">
+                                            <el-input
+                                                v-model="scope.row['costPrice']"
+                                                :size="largeSize"
+                                                placeholder="请输入成本价"
+                                            />
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column label="市场价" min-width="90" prop="mktPrice">
+                                        <template #default="scope">
+                                            <el-input
+                                                v-model="scope.row['mktPrice']"
+                                                :size="largeSize"
+                                                placeholder="请输入市场价"
+                                            />
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
+                                        fixed="right"
+                                        label="操作"
+                                        min-width="88"
+                                        prop="operation"
+                                    >
+                                        <template #default="scope">
+                                            <ext-button
+                                                :label="$t('action.delete')"
+                                                :size="largeSize"
+                                                icon="el-icon-ali-shanchu"
+                                                type="danger"
+                                                @click="handleDeleteProduct(scope.row)"
+                                            />
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                            </div>
+                            <!-- 商品销售基本信息 -->
+                            <div v-else class="goods-simple">
+                                <el-row>
+                                    <el-col :span="6">
+                                        <el-form-item label="销售价" prop="price">
+                                            <el-input
+                                                v-model="formData.price"
+                                                placeholder="请输入销售价"
+                                            />
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :span="6">
+                                        <el-form-item label="成本价" prop="costPrice">
+                                            <el-input
+                                                v-model="formData.costPrice"
+                                                placeholder="请输入成本价"
+                                            />
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :span="6">
+                                        <el-form-item label="市场价" prop="mktPrice">
+                                            <el-input
+                                                v-model="formData.mktPrice"
+                                                placeholder="请输入市场价"
+                                            />
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :span="6">
+                                        <el-form-item label="货号" prop="sn">
+                                            <el-input
+                                                v-model="formData.sn"
+                                                placeholder="请输入货号"
+                                            />
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :span="6">
+                                        <el-form-item label="当前库存" prop="stock">
+                                            {{ formData.stock }}
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :span="6">
+                                        <el-form-item
+                                            class="switch-container"
+                                            label="库存"
+                                            prop="dynamicStock"
+                                        >
+                                            <el-input
+                                                v-model="formData.dynamicStock"
+                                                placeholder="请输入库存"
+                                            >
+                                                <template #append>
+                                                    <el-switch
+                                                        v-model="formData.dynamicStockDirection"
+                                                        active-text="+"
+                                                        inactive-text="-"
+                                                    />
+                                                </template>
+                                            </el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+                            </div>
+                        </el-tab-pane>
+                        <el-tab-pane>
+                            <template #label>
+                                <span>
+                                    <i class="el-icon-ali-shangpin-xiangqing"></i>
+                                    商品详情
+                                </span>
+                            </template>
+                            <el-row>
+                                <el-form-item label="会员价" prop="gradePrice">
+                                    <el-col
+                                        v-for="(item, idx) in userGradeList"
+                                        :key="idx"
+                                        :span="6"
+                                    >
+                                        <el-input
+                                            v-model="formData.gradePrice[item.id]"
+                                            placeholder="请输入优惠价"
+                                        >
+                                            <template #prepend>
+                                                {{ item.name }}
+                                            </template>
+                                        </el-input>
+                                    </el-col>
+                                </el-form-item>
+                            </el-row>
+                            <el-row>
+                                <el-col :span="6">
+                                    <el-form-item label="重量" prop="weight">
+                                        <el-input
+                                            v-model="formData.weight"
+                                            placeholder="请输入成本价"
+                                        />
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="6">
+                                    <el-form-item label="单位" prop="unit">
+                                        <el-input
+                                            v-model="formData.unit"
+                                            placeholder="请输入市场价"
+                                        />
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-row>
+                                <el-col :span="6">
+                                    <el-form-item label="上架" prop="marketable">
+                                        <el-switch
+                                            v-model="formData.marketable"
+                                            active-text="上架"
+                                            inactive-text="下架"
+                                        />
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="6">
+                                    <el-form-item label="推荐" prop="isRecommend">
+                                        <el-switch
+                                            v-model="formData.isRecommend"
+                                            active-text="开启"
+                                            inactive-text="关闭"
+                                        />
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="6">
+                                    <el-form-item label="热门" prop="isHot">
+                                        <el-switch
+                                            v-model="formData.isHot"
+                                            active-text="开启"
+                                            inactive-text="关闭"
+                                        />
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-form-item label="详细介绍" prop="intro">
+                                <tinyEditor v-model:content="formData.intro" />
+                            </el-form-item>
+                        </el-tab-pane>
+                    </el-tabs>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="18" class="footer">
+                    <el-button :size="largeSize" round @click="resetForm('formData')">
+                        {{ $t('action.cancel') }}
+                    </el-button>
+                    <el-button
+                        :loading="editLoading"
+                        :size="largeSize"
+                        round
+                        type="primary"
+                        @click="submitForm"
+                    >
+                        {{ $t('action.submit') }}
+                    </el-button>
+                </el-col>
+            </el-row>
+        </el-form>
+    </div>
 </template>
 
 <script>
-import _ from 'lodash'
-import breadCrumb from '@/components/bread_crumb'
-import changeImageIcon from '@/components/change_image_icon'
-import draggableImageList from '@/components/draggable_image_list'
-import tinyEditor from '@/components/tiny_editor'
-import extButton from '@/components/core/ext_button'
+import _ from 'lodash';
+import breadCrumb from '@/components/bread_crumb.vue';
+import changeImageIcon from '@/components/change_image_icon.vue';
+import draggableImageList from '@/components/draggable_image_list.vue';
+import tinyEditor from '@/components/tiny_editor.vue';
+import extButton from '@/components/core/ext_button.vue';
 export default {
     components: {
         breadCrumb,
         changeImageIcon,
         draggableImageList,
         tinyEditor,
-        extButton
+        extButton,
     },
-    data () {
+    data() {
         const checkPrice = (rule, value, callback) => {
-            var reg = /^-?\d{1,5}(?:\.\d{1,3})?$/
+            var reg = /^-?\d{1,5}(?:\.\d{1,3})?$/;
             if (reg.test(value)) {
-                callback()
+                callback();
             } else {
-                callback(new Error('请输入大于零小于十万不超过三位小数的数字'))
+                callback(new Error('请输入大于零小于十万不超过三位小数的数字'));
             }
-        }
+        };
         return {
-            normalSize: 'small',
-            miniSize: 'mini',
+            largeSize: 'large',
             goodsCatList: [],
             goodsTypeList: [],
             brandList: [],
@@ -291,7 +548,7 @@ export default {
                 attachmentId: 0, // 默认图片 图片id
                 attachment: {
                     id: 0,
-                    path: ''
+                    path: '',
                 },
                 goodsAttachments: [], // 商品图片
                 goodsCatId: [], // 商品分类ID
@@ -299,7 +556,7 @@ export default {
                 goodsTypeId: '', // 商品类别ID
                 goodsType: {
                     params: [], // 参数信息
-                    specs: [] // 规格信息
+                    specs: [], // 规格信息
                 },
                 openSpec: false, // 开启规格
                 products: [], // 开启规格之后生成的产品组
@@ -330,55 +587,57 @@ export default {
                 isHot: 1, // 是否热门，1是，2否
                 labelIds: '', // 标签id逗号分隔
                 newSpec: '', // 自定义规格名称
-                gradePrice: {} // 会员价格
+                gradePrice: {}, // 会员价格
             },
             formDataRules: {
-                goodsCatId: [
-                    { required: true, message: '请选择商品分类', trigger: 'change' }
-                ],
-                brandId: [
-                    { required: true, message: '请选择商品品牌', trigger: 'change' }
-                ],
-                name: [
-                    { required: true, message: '请输入商品名称', trigger: 'blur' }
-                ],
-                bn: [
-                    { required: true, message: '请输入商品编号', trigger: 'blur' }
-                ],
+                goodsCatId: [{ required: true, message: '请选择商品分类', trigger: 'change' }],
+                brandId: [{ required: true, message: '请选择商品品牌', trigger: 'change' }],
+                name: [{ required: true, message: '请输入商品名称', trigger: 'blur' }],
+                bn: [{ required: true, message: '请输入商品编号', trigger: 'blur' }],
                 price: [
                     { required: true, message: '请输入价格', trigger: 'blur' },
-                    { validator: checkPrice, trigger: 'blur' }
-                ]
+                    { validator: checkPrice, trigger: 'blur' },
+                ],
             },
             cascaderProps: {
                 label: 'name',
                 value: 'id',
-                children: 'children'
-            }
-        }
+                children: 'children',
+            },
+        };
     },
-    computed: {
+    computed: {},
+    async mounted() {
+        this.isCreating = this.$route.query.isCreating;
+        const _goodsId = this.$route.query.id;
+        if (_goodsId > 0) {
+            await this.getGoodsDetail(_goodsId);
+        }
+        await this.getGoodsTypeList();
+        await this.getGoodsCatList();
+        await this.getBrandList();
+        await this.getUserGradeList();
     },
     methods: {
-        end (items) {
-            this.formData.goodsAttachments = items
+        end(items) {
+            this.formData.goodsAttachments = items;
         },
-        addGoodsAttachments (chosen) {
-            this.formData.goodsAttachments.push(chosen)
+        addGoodsAttachments(chosen) {
+            this.formData.goodsAttachments.push(chosen);
         },
-        onRemove (idx) {
+        onRemove(idx) {
             if (Number.isInteger(idx) && idx !== -1) {
-                this.formData.goodsAttachments.splice(idx, 1)
+                this.formData.goodsAttachments.splice(idx, 1);
             }
         },
-        chosedProductImage (row, chosed) {
-            row.attachmentId = chosed.id
-            row.attachment = chosed
+        chosedProductImage(row, chosed) {
+            row.attachmentId = chosed.id;
+            row.attachment = chosed;
         },
-        async handleChangeGoodsType (goodsTypeId) {
-            this.formData.goodsTypeId = goodsTypeId
+        async handleChangeGoodsType(goodsTypeId) {
+            this.formData.goodsTypeId = goodsTypeId;
 
-            const _result = await this.$api.goodsType.get({ id: goodsTypeId })
+            const _result = await this.$api.goodsType.get({ id: goodsTypeId });
             if (_result.succeed === 1 && _result.code === 200) {
                 /**
                  "data": {
@@ -500,62 +759,66 @@ export default {
                     ],
                 */
                 // 进行格式转换
-                const _goodsType = _.pick(_result.data, ['specs', 'params'])
+                const _goodsType = _.pick(_result.data, ['specs', 'params']);
                 if (Array.isArray(_goodsType.params)) {
                     for (const _param of _goodsType.params) {
-                        _param.optionalValues = _param.values
-                        _param.values = ''
+                        _param.optionalValues = _param.values;
+                        _param.values = '';
                     }
                 }
                 if (Array.isArray(_goodsType.specs)) {
                     for (const _spec of _goodsType.specs) {
-                        _spec.values = _spec.goodsSpecValues
-                        delete _spec.goodsSpecValues
+                        _spec.values = _spec.goodsSpecValues;
+                        delete _spec.goodsSpecValues;
                     }
                 }
-                this.formData.goodsType = _goodsType
+                this.formData.goodsType = _goodsType;
             }
         },
-        handleSetDefault (row) {
+        handleSetDefault(row) {
             for (const _product of this.formData.products) {
                 if (_product.id === row.id) {
-                    _product.isDefault = true
+                    _product.isDefault = true;
                 } else {
-                    _product.isDefault = false
+                    _product.isDefault = false;
                 }
             }
         },
-        handleDeleteProduct (row) {
-            const _index = this.formData.products.findIndex(v => v.id === row.id)
-            this.formData.products.splice(_index, 1)
+        handleDeleteProduct(row) {
+            const _index = this.formData.products.findIndex((v) => v.id === row.id);
+            this.formData.products.splice(_index, 1);
         },
-        combine (arr) {
+        combine(arr) {
             const r = [];
-            (function f (t, a, n) {
-                if (n === 0) return r.push(t)
+            (function f(t, a, n) {
+                if (n === 0) return r.push(t);
                 for (let i = 0; i < a[n - 1].length; i++) {
-                    f(t.concat(a[n - 1][i]), a, n - 1)
+                    f(t.concat(a[n - 1][i]), a, n - 1);
                 }
-            })([], arr, arr.length)
-            return r
+            })([], arr, arr.length);
+            return r;
         },
         // 重新初始化 this.products 数据
-        handleBuildProducts () {
-            const _products = []
+        handleBuildProducts() {
+            const _products = [];
 
             if (Array.isArray(this.formData.goodsType.specs)) {
-                const _specs = []
+                const _specs = [];
                 for (const spec of this.formData.goodsType.specs) {
                     if (Array.isArray(spec.values)) {
-                        const _values = spec.values.filter(v => v.checked === true).map(v => { return `${spec.name}:${v.value}` })
+                        const _values = spec.values
+                            .filter((v) => v.checked === true)
+                            .map((v) => {
+                                return `${spec.name}:${v.value}`;
+                            });
                         if (Array.isArray(_values) && _values.length > 0) {
-                            _specs.push(_values)
+                            _specs.push(_values);
                         }
                     }
                 }
-                const _composedSpecs = this.combine(_specs)
+                const _composedSpecs = this.combine(_specs);
 
-                let _idx = 1
+                let _idx = 1;
                 for (const _spec of _composedSpecs) {
                     _products.push({
                         id: _idx,
@@ -568,66 +831,66 @@ export default {
                         dynamicStock: 0, // 增减量
                         price: 0,
                         costPrice: 0,
-                        mktPrice: 0
-                    })
-                    ++_idx
+                        mktPrice: 0,
+                    });
+                    ++_idx;
                 }
             }
-            this.formData.products = _products
+            this.formData.products = _products;
 
-            const _checkedProduct = this.formData.products.find(v => v.isDefault === true)
+            const _checkedProduct = this.formData.products.find((v) => v.isDefault === true);
             if (_checkedProduct) {
-                this.defaultProduct = _checkedProduct.id
+                this.defaultProduct = _checkedProduct.id;
             } else {
-                this.defaultProduct = 0
+                this.defaultProduct = 0;
             }
         },
-        chosedImage (chosen) {
-            this.formData.attachmentId = chosen.id
-            this.formData.attachment = chosen
+        chosedImage(chosen) {
+            this.formData.attachmentId = chosen.id;
+            this.formData.attachment = chosen;
         },
         // 获取商品分类
-        async getGoodsCatList () {
-            const _result = await this.$api.goodsCat.getTree()
+        async getGoodsCatList() {
+            const _result = await this.$api.goodsCat.getTree();
             if (_result.succeed === 1 && _result.code === 200) {
-                this.goodsCatList = _result.data.list
+                this.goodsCatList = _result.data.list;
             }
         },
         // 获取商品类型
-        async getGoodsTypeList () {
-            const _result = await this.$api.goodsType.list()
+        async getGoodsTypeList() {
+            const _result = await this.$api.goodsType.list();
             if (_result.succeed === 1 && _result.code === 200) {
-                this.goodsTypeList = _result.data.list
+                this.goodsTypeList = _result.data.list;
             }
         },
         // 获取商品品牌
-        async getBrandList () {
-            const _result = await this.$api.brand.list()
+        async getBrandList() {
+            const _result = await this.$api.brand.list();
             if (_result.succeed === 1 && _result.code === 200) {
-                this.brandList = _result.data.list
+                this.brandList = _result.data.list;
             }
         },
         // 获取用户会员列表
-        async getUserGradeList () {
-            const _result = await this.$api.userGrade.list()
+        async getUserGradeList() {
+            const _result = await this.$api.userGrade.list();
             if (_result.succeed === 1 && _result.code === 200) {
-                this.userGradeList = _result.data.list
+                this.userGradeList = _result.data.list;
             }
         },
         // 编辑
-        submitForm () {
+        submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
                     this.$confirm('确认提交吗？', '提示', {}).then(async () => {
-                        this.editLoading = true
+                        this.editLoading = true;
 
-                        const data = Object.assign({}, this.formData)
+                        const data = Object.assign({}, this.formData);
                         if (Array.isArray(data.goodsCatId) && data.goodsCatId.length > 0) {
-                            data.goodsCatId = data.goodsCatId.pop()
+                            data.goodsCatId = data.goodsCatId.pop();
                         }
                         if (!data.openSpec) {
-                            data.goodsType.specs = []
-                            data.products = []
+                            data.goodsType.specs = [];
+                            data.products = [];
                             const _product = {
                                 isDefault: true,
                                 attachment: data.attachment,
@@ -635,103 +898,113 @@ export default {
                                 price: data.price, // 商品价格
                                 costPrice: data.costPrice, // 成本价
                                 mktPrice: data.mktPrice, // 市场价
-                                stock: data.stock + (data.dynamicStockDirection ? data.dynamicStock : data.dynamicStock * -1)
-                            }
-                            data.products.push(_product)
+                                stock:
+                                    data.stock +
+                                    (data.dynamicStockDirection
+                                        ? data.dynamicStock
+                                        : data.dynamicStock * -1),
+                            };
+                            data.products.push(_product);
                         } else {
-                            let _stock = 0
+                            let _stock = 0;
                             for (const _productItem of data.products) {
-                                _productItem.stock = _productItem.stock + (_productItem.dynamicStockDirection ? _productItem.dynamicStock : _productItem.dynamicStock * -1)
-                                _stock += _productItem.stock
+                                _productItem.stock =
+                                    _productItem.stock +
+                                    (_productItem.dynamicStockDirection
+                                        ? _productItem.dynamicStock
+                                        : _productItem.dynamicStock * -1);
+                                _stock += _productItem.stock;
                             }
-                            data.stock = _stock
+                            data.stock = _stock;
 
-                            const _product = data.products.find(v => { v.isDefault = true })
+                            const _product = data.products.find((v) => {
+                                v.isDefault = true;
+                            });
                             if (_product) {
-                                data.price = _product.price
-                                data.costPrice = _product.costPrice
-                                data.mktPrice = _product.mktPrice
+                                data.price = _product.price;
+                                data.costPrice = _product.costPrice;
+                                data.mktPrice = _product.mktPrice;
                             }
                         }
-                        console.log(data)
-                        const _result = await this.$api.goods.save(data)
+                        console.log(data);
+                        const _result = await this.$api.goods.save(data);
                         if (_result.succeed === 1 && _result.code === 200) {
                             this.$notify({
                                 title: '成功',
                                 message: _result.description,
-                                type: 'success'
-                            })
+                                type: 'success',
+                            });
                         } else {
                             this.$notify.error({
                                 title: '错误',
-                                message: _result.description
-                            })
+                                message: _result.description,
+                            });
                         }
-                        this.editLoading = false
-                        this.$router.push({ path: '/goods' })
-                    })
+                        this.editLoading = false;
+                        this.$router.push({ path: '/goods' });
+                    });
                 }
-            })
+            });
         },
-        resetForm (formName) {
-            this.$refs[formName].resetFields()
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
         },
-        async getGoodsDetail (id) {
+        async getGoodsDetail(id) {
             this.$api.goods.get({ id: this.$route.query.id }).then((result) => {
                 if (result.succeed === 1 && result.code === 200) {
-                    let _goodsDetail = result.data
+                    let _goodsDetail = result.data;
 
-                    let _goodsType = _goodsDetail.goodsType ? _goodsDetail.goodsType : {}
-                    _goodsType = Object.assign(_goodsType, { specs: _goodsDetail.specs, params: _goodsDetail.params })
-                    _goodsDetail = _.omit(_goodsDetail, ['specs', 'params'])
-                    _goodsDetail.goodsType = _goodsType
+                    let _goodsType = _goodsDetail.goodsType ? _goodsDetail.goodsType : {};
+                    _goodsType = Object.assign(_goodsType, {
+                        specs: _goodsDetail.specs,
+                        params: _goodsDetail.params,
+                    });
+                    _goodsDetail = _.omit(_goodsDetail, ['specs', 'params']);
+                    _goodsDetail.goodsType = _goodsType;
 
-                    const _gradePrice = {}
-                    if (Array.isArray(_goodsDetail.goodsGrades) && _goodsDetail.goodsGrades.length > 0) {
+                    const _gradePrice = {};
+                    if (
+                        Array.isArray(_goodsDetail.goodsGrades) &&
+                        _goodsDetail.goodsGrades.length > 0
+                    ) {
                         for (const _goodsGrade of _goodsDetail.goodsGrades) {
-                            _gradePrice[_goodsGrade.gradeId] = _goodsGrade.gradePrice
+                            _gradePrice[_goodsGrade.gradeId] = _goodsGrade.gradePrice;
                         }
                     }
-                    _goodsDetail.gradePrice = _gradePrice
+                    _goodsDetail.gradePrice = _gradePrice;
 
-                    if (Array.isArray(_goodsDetail.goodsAttachments) && _goodsDetail.goodsAttachments.length > 0) {
-                        const _goodsAttachments = []
+                    if (
+                        Array.isArray(_goodsDetail.goodsAttachments) &&
+                        _goodsDetail.goodsAttachments.length > 0
+                    ) {
+                        const _goodsAttachments = [];
                         for (const _goodsAttachment of _goodsDetail.goodsAttachments) {
                             if (_goodsAttachment.attachment) {
-                                _goodsAttachments.push(_goodsAttachment.attachment)
+                                _goodsAttachments.push(_goodsAttachment.attachment);
                             }
                         }
-                        _goodsDetail.goodsAttachments = _goodsAttachments
+                        _goodsDetail.goodsAttachments = _goodsAttachments;
                     }
 
-                    const _defaultProduct = Array.isArray(_goodsDetail.products) ? _goodsDetail.products.find(v => v.isDefault === true) : null
+                    const _defaultProduct = Array.isArray(_goodsDetail.products)
+                        ? _goodsDetail.products.find((v) => v.isDefault === true)
+                        : null;
                     if (_defaultProduct) {
-                        _goodsDetail.defaultProduct = _defaultProduct.id
+                        _goodsDetail.defaultProduct = _defaultProduct.id;
                     }
-                    this.formData = Object.assign(this.formData, _goodsDetail)
-                    this.formData.openSpec = _goodsType.specs.length > 0
+                    this.formData = Object.assign(this.formData, _goodsDetail);
+                    this.formData.openSpec = _goodsType.specs.length > 0;
 
-                    console.log(this.formData)
+                    console.log(this.formData);
                 }
-            })
-        }
+            });
+        },
     },
-    async mounted () {
-        this.isCreating = this.$route.query.isCreating
-        const _goodsId = this.$route.query.id
-        if (_goodsId > 0) {
-            await this.getGoodsDetail(_goodsId)
-        }
-        await this.getGoodsTypeList()
-        await this.getGoodsCatList()
-        await this.getBrandList()
-        await this.getUserGradeList()
-    }
-}
+};
 </script>
 
 <style scoped lang="scss">
-.switch-container ::v-deep .el-input-group__append {
+.switch-container :deep(.el-input-group__append) {
     padding: 0px 3px;
     .el-switch__label {
         margin: 3px;

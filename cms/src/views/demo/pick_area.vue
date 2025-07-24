@@ -7,14 +7,16 @@
             <p class="demo-summery">通过基础的 24 分栏，迅速简便地创建布局。</p>
             <el-row>
                 <el-col :span="18">
-                    <pick-area :selectionType="0" @chosedAreas="chosedAreas"></pick-area>
+                    <pick-area :selection-type="0" @chosed-areas="chosedAreas" />
                 </el-col>
             </el-row>
             <h5 class="demo-sub-title">
                 <i>执行结果</i>
             </h5>
             <el-row>
-                <el-col :span="18">{{areas.length>0?areas.map(v=>v.name):''}}</el-col>
+                <el-col :span="18">
+                    {{ areas.length > 0 ? areas.map((v) => v.name) : '' }}
+                </el-col>
             </el-row>
             <h5 class="demo-sub-title">
                 <i>演示代码</i>
@@ -57,27 +59,27 @@ export default {
     </el-container>
 </template>
 <script>
-import pickArea from '@/components/pick_area'
+import pickArea from '@/components/pick_area';
 
 export default {
     components: {
         pickArea,
     },
-    computed: {},
     data() {
         return {
-            normalSize: "small",
-            miniSize: "mini",
+            normalSize: 'large',
+            smallSize: 'small',
 
             areas: [],
         };
     },
-    methods: {
-        chosedAreas (areas) {
-            this.areas = areas
-        }
-    },
+    computed: {},
     mounted() {},
+    methods: {
+        chosedAreas(areas) {
+            this.areas = areas;
+        },
+    },
 };
 </script>
 <style scoped lang="scss">

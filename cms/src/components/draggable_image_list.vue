@@ -1,92 +1,114 @@
 <template>
     <div id="draggable-image-list">
-        <transition-group :class="[
-      'draggable-list'
-    ]" id="draggable-list" name="draggable-list" tag="ul">
-            <draggable :list="items" @end="end" key="drag" v-bind="dragOptions">
-                <li :class="['draggable-list-item']" :key="item.id" :style="{width:size+'px',height:size+'px'}" v-for="(item,idx) in items">
+        <transition-group id="draggable-list" class="draggable-list" name="draggable-list" tag="ul">
+            <draggable key="drag" :list="items" v-bind="dragOptions" @end="end">
+                <li
+                    v-for="(item, idx) in items"
+                    :key="item.id"
+                    class="draggable-list-item"
+                    :style="{ width: size + 'px', height: size + 'px' }"
+                >
                     <slot :item="item">
-                        <img :id="'draggable_'+item.id" :src="env.getImgUrl(item.path)" alt class="draggable-list-item-thumbnail" />
+                        <img
+                            :id="'draggable_' + item.id"
+                            :src="env.getImgUrl(item.path)"
+                            alt
+                            class="draggable-list-item-thumbnail"
+                        />
                         <span class="draggable-list-item-actions">
-                            <span @click="onPreview('draggable_'+item.id)" class="draggable-list-item-preview">
+                            <span
+                                class="draggable-list-item-preview"
+                                @click="onPreview('draggable_' + item.id)"
+                            >
                                 <i class="el-icon-zoom-in"></i>
                             </span>
-                            <span @click="$emit('on-remove', idx)" class="draggable-list-item-delete">
+                            <span
+                                class="draggable-list-item-delete"
+                                @click="$emit('on-remove', idx)"
+                            >
                                 <i class="el-icon-delete"></i>
                             </span>
                         </span>
                     </slot>
                 </li>
-                <div :style="{lineHeight:size+'px',width:size+'px',height:size+'px'}" @click="uploadImage" class="draggable-list-item" id="draggable-list-item-add">
+                <div
+                    id="draggable-list-item-add"
+                    :style="{ lineHeight: size + 'px', width: size + 'px', height: size + 'px' }"
+                    class="draggable-list-item"
+                    @click="uploadImage"
+                >
                     <i class="el-icon-plus"></i>
                 </div>
             </draggable>
         </transition-group>
-        <multi-uploader :visible.sync="imageDialogVisible" @chosedImage="chosedImage"></multi-uploader>
+        <multi-uploader v-model:visible="imageDialogVisible" @chosed-image="chosedImage" />
     </div>
 </template>
+
 <script>
-import 'viewerjs/dist/viewer.css'
-import Viewer from 'viewerjs'
-import draggable from 'vuedraggable'
-import multiUploader from '@/components/multi_uploader'
+import 'viewerjs/dist/viewer.css';
+import Viewer from 'viewerjs';
+import draggable from 'vuedraggable';
+import multiUploader from '@/components/multi_uploader';
+
 export default {
+    name: 'DraggableImageList',
     components: {
         draggable,
-        multiUploader
-    },
-    computed: {
-        dragOptions () {
-            return {
-                animation: 0,
-                ghostClass: 'draggable-ghost' // 设置拖动元素的class的占位符的类名
-            }
-        }
-    },
-    name: 'DraggableImageList',
-    data () {
-        return {
-            imageDialogVisible: false,
-            focusing: false,
-            draggableItems: []
-        }
+        multiUploader,
     },
     props: {
         items: {
             type: Array,
-            default () {
-                return []
-            }
+            default() {
+                return [];
+            },
         },
         size: {
             type: Number,
-            default: 148
-        }
+            default: 148,
+        },
+    },
+    data() {
+        return {
+            imageDialogVisible: false,
+            focusing: false,
+            draggableItems: [],
+        };
+    },
+    computed: {
+        dragOptions() {
+            return {
+                animation: 0,
+                ghostClass: 'draggable-ghost', // 设置拖动元素的class的占位符的类名
+            };
+        },
     },
     methods: {
-        end (evt) {
-            this.$emit('end', this.items)
+        end(evt) {
+            this.$emit('end', this.items);
         },
-        uploadImage () {
-            this.imageDialogVisible = true
+        uploadImage() {
+            this.imageDialogVisible = true;
         },
-        chosedImage (chosen) {
-            this.$emit('chosedImage', chosen)
-            this.imageDialogVisible = false
+        chosedImage(chosen) {
+            this.$emit('chosedImage', chosen);
+            this.imageDialogVisible = false;
         },
-        onPreview (idx) {
-            const el = document.getElementById(idx)
-            const viewer = new Viewer(el, {})
-            viewer.destroy()
-            viewer.show()
-        }
+        onPreview(idx) {
+            const el = document.getElementById(idx);
+            const viewer = new Viewer(el, {});
+            viewer.destroy();
+            viewer.show();
+        },
     },
-    mounted () {
-
-    }
-}
+};
 </script>
+
 <style scoped lang="scss">
+i {
+    font-style: normal;
+}
 #draggable-list-item-add {
     //line-height: 148px;
     text-align: center;

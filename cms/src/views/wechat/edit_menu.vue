@@ -15,7 +15,7 @@
                     <el-main />
                     <el-footer>
                         <el-menu :default-active="activeIndex" mode="horizontal">
-                            <el-submenu
+                            <el-sub-menu
                                 v-for="(btn, idx) in menuConfig.button"
                                 :key="idx"
                                 :index="idx.toString()"
@@ -24,7 +24,7 @@
                                 @mouseover="() => {}"
                             >
                                 <template #title>
-                                    <el-link :underline="false" @click.stop="editMenu(idx)">
+                                    <el-link underline="never" @click.stop="editMenu(idx)">
                                         {{ btn.name }}
                                     </el-link>
                                     <el-tag closable @close="deleteMenu(idx)" />
@@ -61,7 +61,7 @@
                                         添加子菜单
                                     </el-link>
                                 </el-menu-item>
-                            </el-submenu>
+                            </el-sub-menu>
                             <el-menu-item v-if="menuConfig.button.length < 3" index="add">
                                 <el-link
                                     :underline="false"
@@ -126,7 +126,6 @@
 </template>
 
 <script>
-import validator from 'validator';
 import breadCrumb from '@/components/bread_crumb.vue';
 export default {
     components: {

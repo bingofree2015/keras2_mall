@@ -6,43 +6,45 @@
                 <bread-crumb />
             </el-col>
             <el-col :span="14" class="top-bar">
-                <el-form :inline="true" :model="filters" :size="normalSize">
+                <el-form :inline="true" :model="filters">
                     <el-form-item>
                         <el-input v-model="filters.value" placeholder="请输入内容">
-                            <el-select
-                                #prepend
-                                v-model="filters.key"
-                                class="search-prepend"
-                                placeholder="请选择"
-                            >
-                                <el-option
-                                    v-for="item in props"
-                                    :key="item.prop"
-                                    :label="item.label"
-                                    :value="item.prop"
+                            <template #prepend>
+                                <el-select
+                                    v-model="filters.key"
+                                    class="search-prepend"
+                                    placeholder="请选择"
+                                >
+                                    <el-option
+                                        v-for="item in props"
+                                        :key="item.prop"
+                                        :label="item.label"
+                                        :value="item.prop"
+                                    />
+                                </el-select>
+                            </template>
+                            <template #append>
+                                <ext-button
+                                    :label="$t('action.search')"
+                                    icon="el-icon-ali-chazhaobiaodanliebiao"
+                                    perms="order:delivery:view"
+                                    type="primary"
+                                    @click="queryForPaginatedList()"
                                 />
-                            </el-select>
-                            <ext-button
-                                #append
-                                :label="$t('action.search')"
-                                icon="el-icon-ali-chazhaobiaodanliebiao"
-                                perms="order:delivery:view"
-                                type="primary"
-                                @click="queryForPaginatedList()"
-                            />
+                            </template>
                         </el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
                             <el-tooltip content="刷新" placement="top">
-                                <el-button
-                                    icon="el-icon-ali-shuaxin"
-                                    round
-                                    @click="queryForPaginatedList()"
-                                />
+                                <el-button round @click="queryForPaginatedList()">
+                                    <i class="el-icon-ali-shuaxin"></i>
+                                </el-button>
                             </el-tooltip>
                             <el-tooltip content="导出" placement="top">
-                                <el-button icon="el-icon-ali-daochu" round />
+                                <el-button round>
+                                    <i class="el-icon-ali-daochu"></i>
+                                </el-button>
                             </el-tooltip>
                         </el-button-group>
                     </el-form-item>
@@ -187,7 +189,6 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            smallSize: 'small',
             filters: {
                 key: 'deliveryId',
                 value: '',

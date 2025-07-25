@@ -6,7 +6,7 @@
                 <bread-crumb />
             </el-col>
             <el-col :span="14" class="top-bar">
-                <el-form :inline="true" :model="filters" :size="largeSize">
+                <el-form :inline="true" :model="filters">
                     <el-form-item>
                         <el-input v-model="filters.value" placeholder="请输入内容">
                             <template #prepend>
@@ -86,7 +86,6 @@
                     <el-checkbox
                         v-model="checkAll"
                         :disabled="selectRole.id === null || disableIds.includes(selectRole.id)"
-                        :size="miniSize"
                         @change="handleCheckAll"
                     >
                         <b>全选</b>
@@ -115,7 +114,6 @@
                     :data="menuData"
                     :props="defaultProps"
                     :show-checkbox="!disableIds.includes(selectRole.id)"
-                    :size="miniSize"
                     element-loading-text="拼命加载中"
                     node-key="id"
                 >
@@ -139,13 +137,7 @@
             :model-value="editDialogVisible"
             width="40%"
         >
-            <el-form
-                ref="formData"
-                :model="formData"
-                :rules="formDataRules"
-                :size="miniSize"
-                label-width="80px"
-            >
+            <el-form ref="formData" :model="formData" :rules="formDataRules" label-width="80px">
                 <el-form-item v-if="false" label="ID" prop="id">
                     <el-input v-model="formData.id" :disabled="true" auto-complete="off" />
                 </el-form-item>
@@ -158,16 +150,10 @@
             </el-form>
             <template #footer>
                 <div class="dialog-footer">
-                    <el-button :size="miniSize" round @click="editDialogVisible = false">
+                    <el-button round @click="editDialogVisible = false">
                         {{ $t('action.cancel') }}
                     </el-button>
-                    <el-button
-                        :loading="editLoading"
-                        :size="miniSize"
-                        round
-                        type="primary"
-                        @click="submitForm"
-                    >
+                    <el-button :loading="editLoading" round type="primary" @click="submitForm">
                         {{ $t('action.submit') }}
                     </el-button>
                 </div>
@@ -191,7 +177,6 @@ export default {
     data() {
         return {
             largeSize: 'large',
-            miniSize: 'default',
             filters: {
                 key: 'name',
                 value: '',
@@ -221,7 +206,6 @@ export default {
                     label: 'action.edit', // 按钮上显示的文字
                     icon: 'el-icon-ali-bianji', // 按钮文字前面的图标
                     perms: 'permission:role:edit', // 权限标识
-                    size: this.largeSize, // 按钮大小
                     // type: 'primary',            // 按钮类型
                     func: (row) => {
                         this.editDialogVisible = true;
@@ -233,7 +217,6 @@ export default {
                     label: 'action.delete',
                     icon: 'el-icon-ali-shanchu',
                     perms: 'permission:role:delete',
-                    size: this.largeSize,
                     type: 'danger',
                     func: (row) => {
                         this.$confirm('确认删除选中记录吗？', '提示', {

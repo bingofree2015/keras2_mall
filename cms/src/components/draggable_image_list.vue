@@ -1,36 +1,37 @@
 <template>
     <div id="draggable-image-list">
         <transition-group id="draggable-list" class="draggable-list" name="draggable-list" tag="ul">
-            <draggable key="drag" :list="items" v-bind="dragOptions" @end="end">
-                <li
-                    v-for="(item, idx) in items"
-                    :key="item.id"
-                    class="draggable-list-item"
-                    :style="{ width: size + 'px', height: size + 'px' }"
-                >
-                    <slot :item="item">
-                        <img
-                            :id="'draggable_' + item.id"
-                            :src="env.getImgUrl(item.path)"
-                            alt
-                            class="draggable-list-item-thumbnail"
-                        />
-                        <span class="draggable-list-item-actions">
-                            <span
-                                class="draggable-list-item-preview"
-                                @click="onPreview('draggable_' + item.id)"
-                            >
-                                <i class="el-icon-zoom-in"></i>
+            <draggable key="drag" :list="items" v-bind="dragOptions" item-key="id" @end="end">
+                <template #item="{ element, index }">
+                    <li
+                        :key="element.id"
+                        class="draggable-list-item"
+                        :style="{ width: size + 'px', height: size + 'px' }"
+                    >
+                        <slot :item="element">
+                            <img
+                                :id="'draggable_' + element.id"
+                                :src="env.getImgUrl(element.path)"
+                                alt
+                                class="draggable-list-item-thumbnail"
+                            />
+                            <span class="draggable-list-item-actions">
+                                <span
+                                    class="draggable-list-item-preview"
+                                    @click="onPreview('draggable_' + element.id)"
+                                >
+                                    <i class="el-icon-zoom-in"></i>
+                                </span>
+                                <span
+                                    class="draggable-list-item-delete"
+                                    @click="$emit('on-remove', index)"
+                                >
+                                    <i class="el-icon-delete"></i>
+                                </span>
                             </span>
-                            <span
-                                class="draggable-list-item-delete"
-                                @click="$emit('on-remove', idx)"
-                            >
-                                <i class="el-icon-delete"></i>
-                            </span>
-                        </span>
-                    </slot>
-                </li>
+                        </slot>
+                    </li>
+                </template>
                 <div
                     id="draggable-list-item-add"
                     :style="{ lineHeight: size + 'px', width: size + 'px', height: size + 'px' }"
@@ -49,7 +50,7 @@
 import 'viewerjs/dist/viewer.css';
 import Viewer from 'viewerjs';
 import draggable from 'vuedraggable';
-import multiUploader from '@/components/multi_uploader';
+import multiUploader from '@/components/multi_uploader.vue';
 
 export default {
     name: 'DraggableImageList',
@@ -69,6 +70,7 @@ export default {
             default: 148,
         },
     },
+    emits: ['on-remove', 'end', 'chosedImage'],
     data() {
         return {
             imageDialogVisible: false,

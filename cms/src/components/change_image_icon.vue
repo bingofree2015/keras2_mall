@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-link :underline="false" @click="handleOpenDialog">
+        <el-link underline="never" @click="handleOpenDialog">
             <el-image
                 :src="env.getImgUrl(iconUrl, env.baseAssetsUrl)"
                 :style="initStyle"

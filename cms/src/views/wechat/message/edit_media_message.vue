@@ -25,7 +25,7 @@
                         </template>
                         <template #default="scope">
                             <span style="margin-left: 10px">
-                                <el-link :underline="false" @click="handleEdit(scope.$index)">
+                                <el-link underline="never" @click="handleEdit(scope.$index)">
                                     {{ scope.row.title }}
                                 </el-link>
                                 <el-button

@@ -6,7 +6,7 @@
                 <bread-crumb />
             </el-col>
             <el-col :span="14" class="top-bar">
-                <el-form :inline="true" :model="filters" :size="largeSize">
+                <el-form :inline="true" :model="filters">
                     <el-form-item>
                         <el-input v-model="filters.value" placeholder="请输入内容">
                             <template #prepend>
@@ -99,7 +99,6 @@
                 ref="formData"
                 :model="formData"
                 :rules="formDataRules"
-                :size="largeSize"
                 label-position="right"
                 label-width="80px"
             >
@@ -162,16 +161,10 @@
             </el-form>
             <template #footer>
                 <div class="dialog-footer">
-                    <el-button :size="largeSize" round @click="editDialogVisible = false">
+                    <el-button round @click="editDialogVisible = false">
                         {{ $t('action.cancel') }}
                     </el-button>
-                    <el-button
-                        :loading="editLoading"
-                        :size="largeSize"
-                        round
-                        type="primary"
-                        @click="submitForm"
-                    >
+                    <el-button :loading="editLoading" round type="primary" @click="submitForm">
                         {{ $t('action.submit') }}
                     </el-button>
                 </div>
@@ -234,7 +227,6 @@ export default {
                     label: 'action.edit', // 按钮上显示的文字
                     icon: 'el-icon-ali-bianji', // 按钮文字前面的图标
                     perms: 'permission:sys_user:edit', // 权限标识
-                    size: this.largeSize, // 按钮大小
                     type: 'primary', // 按钮类型
                     func: (row) => {
                         this.editDialogVisible = true;
@@ -246,7 +238,6 @@ export default {
                     label: 'action.delete',
                     icon: 'el-icon-ali-shanchu',
                     perms: 'permission:sys_user:delete',
-                    size: this.largeSize,
                     type: 'danger',
                     func: (row) => {
                         this.$confirm('确认删除选中记录吗？', '提示', {

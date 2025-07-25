@@ -9,27 +9,29 @@
                 <el-form :inline="true" :model="filters" :size="largeSize">
                     <el-form-item>
                         <el-input v-model="filters.value" placeholder="请输入内容">
-                            <el-select
-                                #prepend
-                                v-model="filters.key"
-                                class="search-prepend"
-                                placeholder="请选择"
-                            >
-                                <el-option
-                                    v-for="item in props"
-                                    :key="item.prop"
-                                    :label="item.label"
-                                    :value="item.prop"
+                            <template #prepend>
+                                <el-select
+                                    v-model="filters.key"
+                                    class="search-prepend"
+                                    placeholder="请选择"
+                                >
+                                    <el-option
+                                        v-for="item in props"
+                                        :key="item.prop"
+                                        :label="item.label"
+                                        :value="item.prop"
+                                    />
+                                </el-select>
+                            </template>
+                            <template #append>
+                                <ext-button
+                                    :label="$t('action.search')"
+                                    icon="el-icon-ali-chazhaobiaodanliebiao"
+                                    perms="marketing:advertisement:view"
+                                    type="primary"
+                                    @click="queryForPaginatedList()"
                                 />
-                            </el-select>
-                            <ext-button
-                                #append
-                                :label="$t('action.search')"
-                                icon="el-icon-ali-chazhaobiaodanliebiao"
-                                perms="marketing:advertisement:view"
-                                type="primary"
-                                @click="queryForPaginatedList()"
-                            />
+                            </template>
                         </el-input>
                     </el-form-item>
                     <el-form-item>

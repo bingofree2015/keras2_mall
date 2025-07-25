@@ -4,7 +4,7 @@
             <bread-crumb />
         </el-col>
         <el-col :span="14" class="top-bar">
-            <el-form :inline="true" :model="filters" :size="largeSize">
+            <el-form :inline="true" :model="filters">
                 <el-form-item>
                     <el-input v-model="filters.value" placeholder="请输入内容">
                         <template #prepend>
@@ -79,13 +79,7 @@
         :model-value="editDialogVisible"
         width="40%"
     >
-        <el-form
-            ref="formData"
-            :model="formData"
-            :rules="formDataRules"
-            :size="largeSize"
-            label-width="80px"
-        >
+        <el-form ref="formData" :model="formData" :rules="formDataRules" label-width="80px">
             <el-form-item v-if="false" label="ID" prop="id">
                 <el-input v-model="formData.id" :disabled="true" auto-complete="off" />
             </el-form-item>
@@ -146,7 +140,6 @@ export default {
     data() {
         return {
             largeSize: 'large',
-            smallSize: 'small',
             filters: {
                 key: 'label',
                 value: '',
@@ -314,4 +307,9 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.top-bar {
+    display: flex;
+    justify-content: flex-end;
+}
+</style>

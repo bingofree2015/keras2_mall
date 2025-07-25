@@ -269,7 +269,9 @@
                                     placeholder="请输入按钮颜色"
                                     readonly
                                 >
-                                    #append v-model="formData.buttonColor"
+                                    <template #append>
+                                        <el-color-picker v-model="formData.buttonColor" />
+                                    </template>
                                 </el-input>
                             </el-form-item>
                         </el-col>

@@ -154,18 +154,20 @@
                                 >
                                     <el-button
                                         :size="miniSize"
-                                        icon="el-icon-ali-fuzhi2"
                                         round
                                         type="primary"
                                         @click="handleCloneWidget(index)"
-                                    />
+                                    >
+                                        <i class="el-icon-ali-fuzhi2"></i>
+                                    </el-button>
                                     <el-button
                                         :size="miniSize"
-                                        icon="el-icon-ali-delete"
                                         round
                                         type="danger"
                                         @click="handleDeleteWidget(index)"
-                                    />
+                                    >
+                                        <i class="el-icon-ali-delete"></i>
+                                    </el-button>
                                 </el-button-group>
                                 <!-- 搜索框 -->
                                 <van-search

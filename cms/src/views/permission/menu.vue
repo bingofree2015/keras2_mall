@@ -6,7 +6,7 @@
                 <bread-crumb />
             </el-col>
             <el-col :span="14" class="top-bar">
-                <el-form :inline="true" :size="largeSize">
+                <el-form :inline="true">
                     <el-form-item>
                         <ext-button
                             :label="$t('action.add')"
@@ -43,7 +43,6 @@
         <el-table
             v-loading="loading"
             :data="menuTreeData"
-            :size="largeSize"
             element-loading-text="$t('action.loading')"
             stripe
             style="width: 100%"
@@ -84,7 +83,7 @@
                 prop="perms"
             />
             <el-table-column align="center" label="排序" prop="orderNum" />
-            <el-table-column :label="$t('action.operation')" fixed="right" min-width="200">
+            <el-table-column :label="$t('action.operation')" fixed="right" min-width="210">
                 <template #default="scope">
                     <ext-button
                         :label="$t('action.edit')"
@@ -114,7 +113,6 @@
                 ref="formData"
                 :model="formData"
                 :rules="dataRule"
-                :size="largeSize"
                 label-width="80px"
                 @keyup.enter="submitForm()"
             >
@@ -214,10 +212,10 @@
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
-                    <el-button :size="largeSize" round @click="dialogVisible = false">
+                    <el-button round @click="dialogVisible = false">
                         {{ $t('action.cancel') }}
                     </el-button>
-                    <el-button :size="largeSize" round type="primary" @click="submitForm()">
+                    <el-button round type="primary" @click="submitForm()">
                         {{ $t('action.submit') }}
                     </el-button>
                 </span>
@@ -490,7 +488,6 @@ function removeTreeItemsByType(treeDatas, type = 2) {
     align-items: center;
     margin-bottom: 20px;
 }
-
 .top-bar {
     display: flex;
     justify-content: flex-end;

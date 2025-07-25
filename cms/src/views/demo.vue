@@ -282,6 +282,7 @@ export default {
     },
     data() {
         return {
+            input3: '',
             padding: 3,
             cascaderOpts: [
                 {

@@ -6,7 +6,7 @@
                 <bread-crumb />
             </el-col>
             <el-col :span="14" class="top-bar">
-                <el-form :inline="true" :model="filters" :size="largeSize">
+                <el-form :inline="true" :model="filters">
                     <el-form-item>
                         <el-input v-model="filters.value" placeholder="请输入内容">
                             <el-select
@@ -77,7 +77,6 @@ export default {
     data() {
         return {
             largeSize: 'large',
-            smallSize: 'small',
             filters: {
                 key: 'userName',
                 value: '',

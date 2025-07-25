@@ -12,7 +12,7 @@
     </div>
 </template>
 <script>
-import videoUploader from '@/components/video_uploader';
+import videoUploader from '@/components/video_uploader.vue';
 export default {
     name: 'PickVideo',
     components: {

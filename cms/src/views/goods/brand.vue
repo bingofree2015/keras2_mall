@@ -46,11 +46,9 @@
                     <el-form-item>
                         <el-button-group>
                             <el-tooltip content="刷新" placement="top">
-                                <el-button
-                                    icon="el-icon-ali-shuaxin"
-                                    round
-                                    @click="queryForPaginatedList()"
-                                />
+                                <el-button round @click="queryForPaginatedList()">
+                                    <i class="el-icon-ali-shuaxin"></i>
+                                </el-button>
                             </el-tooltip>
                             <el-tooltip content="导出" placement="top">
                                 <el-button round>

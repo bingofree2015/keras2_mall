@@ -117,7 +117,7 @@
         <template #footer>
             <span class="dialog-footer">
                 <el-button :size="largeSize" round @click="dialogVisible = false">
-                    $t('action.cancel') }}
+                    {{ $t('action.cancel') }}
                 </el-button>
                 <el-button :size="largeSize" round type="primary" @click="submitForm()">
                     {{ $t('action.submit') }}
@@ -370,4 +370,9 @@ function removeTreeItemsByIds(treeDatas, ids) {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.top-bar {
+    display: flex;
+    justify-content: flex-end;
+}
+</style>

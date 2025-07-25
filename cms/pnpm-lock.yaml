@@ -60,8 +60,8 @@ importers:
         specifier: ^4.5.1
         version: 4.5.1(vue@3.5.17(typescript@3.9.10))
       vuedraggable:
-        specifier: ^2.24.1
-        version: 2.24.3
+        specifier: ^4.1.0
+        version: 4.1.0(vue@3.5.17(typescript@3.9.10))
       vuex:
         specifier: ^4.1.0
         version: 4.1.0(vue@3.5.17(typescript@3.9.10))
@@ -5487,8 +5487,8 @@ packages:
     resolution: {integrity: sha512-vzn8aSqKgytVik0iwdBEi+zevbTYZogewTUM6dtpmGwEcdzbub/TX4bCzRhebDCRC3QzXgJsLRKB2V/Oof7HXg==}
     engines: {node: '>=0.10.0'}
 
-  sortablejs@1.10.2:
-    resolution: {integrity: sha512-YkPGufevysvfwn5rfdlGyrGjt7/CRHwvRPogD/lC+TnvcN29jDpCifKP+rBqf+LRldfXSTh+0CGLcSg0VIxq3A==}
+  sortablejs@1.14.0:
+    resolution: {integrity: sha512-pBXvQCs5/33fdN1/39pPL0NZF20LeRbLQ5jtnheIPN9JQAaufGjKdWduZn4U7wCtVuzKhmRkI0DFYHYRbB2H1w==}
 
   source-list-map@2.0.1:
     resolution: {integrity: sha512-qnQ7gVMxGNxsiL4lEuJwe/To8UnK7fAnmbGEEH8RpLouuKbeEm0lhbQVFIrNSuB+G7tVrAlVsZgETT5nljf+Iw==}
@@ -6109,8 +6109,10 @@ packages:
       typescript:
         optional: true
 
-  vuedraggable@2.24.3:
-    resolution: {integrity: sha512-6/HDXi92GzB+Hcs9fC6PAAozK1RLt1ewPTLjK0anTYguXLAeySDmcnqE8IC0xa7shvSzRjQXq3/+dsZ7ETGF3g==}
+  vuedraggable@4.1.0:
+    resolution: {integrity: sha512-FU5HCWBmsf20GpP3eudURW3WdWTKIbEIQxh9/8GE806hydR9qZqRRxRE3RjqX7PkuLuMQG/A7n3cfj9rCEchww==}
+    peerDependencies:
+      vue: ^3.0.1
 
   vuex@4.1.0:
     resolution: {integrity: sha512-hmV6UerDrPcgbSy9ORAtNXDr9M4wlNP4pEFKye4ujJF8oqgFFuxDCdOLS3eNoRTtq5O3hoBDh9Doj1bQMYHRbQ==}
@@ -12265,7 +12267,7 @@ snapshots:
     dependencies:
       is-plain-obj: 1.1.0
 
-  sortablejs@1.10.2: {}
+  sortablejs@1.14.0: {}
 
   source-list-map@2.0.1: {}
 
@@ -12951,9 +12953,10 @@ snapshots:
     optionalDependencies:
       typescript: 3.9.10
 
-  vuedraggable@2.24.3:
+  vuedraggable@4.1.0(vue@3.5.17(typescript@3.9.10)):
     dependencies:
-      sortablejs: 1.10.2
+      sortablejs: 1.14.0
+      vue: 3.5.17(typescript@3.9.10)
 
   vuex@4.1.0(vue@3.5.17(typescript@3.9.10)):
     dependencies:

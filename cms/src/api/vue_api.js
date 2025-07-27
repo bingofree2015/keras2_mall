@@ -1,6 +1,6 @@
 // 导入所有接口
-import axios from './axios';
-import api from '.';
+import axios from '@/api/axios';
+import api from '@/api';
 
 const install = (app) => {
     if (install.installed) return;

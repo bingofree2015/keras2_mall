@@ -40,6 +40,7 @@ export default {
             },
         },
     },
+    emits: ['chosed-image-icon'],
     data() {
         return {
             iconUrl: this.imgUrl,
@@ -58,7 +59,7 @@ export default {
         },
         chosedImage(chosed) {
             this.iconUrl = chosed.path;
-            this.$emit('chosedImageIcon', chosed);
+            this.$emit('chosed-image-icon', chosed);
             this.imageDialogVisible = false;
         },
     },

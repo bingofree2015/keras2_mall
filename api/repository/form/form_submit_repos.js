@@ -1,5 +1,6 @@
 const moment = require('moment');
 const logger = require('tracer').colorConsole();
+const { Op } = require('sequelize');
 const {
     FormSubmit, Form, FormItem, FormSubmitDetail, User, sequelize,
 } = require('../../models');
@@ -353,7 +354,7 @@ class FormSubmitRepos {
             for (const _key in searchKey) {
                 if (typeof searchKey[_key] === 'string' && !_excludeKeys.includes(_key)) {
                     _where[_key] = {
-                        $like: `%${searchKey[_key]}%`,
+                        [Op.like]: `%${searchKey[_key]}%`,
                     };
                 } else {
                     _where[_key] = searchKey[_key];

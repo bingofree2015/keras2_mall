@@ -80,8 +80,8 @@
                     </el-form-item>
                     <el-form-item label="公众号类型" prop="wx_official_type">
                         <el-radio-group v-model="formData.wx_official_type">
-                            <el-radio label="service">服务号</el-radio>
-                            <el-radio label="subscribe">订阅号</el-radio>
+                            <el-radio value="service">服务号</el-radio>
+                            <el-radio value="subscribe">订阅号</el-radio>
                         </el-radio-group>
                     </el-form-item>
                 </el-col>

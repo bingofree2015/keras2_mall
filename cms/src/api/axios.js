@@ -1,5 +1,5 @@
 import axios from 'axios';
-import config from './config';
+import config from '@/api/config';
 import Cookies from 'js-cookie';
 import router from '@/router';
 

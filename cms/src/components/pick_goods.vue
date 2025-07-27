@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ext-button :size="miniSize" label="选择商品" type="primary" @click="handlePickGoods()">
+        <ext-button :size="miniSize" label="选择商品" type="primary" @click="handlePickGoods">
             <i class="el-icon-ali-Newxuanzeshangpinxuanzhong"></i>
         </ext-button>
         <el-dialog
@@ -35,9 +35,7 @@
                         <el-radio
                             v-model="radio"
                             :label="scope.$index"
-                            @change.native="
-                                selectionType == 0 && choiceChange(scope.$index, scope.row)
-                            "
+                            @change="selectionType == 0 && choiceChange(scope.$index, scope.row)"
                         >
                             &nbsp;
                         </el-radio>
@@ -94,6 +92,7 @@ export default {
             default: 1, // 1 多选; 0 单选
         },
     },
+    emits: ['chosedGoods'],
     data() {
         return {
             miniSize: 'default',
@@ -112,6 +111,7 @@ export default {
     },
     mounted() {
         this.queryForPaginatedList();
+        this.dialogVisible = true; // 测试弹窗是否能自动弹出
     },
     methods: {
         // 获取分页数据
@@ -144,9 +144,10 @@ export default {
         // 选择切换(单选)
         choiceChange(index, row) {
             this.radio = index;
-            this.selectGoods = row;
+            this.selectGoods = [row]; // 保持为数组
         },
         handlePickGoods() {
+            console.log('点击了选择商品');
             this.dialogVisible = true;
         },
         chosedGoods() {

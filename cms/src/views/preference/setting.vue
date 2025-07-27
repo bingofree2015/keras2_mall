@@ -115,7 +115,7 @@
                             </el-form-item>
                             <el-form-item label="分类样式" prop="cateStyle">
                                 <el-radio-group v-model="formData.cateStyle">
-                                    <el-radio :label="0">
+                                    <el-radio :value="0">
                                         一级大图
                                         <el-card class="card-item">
                                             <el-image
@@ -135,7 +135,7 @@
                                             <div class="summary">尺寸建议：350px*150px</div>
                                         </el-card>
                                     </el-radio>
-                                    <el-radio :label="1">
+                                    <el-radio :value="1">
                                         一级小图
                                         <el-card class="card-item">
                                             <el-image
@@ -155,7 +155,7 @@
                                             <div class="summary">尺寸建议：105px*105px</div>
                                         </el-card>
                                     </el-radio>
-                                    <el-radio :label="2">
+                                    <el-radio :value="2">
                                         二级小图
                                         <el-card class="card-item">
                                             <el-image
@@ -179,7 +179,7 @@
                             </el-form-item>
                             <el-form-item label="H5分类样式" prop="cateType">
                                 <el-radio-group v-model="formData.cateType" style="width: 100%">
-                                    <el-radio :label="0">
+                                    <el-radio :value="0">
                                         类型一
                                         <el-card class="card-item">
                                             <el-image
@@ -200,7 +200,7 @@
                                         </el-card>
                                     </el-radio>
 
-                                    <el-radio :label="1">
+                                    <el-radio :value="1">
                                         类型二
                                         <el-card class="card-item">
                                             <el-image
@@ -426,8 +426,8 @@
                             </el-form-item>
                             <el-form-item label="签到奖励类型" prop="signPointType">
                                 <el-radio-group v-model="formData.signPointType">
-                                    <el-radio :label="1">固定奖励</el-radio>
-                                    <el-radio :label="2">随机奖励</el-radio>
+                                    <el-radio :value="1">固定奖励</el-radio>
+                                    <el-radio :value="2">随机奖励</el-radio>
                                 </el-radio-group>
                             </el-form-item>
                             <div v-if="formData.signPointType == 1">
@@ -583,8 +583,8 @@
 
                             <el-form-item label="图片存储引擎" prop="imageStorageType">
                                 <el-radio-group v-model="formData.imageStorageType">
-                                    <el-radio label="local">本地</el-radio>
-                                    <el-radio label="aliyun">阿里云OSS</el-radio>
+                                    <el-radio :value="local">本地</el-radio>
+                                    <el-radio :value="aliyun">阿里云OSS</el-radio>
                                 </el-radio-group>
                             </el-form-item>
 

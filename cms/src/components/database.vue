@@ -68,10 +68,10 @@
         </div>
         <template #footer>
             <span class="dialog-footer">
-                <el-button round size="small" @click.native="$emit('update:visible', false)">
+                <el-button round @click.native="$emit('update:visible', false)">
                     $t('action.cancel') }}
                 </el-button>
-                <el-button round size="small" type="primary" @click="handleBackup">
+                <el-button round type="primary" @click="handleBackup">
                     $t('common.backup')
                 </el-button>
             </span>

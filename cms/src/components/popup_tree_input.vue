@@ -1,25 +1,29 @@
 <template>
     <div class="popup-tree">
         <el-popover ref="popover" :placement="placement" trigger="click">
-            <el-tree
-                ref="popupTree"
-                :data="data"
-                :default-expand-all="defaultExpandAll"
-                :expand-on-click-node="true"
-                :highlight-current="true"
-                :props="props"
-                node-key="nodeKey"
-                @current-change="currentChangeHandle"
-            />
+            <template #reference>
+                <el-input
+                    :placeholder="placeholder"
+                    :readonly="true"
+                    style="cursor: pointer"
+                    :model-value="modelValue"
+                />
+            </template>
+            <template #default>
+                <div>
+                    <el-tree
+                        ref="popupTree"
+                        :data="data"
+                        :default-expand-all="defaultExpandAll"
+                        :expand-on-click-node="false"
+                        :highlight-current="true"
+                        :props="props"
+                        :node-key="nodeKey"
+                        @node-click="handleNodeClick"
+                    />
+                </div>
+            </template>
         </el-popover>
-        <el-input
-            v-popover:popover
-            :placeholder="placeholder"
-            :readonly="true"
-            style="cursor: pointer"
-            :model-value="modelValue"
-            @update:model-value="$emit('update:modelValue', $event)"
-        />
     </div>
 </template>
 
@@ -58,6 +62,22 @@ export default {
         currentChangeHandle: {
             type: Function,
             default: null,
+        },
+    },
+    methods: {
+        handleNodeClick(data, node) {
+            console.log('popup-tree-input handleNodeClick 被调用:', data, node);
+            // 手动设置当前节点
+            this.$refs.popupTree.setCurrentKey(data.id);
+            // 调用父组件传入的回调函数
+            if (this.currentChangeHandle) {
+                console.log('调用父组件回调函数');
+                this.currentChangeHandle(data, node);
+            } else {
+                console.log('currentChangeHandle 不存在');
+            }
+            // 选择后关闭 popover
+            this.$refs.popover.hide();
         },
     },
 };

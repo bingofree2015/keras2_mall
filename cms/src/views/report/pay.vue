@@ -21,8 +21,8 @@
                         />
                         <el-form-item label="粒度" prop="unit">
                             <el-radio-group v-model="unit">
-                                <el-radio :label="0" style="margin-right: 5px">小时</el-radio>
-                                <el-radio :label="1">天</el-radio>
+                                <el-radio :value="0" style="margin-right: 5px">小时</el-radio>
+                                <el-radio :value="1">天</el-radio>
                             </el-radio-group>
                         </el-form-item>
                         <ext-button

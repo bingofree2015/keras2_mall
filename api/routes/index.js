@@ -9,9 +9,10 @@ const { exists, readFile, readFileSync } = require('mz/fs');
 const { parse } = require('papaparse');
 const { sign } = require('jsonwebtoken');
 const { create } = require('svg-captcha');
+const logger = require('tracer').colorConsole();
 
 
-const { upload } = require('../utils/uploader');
+const uploader = require('../utils/uploader');
 const { getLastVersionInfo } = require('../repository/version_info_repos');
 
 const SERVER_UPLOAD_DIR = join(process.cwd(), '/upload/');
@@ -113,9 +114,12 @@ router.get('/download', async (ctx) => {
  */
 router.post('/upload', async (ctx) => {
     let _result = {};
-    const { pathType, width, height } = ctx.request.body;
+    // 从 body 或 query 中获取参数
+    const pathType = ctx.request.body.pathType || ctx.query.pathType;
+    const width = parseInt(ctx.request.body.width || ctx.query.width) || 0;
+    const height = parseInt(ctx.request.body.height || ctx.query.height) || 0;
 
-    _result = upload(ctx, pathType, width, height);
+    _result = await uploader.upload(ctx, pathType, width, height);
 
     ctx.body = _result;
 });

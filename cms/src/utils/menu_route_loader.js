@@ -1,7 +1,7 @@
 import api from '@/api';
 import store from '@/store';
 import router from '@/router';
-import { parseIFrameRoutePath, buildIFrameFullUrl } from './iframe_route_utils.js';
+import { parseIFrameRoutePath, buildIFrameFullUrl } from '@/utils/iframe_route_utils.js';
 
 /**
  * 处理路由到本地直接指定页面组件的情况
@@ -53,7 +53,10 @@ function generateDynamicRoutes(menus) {
             _router.component = () => import(`../views/layout/iframe_container.vue`);
             // 添加到 state.iframeUrls 变量中
             const _url = buildIFrameFullUrl(menu.url);
-            const _iFrameUrl = { path: _path, url: _url };
+            const _iFrameUrl = {
+                path: _path,
+                url: _url,
+            };
             store.commit('addIFrameUrl', _iFrameUrl);
         } else if (menu.url) {
             // 内置组件

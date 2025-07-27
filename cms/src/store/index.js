@@ -1,8 +1,8 @@
 import { createStore } from 'vuex';
-import app from './modules/app';
-import tab from './modules/tab';
-import iframe from './modules/iframe';
-import menu from './modules/menu';
+import app from '@/store/modules/app';
+import tab from '@/store/modules/tab';
+import iframe from '@/store/modules/iframe';
+import menu from '@/store/modules/menu';
 
 const state = {
     loginUser: {

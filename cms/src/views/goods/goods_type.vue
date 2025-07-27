@@ -105,7 +105,6 @@
                                     <el-autocomplete
                                         v-model="scope.row.name"
                                         :fetch-suggestions="queryParams"
-                                        :size="small"
                                         placeholder="请输入内容"
                                         @select="(item) => handleSelectParam(item, scope.row.idx)"
                                     />
@@ -118,11 +117,7 @@
                                 prop="type"
                             >
                                 <template #default="scope">
-                                    <el-select
-                                        v-model="scope.row.type"
-                                        :size="small"
-                                        placeholder="请选择"
-                                    >
+                                    <el-select v-model="scope.row.type" placeholder="请选择">
                                         <el-option label="文本框" value="text" />
                                         <el-option label="单选" value="radio" />
                                         <el-option label="复选框" value="checkbox" />
@@ -131,11 +126,7 @@
                             </el-table-column>
                             <el-table-column label="参数选项" min-width="280" prop="values">
                                 <template #default="scope">
-                                    <el-input
-                                        v-model="scope.row.values"
-                                        :size="small"
-                                        placeholder="空格分隔"
-                                    />
+                                    <el-input v-model="scope.row.values" placeholder="空格分隔" />
                                 </template>
                             </el-table-column>
                             <el-table-column
@@ -147,7 +138,6 @@
                                 <template #header>
                                     <el-button
                                         round
-                                        size="small"
                                         style="float: right"
                                         type="primary"
                                         @click.prevent="handleAddParam()"
@@ -159,7 +149,6 @@
                                     <el-button
                                         circle
                                         icon="el-icon-delete"
-                                        size="small"
                                         type="danger"
                                         @click="handleDeleteParam(scope.row.idx)"
                                     />
@@ -180,7 +169,6 @@
                                     <el-autocomplete
                                         v-model="scope.row.name"
                                         :fetch-suggestions="querySpecs"
-                                        :size="small"
                                         placeholder="请输入内容"
                                         @select="(item) => handleSelectSpec(item, scope.row.idx)"
                                     />
@@ -197,18 +185,13 @@
                                         v-model="scope.row.sort"
                                         :max="99"
                                         :min="0"
-                                        :size="small"
                                         controls-position="right"
                                     />
                                 </template>
                             </el-table-column>
                             <el-table-column label="属性值" min-width="280" prop="values">
                                 <template #default="scope">
-                                    <el-input
-                                        v-model="scope.row.values"
-                                        :size="small"
-                                        placeholder="空格分隔"
-                                    />
+                                    <el-input v-model="scope.row.values" placeholder="空格分隔" />
                                 </template>
                             </el-table-column>
                             <el-table-column
@@ -220,7 +203,6 @@
                                 <template #header>
                                     <el-button
                                         round
-                                        size="small"
                                         style="float: right"
                                         type="primary"
                                         @click.prevent="handleAddSpec()"
@@ -232,7 +214,6 @@
                                     <el-button
                                         circle
                                         icon="el-icon-delete"
-                                        size="small"
                                         type="danger"
                                         @click="handleDeleteSpec(scope.row.idx)"
                                     />
@@ -244,16 +225,10 @@
             </el-form>
             <template #footer>
                 <div class="dialog-footer">
-                    <el-button :size="small" round @click="editDialogVisible = false">
+                    <el-button round @click="editDialogVisible = false">
                         {{ $t('action.cancel') }}
                     </el-button>
-                    <el-button
-                        :loading="editLoading"
-                        :size="small"
-                        round
-                        type="primary"
-                        @click="submitForm"
-                    >
+                    <el-button :loading="editLoading" round type="primary" @click="submitForm">
                         {{ $t('action.submit') }}
                     </el-button>
                 </div>

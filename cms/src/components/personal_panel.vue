@@ -17,13 +17,13 @@
         </div>
         <div class="main-operation">
             <span class="main-operation-item">
-                <el-button round size="small" @click="showEditUserInfoDialog">
+                <el-button round @click="showEditUserInfoDialog">
                     <i class="el-icon-ali-ziyuan"></i>
                     个人中心
                 </el-button>
             </span>
             <span class="main-operation-item">
-                <el-button round size="small" @click="showResetUserPwdDialog">
+                <el-button round @click="showResetUserPwdDialog">
                     <i class="el-icon-ali-changeadmin"></i>
                     修改密码
                 </el-button>
@@ -52,9 +52,9 @@
 
 <script>
 import { mapState } from 'vuex';
-import database from './database.vue';
-import editUserInfo from './edit_user_info.vue';
-import resetUserPwd from './reset_user_pwd.vue';
+import database from '@/components/database.vue';
+import editUserInfo from '@/components/edit_user_info.vue';
+import resetUserPwd from '@/components/reset_user_pwd.vue';
 export default {
     name: 'PersonalPanel',
     components: {
@@ -68,6 +68,13 @@ export default {
             databaseDialogVisible: false,
             resetUserPwdDialogVisible: false,
         };
+    },
+    computed: {
+        ...mapState({
+            loginUser: (state) => state.loginUser,
+            themeColor: (state) => state.app.themeColor,
+            collapse: (state) => state.app.collapse,
+        }),
     },
     mounted() {},
     methods: {
@@ -106,13 +113,6 @@ export default {
                 .then((result) => {})
                 .catch(function (result) {});
         },
-    },
-    computed: {
-        ...mapState({
-            loginUser: (state) => state.loginUser,
-            themeColor: (state) => state.app.themeColor,
-            collapse: (state) => state.app.collapse,
-        }),
     },
 };
 </script>

@@ -15,14 +15,6 @@ const db = {};
 
 const _excludeFiles = ['index.js', 'base.js'];
 
-readDirSync(__dirname);
-
-Object.keys(db).forEach((modelName) => {
-    if ('associate' in db[modelName]) {
-        db[modelName].associate(db);
-    }
-});
-
 function readDirSync (dirname) {
     readdirSync(dirname)
         .filter((file) => file.indexOf('.') !== 0 && !_excludeFiles.includes(file))
@@ -32,11 +24,20 @@ function readDirSync (dirname) {
             if (_fileInfo.isDirectory()) {
                 readDirSync(_path);
             } else {
+                // eslint-disable-next-line
                 const model = require(_path)(sequelize, Sequelize.DataTypes);
                 db[model.name] = model;
             }
         });
 }
+
+readDirSync(__dirname);
+
+Object.keys(db).forEach((modelName) => {
+    if ('associate' in db[modelName]) {
+        db[modelName].associate(db);
+    }
+});
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

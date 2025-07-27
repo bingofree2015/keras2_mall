@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('mz/fs');
 const Jimp = require('jimp');
 const shell = require('shelljs');
+const logger = require('tracer').colorConsole();
 
 
 const SERVER_UPLOAD_DIR = path.join(process.cwd(), '/upload/');
@@ -33,7 +34,18 @@ class Uploader {
             try {
                 const _file = _uploadFiles[key];
 
-                let _fileName = _file.name;
+                // 检查文件对象是否有效
+                if (!_file || (!_file.name && !_file.originalFilename)) {
+                    logger.error('Invalid file object:', _file);
+                    _result = {
+                        succeed     : 0,
+                        code        : 100,
+                        description : '无效的文件对象',
+                    };
+                    return _result;
+                }
+
+                let _fileName = _file.name || _file.originalFilename;
                 let _extName = _fileName.slice(_fileName.lastIndexOf('.') + 1);
                 _extName = _extName == 'blob' ? 'png' : _extName;
                 _fileName = _genFileName(_extName);
@@ -50,13 +62,16 @@ class Uploader {
 
                 logger.debug(`上传的图片高度：[${h}] 宽度：[${w}]`);
 
+                // 使用正确的文件路径属性
+                const filePath = _file.filepath || _file.path;
+
                 if (w && Number.isInteger(w) && h && Number.isInteger(h)) {
                     // 对图片进行压缩处理
-                    const lenna = await Jimp.read(_file.path);
+                    const lenna = await Jimp.read(filePath);
                     lenna.scaleToFit(w, h).quality(60).write(_savePath);
-                    fs.unlinkSync(_file.path); // 删除临时文件
+                    fs.unlinkSync(filePath); // 删除临时文件
                 } else {
-                    fs.renameSync(_file.path, _savePath);
+                    fs.renameSync(filePath, _savePath);
                 }
                 const _fileUrl = _relativePath + _fileName;
                 _result = {

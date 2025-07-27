@@ -5,12 +5,12 @@ const createRoutes = [
     // 二级路由
     {
         path: '/',
-        component: () => import('../views/home.vue'),
+        component: () => import('@/views/home.vue'),
         children: [
             {
                 path: '',
                 name: '控制面板',
-                component: () => import('../views/dashboard.vue'),
+                component: () => import('@/views/dashboard.vue'),
                 meta: {
                     icon: 'el-icon-ali-kongzhimianban',
                     index: 0,
@@ -22,12 +22,17 @@ const createRoutes = [
     {
         path: '/login',
         name: '登录',
-        component: () => import('../views/login.vue'),
+        component: () => import('@/views/login.vue'),
     },
     {
         path: '/404',
         name: 'notFound',
-        component: () => import('../views/404.vue'),
+        component: () => import('@/views/404.vue'),
+    },
+    {
+        path: '/goods/edit',
+        name: '商品编辑',
+        component: () => import('@/views/goods/edit.vue'),
     },
 ];
 

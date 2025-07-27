@@ -49,8 +49,8 @@
                         <el-col :span="8">
                             <el-form-item label="类型" prop="type">
                                 <el-radio-group v-model="formData.type">
-                                    <el-radio :label="3">团购</el-radio>
-                                    <el-radio :label="4">秒杀</el-radio>
+                                    <el-radio :value="3">团购</el-radio>
+                                    <el-radio :value="4">秒杀</el-radio>
                                 </el-radio-group>
                             </el-form-item>
                         </el-col>

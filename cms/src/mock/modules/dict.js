@@ -70,8 +70,6 @@ export function getContent(pageNum, pageSize) {
         obj.name = 'dict' + index;
         obj.name = 'dict' + index;
         obj.remark = 'remark' + index;
-        if (i % 2 === 0) {
-        }
         obj.createBy = 'admin';
         obj.createTime = '2018-08-14 11:11:11';
         obj.createBy = 'admin';

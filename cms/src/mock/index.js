@@ -1,10 +1,10 @@
 import Mock from 'mockjs';
 import { baseUrl } from '@/env';
-import * as sysUser from './modules/sys_user';
-import * as role from './modules/role';
-import * as menu from './modules/menu';
-import * as dict from './modules/dict';
-import * as log from './modules/log';
+import * as sysUser from '@/mock/modules/sys_user';
+import * as role from '@/mock/modules/role';
+import * as menu from '@/mock/modules/menu';
+import * as dict from '@/mock/modules/dict';
+import * as log from '@/mock/modules/log';
 
 // 1. 开启/关闭[所有模块]拦截, 通过调[openMock参数]设置.
 // 2. 开启/关闭[业务模块]拦截, 通过调用fnCreate方法[isOpen参数]设置.

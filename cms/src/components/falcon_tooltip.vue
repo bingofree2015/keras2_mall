@@ -14,7 +14,7 @@
                 <p>示例：el-icon-ali-shouye</p>
             </div>
         </template>
-        <i class="el-icon-warning"></i>
+        <span><i class="el-icon-warning"></i></span>
     </el-tooltip>
 </template>
 

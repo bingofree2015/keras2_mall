@@ -98,9 +98,9 @@
                 </el-form-item>
                 <el-form-item label="参数类型" prop="type">
                     <el-radio-group v-model="formData.type">
-                        <el-radio label="text">文本框</el-radio>
-                        <el-radio label="radio">单选</el-radio>
-                        <el-radio label="checkbox">复选框</el-radio>
+                        <el-radio value="text">文本框</el-radio>
+                        <el-radio value="radio">单选</el-radio>
+                        <el-radio value="checkbox">复选框</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="参数选项" prop="values">

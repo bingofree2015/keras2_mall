@@ -2,6 +2,7 @@
 const moment = require('moment');
 
 const logger = require('tracer').colorConsole();
+const { Op } = require('sequelize');
 const {
     sequelize, Attachment, Goods, Order, GoodsCollection, OrderItem,
 } = require('../models');
@@ -475,7 +476,7 @@ class ReportRepos {
             for (const _key in searchKey) {
                 if (typeof searchKey[_key] === 'string' && !_excludeKeys.includes(_key)) {
                     _where[_key] = {
-                        $like: `%${searchKey[_key]}%`,
+                        [Op.like]: `%${searchKey[_key]}%`,
                     };
                 } else {
                     _where[_key] = searchKey[_key];
@@ -552,7 +553,7 @@ class ReportRepos {
             for (const _key in searchKey) {
                 if (typeof searchKey[_key] === 'string' && !_excludeKeys.includes(_key)) {
                     _where[_key] = {
-                        $like: `%${searchKey[_key]}%`,
+                        [Op.like]: `%${searchKey[_key]}%`,
                     };
                 } else {
                     _where[_key] = searchKey[_key];

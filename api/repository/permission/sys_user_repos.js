@@ -1,4 +1,5 @@
 const logger = require('tracer').colorConsole();
+const { Op } = require('sequelize');
 const {
     sequelize, SysUser, Role, Menu, SysUserRole, RoleMenu, Attachment,
 } = require('../../models');
@@ -477,15 +478,16 @@ class SysUserRepos {
         const _where = {};
         const _excludeKeys = [];
         if (searchKey) {
+            // 清理无效的查询字段
             Object.keys(searchKey).forEach((field) => {
-                if (!searchKey[field] && searchKey[field] != 0) {
+                if (!searchKey[field] && searchKey[field] !== 0) {
                     delete searchKey[field];
                 }
             });
             for (const _key in searchKey) {
                 if (typeof searchKey[_key] === 'string' && !_excludeKeys.includes(_key)) {
                     _where[_key] = {
-                        $like: `%${searchKey[_key]}%`,
+                        [Op.like]: `%${searchKey[_key]}%`,
                     };
                 } else {
                     _where[_key] = searchKey[_key];

@@ -124,8 +124,8 @@
                     <el-col :span="12">
                         <el-form-item label="审核结果:" prop="state">
                             <el-radio-group v-model="formData.state">
-                                <el-radio :label="2">通过</el-radio>
-                                <el-radio :label="4">拒绝</el-radio>
+                                <el-radio :value="2">通过</el-radio>
+                                <el-radio :value="4">拒绝</el-radio>
                             </el-radio-group>
                         </el-form-item>
                     </el-col>

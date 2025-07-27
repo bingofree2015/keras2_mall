@@ -43,18 +43,18 @@
         <el-table
             v-loading="loading"
             :data="menuTreeData"
+            :row-key="(row) => row.id"
+            :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+            :row-class-name="getRowClassName"
             element-loading-text="$t('action.loading')"
             stripe
             style="width: 100%"
         >
-            <el-table-column label="ID" min-width="60" prop="id" />
-            <table-tree-column
-                label="名称"
-                min-width="180"
-                prop="name"
-                tree-key="id"
-                @send-tree-data="getTreeData"
-            />
+            <el-table-column label="名称" min-width="180" prop="name">
+                <template #default="scope">
+                    <span :style="getNameStyle(scope.row)">{{ scope.row.name }}</span>
+                </template>
+            </el-table-column>
             <el-table-column align="center" label="图标" min-width="60">
                 <template #default="scope">
                     <i :class="scope.row.icon || ''"></i>
@@ -62,11 +62,9 @@
             </el-table-column>
             <el-table-column align="center" label="类型" min-width="60" prop="type">
                 <template #default="scope">
-                    <el-tag v-if="scope.row.type === 0" size="small">目录</el-tag>
-                    <el-tag v-else-if="scope.row.type === 1" size="small" type="success">
-                        菜单
-                    </el-tag>
-                    <el-tag v-else-if="scope.row.type === 2" size="small" type="info">按钮</el-tag>
+                    <el-tag v-if="scope.row.type === 0">目录</el-tag>
+                    <el-tag v-else-if="scope.row.type === 1" type="success">菜单</el-tag>
+                    <el-tag v-else-if="scope.row.type === 2" type="info">按钮</el-tag>
                 </template>
             </el-table-column>
             <el-table-column align="center" label="上级菜单" min-width="120" prop="parentName" />
@@ -85,19 +83,21 @@
             <el-table-column align="center" label="排序" prop="orderNum" />
             <el-table-column :label="$t('action.operation')" fixed="right" min-width="210">
                 <template #default="scope">
-                    <ext-button
-                        :label="$t('action.edit')"
-                        icon="el-icon-ali-bianji"
-                        perms="sys:menu:edit"
-                        @click="handleEdit(scope.row)"
-                    />
-                    <ext-button
-                        :label="$t('action.delete')"
-                        icon="el-icon-ali-shanchu"
-                        perms="sys:menu:delete"
-                        type="danger"
-                        @click="handleDelete(scope.row)"
-                    />
+                    <div style="display: flex; gap: 8px">
+                        <ext-button
+                            :label="$t('action.edit')"
+                            icon="el-icon-ali-bianji"
+                            perms="sys:menu:edit"
+                            @click="handleEdit(scope.row)"
+                        />
+                        <ext-button
+                            :label="$t('action.delete')"
+                            icon="el-icon-ali-shanchu"
+                            perms="sys:menu:delete"
+                            type="danger"
+                            @click="handleDelete(scope.row)"
+                        />
+                    </div>
                 </template>
             </el-table-column>
         </el-table>
@@ -118,7 +118,7 @@
             >
                 <el-form-item label="菜单类型" prop="type">
                     <el-radio-group v-model="formData.type">
-                        <el-radio v-for="(type, index) in menuTypeList" :key="index" :label="index">
+                        <el-radio v-for="(type, index) in menuTypeList" :key="index" :value="index">
                             {{ type }}
                         </el-radio>
                     </el-radio-group>
@@ -134,7 +134,7 @@
                         :current-change-handle="handleTreeSelectChange"
                         :data="popupTreeData"
                         :node-key="'' + formData.parentId"
-                        :prop="
+                        :model-value="
                             formData.parentName === null || formData.parentName === ''
                                 ? '顶级菜单'
                                 : formData.parentName
@@ -151,7 +151,10 @@
                 <el-form-item v-if="formData.type === 1" label="菜单路由" prop="url">
                     <el-row>
                         <el-col :span="14" class="top-bar">
-                            <el-input v-model="formData.url" placeholder="菜单路由" />
+                            <el-input
+                                v-model="formData.url"
+                                placeholder="菜单路由（如：goods/edit，不要包含.vue扩展名）"
+                            />
                         </el-col>
                         <el-col :span="2" class="icon-list__tips">
                             <el-tooltip effect="light" placement="top" style="padding: 10px">
@@ -173,7 +176,7 @@
                                         </p>
                                     </div>
                                 </template>
-                                <i class="el-icon-warning"></i>
+                                <span><i class="el-icon-warning"></i></span>
                             </el-tooltip>
                         </el-col>
                         <el-col :span="8">
@@ -198,7 +201,6 @@
                         <el-col :span="22">
                             <el-input
                                 v-model="formData.icon"
-                                v-popover:iconListPopover
                                 :readonly="false"
                                 class="icon-list__input"
                                 placeholder="菜单图标名称（如：el-icon-ali-shouye）"
@@ -211,14 +213,14 @@
                 </el-form-item>
             </el-form>
             <template #footer>
-                <span class="dialog-footer">
+                <div class="dialog-footer">
                     <el-button round @click="dialogVisible = false">
                         {{ $t('action.cancel') }}
                     </el-button>
                     <el-button round type="primary" @click="submitForm()">
                         {{ $t('action.submit') }}
                     </el-button>
-                </span>
+                </div>
             </template>
         </el-dialog>
     </div>
@@ -227,7 +229,6 @@
 <script>
 import { mapState } from 'vuex';
 import _ from 'lodash';
-import tableTreeColumn from '@/components/core/table_tree_column.vue';
 import popupTreeInput from '@/components/popup_tree_input.vue';
 import falconTooltip from '@/components/falcon_tooltip.vue';
 import breadCrumb from '@/components/bread_crumb.vue';
@@ -237,7 +238,6 @@ import { loadDynamicMenuAndRoutes } from '@/utils/menu_route_loader.js';
 export default {
     components: {
         popupTreeInput,
-        tableTreeColumn,
         falconTooltip,
         breadCrumb,
         extButton,
@@ -288,27 +288,11 @@ export default {
             return [parent];
         },
     },
-    watch: {
-        menuTreeData: {
-            handler(val, oldVal) {
-                console.log(
-                    `menuTreeData变化: ${oldVal ? oldVal.length : 0} -> ${val ? val.length : 0}`
-                );
-            },
-            deep: true,
-        },
-    },
     mounted() {
         this.findTreeData();
     },
     methods: {
-        getTreeData(data) {
-            if (data) {
-                this.menuTreeData = data;
-            } else {
-                console.log('data 这空值');
-            }
-        },
+        // 获取树形数据
         async findTreeData() {
             this.loading = true;
             const _result = await this.$api.menu.getMenuTree();
@@ -365,6 +349,7 @@ export default {
             return ids;
         },
         handleTreeSelectChange(data, node) {
+            console.log('handleTreeSelectChange:data', data, 'node', node);
             this.formData.parentId = data.id;
             this.formData.parentName = data.name;
         },
@@ -401,8 +386,8 @@ export default {
                                         const _preTreeItem =
                                             _parentTreeItem.children.length > 1
                                                 ? _parentTreeItem.children[
-                                                    _parentTreeItem.children.length - 2
-                                                  ]
+                                                      _parentTreeItem.children.length - 2
+                                                ]
                                                 : _parentTreeItem;
                                         this.menuTreeData = this.menuTreeData
                                             .splice(
@@ -450,6 +435,30 @@ export default {
                 }
             });
         },
+        getRowClassName({ row, rowIndex }) {
+            if (this.isLeafNode(row)) {
+                return 'leaf-node-row';
+            }
+            return 'parent-node-row';
+        },
+        getNameStyle(row) {
+            const baseStyle = {
+                paddingLeft: '20px',
+                lineHeight: '30px',
+            };
+
+            if (this.isLeafNode(row)) {
+                return {
+                    ...baseStyle,
+                    color: '#666',
+                    fontSize: '13px',
+                };
+            }
+            return baseStyle;
+        },
+        isLeafNode(row) {
+            return !row.children || row.children.length === 0;
+        },
     },
 };
 
@@ -491,5 +500,31 @@ function removeTreeItemsByType(treeDatas, type = 2) {
 .top-bar {
     display: flex;
     justify-content: flex-end;
+}
+
+// 叶子节点样式
+:deep(.el-table__row) {
+    // 叶子节点行高调整
+    &.leaf-node-row {
+        height: 40px;
+    }
+
+    // 非叶子节点（有子节点的节点）
+    &.parent-node-row {
+        height: 50px;
+        font-weight: 500;
+    }
+}
+
+// 树形表格缩进样式
+:deep(.el-table__expand-icon) {
+    margin-right: 8px;
+}
+
+// 名称列的缩进
+:deep(.el-table__cell) {
+    .name-cell {
+        padding-left: 20px;
+    }
 }
 </style>

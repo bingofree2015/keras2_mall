@@ -149,8 +149,8 @@
                     <el-form-item label="地区类型:" prop="type">
                         <el-col :span="6">
                             <el-radio-group v-model="formData.type">
-                                <el-radio :label="1">所有</el-radio>
-                                <el-radio :label="2">部分</el-radio>
+                                <el-radio :value="1">所有</el-radio>
+                                <el-radio :value="2">部分</el-radio>
                             </el-radio-group>
                         </el-col>
                         <span class="tip-info">设置部分地区后，未配置地区采用默认配置</span>

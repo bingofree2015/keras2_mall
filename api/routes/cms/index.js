@@ -5,7 +5,7 @@ const Router = require('@koa/router');
 const orderRepo = require('../../repository/order/order_repos');
 const { getCount } = require('../../repository/order/bill_after_sale_repos');
 const { getStatistics } = require('../../repository/goods/goods_repos');
-const { upload } = require('../../utils/uploader');
+const uploader = require('../../utils/uploader');
 const systemRouter = require('./system');
 const logRouter = require('./log');
 const permissionRouter = require('./permission');
@@ -60,10 +60,13 @@ router.get('/', async (ctx) => {
  * 通用上传文件接口（1：图片、2：视频、3：音频）
  */
 router.post('/upload', async (ctx) => {
-    const { pathType, width, height } = ctx.request.body;
+    // 从 body 或 query 中获取参数
+    const pathType = ctx.request.body.pathType || ctx.query.pathType;
+    const width = parseInt(ctx.request.body.width || ctx.query.width) || 0;
+    const height = parseInt(ctx.request.body.height || ctx.query.height) || 0;
     let _result = {};
 
-    _result = await upload(ctx, pathType, width, height);
+    _result = await uploader.upload(ctx, pathType, width, height);
 
     ctx.body = _result;
 });

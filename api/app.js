@@ -93,8 +93,11 @@ koa.use(serve(`${__dirname}/upload`, { pathPrefix: '/upload' }));
 koa.use(convert(bodyparser()));
 koa.use(convert(json()));
 koa.use(async (ctx, next) => {
+    const params = ctx.request.method === 'POST'
+        ? JSON.stringify(ctx.request.body)
+        : JSON.stringify(ctx.query);
     logger.debug(
-        `请求地址: ${ctx.request.method} ${ctx.is()} ${ctx.request.url} params:[${ctx.request.method == 'POST' ? JSON.stringify(ctx.request.body) : JSON.stringify(ctx.query)}]`,
+        `请求地址: ${ctx.request.method} ${ctx.is()} ${ctx.request.url} params:[${params}]`,
     ); // 打印URL
     await next(); // 调用下一个middleware
 });

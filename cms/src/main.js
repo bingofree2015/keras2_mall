@@ -1,9 +1,9 @@
 import { createApp } from 'vue';
-import App from './app.vue';
-import router from './router';
-import vueApi from './api/vue_api';
-import i18n from './i18n';
-import store from './store';
+import App from '@/app.vue';
+import router from '@/router';
+import vueApi from '@/api/vue_api';
+import i18n from '@/i18n';
+import store from '@/store';
 import * as env from '@/env';
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';

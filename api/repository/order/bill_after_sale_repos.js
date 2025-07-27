@@ -1,4 +1,5 @@
 const logger = require('tracer').colorConsole();
+const { Op } = require('sequelize');
 const { BillAfterSale, BillAfterSaleItem, User } = require('../../models');
 const billReshipRepo = require('./bill_reship_repos');
 const billRefundRepo = require('../pay/bill_refund_repos');
@@ -322,7 +323,7 @@ class BillAfterSaleRepos {
             for (const _key in searchKey) {
                 if (typeof searchKey[_key] === 'string' && !_excludeKeys.includes(_key)) {
                     _where[_key] = {
-                        $like: `%${searchKey[_key]}%`,
+                        [Op.like]: `%${searchKey[_key]}%`,
                     };
                 } else {
                     _where[_key] = searchKey[_key];

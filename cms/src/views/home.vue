@@ -11,9 +11,9 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import headBar from './layout/head_bar.vue';
-import navBar from './layout/nav_bar.vue';
-import mainContent from './layout/main_content.vue';
+import headBar from '@/views/layout/head_bar.vue';
+import navBar from '@/views/layout/nav_bar.vue';
+import mainContent from '@/views/layout/main_content.vue';
 import { loadDynamicMenuAndRoutes } from '@/utils/menu_route_loader.js';
 export default {
     data() {

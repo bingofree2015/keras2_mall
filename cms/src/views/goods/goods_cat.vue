@@ -44,7 +44,6 @@
             v-loading="loading"
             :data="goodsCatTreeData"
             element-loading-text="$t('action.loading')"
-            size="small"
             stripe
             style="width: 100%"
         >
@@ -157,11 +156,11 @@
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
-                    <el-button :size="small" round @click="dialogVisible = false">
+                    <el-button round @click="dialogVisible = false">
                         {{ $t('action.cancel') }}
                     </el-button>
-                    <el-button :size="small" round type="primary" @click="submitForm()">
-                        $t('action.submit')
+                    <el-button round type="primary" @click="submitForm()">
+                        {{ $t('action.submit') }}
                     </el-button>
                 </span>
             </template>
@@ -185,7 +184,7 @@ export default {
     },
     data() {
         return {
-            largeSize: 'large',
+            normalSize: 'default',
             loading: false,
             goodsCatTreeData: [],
             dialogVisible: false,

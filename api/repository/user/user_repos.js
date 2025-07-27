@@ -1,4 +1,5 @@
 const logger = require('tracer').colorConsole();
+const { Op } = require('sequelize');
 const { User, UserGrade } = require('../../models');
 
 
@@ -293,7 +294,7 @@ class UserRepos {
             for (const _key in searchKey) {
                 if (typeof searchKey[_key] === 'string' && !_excludeKeys.includes(_key)) {
                     _where[_key] = {
-                        $like: `%${searchKey[_key]}%`,
+                        [Op.like]: `%${searchKey[_key]}%`,
                     };
                 } else {
                     _where[_key] = searchKey[_key];

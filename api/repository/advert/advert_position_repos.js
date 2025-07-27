@@ -1,5 +1,6 @@
 
 const logger = require('tracer').colorConsole();
+const { Op } = require('sequelize');
 const { AdvertPosition } = require('../../models');
 
 
@@ -224,7 +225,7 @@ class AdvertPositionRepos {
             for (const _key in searchKey) {
                 if (typeof searchKey[_key] === 'string' && !_excludeKeys.includes(_key)) {
                     _where[_key] = {
-                        $like: `%${searchKey[_key]}%`,
+                        [Op.like]: `%${searchKey[_key]}%`,
                     };
                 } else if (Array.isArray(searchKey[_key]) && searchKey[_key].length === 2) {
                     const _beginValue = searchKey[_key][0];

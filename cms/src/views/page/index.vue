@@ -117,15 +117,15 @@
                     <el-col :span="12">
                         <el-form-item label="布局样式" prop="layout">
                             <el-radio-group v-model="formData.layout">
-                                <el-radio :label="1">移动端</el-radio>
+                                <el-radio :value="1">移动端</el-radio>
                             </el-radio-group>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="布局类型" prop="type">
                             <el-radio-group v-model="formData.type">
-                                <el-radio :label="1">移动端</el-radio>
-                                <el-radio :label="2">PC端</el-radio>
+                                <el-radio :value="1">移动端</el-radio>
+                                <el-radio :value="2">PC端</el-radio>
                             </el-radio-group>
                         </el-form-item>
                     </el-col>

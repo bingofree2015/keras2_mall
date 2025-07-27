@@ -677,10 +677,10 @@
                         <template v-if="editWidget.type == 'record'">
                             <el-form-item label="位置">
                                 <el-radio-group v-model="editWidget.config.style.align">
-                                    <el-radio label="left">
+                                    <el-radio value="left">
                                         居左
                                     </el-radio>
-                                    <el-radio label="right">
+                                    <el-radio value="right">
                                         居右
                                     </el-radio>
                                 </el-radio-group>
@@ -933,10 +933,10 @@
                             </el-form-item>
                             <el-form-item label="样式">
                                 <el-radio-group v-model="editWidget.config.style">
-                                    <el-radio label="square">
+                                    <el-radio value="square">
                                         方形
                                     </el-radio>
-                                    <el-radio label="round">
+                                    <el-radio value="round">
                                         圆弧
                                     </el-radio>
                                 </el-radio-group>
@@ -1061,10 +1061,10 @@
                         <template v-if="editWidget.type == 'notice'">
                             <el-form-item label="获取">
                                 <el-radio-group v-model="editWidget.config.type">
-                                    <el-radio label="auto">
+                                    <el-radio value="auto">
                                         自动获取
                                     </el-radio>
-                                    <el-radio label="choose">
+                                    <el-radio value="choose">
                                         手动选择
                                     </el-radio>
                                 </el-radio-group>
@@ -1119,13 +1119,13 @@
                         <template v-if="editWidget.type == 'navBar'">
                             <el-form-item label="数量">
                                 <el-radio-group v-model="editWidget.config.column">
-                                    <el-radio :label="3">
+                                    <el-radio :value="3">
                                         3个
                                     </el-radio>
-                                    <el-radio :label="4">
+                                    <el-radio :value="4">
                                         4个
                                     </el-radio>
-                                    <el-radio :label="5">
+                                    <el-radio :value="5">
                                         5个
                                     </el-radio>
                                 </el-radio-group>
@@ -1242,10 +1242,10 @@
                         <template v-if="editWidget.type == 'goods'">
                             <el-form-item label="来源">
                                 <el-radio-group v-model="editWidget.config.type">
-                                    <el-radio label="auto">
+                                    <el-radio value="auto">
                                         自动
                                     </el-radio>
-                                    <el-radio label="choose">
+                                    <el-radio value="choose">
                                         手动
                                     </el-radio>
                                 </el-radio-group>
@@ -1330,12 +1330,12 @@
                             </draggable>
                             <el-form-item label="类型">
                                 <el-radio-group v-model="editWidget.config.display">
-                                    <el-radio label="list">
+                                    <el-radio value="list">
                                         列表平铺
                                     </el-radio>
                                     <el-radio
                                         :disabled="editWidget.config.column == 1"
-                                        label="slide"
+                                        :value="slide"
                                     >
                                         横向滚动
                                     </el-radio>
@@ -1345,14 +1345,14 @@
                                 <el-radio-group v-model="editWidget.config.column">
                                     <el-radio
                                         :disabled="editWidget.config.display == 'slide'"
-                                        :label="1"
+                                        :value="1"
                                     >
                                         单列
                                     </el-radio>
-                                    <el-radio :label="2">
+                                    <el-radio :value="2">
                                         两列
                                     </el-radio>
-                                    <el-radio :label="3">
+                                    <el-radio :value="3">
                                         三列
                                     </el-radio>
                                 </el-radio-group>
@@ -1362,10 +1362,10 @@
                             </el-form-item>
                             <el-form-item label="更多">
                                 <el-radio-group v-model="editWidget.config.more">
-                                    <el-radio label="true">
+                                    <el-radio value="true">
                                         是
                                     </el-radio>
-                                    <el-radio label="false">
+                                    <el-radio value="false">
                                         否
                                     </el-radio>
                                 </el-radio-group>
@@ -1481,8 +1481,8 @@ import changeImageIcon from '@/components/change_image_icon.vue';
 import pickVideo from '@/components/pick_video';
 import pickNotice from '@/components/pick_notice';
 
-import allComponents from './allComponents';
-import pageWidgets from './pageWidgets';
+import allComponents from '@/views/page/allComponents';
+import pageWidgets from '@/views/page/pageWidgets';
 import tinyEditor from '@/components/tiny_editor';
 
 export default {

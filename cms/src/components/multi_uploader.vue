@@ -1,9 +1,9 @@
 <template>
     <el-dialog
+        v-model="dialogVisible"
         :close-on-click-modal="false"
         :modal="false"
         title="多文件上传"
-        v-bind="$attrs"
         width="60%"
         @open="openDialog"
         v-on="$attrs"
@@ -43,13 +43,14 @@
                             <span v-else style="margin-left: 10px">
                                 {{ scope.row.name }}
                                 <el-button
-                                    :size="normalSize"
+                                    :size="miniSize"
                                     circle
-                                    icon="el-icon-delete"
                                     style="float: right"
                                     type="danger"
                                     @click="onDeleteAttachGroup(scope.row)"
-                                />
+                                >
+                                    <i class="el-icon-ali-delete"></i>
+                                </el-button>
                             </span>
                         </template>
                     </el-table-column>
@@ -97,7 +98,7 @@
                                             class="el-upload-list__item-delete"
                                             @click.stop="deleteImage(file)"
                                         >
-                                            <i class="el-icon-delete"></i>
+                                            <i class="el-icon-ali-delete1"></i>
                                         </span>
                                     </span>
                                     <label
@@ -160,7 +161,7 @@
 
             <!-- vueCropper 剪裁图片实现-->
             <el-dialog
-                v-model:visible="cropDialogVisible"
+                v-model="cropDialogVisible"
                 :before-close="closeCropDialog"
                 append-to-body
                 title="图片剪裁"
@@ -170,49 +171,36 @@
                         <el-main class="cropper-container">
                             <vueCropper
                                 ref="cropper"
+                                :img="option.img"
                                 :auto-crop="option.autoCrop"
                                 :can-move="option.canMove"
                                 :can-move-box="option.canMoveBox"
                                 :center-box="option.centerBox"
-                                :fixed="option.fixed"
                                 :fixed-box="option.fixedBox"
                                 :fixed-number="option.fixedNumber"
                                 :full="option.full"
-                                :img="option.img"
-                                :info="true"
+                                :info="option.info"
                                 :info-true="option.infoTrue"
                                 :original="option.original"
-                                :output-size="option.size"
+                                :output-size="option.outputSize"
                                 :output-type="option.outputType"
                             />
                         </el-main>
                         <el-footer>
                             <el-form-item>
                                 <el-button-group>
-                                    <el-button
-                                        icon="el-icon-ali-fangda"
-                                        round
-                                        type="primary"
-                                        @click="changeScale(1)"
-                                    />
-                                    <el-button
-                                        icon="el-icon-ali-suoxiao"
-                                        round
-                                        type="primary"
-                                        @click="changeScale(-1)"
-                                    />
-                                    <el-button
-                                        icon="el-icon-ali-left"
-                                        round
-                                        type="primary"
-                                        @click="rotateLeft"
-                                    />
-                                    <el-button
-                                        icon="el-icon-ali-right"
-                                        round
-                                        type="primary"
-                                        @click="rotateRight"
-                                    />
+                                    <el-button round type="primary" @click="changeScale(1)">
+                                        <i class="el-icon-ali-fangda"></i>
+                                    </el-button>
+                                    <el-button round type="primary" @click="changeScale(-1)">
+                                        <i class="el-icon-ali-suoxiao"></i>
+                                    </el-button>
+                                    <el-button round type="primary" @click="rotateLeft">
+                                        <i class="el-icon-ali-left"></i>
+                                    </el-button>
+                                    <el-button round type="primary" @click="rotateRight">
+                                        <i class="el-icon-ali-right"></i>
+                                    </el-button>
                                 </el-button-group>
                             </el-form-item>
                         </el-footer>
@@ -238,7 +226,7 @@
         </el-container>
         <template #footer>
             <div class="dialog-footer">
-                <el-button :size="normalSize" round @click.native="$emit('update:visible', false)">
+                <el-button :size="normalSize" round @click="$emit('update:visible', false)">
                     {{ $t('action.cancel') }}
                 </el-button>
                 <el-button
@@ -246,7 +234,7 @@
                     :size="normalSize"
                     round
                     type="primary"
-                    @click.native="chosedImage"
+                    @click="chosedImage"
                 >
                     {{ $t('action.submit') }}
                 </el-button>
@@ -257,6 +245,7 @@
 
 <script>
 import { VueCropper } from 'vue-cropper';
+import 'vue-cropper/dist/index.css';
 import validator from 'validator';
 import Cookies from 'js-cookie';
 import extButton from '@/components/core/ext_button.vue';
@@ -266,65 +255,60 @@ export default {
         extButton,
         VueCropper,
     },
+    props: {
+        visible: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    emits: ['update:visible', 'chosedImage'],
     data() {
         const token = Cookies.get('token');
         return {
-            normalSize: 'large',
-            // miniSize: 'default', // 删除 miniSize
-
+            normalSize: 'default',
+            miniSize: 'small',
             chosen: {
-                //  选中的图片
                 id: 0,
                 path: '',
             },
             editGroupItem: {
-                // 编辑的图片分组
                 id: 0,
                 name: '',
                 remark: '',
             },
             activeName: 'local',
             extData: {
-                // 上传图片时需要传递的参数
                 pathType: 'attachment',
                 width: 750,
                 height: 960,
             },
             headers: { authorization: 'Bearer ' + token },
             downloadImgUrl: '',
-
             attachGroups: [],
             imageList: [],
-
             attachGroupId: 0,
             attachId: 0,
-
             currPage: 0,
             offset: 0,
             pageSize: 24,
             count: 0,
-
             cropDialogVisible: false,
             loading: false,
-
-            // 裁剪组件的基础配置option
             option: {
-                img: this.imgUrl, // 裁剪图片的地址
-                info: true, // 裁剪框的大小信息
-                outputSize: 0.8, // 裁剪生成图片的质量
-                outputType: 'png', // 裁剪生成图片的格式
-                canScale: true, // 图片是否允许滚轮缩放
-                autoCrop: true, // 是否默认生成截图框
-                fixedBox: false, // 固定截图框大小 不允许改变
-                fixedNumber: [7, 5], // 截图框的宽高比例
-                full: false, // 是否输出原图比例的截图
-                canMoveBox: true, // 截图框能否拖动
-                original: false, // 上传图片按照原始比例渲染
-                centerBox: true, // 截图框是否被限制在图片里面
-                infoTrue: true, // true 为展示真实输出图片宽高 false 展示看到的截图框宽高
+                img: '',
+                info: true,
+                outputSize: 0.8,
+                outputType: 'png',
+                canScale: true,
+                autoCrop: true,
+                fixedBox: false,
+                fixedNumber: [7, 5],
+                full: false,
+                canMoveBox: true,
+                original: false,
+                centerBox: true,
+                infoTrue: true,
             },
-
-            cropper: null,
         };
     },
     computed: {
@@ -332,6 +316,14 @@ export default {
             return (url) => {
                 return validator.isURL(url);
             };
+        },
+        dialogVisible: {
+            get() {
+                return this.visible;
+            },
+            set(val) {
+                this.$emit('update:visible', val);
+            },
         },
     },
     async mounted() {
@@ -455,7 +447,7 @@ export default {
                 _formData.append('file', blobData);
                 _formData.append('pathType', 'attachment');
                 this.$axios({
-                    url: 'cms/upload',
+                    url: '/upload',
                     method: 'post',
                     data: _formData,
                     headers: { 'Content-Type': 'multipart/form-data' },
@@ -495,6 +487,7 @@ export default {
             });
         },
         cropImage(file) {
+            console.log('cropImage', file);
             this.attachId = file.id;
             this.option.img = this.env.getImgUrl(file.path);
             this.cropDialogVisible = true;
@@ -603,9 +596,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-i {
-    font-style: normal;
-}
 .list-item-check-label {
     position: absolute;
     right: -15px;
@@ -635,6 +625,12 @@ i {
     padding-top: 10px;
     padding-left: 15px;
 }
+
+.el-footer {
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
 .right {
     float: right;
 }
@@ -657,7 +653,6 @@ i {
 .uploader .el-upload:hover {
     border-color: #409eff;
 }
-
 .uploader-icon {
     font-size: 28px;
     color: #8c939d;
@@ -667,7 +662,6 @@ i {
     text-align: center;
     display: block;
 }
-
 .preview {
     width: 80px;
     height: 80px;

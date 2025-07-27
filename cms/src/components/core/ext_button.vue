@@ -1,27 +1,17 @@
 <template>
     <el-button
-        v-if="circle"
         :disabled="!hasPerms(perms)"
         :loading="loading"
         :size="size"
         :type="type"
-        circle
+        :circle="circle"
+        :round="!circle"
         class="ext-button"
         @click="handleClick"
     >
         <i v-if="icon" :class="icon"></i>
-    </el-button>
-    <el-button
-        v-else
-        :disabled="!hasPerms(perms)"
-        :loading="loading"
-        :size="size"
-        :type="type"
-        round
-        @click="handleClick"
-    >
-        <i v-if="icon" :class="icon"></i>
-        <span>{{ label }}</span>
+        <span v-if="!circle && label">{{ label }}</span>
+        <span v-else-if="circle && !icon">&nbsp;</span>
     </el-button>
 </template>
 
@@ -74,14 +64,15 @@ export default {
             default: null,
         },
     },
+    emits: ['click'],
     data() {
         return {};
     },
     mounted() {},
     methods: {
-        handleClick: function () {
+        handleClick: function (event) {
             // 按钮操作处理函数
-            this.$emit('click', {});
+            this.$emit('click', event);
         },
         hasPerms: function (perms) {
             // 根据权限标识和外部指示状态进行权限判断

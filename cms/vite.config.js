@@ -8,15 +8,22 @@ export default defineConfig({
         alias: {
             '@': path.resolve(__dirname, 'src'),
         },
+        extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     },
     server: {
-        port: 3000,
+        host: 'localhost',
+        port: 8085,
         open: true,
         proxy: {
             '/cms': {
-                target: 'http://localhost:8080',
+                target: 'http://127.0.0.1:8080',
                 changeOrigin: true,
-                rewrite      : (path) => path.replace(/^\/cms/, '/cms'),
+                rewrite: (path) => path.replace(/^\/cms/, '/cms'),
+            },
+            '/upload': {
+                target: 'http://127.0.0.1:8080',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/upload/, '/upload'),
             },
         },
     },

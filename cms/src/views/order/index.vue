@@ -312,7 +312,10 @@ export default {
             deliveryDialogVisible: false, // 订单发货
         };
     },
-    mounted() {},
+    mounted() {
+        // 初始化加载数据
+        this.queryForPaginatedList();
+    },
     methods: {
         handleClick() {},
         // 获取分页数据
@@ -342,7 +345,7 @@ export default {
             } else if (_type === 'evaluated') {
                 // 待评价
                 this.paginated[_type].attrs.searchKey.state = 1; // 订单状态正常
-                this.paginated[_type].attrs.searchKey.payState = { $gt: 1 }; // 未付款
+                this.paginated[_type].attrs.searchKey.payState = 2; // 已付款
                 this.paginated[_type].attrs.searchKey.shipState = 3; // 已发货
                 this.paginated[_type].attrs.searchKey.confirm = 2; // 确认收货
                 this.paginated[_type].attrs.searchKey.isComment = 1; // 没有评价
@@ -400,7 +403,7 @@ export default {
             } else if (action === 'action.finished') {
                 this.$confirm(`确认设置订单号${this.orderId}为完成吗？`, '提示', {}).then(
                     async () => {
-                        const _result = await this.$api.order.complate({
+                        const _result = await this.$api.order.complete({
                             orderId: this.orderId,
                         });
                         if (_result.succeed === 1 && _result.code === 200) {

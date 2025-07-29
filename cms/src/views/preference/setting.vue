@@ -16,8 +16,11 @@
             label-width="150px"
         >
             <el-row>
-                <el-col :span="18">
-                    <el-tabs v-model="activeName">
+                <el-col
+:span="24"
+:xs="24" :sm="24" :md="20" :lg="18"
+>
+                    <el-tabs v-model="activeName" class="settings-tabs">
                         <el-tab-pane label="平台设置" name="platform">
                             <template #label>
                                 <span>
@@ -26,7 +29,7 @@
                                 </span>
                             </template>
                             <el-form-item label="平台名称" prop="shopName">
-                                <el-col :span="8">
+                                <el-col :span="12" :xs="24" :sm="12" :md="8">
                                     <el-input
                                         v-model="formData.shopName"
                                         placeholder="请输入平台名称"
@@ -38,7 +41,7 @@
                                 </span>
                             </el-form-item>
                             <el-form-item label="平台描述" prop="shopDesc">
-                                <el-col :span="16">
+                                <el-col :span="20" :xs="24" :sm="20" :md="16">
                                     <el-input
                                         v-model="formData.shopDesc"
                                         :rows="2"
@@ -48,7 +51,7 @@
                                 </el-col>
                             </el-form-item>
                             <el-form-item label="备案信息" prop="shopFiling">
-                                <el-col :span="16">
+                                <el-col :span="20" :xs="24" :sm="20" :md="16">
                                     <el-input
                                         v-model="formData.shopFiling"
                                         :rows="2"
@@ -58,7 +61,7 @@
                                 </el-col>
                             </el-form-item>
                             <el-form-item label="联系手机号" prop="shopMobile">
-                                <el-col :span="8">
+                                <el-col :span="12" :xs="24" :sm="12" :md="8">
                                     <el-input
                                         v-model="formData.shopMobile"
                                         placeholder="请输入联系手机号"
@@ -69,8 +72,8 @@
                                     前台下单时发送短信通知
                                 </span>
                             </el-form-item>
-                            <el-row>
-                                <el-col :span="8">
+                            <el-row :gutter="20">
+                                <el-col :span="12" :xs="24" :sm="12" :md="8">
                                     <el-form-item label="平台logo" prop="shopLogo">
                                         <change-image-icon
                                             :img-url="formData.shopLogo"
@@ -78,7 +81,7 @@
                                         />
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="8">
+                                <el-col :span="12" :xs="24" :sm="12" :md="8">
                                     <el-form-item label="默认图" prop="shopDefaultImage">
                                         <change-image-icon
                                             :img-url="formData.shopDefaultImage"
@@ -87,8 +90,8 @@
                                     </el-form-item>
                                 </el-col>
                             </el-row>
-                            <el-row>
-                                <el-col :span="8">
+                            <el-row :gutter="20">
+                                <el-col :span="12" :xs="24" :sm="12" :md="8">
                                     <el-form-item label="自提" prop="selfService">
                                         <el-switch
                                             v-model="formData.selfService"
@@ -97,7 +100,7 @@
                                         />
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="8">
+                                <el-col :span="12" :xs="24" :sm="12" :md="8">
                                     <el-form-item label="发票" prop="invoicesNeed">
                                         <el-switch
                                             v-model="formData.invoicesNeed"
@@ -114,116 +117,160 @@
                                 />
                             </el-form-item>
                             <el-form-item label="分类样式" prop="cateStyle">
-                                <el-radio-group v-model="formData.cateStyle">
-                                    <el-radio :value="0">
-                                        一级大图
-                                        <el-card class="card-item">
-                                            <el-image
-                                                :src="
-                                                    env.getImgUrl(
-                                                        'template/style-1.png',
-                                                        env.baseAssetsUrl
-                                                    )
-                                                "
-                                            >
-                                                <template #error>
-                                                    <div>
-                                                        <i class="el-icon-ali-tupianshibai"></i>
-                                                    </div>
-                                                </template>
-                                            </el-image>
-                                            <div class="summary">尺寸建议：350px*150px</div>
-                                        </el-card>
-                                    </el-radio>
-                                    <el-radio :value="1">
-                                        一级小图
-                                        <el-card class="card-item">
-                                            <el-image
-                                                :src="
-                                                    env.getImgUrl(
-                                                        'template/style-2.png',
-                                                        env.baseAssetsUrl
-                                                    )
-                                                "
-                                            >
-                                                <template #error>
-                                                    <div>
-                                                        <i class="el-icon-ali-tupianshibai"></i>
-                                                    </div>
-                                                </template>
-                                            </el-image>
-                                            <div class="summary">尺寸建议：105px*105px</div>
-                                        </el-card>
-                                    </el-radio>
-                                    <el-radio :value="2">
-                                        二级小图
-                                        <el-card class="card-item">
-                                            <el-image
-                                                :src="
-                                                    env.getImgUrl(
-                                                        'template/style-3.png',
-                                                        env.baseAssetsUrl
-                                                    )
-                                                "
-                                            >
-                                                <template #error>
-                                                    <div>
-                                                        <i class="el-icon-ali-tupianshibai"></i>
-                                                    </div>
-                                                </template>
-                                            </el-image>
-                                            <div class="summary">尺寸建议：60px*60px</div>
-                                        </el-card>
-                                    </el-radio>
-                                </el-radio-group>
+                                <div class="style-selection-container">
+                                    <el-radio-group
+                                        v-model="formData.cateStyle"
+                                        class="style-radio-group"
+                                    >
+                                        <div
+                                            class="style-option"
+                                            :class="{ selected: formData.cateStyle === 0 }"
+                                        >
+                                            <div class="style-header">
+                                                <el-radio :value="0" class="style-radio">
+                                                    <span class="style-label">一级大图</span>
+                                                </el-radio>
+                                            </div>
+                                            <el-card class="card-item">
+                                                <el-image
+                                                    :src="
+                                                        env.getImgUrl(
+                                                            'template/style-1.png',
+                                                            env.baseAssetsUrl
+                                                        )
+                                                    "
+                                                >
+                                                    <template #error>
+                                                        <div class="image-placeholder">
+                                                            <i class="el-icon-ali-tupianshibai"></i>
+                                                        </div>
+                                                    </template>
+                                                </el-image>
+                                                <div class="summary">尺寸建议：350px*150px</div>
+                                            </el-card>
+                                        </div>
+                                        <div
+                                            class="style-option"
+                                            :class="{ selected: formData.cateStyle === 1 }"
+                                        >
+                                            <div class="style-header">
+                                                <el-radio :value="1" class="style-radio">
+                                                    <span class="style-label">一级小图</span>
+                                                </el-radio>
+                                            </div>
+                                            <el-card class="card-item">
+                                                <el-image
+                                                    :src="
+                                                        env.getImgUrl(
+                                                            'template/style-2.png',
+                                                            env.baseAssetsUrl
+                                                        )
+                                                    "
+                                                >
+                                                    <template #error>
+                                                        <div class="image-placeholder">
+                                                            <i class="el-icon-ali-tupianshibai"></i>
+                                                        </div>
+                                                    </template>
+                                                </el-image>
+                                                <div class="summary">尺寸建议：105px*105px</div>
+                                            </el-card>
+                                        </div>
+                                        <div
+                                            class="style-option"
+                                            :class="{ selected: formData.cateStyle === 2 }"
+                                        >
+                                            <div class="style-header">
+                                                <el-radio :value="2" class="style-radio">
+                                                    <span class="style-label">二级小图</span>
+                                                </el-radio>
+                                            </div>
+                                            <el-card class="card-item">
+                                                <el-image
+                                                    :src="
+                                                        env.getImgUrl(
+                                                            'template/style-3.png',
+                                                            env.baseAssetsUrl
+                                                        )
+                                                    "
+                                                >
+                                                    <template #error>
+                                                        <div class="image-placeholder">
+                                                            <i class="el-icon-ali-tupianshibai"></i>
+                                                        </div>
+                                                    </template>
+                                                </el-image>
+                                                <div class="summary">尺寸建议：60px*60px</div>
+                                            </el-card>
+                                        </div>
+                                    </el-radio-group>
+                                </div>
                             </el-form-item>
                             <el-form-item label="H5分类样式" prop="cateType">
-                                <el-radio-group v-model="formData.cateType" style="width: 100%">
-                                    <el-radio :value="0">
-                                        类型一
-                                        <el-card class="card-item">
-                                            <el-image
-                                                :src="
-                                                    env.getImgUrl(
-                                                        'template/h5-style-1.png',
-                                                        env.baseAssetsUrl
-                                                    )
-                                                "
-                                            >
-                                                <template #error>
-                                                    <div>
-                                                        <i class="el-icon-ali-tupianshibai"></i>
-                                                    </div>
-                                                </template>
-                                            </el-image>
-                                            <div class="summary">此设置只在H5端有效</div>
-                                        </el-card>
-                                    </el-radio>
-
-                                    <el-radio :value="1">
-                                        类型二
-                                        <el-card class="card-item">
-                                            <el-image
-                                                :src="
-                                                    env.getImgUrl(
-                                                        'template/h5-style-2.png',
-                                                        env.baseAssetsUrl
-                                                    )
-                                                "
-                                            >
-                                                <template #error>
-                                                    <div>
-                                                        <i class="el-icon-ali-tupianshibai"></i>
-                                                    </div>
-                                                </template>
-                                            </el-image>
-                                            <div class="summary">
-                                                此功能只在 "分类样式" 为 "二级小图"
-                                                的时候生效,小程序请忽略
+                                <div class="style-selection-container">
+                                    <el-radio-group
+                                        v-model="formData.cateType"
+                                        class="style-radio-group"
+                                    >
+                                        <div
+                                            class="style-option"
+                                            :class="{ selected: formData.cateType === 0 }"
+                                        >
+                                            <div class="style-header">
+                                                <el-radio :value="0" class="style-radio">
+                                                    <span class="style-label">类型一</span>
+                                                </el-radio>
                                             </div>
-                                        </el-card>
-                                    </el-radio>
-                                </el-radio-group>
+                                            <el-card class="card-item">
+                                                <el-image
+                                                    :src="
+                                                        env.getImgUrl(
+                                                            'template/h5-style-1.png',
+                                                            env.baseAssetsUrl
+                                                        )
+                                                    "
+                                                >
+                                                    <template #error>
+                                                        <div class="image-placeholder">
+                                                            <i class="el-icon-ali-tupianshibai"></i>
+                                                        </div>
+                                                    </template>
+                                                </el-image>
+                                                <div class="summary">此设置只在H5端有效</div>
+                                            </el-card>
+                                        </div>
+                                        <div
+                                            class="style-option"
+                                            :class="{ selected: formData.cateType === 1 }"
+                                        >
+                                            <div class="style-header">
+                                                <el-radio :value="1" class="style-radio">
+                                                    <span class="style-label">类型二</span>
+                                                </el-radio>
+                                            </div>
+                                            <el-card class="card-item">
+                                                <el-image
+                                                    :src="
+                                                        env.getImgUrl(
+                                                            'template/h5-style-2.png',
+                                                            env.baseAssetsUrl
+                                                        )
+                                                    "
+                                                >
+                                                    <template #error>
+                                                        <div class="image-placeholder">
+                                                            <i class="el-icon-ali-tupianshibai"></i>
+                                                        </div>
+                                                    </template>
+                                                </el-image>
+                                                <div class="summary">
+                                                    此功能只在 "分类样式" 为 "二级小图"
+                                                    的时候生效,小程序请忽略
+                                                </div>
+                                            </el-card>
+                                        </div>
+                                    </el-radio-group>
+                                </div>
                             </el-form-item>
                         </el-tab-pane>
                         <el-tab-pane label="商品设置" name="goods">
@@ -583,8 +630,8 @@
 
                             <el-form-item label="图片存储引擎" prop="imageStorageType">
                                 <el-radio-group v-model="formData.imageStorageType">
-                                    <el-radio :value="local">本地</el-radio>
-                                    <el-radio :value="aliyun">阿里云OSS</el-radio>
+                                    <el-radio value="local">本地</el-radio>
+                                    <el-radio value="aliyun">阿里云OSS</el-radio>
                                 </el-radio-group>
                             </el-form-item>
 
@@ -766,12 +813,12 @@ export default {
                 selfService: '2', // 开启门店自提
                 cateStyle: 3, // 分类样式
                 cateType: 1, // H5分类样式
-                orderCancelTime: '1', // 订单取消时间
-                orderCompleteTime: '30', // 订单完成时间
-                orderAutoSignTime: '20', // 订单确认收货时间
-                orderAutoEvalTime: '30', // 订单自动评价时间
-                reminderPaymentTime: '1', // 订单提醒付款时间
-                goodsStocksWarn: '10', // 库存警报数量
+                orderCancelTime: 1, // 订单取消时间
+                orderCompleteTime: 30, // 订单完成时间
+                orderAutoSignTime: 20, // 订单确认收货时间
+                orderAutoEvalTime: 30, // 订单自动评价时间
+                reminderPaymentTime: 1, // 订单提醒付款时间
+                goodsStocksWarn: 10, // 库存警报数量
                 returnContact: '', // 退货联系人
                 returnContactInformation: '', // 退货联系方式
                 returnAreaId: '', // 退货区域
@@ -812,8 +859,8 @@ export default {
                 wxOfficialType: 'service', // 公众号类型
 
                 // 提现设置
-                toCashLowMoney: '0', // 最低提现金额
-                toCashRateMoney: '0', // 提现服务费率
+                toCashLowMoney: 0, // 最低提现金额
+                toCashRateMoney: 0, // 提现服务费率
 
                 // 其他设置
                 qqMapKey: '', // 腾讯地图key
@@ -842,6 +889,10 @@ export default {
                 ],
             },
         };
+    },
+    mounted() {
+        this.getSettings();
+        this.getAreaList();
     },
     methods: {
         /**
@@ -910,32 +961,152 @@ export default {
             }
         },
     },
-    mounted() {
-        this.getSettings();
-        this.getAreaList();
-    },
 };
 </script>
 
 <style scoped lang="scss">
+.page-container {
+    padding: 20px;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+}
+
+.settings-tabs {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    padding: 20px;
+
+    .el-tabs__content {
+        padding: 20px 0;
+    }
+}
+
 .tip-info {
     margin-left: 10px;
     font-size: 12px;
     color: #909399;
 }
-.card-item {
-    margin-top: 10px;
-    width: 210px;
-    height: 380px;
-    i {
-        font-size: 128px;
-        color: #f2f6fc;
+
+.style-radio-group {
+    align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+}
+
+.style-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 220px;
+    padding: 0 15px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+        border-color: #e6e6e6;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
+
+    &.selected {
+        border-color: #409eff;
+        box-shadow: 0 4px 12px rgba(64, 158, 255, 0.2);
+        background-color: #f8fbff;
+    }
+}
+
+.style-header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.style-radio {
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.style-label {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.card-item {
+    width: 100%;
+    max-width: 220px;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+    overflow: hidden;
+
+    .el-image {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 180px;
+        background-color: #fafafa;
+    }
+
     .summary {
         padding: 8px 5px;
         font-weight: 200;
         font-size: 12px;
         white-space: pre-wrap;
+        text-align: center;
+        margin-top: auto;
+        background-color: #f5f5f5;
+        border-top: 1px solid #e6e6e6;
+    }
+}
+
+.image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 180px;
+    background-color: #fafafa;
+
+    i {
+        font-size: 64px;
+        color: #c0c4cc;
+    }
+}
+
+.style-selection-container {
+    width: 100%;
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+    .page-container {
+        padding: 10px;
+    }
+
+    .settings-tabs {
+        padding: 15px;
+    }
+
+    .style-radio-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .style-option {
+        min-width: 100%;
+    }
+
+    .card-item {
+        max-width: 100%;
     }
 }
 </style>

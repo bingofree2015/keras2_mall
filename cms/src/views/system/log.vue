@@ -21,14 +21,15 @@
                                     :value="item.prop"
                                 />
                             </el-select>
-                            <ext-button
-                                #append
-                                :label="$t('action.search')"
-                                icon="el-icon-ali-chazhaobiaodanliebiao"
-                                perms="sys:log:view"
-                                type="primary"
-                                @click="queryForPaginatedList()"
-                            />
+                            <template #append>
+                                <ext-button
+                                    :label="$t('action.search')"
+                                    icon="el-icon-ali-chazhaobiaodanliebiao"
+                                    perms="sys:log:view"
+                                    type="primary"
+                                    @click="queryForPaginatedList()"
+                                />
+                            </template>
                         </el-input>
                     </el-form-item>
                     <el-form-item>
@@ -154,6 +155,10 @@ export default {
                 this.paginated.attrs.count = _result.data.count;
             }
             if (data && data.cb) data.cb();
+        },
+        // 刷新数据
+        handleRefresh() {
+            this.queryForPaginatedList();
         },
         // 批量删除
         async batchDelete(ids) {

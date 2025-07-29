@@ -1,130 +1,153 @@
 <template>
-    <el-row>
-        <el-col :span="10">
-            <bread-crumb />
-        </el-col>
-        <el-col :span="14" class="top-bar">
-            <el-form :inline="true" :size="largeSize">
-                <el-form-item>
-                    <ext-button
-                        :label="$t('action.add')"
-                        icon="el-icon-ali-add"
-                        perms="marketing:article_type:add"
-                        type="primary"
-                        @click="handleAdd"
-                    />
-                </el-form-item>
-                <el-form-item>
-                    <el-button-group>
-                        <el-tooltip content="新增" placement="top">
-                            <el-button round @click="handleAdd">
-                                <i class="el-icon-ali-add"></i>
-                            </el-button>
-                        </el-tooltip>
-                        <el-tooltip content="刷新" placement="top">
-                            <el-button round @click="handleRefresh">
-                                <i class="el-icon-ali-shuaxin"></i>
-                            </el-button>
-                        </el-tooltip>
-                        <el-tooltip content="导出" placement="top">
-                            <el-button round>
-                                <i class="el-icon-ali-daochu"></i>
-                            </el-button>
-                        </el-tooltip>
-                    </el-button-group>
-                </el-form-item>
-            </el-form>
-        </el-col>
-    </el-row>
-
-    <!--表格树内容栏-->
-    <el-table
-        v-loading="loading"
-        :data="articleTypeTreeData"
-        element-loading-text="$t('action.loading')"
-        :size="miniSize"
-        stripe
-        style="width: 100%"
-    >
-        <el-table-column align="center" label="ID" min-width="60" prop="id" />
-        <table-tree-column
-            label="名称"
-            min-width="280"
-            prop="typeName"
-            tree-key="id"
-            @send-tree-data="getTreeData"
-        />
-        <el-table-column label="上级分类" min-width="160" prop="parentName" />
-        <el-table-column :label="$t('action.operation')" fixed="right" min-width="200">
-            <template #default="scope">
-                <ext-button
-                    :label="$t('action.edit')"
-                    icon="el-icon-ali-bianji"
-                    perms="marketing:article_type:edit"
-                    @click="handleEdit(scope.row)"
-                />
-                <ext-button
-                    :label="$t('action.delete')"
-                    icon="el-icon-ali-shanchu"
-                    perms="marketing:article_type:delete"
-                    type="danger"
-                    @click="handleDelete(scope.row)"
-                />
-            </template>
-        </el-table-column>
-    </el-table>
-
-    <!-- 新增修改界面 -->
-    <el-dialog
-        :close-on-click-modal="false"
-        :title="!formData.id ? '新增' : '修改'"
-        :model-value="dialogVisible"
-        width="40%"
-    >
-        <el-form
-            ref="formData"
-            :model="formData"
-            :rules="dataRule"
-            :size="largeSize"
-            label-width="80px"
-            @keyup.enter="submitForm()"
-        >
-            <el-row>
-                <el-col :span="16">
-                    <el-form-item label="上级分类" prop="parentName">
-                        <popup-tree-input
-                            :current-change-handle="handleTreeSelectChange"
-                            :data="popupTreeData"
-                            :node-key="'' + formData.pid"
-                            :prop="
-                                formData.parentName === null || formData.parentName === ''
-                                    ? '顶级分类'
-                                    : formData.parentName
-                            "
-                            :props="popupTreeProps"
+    <div class="article-type-container">
+        <el-row>
+            <el-col :span="10">
+                <bread-crumb />
+            </el-col>
+            <el-col :span="14" class="top-bar">
+                <el-form :inline="true" :size="largeSize">
+                    <el-form-item>
+                        <ext-button
+                            :label="$t('action.add')"
+                            icon="el-icon-ali-add"
+                            perms="marketing:article_type:add"
+                            type="primary"
+                            @click="handleAdd"
                         />
                     </el-form-item>
-                </el-col>
-            </el-row>
-            <el-row>
-                <el-col :span="16">
-                    <el-form-item label="分类名称" prop="typeName">
-                        <el-input v-model="formData.typeName" placeholder="分类名称" />
+                    <el-form-item>
+                        <el-button-group>
+                            <el-tooltip content="新增" placement="top">
+                                <el-button round @click="handleAdd">
+                                    <i class="el-icon-ali-add"></i>
+                                </el-button>
+                            </el-tooltip>
+                            <el-tooltip content="刷新" placement="top">
+                                <el-button round @click="handleRefresh">
+                                    <i class="el-icon-ali-shuaxin"></i>
+                                </el-button>
+                            </el-tooltip>
+                            <el-tooltip content="导出" placement="top">
+                                <el-button round>
+                                    <i class="el-icon-ali-daochu"></i>
+                                </el-button>
+                            </el-tooltip>
+                        </el-button-group>
                     </el-form-item>
-                </el-col>
-            </el-row>
-        </el-form>
-        <template #footer>
-            <span class="dialog-footer">
-                <el-button :size="largeSize" round @click="dialogVisible = false">
-                    {{ $t('action.cancel') }}
-                </el-button>
-                <el-button :size="largeSize" round type="primary" @click="submitForm()">
-                    {{ $t('action.submit') }}
-                </el-button>
-            </span>
-        </template>
-    </el-dialog>
+                </el-form>
+            </el-col>
+        </el-row>
+
+        <!--表格树内容栏-->
+        <el-table
+            v-loading="loading"
+            :data="articleTypeTreeData"
+            element-loading-text="$t('action.loading')"
+            :size="miniSize"
+            stripe
+            style="width: 100%"
+        >
+            <el-table-column align="center" label="ID" min-width="60" prop="id" />
+            <table-tree-column
+                label="名称"
+                min-width="280"
+                prop="typeName"
+                tree-key="id"
+                @send-tree-data="getTreeData"
+            />
+            <el-table-column label="上级分类" min-width="160" prop="parentName" />
+            <el-table-column :label="$t('action.operation')" fixed="right" min-width="200">
+                <template #default="scope">
+                    <ext-button
+                        :label="$t('action.edit')"
+                        icon="el-icon-ali-bianji"
+                        perms="marketing:article_type:edit"
+                        @click="handleEdit(scope.row)"
+                    />
+                    <ext-button
+                        :label="$t('action.delete')"
+                        icon="el-icon-ali-shanchu"
+                        perms="marketing:article_type:delete"
+                        type="danger"
+                        @click="handleDelete(scope.row)"
+                    />
+                </template>
+            </el-table-column>
+        </el-table>
+
+        <!-- 新增修改界面 -->
+        <el-dialog
+            :close-on-click-modal="false"
+            :title="!formData.id ? '新增' : '修改'"
+            :model-value="dialogVisible"
+            width="40%"
+        >
+            <el-form
+                ref="formData"
+                :model="formData"
+                :rules="dataRule"
+                :size="largeSize"
+                label-width="80px"
+                @keyup.enter="submitForm()"
+            >
+                <el-row>
+                    <el-col :span="16">
+                        <el-form-item label="上级分类" prop="parentName">
+                            <popup-tree-input
+                                :current-change-handle="handleTreeSelectChange"
+                                :data="popupTreeData"
+                                :node-key="'' + formData.pid"
+                                :prop="
+                                    formData.parentName === null || formData.parentName === ''
+                                        ? 'typeName'
+                                        : 'typeName'
+                                "
+                                :props="defaultProps"
+                                placeholder="请选择上级分类"
+                                style="width: 100%"
+                            />
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <el-form-item label="排序" prop="sort">
+                            <el-input-number
+                                v-model="formData.sort"
+                                :min="0"
+                                controls-position="right"
+                                style="width: 100%"
+                            />
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-form-item label="分类名称" prop="typeName">
+                    <el-input v-model="formData.typeName" placeholder="请输入分类名称" />
+                </el-form-item>
+                <el-form-item label="分类描述" prop="description">
+                    <el-input
+                        v-model="formData.description"
+                        placeholder="请输入分类描述"
+                        type="textarea"
+                    />
+                </el-form-item>
+            </el-form>
+            <template #footer>
+                <div class="dialog-footer">
+                    <el-button :size="miniSize" round @click="dialogVisible = false">
+                        {{ $t('action.cancel') }}
+                    </el-button>
+                    <el-button
+                        :loading="submitLoading"
+                        :size="miniSize"
+                        round
+                        type="primary"
+                        @click="submitForm()"
+                    >
+                        {{ $t('action.submit') }}
+                    </el-button>
+                </div>
+            </template>
+        </el-dialog>
+    </div>
 </template>
 
 <script>
@@ -235,7 +258,7 @@ export default {
                 const params = this.getDeleteIds([], row);
                 const _result = await this.$api.articleType.destroy({ ids: params });
                 if (_result.succeed === 1 && _result.code === 200) {
-                    this.articleTypeTreeData = removeTreeItemsByIds(
+                    this.articleTypeTreeData = this.removeTreeItemsByIds(
                         this.articleTypeTreeData,
                         params
                     );
@@ -274,7 +297,7 @@ export default {
                         this.editLoading = false;
                         if (_result.succeed === 1 && _result.code === 200) {
                             const _parentId = _result.data.pid;
-                            const _parentTreeItem = getTreeItemById(
+                            const _parentTreeItem = this.getTreeItemById(
                                 this.articleTypeTreeData,
                                 _parentId
                             );
@@ -346,28 +369,28 @@ export default {
                 }
             });
         },
+        // 根据ID获取树形数据中的项目
+        getTreeItemById(treeDatas, id) {
+            let childTreeItem, treeItem, i;
+            for (i = treeDatas.length; i; ) {
+                treeItem = treeDatas[--i];
+                if (id === treeItem.id) return treeItem;
+                if (treeItem.children) {
+                    childTreeItem = this.getTreeItemById(treeItem.children, id);
+                    if (childTreeItem) return childTreeItem;
+                }
+            }
+        },
+        // 根据ID数组移除树形数据中的项目
+        removeTreeItemsByIds(treeDatas, ids) {
+            const _treeItemDatas = treeDatas.filter((x) => !ids.includes(x.id));
+            _treeItemDatas.forEach(
+                (x) => x.children && (x.children = this.removeTreeItemsByIds(x.children, ids))
+            );
+            return _treeItemDatas;
+        },
     },
 };
-
-function getTreeItemById(treeDatas, id) {
-    let childTreeItem, treeItem, i;
-    for (i = treeDatas.length; i; ) {
-        treeItem = treeDatas[--i];
-        if (id === treeItem.id) return treeItem;
-        if (treeItem.children) {
-            childTreeItem = getTreeItemById(treeItem.children, id);
-            if (childTreeItem) return childTreeItem;
-        }
-    }
-}
-
-function removeTreeItemsByIds(treeDatas, ids) {
-    const _treeItemDatas = treeDatas.filter((x) => !ids.includes(x.id));
-    _treeItemDatas.forEach(
-        (x) => x.children && (x.children = removeTreeItemsByIds(x.children, ids))
-    );
-    return _treeItemDatas;
-}
 </script>
 
 <style scoped lang="scss">

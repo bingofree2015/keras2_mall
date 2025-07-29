@@ -24,7 +24,7 @@
                                 </el-button>
                             </el-tooltip>
                             <el-tooltip content="刷新" placement="top">
-                                <el-button round @click="queryForPaginatedList()">
+                                <el-button round @click="getAreaData()">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
@@ -105,7 +105,7 @@
                                 :current-change-handle="handleTreeSelectChange"
                                 :data="popupTreeData"
                                 :node-key="'' + formData.parentId"
-                                :prop="
+                                :model-value="
                                     formData.parentName === null || formData.parentName === ''
                                         ? '顶级区域'
                                         : formData.parentName
@@ -130,7 +130,7 @@
                         {{ $t('action.cancel') }}
                     </el-button>
                     <el-button :size="miniSize" round type="primary" @click="submitForm()">
-                        $t('action.submit')
+                        {{ $t('action.submit') }}
                     </el-button>
                 </span>
             </template>
@@ -155,6 +155,7 @@ export default {
             largeSize: 'large',
             miniSize: 'default',
             loading: false,
+            editLoading: false,
             areaTreeData: [],
             dialogVisible: false,
             formData: {
@@ -225,7 +226,7 @@ export default {
                 parentId: 0, // 父级ID
                 parentName: '', // 父级名称
                 postalCode: '', // 邮编
-                sort: 0,
+                sort: 1, // 默认排序值为1
             };
         },
         // 显示编辑界面
@@ -271,76 +272,88 @@ export default {
                 if (valid) {
                     this.$confirm('确认提交吗？', '提示', {}).then(async () => {
                         this.editLoading = true;
-                        const params = Object.assign({}, this.formData);
-                        const _result = await this.$api.area.save(params);
+                        try {
+                            const params = Object.assign({}, this.formData);
+                            const _result = await this.$api.area.save(params);
 
-                        this.editLoading = false;
-                        if (_result.succeed === 1 && _result.code === 200) {
-                            const _parentId = _result.data.parentId;
-                            const _parentTreeItem = getTreeItemById(this.areaTreeData, _parentId);
-
-                            if (_parentTreeItem && Array.isArray(_parentTreeItem.children)) {
-                                const _treeItem = _parentTreeItem.children.filter(
-                                    (v) => v.id === _result.data.id
+                            if (_result.succeed === 1 && _result.code === 200) {
+                                const _parentId = _result.data.parentId;
+                                const _parentTreeItem = getTreeItemById(
+                                    this.areaTreeData,
+                                    _parentId
                                 );
-                                if (_treeItem.length === 0) {
-                                    _result.data.level =
-                                        _parentId === 0 ? 1 : _parentTreeItem.level + 1;
-                                    _parentTreeItem.children.push(_result.data);
-                                } else {
-                                    Object.assign(_treeItem[0], _result.data);
-                                }
 
-                                if (_parentTreeItem._expanded) {
+                                if (_parentTreeItem && Array.isArray(_parentTreeItem.children)) {
+                                    const _treeItem = _parentTreeItem.children.filter(
+                                        (v) => v.id === _result.data.id
+                                    );
                                     if (_treeItem.length === 0) {
-                                        const _preTreeItem =
-                                            _parentTreeItem.children.length > 1
-                                                ? _parentTreeItem.children[
-                                                    _parentTreeItem.children.length - 2
-                                                  ]
-                                                : _parentTreeItem;
-                                        this.areaTreeData = this.areaTreeData
-                                            .splice(
-                                                0,
-                                                this.areaTreeData.findIndex(
-                                                    (v) => v.id === _preTreeItem.id
-                                                ) + 1
-                                            )
-                                            .concat(_result.data)
-                                            .concat(this.areaTreeData);
+                                        _result.data.level =
+                                            _parentId === 0 ? 1 : _parentTreeItem.level + 1;
+                                        _parentTreeItem.children.push(_result.data);
                                     } else {
-                                        const _filterItem = this.areaTreeData.filter(
-                                            (v) => v.id === _result.data.id
-                                        );
-                                        Object.assign(_filterItem[0], _result.data);
+                                        Object.assign(_treeItem[0], _result.data);
+                                    }
+
+                                    if (_parentTreeItem._expanded) {
+                                        if (_treeItem.length === 0) {
+                                            const _preTreeItem =
+                                                _parentTreeItem.children.length > 1
+                                                    ? _parentTreeItem.children[
+                                                        _parentTreeItem.children.length - 2
+                                                      ]
+                                                    : _parentTreeItem;
+                                            this.areaTreeData = this.areaTreeData
+                                                .splice(
+                                                    0,
+                                                    this.areaTreeData.findIndex(
+                                                        (v) => v.id === _preTreeItem.id
+                                                    ) + 1
+                                                )
+                                                .concat(_result.data)
+                                                .concat(this.areaTreeData);
+                                        } else {
+                                            const _filterItem = this.areaTreeData.filter(
+                                                (v) => v.id === _result.data.id
+                                            );
+                                            Object.assign(_filterItem[0], _result.data);
+                                        }
+                                    }
+                                } else {
+                                    const _treeItem = this.areaTreeData.filter(
+                                        (v) => v.id === _result.data.id
+                                    );
+                                    if (_treeItem.length === 0) {
+                                        _result.data.level = 1;
+                                        this.areaTreeData.push(_result.data);
+                                    } else {
+                                        Object.assign(_treeItem[0], _result.data);
                                     }
                                 }
-                            } else {
-                                const _treeItem = this.areaTreeData.filter(
-                                    (v) => v.id === _result.data.id
-                                );
-                                if (_treeItem.length === 0) {
-                                    _result.data.level = 1;
-                                    this.areaTreeData.push(_result.data);
-                                } else {
-                                    Object.assign(_treeItem[0], _result.data);
-                                }
-                            }
 
-                            console.log('保存后的areaTreeData: ', this.areaTreeData);
+                                console.log('保存后的areaTreeData: ', this.areaTreeData);
+                                this.$notify({
+                                    title: '成功',
+                                    message: _result.description,
+                                    type: 'success',
+                                });
+                                this.$refs.formData.resetFields();
+                                this.dialogVisible = false;
+                            } else {
+                                this.$notify({
+                                    title: '失败',
+                                    message: _result.description,
+                                    type: 'error',
+                                });
+                            }
+                        } catch (error) {
                             this.$notify({
-                                title: '成功',
-                                message: _result.description,
-                                type: 'success',
-                            });
-                            this.$refs.formData.resetFields();
-                            this.dialogVisible = false;
-                        } else {
-                            this.$notify({
-                                title: '失败',
-                                message: _result.description,
+                                title: '错误',
+                                message: '操作失败，请重试',
                                 type: 'error',
                             });
+                        } finally {
+                            this.editLoading = false;
                         }
                     });
                 }

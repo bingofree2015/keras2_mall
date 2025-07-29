@@ -16,6 +16,11 @@ import navBar from '@/views/layout/nav_bar.vue';
 import mainContent from '@/views/layout/main_content.vue';
 import { loadDynamicMenuAndRoutes } from '@/utils/menu_route_loader.js';
 export default {
+    components: {
+        headBar,
+        navBar,
+        mainContent,
+    },
     data() {
         return {
             activeTabName: '',
@@ -24,10 +29,9 @@ export default {
     computed: {
         ...mapState(['loginUser']),
     },
-    components: {
-        headBar,
-        navBar,
-        mainContent,
+    async mounted() {
+        await this.getGlobalVariables();
+        await loadDynamicMenuAndRoutes(this.loginUser.id);
     },
     methods: {
         ...mapActions(['setGlobalVariables']),
@@ -42,10 +46,6 @@ export default {
         setActiveTab(name) {
             this.activeTabName = name;
         },
-    },
-    async mounted() {
-        await this.getGlobalVariables();
-        await loadDynamicMenuAndRoutes(this.loginUser.id);
     },
 };
 </script>

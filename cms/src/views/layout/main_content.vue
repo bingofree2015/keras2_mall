@@ -26,7 +26,7 @@
             </el-tabs>
 
             <el-dropdown :show-timeout="0" :size="largeSize">
-                <i class="el-icon-ali-jiaose"></i>
+                <i style="font-size: 32px" class="el-icon-ali-qita2"></i>
                 <template #dropdown>
                     <el-dropdown-menu>
                         <el-dropdown-item @click="closeCurrentTab">
@@ -52,11 +52,13 @@
 
         <!-- 主内容区域 -->
         <div class="main-content">
-            <keep-alive>
-                <transition mode="out-in" name="fade">
-                    <router-view v-if="isRouterAlive" />
-                </transition>
-            </keep-alive>
+            <router-view v-if="isRouterAlive" v-slot="{ Component }">
+                <keep-alive>
+                    <transition mode="out-in" name="fade">
+                        <component :is="Component" />
+                    </transition>
+                </keep-alive>
+            </router-view>
         </div>
     </div>
 </template>
@@ -82,11 +84,6 @@ export default {
             currTabName: this.activeTabName,
         };
     },
-    watch: {
-        activeTabName(val) {
-            this.currTabName = val;
-        },
-    },
     computed: {
         ...mapState({
             themeColor: (state) => state.app.themeColor,
@@ -94,6 +91,11 @@ export default {
             mainTabs: (state) => state.tab.mainTabs,
             mainActiveTab: (state) => state.tab.mainActiveTab,
         }),
+    },
+    watch: {
+        activeTabName(val) {
+            this.currTabName = val;
+        },
     },
     methods: {
         ...mapActions(['updateMainTabs', 'updateMainActiveTab']),
@@ -105,10 +107,11 @@ export default {
         },
         // 选中tab
         clickTab(tab) {
-            let currTab = this.mainTabs.find((item) => item.name === tab.name);
+            let currTab = this.mainTabs.find((item) => item.name === tab.props.name);
             if (currTab) {
-                this.$router.push({ name: tab.name }, () => {
-                    this.updateMainActiveTab(this.$route);
+                // 使用路径跳转而不是路由名称，避免动态路由未加载的问题
+                this.$router.push({ path: currTab.path }, () => {
+                    this.updateMainActiveTab(currTab);
                 });
             }
         },

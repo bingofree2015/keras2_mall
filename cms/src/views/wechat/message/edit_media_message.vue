@@ -31,7 +31,7 @@
                                 <el-button
                                     circle
                                     icon="el-icon-delete"
-                                    size="mini"
+                                    size="small"
                                     style="float: right"
                                     type="danger"
                                     @click="handleDelete(scope.$index)"

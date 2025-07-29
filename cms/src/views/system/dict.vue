@@ -1,130 +1,132 @@
 <template>
-    <el-row>
-        <el-col :span="10">
-            <bread-crumb />
-        </el-col>
-        <el-col :span="14" class="top-bar">
-            <el-form :inline="true" :model="filters">
-                <el-form-item>
-                    <el-input v-model="filters.value" placeholder="请输入内容">
-                        <template #prepend>
-                            <el-select
-                                v-model="filters.key"
-                                class="search-prepend"
-                                placeholder="请选择"
-                            >
-                                <el-option
-                                    v-for="item in props"
-                                    :key="item.prop"
-                                    :label="item.label"
-                                    :value="item.prop"
+    <div class="dict-container">
+        <el-row>
+            <el-col :span="10">
+                <bread-crumb />
+            </el-col>
+            <el-col :span="14" class="top-bar">
+                <el-form :inline="true" :model="filters">
+                    <el-form-item>
+                        <el-input v-model="filters.value" placeholder="请输入内容">
+                            <template #prepend>
+                                <el-select
+                                    v-model="filters.key"
+                                    class="search-prepend"
+                                    placeholder="请选择"
+                                >
+                                    <el-option
+                                        v-for="item in props"
+                                        :key="item.prop"
+                                        :label="item.label"
+                                        :value="item.prop"
+                                    />
+                                </el-select>
+                            </template>
+                            <template #append>
+                                <ext-button
+                                    :label="$t('action.search')"
+                                    icon="el-icon-ali-chazhaobiaodanliebiao"
+                                    perms="system:dict:view"
+                                    type="primary"
+                                    @click="queryForPaginatedList()"
                                 />
-                            </el-select>
-                        </template>
-                        <template #append>
-                            <ext-button
-                                :label="$t('action.search')"
-                                icon="el-icon-ali-chazhaobiaodanliebiao"
-                                perms="system:dict:view"
-                                type="primary"
-                                @click="queryForPaginatedList()"
-                            />
-                        </template>
-                    </el-input>
+                            </template>
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <ext-button
+                            :label="$t('action.add')"
+                            icon="el-icon-ali-add"
+                            perms="system:dict:add"
+                            type="primary"
+                            @click="handleAdd"
+                        />
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button-group>
+                            <el-tooltip content="刷新" placement="top">
+                                <el-button round @click="queryForPaginatedList()">
+                                    <i class="el-icon-ali-shuaxin"></i>
+                                </el-button>
+                            </el-tooltip>
+                            <el-tooltip content="导出" placement="top">
+                                <el-button round>
+                                    <i class="el-icon-ali-daochu"></i>
+                                </el-button>
+                            </el-tooltip>
+                        </el-button-group>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+
+        <!--表格内容栏-->
+        <ext-table
+            :batch-delete="batchDelete"
+            :columns="columns"
+            :count="paginated.attrs.count"
+            :data="paginated.list"
+            :operations="operations"
+            :operation-width="operationWidth"
+            :page-size="paginated.attrs.limit"
+            :perms-batch-delete="permsBatchDelete"
+            @query-for-paginated-list="queryForPaginatedList"
+        />
+
+        <!--新增编辑界面-->
+        <el-dialog
+            :close-on-click-modal="false"
+            :title="isCreating ? '新增' : '编辑'"
+            :model-value="editDialogVisible"
+            width="40%"
+        >
+            <el-form ref="formData" :model="formData" :rules="formDataRules" label-width="80px">
+                <el-form-item v-if="false" label="ID" prop="id">
+                    <el-input v-model="formData.id" :disabled="true" auto-complete="off" />
                 </el-form-item>
-                <el-form-item>
-                    <ext-button
-                        :label="$t('action.add')"
-                        icon="el-icon-ali-add"
-                        perms="system:dict:add"
-                        type="primary"
-                        @click="handleAdd"
+                <el-form-item label="名称" prop="label">
+                    <el-input v-model="formData.label" auto-complete="off" />
+                </el-form-item>
+                <el-form-item label="值" prop="value">
+                    <el-input v-model="formData.value" auto-complete="off" />
+                </el-form-item>
+                <el-form-item label="类型" prop="type">
+                    <el-input v-model="formData.type" auto-complete="off" />
+                </el-form-item>
+                <el-form-item label="排序" prop="sort">
+                    <el-input-number
+                        v-model="formData.sort"
+                        :min="0"
+                        controls-position="right"
+                        label="排序"
+                        style="max-width: 100px"
                     />
                 </el-form-item>
-                <el-form-item>
-                    <el-button-group>
-                        <el-tooltip content="刷新" placement="top">
-                            <el-button round @click="queryForPaginatedList()">
-                                <i class="el-icon-ali-shuaxin"></i>
-                            </el-button>
-                        </el-tooltip>
-                        <el-tooltip content="导出" placement="top">
-                            <el-button round>
-                                <i class="el-icon-ali-daochu"></i>
-                            </el-button>
-                        </el-tooltip>
-                    </el-button-group>
+                <el-form-item label="描述 " prop="description">
+                    <el-input v-model="formData.description" auto-complete="off" type="textarea" />
+                </el-form-item>
+                <el-form-item label="备注" prop="remark">
+                    <el-input v-model="formData.remark" auto-complete="off" type="textarea" />
                 </el-form-item>
             </el-form>
-        </el-col>
-    </el-row>
-
-    <!--表格内容栏-->
-    <ext-table
-        :batch-delete="batchDelete"
-        :columns="columns"
-        :count="paginated.attrs.count"
-        :data="paginated.list"
-        :operations="operations"
-        :operation-width="operationWidth"
-        :page-size="paginated.attrs.limit"
-        :perms-batch-delete="permsBatchDelete"
-        @query-for-paginated-list="queryForPaginatedList"
-    />
-
-    <!--新增编辑界面-->
-    <el-dialog
-        :close-on-click-modal="false"
-        :title="isCreating ? '新增' : '编辑'"
-        :model-value="editDialogVisible"
-        width="40%"
-    >
-        <el-form ref="formData" :model="formData" :rules="formDataRules" label-width="80px">
-            <el-form-item v-if="false" label="ID" prop="id">
-                <el-input v-model="formData.id" :disabled="true" auto-complete="off" />
-            </el-form-item>
-            <el-form-item label="名称" prop="label">
-                <el-input v-model="formData.label" auto-complete="off" />
-            </el-form-item>
-            <el-form-item label="值" prop="value">
-                <el-input v-model="formData.value" auto-complete="off" />
-            </el-form-item>
-            <el-form-item label="类型" prop="type">
-                <el-input v-model="formData.type" auto-complete="off" />
-            </el-form-item>
-            <el-form-item label="排序" prop="sort">
-                <el-input-number
-                    v-model="formData.sort"
-                    :min="0"
-                    controls-position="right"
-                    label="排序"
-                    style="max-width: 100px"
-                />
-            </el-form-item>
-            <el-form-item label="描述 " prop="description">
-                <el-input v-model="formData.description" auto-complete="off" type="textarea" />
-            </el-form-item>
-            <el-form-item label="备注" prop="remark">
-                <el-input v-model="formData.remark" auto-complete="off" type="textarea" />
-            </el-form-item>
-        </el-form>
-        <template #footer>
-            <div class="dialog-footer">
-                <el-button :size="miniSize" round @click="editDialogVisible = false">
-                    {{ $t('action.cancel') }}
-                </el-button>
-                <el-button
-                    :loading="editLoading"
-                    :size="miniSize"
-                    round
-                    type="primary"
-                    @click="submitForm"
-                >
-                    {{ $t('action.submit') }}
-                </el-button>
-            </div>
-        </template>
-    </el-dialog>
+            <template #footer>
+                <div class="dialog-footer">
+                    <el-button :size="miniSize" round @click="editDialogVisible = false">
+                        {{ $t('action.cancel') }}
+                    </el-button>
+                    <el-button
+                        :loading="editLoading"
+                        :size="miniSize"
+                        round
+                        type="primary"
+                        @click="submitForm"
+                    >
+                        {{ $t('action.submit') }}
+                    </el-button>
+                </div>
+            </template>
+        </el-dialog>
+    </div>
 </template>
 
 <script>

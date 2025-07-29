@@ -209,7 +209,7 @@
                             <template #header>
                                 <el-button
                                     round
-                                    size="mini"
+                                    size="small"
                                     style="float: right"
                                     type="primary"
                                     @click.prevent="handleAddAreaFee()"
@@ -221,7 +221,7 @@
                                 <el-button
                                     circle
                                     icon="el-icon-delete"
-                                    size="mini"
+                                    size="small"
                                     type="danger"
                                     @click="handleDeleteAreaFee(scope.row.idx)"
                                 />

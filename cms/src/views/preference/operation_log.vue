@@ -127,6 +127,10 @@ export default {
             }
             if (data && data.cb) data.cb();
         },
+        // 刷新数据
+        handleRefresh() {
+            this.queryForPaginatedList();
+        },
     },
 };
 </script>

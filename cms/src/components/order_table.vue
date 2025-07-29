@@ -130,7 +130,7 @@ export default {
         miniSize: {
             // 尺寸样式
             type: String,
-            default: 'mini',
+            default: 'small',
         },
         align: {
             // 文本对齐方式
@@ -185,6 +185,7 @@ export default {
             default: 0,
         },
     },
+    emits: ['queryForPaginatedList', 'handlePrint', 'handleAction', 'handleCurrentRowChange'],
     data() {
         return {
             actions: 0,

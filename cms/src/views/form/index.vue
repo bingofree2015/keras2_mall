@@ -221,7 +221,6 @@ export default {
                     },
                 },
             ],
-            operationWidth: 0,
             permsBatchDelete: 'form:delete',
             reportDialogVisible: false,
             qrCodeDialogVisible: false,
@@ -229,15 +228,50 @@ export default {
             totalMoney: 0,
         };
     },
+    computed: {
+        operationWidth: {
+            get() {
+                let _operationWidth = 0;
+                if (Array.isArray(this.operations)) {
+                    _operationWidth += this.operations.length * 120;
+                }
+                return _operationWidth;
+            },
+        },
+    },
+    mounted() {
+        // 页面加载时自动获取数据
+        this.queryForPaginatedList();
+    },
     methods: {
-        queryForPaginatedList() {
-            // 查询逻辑
+        // 获取分页数据
+        async queryForPaginatedList(data) {
+            if (data && data.attrs) {
+                this.paginated.attrs = data.attrs;
+            }
+            this.paginated.attrs.searchKey = {};
+            if (this.filters.key && this.filters.value) {
+                this.paginated.attrs.searchKey[this.filters.key] = this.filters.value;
+            }
+            const _result = await this.$api.form.list(this.paginated.attrs);
+            if (_result.succeed === 1 && _result.code === 200) {
+                this.paginated.list = _result.data.list;
+                this.paginated.attrs.count = _result.data.count;
+            }
+            if (data && data.cb) data.cb();
         },
         handleAdd() {
             // 新增逻辑
         },
-        batchDelete() {
-            // 批量删除逻辑
+        // 批量删除
+        async batchDelete(ids) {
+            const _result = await this.$api.form.destroy({ ids });
+            if (_result.succeed === 1 && _result.code === 200) {
+                for (const id of ids) {
+                    const _index = this.paginated.list.findIndex((v) => v.id === id);
+                    this.paginated.list.splice(_index, 1);
+                }
+            }
         },
         downloadQrCode() {
             // 下载二维码逻辑

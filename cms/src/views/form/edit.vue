@@ -18,13 +18,19 @@
                 <el-col :span="20">
                     <el-row>
                         <el-col :span="12">
-                            <el-form-item label="表单名称" prop="name">
-                                <el-input v-model="formData.name" placeholder="请输入表单名称" />
+                            <el-form-item :label="$t('formEdit.formName')" prop="name">
+                                <el-input
+                                    v-model="formData.name"
+                                    :placeholder="$t('formEdit.formNamePlaceholder')"
+                                />
                             </el-form-item>
                         </el-col>
                         <el-col :span="12">
-                            <el-form-item label="表单类型" prop="type">
-                                <el-select v-model="formData.type" placeholder="请选择表单类型">
+                            <el-form-item :label="$t('formEdit.formType')" prop="type">
+                                <el-select
+                                    v-model="formData.type"
+                                    :placeholder="$t('formEdit.formTypePlaceholder')"
+                                >
                                     <el-option
                                         v-for="item in typeList"
                                         :key="item.key"
@@ -35,13 +41,12 @@
                             </el-form-item>
                         </el-col>
                     </el-row>
-                    <el-form-item label="表头类型" prop="headType">
+                    <el-form-item :label="$t('formEdit.headType')" prop="headType">
                         <el-radio-group v-model="formData.headType">
                             <el-radio
                                 v-for="item in headTypeList"
-                                v-for="item in headTypeList"
                                 :key="item.key"
-                                :label="item.key"
+                                :value="item.key"
                             >
                                 {{ item.value }}
                             </el-radio>
@@ -73,21 +78,24 @@
                                     <el-input
                                         v-model="formData.headTypeVideo"
                                         :size="largeSize"
-                                        placeholder="请上传视频"
+                                        :placeholder="$t('formEdit.uploadVideo')"
                                         readonly
                                     >
-                                        <el-upload
-                                            #append
-                                            :action="'cms/upload?pathType=form'"
-                                            :before-upload="beforeUpload"
-                                            :headers="headers"
-                                            :on-success="uploadSuccess"
-                                            :show-file-list="false"
-                                        >
-                                            <el-button>
-                                                <i class="el-icon-ali-camera_rec"></i>
-                                            </el-button>
-                                        </el-upload>
+                                        <template #append>
+                                            <el-upload
+                                                :action="'cms/upload?pathType=form'"
+                                                :before-upload="beforeUpload"
+                                                :headers="headers"
+                                                :on-success="uploadSuccess"
+                                                :show-file-list="false"
+                                            >
+                                                <template #default>
+                                                    <el-button>
+                                                        <i class="el-icon-ali-camera_rec"></i>
+                                                    </el-button>
+                                                </template>
+                                            </el-upload>
+                                        </template>
                                     </el-input>
                                 </el-col>
                                 <el-col :span="3">
@@ -109,37 +117,45 @@
                             </el-row>
                         </template>
                     </div>
-                    <el-form-item label="表单描述" prop="desc">
+                    <el-form-item :label="$t('formEdit.desc')" prop="desc">
                         <el-input
                             v-model="formData.desc"
                             maxlength="30"
-                            placeholder="请输入表单描述"
+                            :placeholder="$t('formEdit.descPlaceholder')"
                             show-word-limit
                             type="textarea"
                         />
                     </el-form-item>
-                    <el-form-item label="表单字段" prop="formItems">
+                    <el-form-item :label="$t('formEdit.fields')" prop="formItems">
                         <el-table
                             :data="formData.formItems"
                             :size="largeSize"
                             stripe
                             style="width: 100%"
                         >
-                            <el-table-column label="名称" min-width="140" prop="name">
+                            <el-table-column
+                                :label="$t('formEdit.fieldName')"
+                                min-width="140"
+                                prop="name"
+                            >
                                 <template #default="scope">
                                     <el-input
                                         v-model="scope.row.name"
                                         :size="largeSize"
-                                        placeholder="请输入名称"
+                                        :placeholder="$t('formEdit.namePlaceholder')"
                                     />
                                 </template>
                             </el-table-column>
-                            <el-table-column label="类型" min-width="130" prop="type">
+                            <el-table-column
+                                :label="$t('formEdit.fieldType')"
+                                min-width="130"
+                                prop="type"
+                            >
                                 <template #default="scope">
                                     <el-select
                                         v-model="scope.row.type"
                                         :size="largeSize"
-                                        placeholder="选择类型"
+                                        :placeholder="$t('formEdit.typePlaceholder')"
                                         @change="
                                             (val) => {
                                                 changeItemType(val, scope.row);
@@ -155,7 +171,11 @@
                                     </el-select>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="字段值" min-width="260" prop="value">
+                            <el-table-column
+                                :label="$t('formEdit.fieldValue')"
+                                min-width="260"
+                                prop="value"
+                            >
                                 <template #default="scope">
                                     <el-input
                                         v-if="scope.row.type == 'goods'"
@@ -163,39 +183,48 @@
                                         :size="largeSize"
                                         readonly
                                     >
-                                        <pick-goods
-                                            #append
-                                            :selection-type="0"
-                                            @chosed-goods="
-                                                (goods) => {
-                                                    chosedGoods(goods, scope.row);
-                                                }
-                                            "
-                                        />
+                                        <template #append>
+                                            <pick-goods
+                                                :selection-type="0"
+                                                @chosed-goods="
+                                                    (goods) => {
+                                                        chosedGoods(goods, scope.row);
+                                                    }
+                                                "
+                                            />
+                                        </template>
                                     </el-input>
                                     <el-input
                                         v-else
                                         v-model="scope.row.value"
                                         :size="largeSize"
-                                        placeholder="空格分隔"
+                                        :placeholder="$t('formEdit.valuePlaceholder')"
                                     />
                                 </template>
                             </el-table-column>
-                            <el-table-column label="默认值" min-width="120" prop="defaultValue">
+                            <el-table-column
+                                :label="$t('formEdit.defaultValue')"
+                                min-width="120"
+                                prop="defaultValue"
+                            >
                                 <template #default="scope">
                                     <el-input
                                         v-model="scope.row.defaultValue"
                                         :size="largeSize"
-                                        placeholder="空格分隔"
+                                        :placeholder="$t('formEdit.defaultValuePlaceholder')"
                                     />
                                 </template>
                             </el-table-column>
-                            <el-table-column label="验证类型" min-width="130" prop="validationType">
+                            <el-table-column
+                                :label="$t('formEdit.validationType')"
+                                min-width="130"
+                                prop="validationType"
+                            >
                                 <template #default="scope">
                                     <el-select
                                         v-model="scope.row.validationType"
                                         :size="largeSize"
-                                        placeholder="选择类型"
+                                        :placeholder="$t('formEdit.typePlaceholder')"
                                     >
                                         <el-option
                                             v-for="itemValidationType in validationTypeList"
@@ -206,12 +235,20 @@
                                     </el-select>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="必填" min-width="80" prop="required">
+                            <el-table-column
+                                :label="$t('formEdit.required')"
+                                min-width="80"
+                                prop="required"
+                            >
                                 <template #default="scope">
                                     <el-switch v-model="scope.row.required" :size="largeSize" />
                                 </template>
                             </el-table-column>
-                            <el-table-column label="排序" min-width="90" prop="sort">
+                            <el-table-column
+                                :label="$t('formEdit.sort')"
+                                min-width="90"
+                                prop="sort"
+                            >
                                 <template #default="scope">
                                     <el-input-number
                                         v-model="scope.row.sort"
@@ -223,7 +260,7 @@
                             </el-table-column>
                             <el-table-column
                                 fixed="right"
-                                label="操作"
+                                :label="$t('formEdit.operation')"
                                 min-width="60"
                                 prop="operation"
                             >
@@ -248,25 +285,24 @@
                                 </template>
                             </el-table-column>
                             <template #append>
-                                1. 类型是商品时：可不输入字段名，默认值为默认下单数量 2. 2.
-                                类型是金额时，字段值可不填
+                                {{ $t('formEdit.fieldHint') }}
                             </template>
                         </el-table>
                     </el-form-item>
                     <el-row>
                         <el-col :span="6">
-                            <el-form-item label="按钮名称" prop="buttonName">
+                            <el-form-item :label="$t('formEdit.buttonName')" prop="buttonName">
                                 <el-input
                                     v-model="formData.buttonName"
-                                    placeholder="请输入按钮名称"
+                                    :placeholder="$t('formEdit.buttonNamePlaceholder')"
                                 />
                             </el-form-item>
                         </el-col>
                         <el-col :span="7">
-                            <el-form-item label="按钮颜色" prop="buttonColor">
+                            <el-form-item :label="$t('formEdit.buttonColor')" prop="buttonColor">
                                 <el-input
                                     v-model="formData.buttonColor"
-                                    placeholder="请输入按钮颜色"
+                                    :placeholder="$t('formEdit.buttonColorPlaceholder')"
                                     readonly
                                 >
                                     <template #append>
@@ -276,29 +312,32 @@
                             </el-form-item>
                         </el-col>
                     </el-row>
-                    <el-form-item label="提示语" prop="returnMsg">
-                        <el-input v-model="formData.returnMsg" placeholder="请输入提示语" />
+                    <el-form-item :label="$t('formEdit.tip')" prop="returnMsg">
+                        <el-input
+                            v-model="formData.returnMsg"
+                            :placeholder="$t('formEdit.tipPlaceholder')"
+                        />
                     </el-form-item>
                     <el-row>
                         <el-col :span="6">
-                            <el-form-item label="需要登录" prop="required">
+                            <el-form-item :label="$t('formEdit.needLogin')" prop="required">
                                 <el-switch
                                     v-model="formData.required"
-                                    active-text="是"
-                                    inactive-text="否"
+                                    :active-text="$t('formEdit.yes')"
+                                    :inactive-text="$t('formEdit.no')"
                                 />
                             </el-form-item>
                         </el-col>
                         <el-col :span="6">
-                            <el-form-item label="排序" prop="sort">
+                            <el-form-item :label="$t('formEdit.sort')" prop="sort">
                                 <el-input-number v-model="formData.sort" />
                             </el-form-item>
                         </el-col>
                         <el-col :span="6">
-                            <el-form-item label="到期时间" prop="endDate">
+                            <el-form-item :label="$t('formEdit.expireTime')" prop="endDate">
                                 <el-date-picker
                                     v-model="formData.endDate"
-                                    placeholder="选择日期"
+                                    :placeholder="$t('formEdit.selectDate')"
                                     type="date"
                                 />
                             </el-form-item>
@@ -508,7 +547,13 @@ export default {
                 },
             ],
             formDataRules: {
-                name: [{ required: true, message: '请输入表单名称', trigger: 'blur' }],
+                name: [
+                    {
+                        required: true,
+                        message: this.$t('formEdit.formNamePlaceholder'),
+                        trigger: 'blur',
+                    },
+                ],
             },
         };
     },
@@ -561,14 +606,14 @@ export default {
 
             if (!isVideo) {
                 this.$notify.error({
-                    title: '错误',
-                    message: '上传文件只能是 video/mp4 或 audio/mp4 格式!',
+                    title: this.$t('formEdit.error'),
+                    message: this.$t('formEdit.uploadVideoErrorType'),
                 });
             }
             if (!isLt20M) {
                 this.$notify.error({
-                    title: '错误',
-                    message: '上传头像图片大小不能超过 20MB!',
+                    title: this.$t('formEdit.error'),
+                    message: this.$t('formEdit.uploadVideoErrorSize'),
                 });
             }
             return isVideo && isLt20M;
@@ -577,14 +622,14 @@ export default {
             if (result.succeed === 1 && result.code === 200 && result.data) {
                 this.formData.headTypeVideo = result.data.fileUrl;
                 this.$notify({
-                    title: '信息',
+                    title: this.$t('formEdit.info'),
                     message: result.data,
                     type: 'info',
                 });
             } else {
                 this.$notify.error({
-                    title: '错误',
-                    message: '上传视频失败！',
+                    title: this.$t('formEdit.error'),
+                    message: this.$t('formEdit.uploadVideoError'),
                 });
             }
         },
@@ -595,19 +640,23 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('formEdit.confirmSubmit'),
+                        this.$t('formEdit.tip'),
+                        {}
+                    ).then(async () => {
                         this.editLoading = true;
                         const data = Object.assign({}, this.formData);
                         const _result = await this.$api.form.save(data);
                         if (_result.succeed === 1 && _result.code === 200) {
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('formEdit.success'),
                                 message: _result.description,
                                 type: 'success',
                             });
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('formEdit.error'),
                                 message: _result.description,
                             });
                         }

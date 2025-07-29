@@ -99,7 +99,7 @@
             <template #footer>
                 <div class="dialog-footer">
                     <el-button
-                        :size="largeSize"
+                        :size="normalSize"
                         round
                         type="primary"
                         @click="reportDialogVisible = false"
@@ -265,7 +265,7 @@ export default {
             if (data && data.cb) data.cb();
         },
         handleAdd() {
-            // 新增逻辑
+            this.$router.push({ path: '/form/edit', query: { isCreating: 1 } });
         },
         // 批量删除
         async batchDelete(ids) {

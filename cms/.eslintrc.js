@@ -79,13 +79,14 @@ module.exports = {
         {
             files: ['*.vue'],
             rules: {
-                indent: ['error', 4, { SwitchCase: 1 }],
+                indent: 'off', // 关闭默认的indent规则
                 'vue/script-indent': [
                     'error',
                     4,
                     {
                         baseIndent: 0,
                         switchCase: 1,
+                        ignores: ['ArrayExpression', 'ObjectExpression', 'ImportDeclaration'],
                     },
                 ],
                 'prettier/prettier': [

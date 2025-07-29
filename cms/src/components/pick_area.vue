@@ -7,7 +7,7 @@
             v-model:visible="dialogVisible"
             :close-on-click-modal="false"
             :modal-append-to-body="false"
-            :size="largeSize"
+            :size="normalSize"
             title="区域选择窗"
             width="40%"
         >
@@ -52,7 +52,7 @@ export default {
     data() {
         return {
             miniSize: 'default',
-            largeSize: 'large',
+            normalSize: 'default',
             loading: false,
             dialogVisible: false,
             props: {

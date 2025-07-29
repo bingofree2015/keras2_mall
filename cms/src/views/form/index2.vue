@@ -1,12 +1,12 @@
 <template>
     <div class="page-container">
-        <!--导航与工具栏-->
-        <el-row>
-            <el-col :span="10">
+        <!-- 导航与工具栏 -->
+        <el-row class="top-row">
+            <el-col class="content-fit">
                 <bread-crumb />
             </el-col>
-            <el-col :span="14" class="top-bar">
-                <el-form :inline="true" :model="filters" :size="largeSize">
+            <el-col class="top-bar flex-grow">
+                <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
                         <el-input v-model="filters.value" placeholder="请输入内容">
                             <template #prepend>
@@ -85,7 +85,7 @@
             title="报表查看"
             width="40%"
         >
-            <el-form :inline="true" :size="largeSize">
+            <el-form :inline="true" :size="normalSize" class="search-form">
                 <el-row>
                     <el-col :span="24" style="text-align: right">
                         <el-form-item label="总提交:" prop="totalCount">
@@ -129,10 +129,10 @@
             </el-row>
             <template #footer>
                 <div class="dialog-footer">
-                    <el-button :size="largeSize" round @click="qrCodeDialogVisible = false">
+                    <el-button :size="normalSize" round @click="qrCodeDialogVisible = false">
                         {{ $t('action.close') }}
                     </el-button>
-                    <el-button :size="largeSize" round @click="downloadQrCode">
+                    <el-button :size="normalSize" round @click="downloadQrCode">
                         {{ $t('action.download') }}
                     </el-button>
                 </div>
@@ -153,7 +153,7 @@ export default {
     },
     data() {
         return {
-            largeSize: 'large',
+            normalSize: 'default',
             filters: {
                 key: 'name',
                 value: '',

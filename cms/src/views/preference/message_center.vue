@@ -28,7 +28,7 @@ export default {
     },
     data() {
         return {
-            largeSize: 'large',
+            normalSize: 'default',
             smallSize: 'small',
             columns: [
                 { prop: 'id', label: 'ID', minWidth: 60 },

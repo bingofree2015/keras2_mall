@@ -8,7 +8,7 @@
         @open="openDialog"
         v-on="$attrs"
     >
-        <el-form ref="formData" :model="formData" :size="largeSize" label-width="120px">
+        <el-form ref="formData" :model="formData" :size="normalSize" label-width="120px">
             <template v-if="formData.store">
                 <el-row>
                     <el-col :span="12">
@@ -120,7 +120,7 @@ export default {
     },
     data() {
         return {
-            largeSize: 'large',
+            normalSize: 'default',
             miniSize: 'default',
 
             loading: false,

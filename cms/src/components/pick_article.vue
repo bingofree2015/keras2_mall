@@ -91,7 +91,6 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            largeSize: 'large',
             loading: false,
             dialogVisible: false,
 

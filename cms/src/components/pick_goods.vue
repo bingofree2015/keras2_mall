@@ -96,7 +96,7 @@ export default {
     data() {
         return {
             miniSize: 'default',
-            largeSize: 'large',
+            normalSize: 'default',
             loading: false,
             dialogVisible: false,
 

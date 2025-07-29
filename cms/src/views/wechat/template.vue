@@ -96,7 +96,7 @@ export default {
     },
     data() {
         return {
-            largeSize: 'large',
+            normalSize: 'default',
         };
     },
     mounted() {},

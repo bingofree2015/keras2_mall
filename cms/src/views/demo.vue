@@ -85,7 +85,7 @@
             </el-row>
             <el-row>
                 <el-col :span="6">
-                    <el-button :size="largeSize" round type="primary" @click="handleClick">
+                    <el-button :size="normalSize" round type="primary" @click="handleClick">
                         上传视频
                     </el-button>
                 </el-col>
@@ -179,7 +179,7 @@
         </el-main>
         <!-- vueCropper 剪裁图片实现-->
         <el-dialog :model-value="cropDialogVisible" append-to-body title="图片剪裁">
-            <el-form :inline="true" :size="largeSize">
+            <el-form :inline="true" :size="normalSize">
                 <el-container>
                     <el-main class="cropper-container">
                         <vueCropper
@@ -234,12 +234,12 @@
             </el-form>
             <template #footer>
                 <div class="dialog-footer">
-                    <el-button :size="largeSize" round @click="cropDialogVisible = false">
+                    <el-button :size="normalSize" round @click="cropDialogVisible = false">
                         取 消
                     </el-button>
                     <el-button
                         :loading="loading"
-                        :size="largeSize"
+                        :size="normalSize"
                         round
                         type="primary"
                         @click="uploadCropData"
@@ -264,8 +264,8 @@ import tinyEditor from '@/components/tiny_editor.vue';
 import videoUploader from '@/components/video_uploader.vue';
 import pickVideo from '@/components/pick_video.vue';
 import pickArea from '@/components/pick_area.vue';
-import { ref } from 'vue'
-const dialogVisible = ref(false)
+import { ref } from 'vue';
+const dialogVisible = ref(false);
 export default {
     components: {
         draggableImageList,
@@ -331,7 +331,7 @@ export default {
             cropDialogVisible: false,
             loading: false,
 
-            largeSize: 'large',
+            normalSize: 'default',
             smallSize: 'small',
             imageItems: [
                 { id: 0, path: 'attachment/image/156691643755464.jpg' },

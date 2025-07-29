@@ -5,7 +5,7 @@
             ref="formData"
             :model="formData"
             :rules="formDataRules"
-            :size="largeSize"
+            :size="normalSize"
             class="edit-dialog-container"
             label-width="80px"
         >
@@ -213,7 +213,7 @@
                                 </el-form-item>
                                 <el-form-item label="生成规格">
                                     <ext-button
-                                        :size="largeSize"
+                                        :size="normalSize"
                                         icon="el-icon-ali-goujian"
                                         label="生成规格"
                                         type="primary"
@@ -222,7 +222,7 @@
                                 </el-form-item>
                                 <el-table
                                     :data="formData.products"
-                                    :size="largeSize"
+                                    :size="normalSize"
                                     stripe
                                     style="width: 100%"
                                 >
@@ -263,7 +263,7 @@
                                         <template #default="scope">
                                             <el-input
                                                 v-model="scope.row['sn']"
-                                                :size="largeSize"
+                                                :size="normalSize"
                                                 placeholder="请输入货号"
                                             />
                                         </template>
@@ -283,7 +283,7 @@
                                         <template #default="scope">
                                             <el-input
                                                 v-model.number="scope.row['dynamicStock']"
-                                                :size="largeSize"
+                                                :size="normalSize"
                                                 class="switch-container"
                                                 placeholder="增减"
                                             >
@@ -301,7 +301,7 @@
                                         <template #default="scope">
                                             <el-input
                                                 v-model="scope.row['price']"
-                                                :size="largeSize"
+                                                :size="normalSize"
                                                 placeholder="请输入销售价"
                                             />
                                         </template>
@@ -310,7 +310,7 @@
                                         <template #default="scope">
                                             <el-input
                                                 v-model="scope.row['costPrice']"
-                                                :size="largeSize"
+                                                :size="normalSize"
                                                 placeholder="请输入成本价"
                                             />
                                         </template>
@@ -319,7 +319,7 @@
                                         <template #default="scope">
                                             <el-input
                                                 v-model="scope.row['mktPrice']"
-                                                :size="largeSize"
+                                                :size="normalSize"
                                                 placeholder="请输入市场价"
                                             />
                                         </template>
@@ -333,7 +333,7 @@
                                         <template #default="scope">
                                             <ext-button
                                                 :label="$t('action.delete')"
-                                                :size="largeSize"
+                                                :size="normalSize"
                                                 icon="el-icon-ali-shanchu"
                                                 type="danger"
                                                 @click="handleDeleteProduct(scope.row)"
@@ -488,12 +488,12 @@
             </el-row>
             <el-row>
                 <el-col :span="18" class="footer">
-                    <el-button :size="largeSize" round @click="resetForm('formData')">
+                    <el-button :size="normalSize" round @click="resetForm('formData')">
                         {{ $t('action.cancel') }}
                     </el-button>
                     <el-button
                         :loading="editLoading"
-                        :size="largeSize"
+                        :size="normalSize"
                         round
                         type="primary"
                         @click="submitForm"
@@ -531,7 +531,7 @@ export default {
             }
         };
         return {
-            largeSize: 'large',
+            normalSize: 'default',
             goodsCatList: [],
             goodsTypeList: [],
             brandList: [],

@@ -25,7 +25,7 @@
                 </el-tab-pane>
             </el-tabs>
 
-            <el-dropdown :show-timeout="0" :size="largeSize">
+            <el-dropdown :show-timeout="0" :size="normalSize">
                 <i style="font-size: 32px" class="el-icon-ali-qita2"></i>
                 <template #dropdown>
                     <el-dropdown-menu>
@@ -79,7 +79,7 @@ export default {
     },
     data() {
         return {
-            largeSize: 'large',
+            normalSize: 'default',
             isRouterAlive: true,
             currTabName: this.activeTabName,
         };

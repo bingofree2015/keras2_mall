@@ -11,7 +11,7 @@
             ref="formData"
             :model="formData"
             :rules="formDataRules"
-            :size="largeSize"
+            :size="normalSize"
             class="edit-dialog-container"
             label-width="150px"
         >
@@ -88,12 +88,12 @@
             </el-row>
             <el-row>
                 <el-col :span="16" class="footer">
-                    <el-button :size="largeSize" round @click="resetForm('formData')">
+                    <el-button :size="normalSize" round @click="resetForm('formData')">
                         {{ $t('action.cancel') }}
                     </el-button>
                     <el-button
                         :loading="editLoading"
-                        :size="largeSize"
+                        :size="normalSize"
                         round
                         type="primary"
                         @click="submitForm"
@@ -114,7 +114,7 @@ export default {
     },
     data() {
         return {
-            largeSize: 'large',
+            normalSize: 'default',
             // miniSize: 'default', // 删除 miniSize
             editLoading: false,
             // 编辑界面数据

@@ -141,7 +141,7 @@ export default {
     },
     data() {
         return {
-            largeSize: 'large',
+            normalSize: 'default',
             filters: {
                 key: 'label',
                 value: '',

@@ -1,12 +1,12 @@
 <template>
     <div class="page-container">
-        <!--导航与工具栏-->
-        <el-row>
-            <el-col :span="10">
+        <!-- 导航与工具栏 -->
+        <el-row class="top-row">
+            <el-col class="content-fit">
                 <bread-crumb />
             </el-col>
-            <el-col :span="14" class="top-bar">
-                <el-form :inline="true" :model="filters" :size="largeSize">
+            <el-col class="top-bar flex-grow">
+                <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
                         <el-input v-model="filters.value" placeholder="请输入内容">
                             <template #prepend>
@@ -95,12 +95,12 @@
             </el-form>
             <template #footer>
                 <div class="dialog-footer">
-                    <el-button :size="largeSize" round @click="editDialogVisible = false">
+                    <el-button :size="normalSize" round @click="editDialogVisible = false">
                         {{ $t('action.cancel') }}
                     </el-button>
                     <el-button
                         :loading="editLoading"
-                        :size="largeSize"
+                        :size="normalSize"
                         round
                         type="primary"
                         @click="submitForm"
@@ -126,7 +126,7 @@ export default {
     },
     data() {
         return {
-            largeSize: 'large',
+            normalSize: 'default',
             filters: {
                 key: 'name',
                 value: '',
@@ -176,7 +176,7 @@ export default {
                     label: 'action.edit', // 按钮上显示的文字
                     icon: 'el-icon-ali-huifupinglun', // 按钮文字前面的图标
                     perms: 'goods:goods_comment:edit', // 权限标识
-                    size: this.largeSize, // 按钮大小
+                    size: this.normalSize, // 按钮大小
                     // type: 'primary',                  // 按钮类型
                     func: (row) => {
                         this.editDialogVisible = true;

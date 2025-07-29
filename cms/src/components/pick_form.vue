@@ -7,7 +7,7 @@
             v-model:visible="dialogVisible"
             :modal-append-to-body="false"
             :close-on-click-modal="false"
-            :size="largeSize"
+            :size="normalSize"
             title="商品选择窗"
             width="50%"
         >
@@ -90,7 +90,7 @@ export default {
     data() {
         return {
             miniSize: 'default',
-            largeSize: 'large',
+            normalSize: 'default',
             loading: false,
             dialogVisible: false,
 

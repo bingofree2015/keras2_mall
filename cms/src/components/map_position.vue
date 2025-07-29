@@ -41,10 +41,10 @@
         </el-container>
         <template #footer>
             <div class="dialog-footer">
-                <el-button :size="largeSize" round @click.native="mapDialogVisible = false">
+                <el-button :size="normalSize" round @click.native="mapDialogVisible = false">
                     {{ $t('action.cancel') }}
                 </el-button>
-                <el-button :size="largeSize" round type="primary" @click.native="chosedLocation">
+                <el-button :size="normalSize" round type="primary" @click.native="chosedLocation">
                     {{ $t('action.submit') }}
                 </el-button>
             </div>
@@ -74,7 +74,6 @@ export default {
     data() {
         const self = this;
         return {
-            largeSize: 'large',
             normalSize: 'default',
             mapDialogVisible: false, // 对话窗显示/隐藏
             position: {

@@ -2,20 +2,11 @@
     <div class="page-container">
         <!-- 导航与工具栏 -->
         <el-row class="top-row">
-            <el-col :span="10">
+            <el-col class="content-fit">
                 <bread-crumb />
             </el-col>
-            <el-col :span="14" class="top-bar">
+            <el-col class="top-bar flex-grow">
                 <el-form :inline="true">
-                    <el-form-item>
-                        <ext-button
-                            :label="$t('action.add')"
-                            icon="el-icon-ali-add"
-                            perms="sys:menu:add"
-                            type="primary"
-                            @click="handleAdd"
-                        />
-                    </el-form-item>
                     <el-form-item>
                         <el-button-group>
                             <el-tooltip content="新增" placement="top">
@@ -245,7 +236,7 @@ export default {
     inject: ['reload'],
     data() {
         return {
-            largeSize: 'large',
+            normalSize: 'default',
             loading: false,
             menuTreeData: [],
             dialogVisible: false,
@@ -387,7 +378,7 @@ export default {
                                             _parentTreeItem.children.length > 1
                                                 ? _parentTreeItem.children[
                                                       _parentTreeItem.children.length - 2
-                                                ]
+                                                  ]
                                                 : _parentTreeItem;
                                         this.menuTreeData = this.menuTreeData
                                             .splice(
@@ -500,6 +491,14 @@ function removeTreeItemsByType(treeDatas, type = 2) {
 .top-bar {
     display: flex;
     justify-content: flex-end;
+}
+
+// 内容自适应类
+.content-fit {
+    flex: 0 0 auto;
+}
+.flex-grow {
+    flex: 1;
 }
 
 // 叶子节点样式

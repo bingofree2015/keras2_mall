@@ -5,7 +5,7 @@
                 <bread-crumb />
             </el-col>
             <el-col :span="14" class="top-bar">
-                <el-form :inline="true" :size="largeSize">
+                <el-form :inline="true" :size="normalSize">
                     <el-form-item>
                         <ext-button
                             :label="$t('action.add')"
@@ -171,7 +171,7 @@ export default {
     },
     data() {
         return {
-            largeSize: 'large',
+            normalSize: 'default',
             miniSize: 'default',
             loading: false,
             articleTypeTreeData: [],
@@ -319,8 +319,8 @@ export default {
                                         const _preTreeItem =
                                             _parentTreeItem.children.length > 1
                                                 ? _parentTreeItem.children[
-                                                    _parentTreeItem.children.length - 2
-                                                ]
+                                                      _parentTreeItem.children.length - 2
+                                                  ]
                                                 : _parentTreeItem;
                                         this.articleTypeTreeData = this.articleTypeTreeData
                                             .splice(

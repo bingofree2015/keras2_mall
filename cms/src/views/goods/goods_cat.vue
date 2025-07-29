@@ -1,12 +1,12 @@
 <template>
     <div class="page-container">
-        <!--导航与工具栏-->
-        <el-row>
-            <el-col :span="10">
+        <!-- 导航与工具栏 -->
+        <el-row class="top-row">
+            <el-col class="content-fit">
                 <bread-crumb />
             </el-col>
-            <el-col :span="14" class="top-bar">
-                <el-form :inline="true">
+            <el-col class="top-bar flex-grow">
+                <el-form :inline="true" class="search-form">
                     <el-form-item>
                         <ext-button
                             :label="$t('action.add')"

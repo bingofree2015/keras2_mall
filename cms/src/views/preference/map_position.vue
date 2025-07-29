@@ -2,10 +2,7 @@
     <el-container class="map-container">
         <el-main>
             <el-amap-search-box :on-search-result="onSearchResult" :search-option="searchOption" />
-            <el-amap
-:center="center"
-:events="events" :plugin="plugin" :zoom="zoom" vid="amap"
->
+            <el-amap :center="center" :events="events" :plugin="plugin" :zoom="zoom" vid="amap">
                 <el-amap-marker
                     v-for="(marker, index) in markers"
                     :key="marker.index"
@@ -44,7 +41,7 @@ export default {
     data() {
         const self = this;
         return {
-            largeSize: 'large',
+            normalSize: 'default',
             miniSize: 'default',
             position: {
                 lng: 0,

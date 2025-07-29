@@ -33,13 +33,6 @@ export default {
 </script>
 
 <style lang="scss">
-.page-container {
-    margin: 8px;
-    .top-bar {
-        text-align: right;
-    }
-}
-
 .dialog-container {
     .el-form-item {
         margin-bottom: 0px;

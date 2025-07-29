@@ -29,7 +29,7 @@
                                     icon="el-icon-ali-chazhaobiaodanliebiao"
                                     perms="form:form_submit:view"
                                     type="primary"
-                                    @click="queryForPaginatedList()"
+                                    @click="handleRefresh"
                                 />
                             </template>
                         </el-input>
@@ -37,7 +37,7 @@
                     <el-form-item>
                         <el-button-group>
                             <el-tooltip content="刷新" placement="top">
-                                <el-button round @click="queryForPaginatedList()">
+                                <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
@@ -221,6 +221,7 @@ export default {
         breadCrumb,
         extButton,
     },
+    inject: ['reload'],
     data() {
         return {
             normalSize: 'large',
@@ -341,6 +342,13 @@ export default {
     },
     mounted() {},
     methods: {
+        /**
+         * 处理刷新按钮点击
+         * 使用父组件提供的 reload 方法进行页面刷新
+         */
+        handleRefresh() {
+            this.reload();
+        },
         // 获取分页数据
         async queryForPaginatedList(data) {
             if (data && data.attrs) {

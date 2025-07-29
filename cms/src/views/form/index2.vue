@@ -29,27 +29,23 @@
                                     icon="el-icon-ali-chazhaobiaodanliebiao"
                                     perms="form:view"
                                     type="primary"
-                                    @click="queryForPaginatedList()"
+                                    @click="handleRefresh"
                                 />
                             </template>
                         </el-input>
                     </el-form-item>
                     <el-form-item>
-                        <ext-button
-                            :label="$t('action.add')"
-                            icon="el-icon-ali-add"
-                            perms="form:add"
-                            type="primary"
-                            @click="handleAdd"
-                        />
-                    </el-form-item>
-                    <el-form-item>
                         <el-button-group>
+                            <el-tooltip content="新增" placement="top">
+                                <el-button round @click="handleAdd">
+                                    <i class="el-icon-ali-add"></i>
+                                </el-button>
+                            </el-tooltip>
                             <el-tooltip content="刷新" placement="top">
                                 <el-button
                                     icon="el-icon-ali-shuaxin"
                                     round
-                                    @click="queryForPaginatedList()"
+                                    @click="handleRefresh"
                                 />
                             </el-tooltip>
                             <el-tooltip content="导出" placement="top">
@@ -151,6 +147,7 @@ export default {
         breadCrumb,
         extButton,
     },
+    inject: ['reload'],
     data() {
         return {
             normalSize: 'default',
@@ -232,6 +229,13 @@ export default {
         };
     },
     methods: {
+        /**
+         * 处理刷新按钮点击
+         * 使用父组件提供的 reload 方法进行页面刷新
+         */
+        handleRefresh() {
+            this.reload();
+        },
         queryForPaginatedList() {
             // 查询逻辑
         },

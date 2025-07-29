@@ -15,7 +15,7 @@
                                 </el-button>
                             </el-tooltip>
                             <el-tooltip content="刷新" placement="top">
-                                <el-button round @click="queryForPaginatedList()">
+                                <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
@@ -425,6 +425,13 @@ export default {
                     });
                 }
             });
+        },
+        /**
+         * 处理刷新按钮点击
+         * 使用父组件提供的 reload 方法进行页面刷新
+         */
+        handleRefresh() {
+            this.reload();
         },
         getRowClassName({ row, rowIndex }) {
             if (this.isLeafNode(row)) {

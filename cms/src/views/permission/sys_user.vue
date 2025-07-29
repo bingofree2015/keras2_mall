@@ -28,7 +28,7 @@
                                     :label="$t('action.search')"
                                     perms="permission:sys_user:view"
                                     type="primary"
-                                    @click="queryForPaginatedList()"
+                                    @click="handleRefresh"
                                 >
                                     <i class="el-icon-ali-chazhaobiaodanliebiao"></i>
                                 </ext-button>
@@ -36,19 +36,14 @@
                         </el-input>
                     </el-form-item>
                     <el-form-item>
-                        <ext-button
-                            :label="$t('action.add')"
-                            perms="permission:sys_user:add"
-                            type="primary"
-                            @click="handleAdd"
-                        >
-                            <i class="el-icon-ali-add"></i>
-                        </ext-button>
-                    </el-form-item>
-                    <el-form-item>
                         <el-button-group>
+                            <el-tooltip content="新增" placement="top">
+                                <el-button round @click="handleAdd">
+                                    <i class="el-icon-ali-add"></i>
+                                </el-button>
+                            </el-tooltip>
                             <el-tooltip content="刷新" placement="top">
-                                <el-button round @click="queryForPaginatedList()">
+                                <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
@@ -189,6 +184,7 @@ export default {
         changeImageIcon,
         extButton,
     },
+    inject: ['reload'],
     data() {
         return {
             normalSize: 'default',
@@ -301,6 +297,13 @@ export default {
         this.getAllRoles();
     },
     methods: {
+        /**
+         * 处理刷新按钮点击
+         * 使用父组件提供的 reload 方法进行页面刷新
+         */
+        handleRefresh() {
+            this.reload();
+        },
         chosedIcon(chosen) {
             this.formData.attachmentId = chosen.id;
             this.formData.attachment = chosen;

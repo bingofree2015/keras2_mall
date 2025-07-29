@@ -27,7 +27,7 @@
                                     icon="el-icon-ali-chazhaobiaodanliebiao"
                                     perms="sys:log:view"
                                     type="primary"
-                                    @click="queryForPaginatedList()"
+                                    @click="handleRefresh"
                                 />
                             </template>
                         </el-input>
@@ -75,6 +75,7 @@ export default {
         breadCrumb,
         extButton,
     },
+    inject: ['reload'],
     data() {
         return {
             normalSize: 'default',
@@ -156,9 +157,12 @@ export default {
             }
             if (data && data.cb) data.cb();
         },
-        // 刷新数据
+        /**
+         * 处理刷新按钮点击
+         * 使用父组件提供的 reload 方法进行页面刷新
+         */
         handleRefresh() {
-            this.queryForPaginatedList();
+            this.reload();
         },
         // 批量删除
         async batchDelete(ids) {

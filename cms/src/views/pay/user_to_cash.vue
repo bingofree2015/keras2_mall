@@ -29,7 +29,7 @@
                                     icon="el-icon-ali-chazhaobiaodanliebiao"
                                     perms="pay:user_to_cash:view"
                                     type="primary"
-                                    @click="queryForPaginatedList()"
+                                    @click="handleRefresh"
                                 />
                             </template>
                         </el-input>
@@ -76,6 +76,7 @@ export default {
         breadCrumb,
         extButton,
     },
+    inject: ['reload'],
 
     data() {
         return {
@@ -186,8 +187,12 @@ export default {
                 });
             }
         },
+        /**
+         * 处理刷新按钮点击
+         * 使用父组件提供的 reload 方法进行页面刷新
+         */
         handleRefresh() {
-            this.queryForPaginatedList();
+            this.reload();
         },
     },
 };

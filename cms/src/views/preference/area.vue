@@ -8,15 +8,6 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :size="miniSize" class="search-form">
                     <el-form-item>
-                        <ext-button
-                            :label="$t('action.add')"
-                            icon="el-icon-ali-add"
-                            perms="preference:area:add"
-                            type="primary"
-                            @click="handleAdd"
-                        />
-                    </el-form-item>
-                    <el-form-item>
                         <el-button-group>
                             <el-tooltip content="新增" placement="top">
                                 <el-button round @click="handleAdd">
@@ -150,6 +141,7 @@ export default {
         breadCrumb,
         extButton,
     },
+    inject: ['reload'],
     data() {
         return {
             normalSize: 'default',
@@ -201,6 +193,13 @@ export default {
         this.getAreaData();
     },
     methods: {
+        /**
+         * 处理刷新按钮点击
+         * 使用父组件提供的 reload 方法进行页面刷新
+         */
+        handleRefresh() {
+            this.reload();
+        },
         getTreeData(data) {
             if (data) {
                 this.areaTreeData = data;

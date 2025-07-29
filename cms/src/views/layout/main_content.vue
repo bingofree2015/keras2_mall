@@ -1,3 +1,7 @@
+/** * 主内容区域组件 * * 功能特性： * 1. 多标签页管理 * 2. 页面刷新功能 * 3. 路由视图渲染 * *
+使用示例： * // 在子组件中使用刷新功能 * export default { * inject: ['reload', 'reloadWithLoading'],
+* methods: { * handleRefresh() { * // 基础刷新 * this.reload(); * // 或者带加载状态的刷新 *
+this.reloadWithLoading(); * } * } * } */
 <template>
     <div
         id="main-container"
@@ -66,9 +70,16 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 export default {
+    /**
+     * 提供全局刷新功能给子组件
+     * @returns {Object} 包含刷新方法的对象
+     * - reload: 基础刷新方法，直接刷新页面
+     * - reloadWithLoading: 带加载状态的刷新方法，提供更好的用户体验
+     */
     provide() {
         return {
             reload: this.reload,
+            reloadWithLoading: this.reloadWithLoading,
         };
     },
     props: {
@@ -99,10 +110,36 @@ export default {
     },
     methods: {
         ...mapActions(['updateMainTabs', 'updateMainActiveTab']),
+        /**
+         * 基础页面刷新方法
+         * 通过控制 isRouterAlive 状态来销毁和重建 router-view 组件
+         * 实现页面的完全刷新，包括组件的重新挂载和数据重新加载
+         */
         reload() {
             this.isRouterAlive = false;
             this.$nextTick(function () {
                 this.isRouterAlive = true;
+            });
+        },
+        /**
+         * 带加载状态的页面刷新方法
+         * 提供更好的用户体验，在刷新过程中显示加载动画
+         * 适用于需要用户等待的刷新场景
+         */
+        reloadWithLoading() {
+            const loading = this.$loading({
+                lock: true,
+                text: '页面刷新中...',
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.7)',
+            });
+
+            this.isRouterAlive = false;
+            this.$nextTick(() => {
+                setTimeout(() => {
+                    this.isRouterAlive = true;
+                    loading.close();
+                }, 300); // 给一点时间让组件完全销毁
             });
         },
         // 选中tab
@@ -160,7 +197,7 @@ export default {
         },
         // tabs, 刷新当前
         refreshCurrentTab() {
-            this.reload();
+            this.reloadWithLoading();
         },
     },
 };

@@ -8,15 +8,6 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" class="search-form">
                     <el-form-item>
-                        <ext-button
-                            :label="$t('action.add')"
-                            icon="el-icon-ali-add"
-                            perms="goods:goods_cat:add"
-                            type="primary"
-                            @click="handleAdd"
-                        />
-                    </el-form-item>
-                    <el-form-item>
                         <el-button-group>
                             <el-tooltip content="新增" placement="top">
                                 <el-button round @click="handleAdd">
@@ -182,6 +173,7 @@ export default {
         changeImageIcon,
         extButton,
     },
+    inject: ['reload'],
     data() {
         return {
             normalSize: 'default',
@@ -242,6 +234,13 @@ export default {
         this.getGoodsCatTree();
     },
     methods: {
+        /**
+         * 处理刷新按钮点击
+         * 使用父组件提供的 reload 方法进行页面刷新
+         */
+        handleRefresh() {
+            this.reload();
+        },
         chosedLogo(chosen) {
             this.formData.attachmentId = chosen.id;
             this.formData.attachment = chosen;

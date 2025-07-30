@@ -1,6 +1,8 @@
 <template>
     <div class="notice-panel">
-        <div class="header">您有 {{ data.length }} 条通知</div>
+        <div class="header">
+            {{ $t('notice.header', { count: data.length }) }}
+        </div>
         <div class="notice-content">
             <div v-for="item in data" :key="item.key" class="notice-item">
                 <span class="notice-icon">
@@ -11,7 +13,9 @@
                 </span>
             </div>
         </div>
-        <div class="notice-footer">查看所有通知</div>
+        <div class="notice-footer">
+            {{ $t('notice.footer') }}
+        </div>
     </div>
 </template>
 
@@ -25,22 +29,22 @@ export default {
                 {
                     key: '1',
                     icon: 'fa fa-envelope-o',
-                    content: '你修改了用户密码',
+                    content: this.$t ? this.$t('notice.content1') : '你修改了用户密码',
                 },
                 {
                     key: '2',
                     icon: 'fa fa-music',
-                    content: '你修改了用户头像',
+                    content: this.$t ? this.$t('notice.content2') : '你修改了用户头像',
                 },
                 {
                     key: '3',
                     icon: 'el-icon-ali-bianji',
-                    content: '今日25名新成员加入',
+                    content: this.$t ? this.$t('notice.content3') : '今日25名新成员加入',
                 },
                 {
                     key: '4',
                     icon: 'el-icon-ali-bianji',
-                    content: '您发表了一篇新随笔',
+                    content: this.$t ? this.$t('notice.content4') : '您发表了一篇新随笔',
                 },
             ],
         },

@@ -1,6 +1,11 @@
 <template>
     <div>
-        <ext-button :size="normalSize" label="选择文章" type="primary" @click="handlePickArticle()">
+        <ext-button
+            :size="normalSize"
+            :label="$t('pickArticle.button')"
+            type="primary"
+            @click="handlePickArticle()"
+        >
             <i class="el-icon-ali-Newxuanzeshangpinxuanzhong"></i>
         </ext-button>
         <el-dialog
@@ -8,7 +13,7 @@
             :modal-append-to-body="false"
             :close-on-click-modal="false"
             :size="normalSize"
-            title="文章选择窗"
+            :title="$t('pickArticle.dialogTitle')"
             width="50%"
         >
             <el-table
@@ -23,28 +28,40 @@
                 <el-table-column
                     v-else-if="selectionType === 0"
                     align="center"
-                    label="选择"
+                    :label="$t('pickArticle.select')"
                     min-width="80"
                 >
                     <template #default="scope">
                         <el-radio
                             v-model="radio"
                             :label="scope.$index"
-                            @change.native="choiceChange(scope.$index, scope.row)"
+                            @change="choiceChange(scope.$index, scope.row)"
                         >
                             &nbsp;
                         </el-radio>
                     </template>
                 </el-table-column>
                 <el-table-column
-                    label="文章标题"
+                    :label="$t('pickArticle.title')"
                     min-width="180"
                     property="title"
                     show-overflow-tooltip
                 />
-                <el-table-column label="类型" min-width="90" property="articleType.typeName" />
-                <el-table-column label="状态" min-width="90" property="isPub" />
-                <el-table-column label="创建时间" min-width="110" property="createdAt" />
+                <el-table-column
+                    :label="$t('pickArticle.type')"
+                    min-width="90"
+                    property="articleType.typeName"
+                />
+                <el-table-column
+                    :label="$t('pickArticle.status')"
+                    min-width="90"
+                    property="isPub"
+                />
+                <el-table-column
+                    :label="$t('pickArticle.createdAt')"
+                    min-width="110"
+                    property="createdAt"
+                />
             </el-table>
             <div style="padding: 10px">
                 <el-pagination
@@ -59,10 +76,10 @@
             <template #footer>
                 <span class="dialog-footer">
                     <el-button :size="normalSize" round @click="dialogVisible = false">
-                        >取 消
+                        {{ $t('common.cancel') }}
                     </el-button>
                     <el-button :size="normalSize" round type="primary" @click="chosedArticles">
-                        确 定
+                        {{ $t('common.confirm') }}
                     </el-button>
                 </span>
             </template>
@@ -116,7 +133,7 @@ export default {
                 this.paginated.attrs.count = _result.data.count;
             } else {
                 this.$notify.error({
-                    title: '错误',
+                    title: this.$t('common.error'),
                     message: _result.description,
                 });
             }

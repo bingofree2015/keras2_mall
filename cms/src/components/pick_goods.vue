@@ -1,6 +1,11 @@
 <template>
     <div>
-        <ext-button :size="miniSize" label="选择商品" type="primary" @click="handlePickGoods">
+        <ext-button
+            :size="miniSize"
+            :label="$t('pickGoods.button')"
+            type="primary"
+            @click="handlePickGoods"
+        >
             <i class="el-icon-ali-Newxuanzeshangpinxuanzhong"></i>
         </ext-button>
         <el-dialog
@@ -8,7 +13,7 @@
             :modal-append-to-body="false"
             :close-on-click-modal="false"
             :size="miniSize"
-            title="商品选择窗"
+            :title="$t('pickGoods.dialogTitle')"
             width="50%"
         >
             <el-table
@@ -28,7 +33,7 @@
                 <el-table-column
                     v-else-if="selectionType === 0"
                     align="center"
-                    label="选择"
+                    :label="$t('pickGoods.select')"
                     min-width="40"
                 >
                     <template #default="scope">
@@ -43,12 +48,12 @@
                 </el-table-column>
 
                 <el-table-column
-                    label="商品名称"
+                    :label="$t('pickGoods.goodsName')"
                     min-width="380"
                     property="name"
                     show-overflow-tooltip
                 />
-                <el-table-column label="价格" min-width="90" property="price" />
+                <el-table-column :label="$t('pickGoods.price')" min-width="90" property="price" />
             </el-table>
             <div style="padding: 10px">
                 <el-pagination
@@ -63,10 +68,10 @@
             <template #footer>
                 <span class="dialog-footer">
                     <el-button :size="miniSize" round @click="dialogVisible = false">
-                        >取 消
+                        {{ $t('action.cancel') }}
                     </el-button>
                     <el-button :size="miniSize" round type="primary" @click="chosedGoods">
-                        >确 定
+                        {{ $t('action.comfirm') }}
                     </el-button>
                 </span>
             </template>
@@ -124,7 +129,7 @@ export default {
                 this.paginated.attrs.count = _result.data.count;
             } else {
                 this.$notify.error({
-                    title: '错误',
+                    title: this.$t('pickGoods.error'),
                     message: _result.description,
                 });
             }

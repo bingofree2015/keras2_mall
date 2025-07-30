@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('common.inputPlaceholder')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,17 +39,17 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="新增" placement="top">
+                            <el-tooltip :content="$t('action.add')" placement="top">
                                 <el-button round @click="handleAdd">
                                     <i class="el-icon-ali-add"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -73,7 +76,7 @@
         <!--新增编辑界面-->
         <el-dialog
             :close-on-click-modal="false"
-            :title="isCreating ? '新增' : '编辑'"
+            :title="isCreating ? $t('action.add') : $t('action.edit')"
             :model-value="editDialogVisible"
             width="60%"
         >
@@ -84,7 +87,7 @@
                 :size="largeSize"
                 label-width="80px"
             >
-                <el-form-item label="类型名称" prop="name">
+                <el-form-item :label="$t('goods.typeName')" prop="name">
                     <el-input v-model="formData.name" />
                 </el-form-item>
                 <el-tabs v-model="activeName">
@@ -92,43 +95,57 @@
                         <template #label>
                             <span>
                                 <i class="el-icon-ali-shangpincanshu"></i>
-                                商品参数
+                                {{ $t('goods.param') }}
                             </span>
                         </template>
                         <el-table :data="formData.params" style="width: 100%">
-                            <el-table-column label="参数名称" min-width="240" prop="name">
+                            <el-table-column
+                                :label="$t('goods.paramName')"
+                                min-width="240"
+                                prop="name"
+                            >
                                 <template #default="scope">
                                     <el-autocomplete
                                         v-model="scope.row.name"
                                         :fetch-suggestions="queryParams"
-                                        placeholder="请输入内容"
+                                        :placeholder="$t('common.inputPlaceholder')"
                                         @select="(item) => handleSelectParam(item, scope.row.idx)"
                                     />
                                 </template>
                             </el-table-column>
                             <el-table-column
                                 align="center"
-                                label="参数类型"
+                                :label="$t('goods.paramType')"
                                 min-width="120"
                                 prop="type"
                             >
                                 <template #default="scope">
-                                    <el-select v-model="scope.row.type" placeholder="请选择">
-                                        <el-option label="文本框" value="text" />
-                                        <el-option label="单选" value="radio" />
-                                        <el-option label="复选框" value="checkbox" />
+                                    <el-select
+                                        v-model="scope.row.type"
+                                        :placeholder="$t('common.selectPlaceholder')"
+                                    >
+                                        <el-option :label="$t('goods.textbox')" value="text" />
+                                        <el-option :label="$t('goods.radio')" value="radio" />
+                                        <el-option :label="$t('goods.checkbox')" value="checkbox" />
                                     </el-select>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="参数选项" min-width="280" prop="values">
+                            <el-table-column
+                                :label="$t('goods.paramOption')"
+                                min-width="280"
+                                prop="values"
+                            >
                                 <template #default="scope">
-                                    <el-input v-model="scope.row.values" placeholder="空格分隔" />
+                                    <el-input
+                                        v-model="scope.row.values"
+                                        :placeholder="$t('goods.spaceSeparated')"
+                                    />
                                 </template>
                             </el-table-column>
                             <el-table-column
                                 align="center"
                                 fixed="right"
-                                label="操作"
+                                :label="$t('action.operation')"
                                 min-width="80"
                             >
                                 <template #header>
@@ -138,7 +155,7 @@
                                         type="primary"
                                         @click.prevent="handleAddParam()"
                                     >
-                                        添加
+                                        {{ $t('action.add') }}
                                     </el-button>
                                 </template>
                                 <template #default="scope">
@@ -156,23 +173,27 @@
                         <template #label>
                             <span>
                                 <i class="el-icon-ali-guige"></i>
-                                商品属性
+                                {{ $t('goods.spec') }}
                             </span>
                         </template>
                         <el-table :data="formData.specs" style="width: 100%">
-                            <el-table-column label="属性名称" min-width="240" prop="name">
+                            <el-table-column
+                                :label="$t('goods.specName')"
+                                min-width="240"
+                                prop="name"
+                            >
                                 <template #default="scope">
                                     <el-autocomplete
                                         v-model="scope.row.name"
                                         :fetch-suggestions="querySpecs"
-                                        placeholder="请输入内容"
+                                        :placeholder="$t('common.inputPlaceholder')"
                                         @select="(item) => handleSelectSpec(item, scope.row.idx)"
                                     />
                                 </template>
                             </el-table-column>
                             <el-table-column
                                 align="center"
-                                label="排序"
+                                :label="$t('goods.sort')"
                                 min-width="160"
                                 prop="sort"
                             >
@@ -185,15 +206,22 @@
                                     />
                                 </template>
                             </el-table-column>
-                            <el-table-column label="属性值" min-width="280" prop="values">
+                            <el-table-column
+                                :label="$t('goods.specValue')"
+                                min-width="280"
+                                prop="values"
+                            >
                                 <template #default="scope">
-                                    <el-input v-model="scope.row.values" placeholder="空格分隔" />
+                                    <el-input
+                                        v-model="scope.row.values"
+                                        :placeholder="$t('goods.spaceSeparated')"
+                                    />
                                 </template>
                             </el-table-column>
                             <el-table-column
                                 align="center"
                                 fixed="right"
-                                label="操作"
+                                :label="$t('action.operation')"
                                 min-width="80"
                             >
                                 <template #header>
@@ -203,7 +231,7 @@
                                         type="primary"
                                         @click.prevent="handleAddSpec()"
                                     >
-                                        添加
+                                        {{ $t('action.add') }}
                                     </el-button>
                                 </template>
                                 <template #default="scope">
@@ -251,25 +279,25 @@ export default {
                 key: 'name',
                 value: '',
             },
-            props: [{ prop: 'name', label: '类型名称' }],
+            props: [{ prop: 'name', label: this.$t('goods.typeName') }],
             columns: [
                 { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: '类型名称', minWidth: 80 },
+                { prop: 'name', label: this.$t('goods.typeName'), minWidth: 80 },
                 {
                     prop: 'specValues',
-                    label: '属性(规格)',
+                    label: this.$t('goods.attributeSpec'),
                     minWidth: 120,
                     showOverflowTooltip: true,
                 },
                 {
                     prop: 'paramValues',
-                    label: '参数',
+                    label: this.$t('goods.parameter'),
                     minWidth: 120,
                     showOverflowTooltip: true,
                 },
                 {
                     prop: 'createdAt',
-                    label: '创建时间',
+                    label: this.$t('common.createTime'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
                 },
@@ -298,7 +326,7 @@ export default {
                     size: this.normalSize,
                     type: 'danger',
                     func: (row) => {
-                        this.$confirm('确认删除选中记录吗？', '提示', {
+                        this.$confirm(this.$t('common.confirmDelete'), this.$t('common.tip'), {
                             type: 'warning',
                         }).then(async () => {
                             await this.batchDelete([row.id]);
@@ -319,7 +347,9 @@ export default {
                 params: [],
             },
             formDataRules: {
-                name: [{ required: true, message: '请输入参数名称', trigger: 'blur' }],
+                name: [
+                    { required: true, message: this.$t('goods.inputTypeName'), trigger: 'blur' },
+                ],
             },
             activeName: 'params',
         };
@@ -401,35 +431,37 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
-                        this.editLoading = true;
-                        const data = Object.assign({}, this.formData);
-                        const _result = await this.$api.goodsType.save(data);
-                        if (_result.succeed === 1 && _result.code === 200) {
-                            const _goodsType = this.paginated.list.find(
-                                (v) => v.id === _result.data.id
-                            );
-                            if (!_goodsType) {
-                                this.paginated.list.unshift(_result.data);
+                    this.$confirm(this.$t('common.confirmSubmit'), this.$t('common.tip'), {}).then(
+                        async () => {
+                            this.editLoading = true;
+                            const data = Object.assign({}, this.formData);
+                            const _result = await this.$api.goodsType.save(data);
+                            if (_result.succeed === 1 && _result.code === 200) {
+                                const _goodsType = this.paginated.list.find(
+                                    (v) => v.id === _result.data.id
+                                );
+                                if (!_goodsType) {
+                                    this.paginated.list.unshift(_result.data);
+                                } else {
+                                    Object.assign(_goodsType, _result.data);
+                                }
+                                this.$notify({
+                                    title: this.$t('common.success'),
+                                    message: _result.description,
+                                    type: 'success',
+                                });
                             } else {
-                                Object.assign(_goodsType, _result.data);
+                                this.$notify.error({
+                                    title: this.$t('common.error'),
+                                    message: _result.description,
+                                });
                             }
-                            this.$notify({
-                                title: '成功',
-                                message: _result.description,
-                                type: 'success',
-                            });
-                        } else {
-                            this.$notify.error({
-                                title: '错误',
-                                message: _result.description,
-                            });
-                        }
 
-                        this.editLoading = false;
-                        this.$refs.formData.resetFields();
-                        this.editDialogVisible = false;
-                    });
+                            this.editLoading = false;
+                            this.$refs.formData.resetFields();
+                            this.editDialogVisible = false;
+                        }
+                    );
                 }
             });
         },
@@ -449,7 +481,7 @@ export default {
             this.formData.params.push({
                 idx: this.formData.params.length,
                 id: 0,
-                name: `参数 ${this.formData.params.length}`,
+                name: `${this.$t('goods.parameter')} ${this.formData.params.length}`,
                 type: 'text',
                 values: '',
             });
@@ -458,7 +490,7 @@ export default {
             this.formData.specs.push({
                 idx: this.formData.specs.length,
                 id: 0,
-                name: `属性 ${this.formData.specs.length}`,
+                name: `${this.$t('goods.attributeSpec')} ${this.formData.specs.length}`,
                 sort: 0,
             });
         },
@@ -476,7 +508,7 @@ export default {
                 })
                 .catch((err) => {
                     this.$notify.error({
-                        title: '错误',
+                        title: this.$t('common.error'),
                         message: err,
                     });
                 });
@@ -502,7 +534,7 @@ export default {
                 })
                 .catch((err) => {
                     this.$notify.error({
-                        title: '错误',
+                        title: this.$t('common.error'),
                         message: err,
                     });
                 });

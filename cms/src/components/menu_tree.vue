@@ -40,7 +40,7 @@ export default {
             }
             // 通过菜单URL跳转至指定路由
             this.$router.push('/' + path).catch((err) => {
-                this.$message && this.$message.error('页面不存在或加载失败');
+                this.$message && this.$message.error(this.$t('menuTree.pageNotExist'));
                 console.error(err);
             });
         },

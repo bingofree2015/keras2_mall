@@ -7,12 +7,15 @@
             <el-col :span="14" class="top-bar">
                 <el-form :inline="true" :model="filters">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('common.inputPlaceholder')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -35,17 +38,17 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="新增" placement="top">
+                            <el-tooltip :content="$t('action.add')" placement="top">
                                 <el-button round @click="handleAdd">
                                     <i class="el-icon-ali-add"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -72,7 +75,7 @@
         <!--新增编辑界面-->
         <el-dialog
             :close-on-click-modal="false"
-            :title="isCreating ? '新增' : '编辑'"
+            :title="isCreating ? $t('action.add') : $t('action.edit')"
             :model-value="editDialogVisible"
             width="40%"
         >
@@ -80,16 +83,16 @@
                 <el-form-item v-if="false" label="ID" prop="id">
                     <el-input v-model="formData.id" :disabled="true" auto-complete="off" />
                 </el-form-item>
-                <el-form-item label="名称" prop="label">
+                <el-form-item :label="$t('dict.label')" prop="label">
                     <el-input v-model="formData.label" auto-complete="off" />
                 </el-form-item>
-                <el-form-item label="值" prop="value">
+                <el-form-item :label="$t('dict.value')" prop="value">
                     <el-input v-model="formData.value" auto-complete="off" />
                 </el-form-item>
-                <el-form-item label="类型" prop="type">
+                <el-form-item :label="$t('dict.type')" prop="type">
                     <el-input v-model="formData.type" auto-complete="off" />
                 </el-form-item>
-                <el-form-item label="排序" prop="sort">
+                <el-form-item :label="$t('dict.sort')" prop="sort">
                     <el-input-number
                         v-model="formData.sort"
                         :min="0"
@@ -98,10 +101,10 @@
                         style="max-width: 100px"
                     />
                 </el-form-item>
-                <el-form-item label="描述 " prop="description">
+                <el-form-item :label="$t('dict.description')" prop="description">
                     <el-input v-model="formData.description" auto-complete="off" type="textarea" />
                 </el-form-item>
-                <el-form-item label="备注" prop="remark">
+                <el-form-item :label="$t('dict.remark')" prop="remark">
                     <el-input v-model="formData.remark" auto-complete="off" type="textarea" />
                 </el-form-item>
             </el-form>
@@ -144,23 +147,23 @@ export default {
                 value: '',
             },
             props: [
-                { prop: 'label', label: '标签名' },
-                { prop: 'value', label: '值' },
-                { prop: 'type', label: '类型' },
-                { prop: 'description', label: '描述' },
+                { prop: 'label', label: this.$t('system.labelName') },
+                { prop: 'value', label: this.$t('system.value') },
+                { prop: 'type', label: this.$t('system.type') },
+                { prop: 'description', label: this.$t('system.description') },
             ],
             columns: [
                 { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'label', label: '标签名', minWidth: 80 },
-                { prop: 'value', label: '值', minWidth: 80 },
-                { prop: 'type', label: '类型', minWidth: 80 },
-                { prop: 'sort', label: '排序', minWidth: 70, align: 'center' },
-                { prop: 'description', label: '描述', minWidth: 120 },
-                { prop: 'remark', label: '备注', minWidth: 120 },
-                { prop: 'createBy', label: '创建人', minWidth: 100 },
+                { prop: 'label', label: this.$t('system.labelName'), minWidth: 80 },
+                { prop: 'value', label: this.$t('system.value'), minWidth: 80 },
+                { prop: 'type', label: this.$t('system.type'), minWidth: 80 },
+                { prop: 'sort', label: this.$t('system.sort'), minWidth: 70, align: 'center' },
+                { prop: 'description', label: this.$t('system.description'), minWidth: 120 },
+                { prop: 'remark', label: this.$t('system.remark'), minWidth: 120 },
+                { prop: 'createBy', label: this.$t('system.creator'), minWidth: 100 },
                 {
                     prop: 'createdAt',
-                    label: '创建时间',
+                    label: this.$t('common.createTime'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
                 },
@@ -189,7 +192,7 @@ export default {
                     size: this.size,
                     type: 'danger',
                     func: (row) => {
-                        this.$confirm('确认删除选中记录吗？', '提示', {
+                        this.$confirm(this.$t('common.confirmDelete'), this.$t('common.tip'), {
                             type: 'warning',
                         }).then(async () => {
                             await this.batchDelete([row.id]);
@@ -213,10 +216,12 @@ export default {
                 remark: '',
             },
             formDataRules: {
-                label: [{ required: true, message: '请输入标签名', trigger: 'blur' }],
-                value: [{ required: true, message: '请输入值', trigger: 'blur' }],
-                type: [{ required: true, message: '请输入类型', trigger: 'blur' }],
-                description: [{ required: true, message: '请输入描述', trigger: 'blur' }],
+                label: [{ required: true, message: this.$t('dict.inputLabel'), trigger: 'blur' }],
+                value: [{ required: true, message: this.$t('dict.inputValue'), trigger: 'blur' }],
+                type: [{ required: true, message: this.$t('dict.inputType'), trigger: 'blur' }],
+                description: [
+                    { required: true, message: this.$t('dict.inputDescription'), trigger: 'blur' },
+                ],
             },
         };
     },
@@ -284,28 +289,30 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
-                        this.editLoading = true;
-                        const data = Object.assign({}, this.formData);
-                        const _result = await this.$api.dict.save(data);
-                        if (_result.succeed === 1 && _result.code === 200) {
-                            this.$notify({
-                                title: '成功',
-                                message: _result.description,
-                                type: 'success',
-                            });
-                        } else {
-                            this.$notify.error({
-                                title: '错误',
-                                message: _result.description,
-                            });
-                        }
+                    this.$confirm(this.$t('common.confirmSubmit'), this.$t('common.tip'), {}).then(
+                        async () => {
+                            this.editLoading = true;
+                            const data = Object.assign({}, this.formData);
+                            const _result = await this.$api.dict.save(data);
+                            if (_result.succeed === 1 && _result.code === 200) {
+                                this.$notify({
+                                    title: this.$t('common.success'),
+                                    message: _result.description,
+                                    type: 'success',
+                                });
+                            } else {
+                                this.$notify.error({
+                                    title: this.$t('common.error'),
+                                    message: _result.description,
+                                });
+                            }
 
-                        this.editLoading = false;
-                        this.$refs.formData.resetFields();
-                        this.editDialogVisible = false;
-                        await this.queryForPaginatedList();
-                    });
+                            this.editLoading = false;
+                            this.$refs.formData.resetFields();
+                            this.editDialogVisible = false;
+                            await this.queryForPaginatedList();
+                        }
+                    );
                 }
             });
         },

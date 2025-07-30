@@ -21,62 +21,70 @@
                     <el-form-item label="socket合法域名">http://localhost:8085</el-form-item>
                     <el-form-item label="uploadFile合法域名">http://localhost:8085</el-form-item>
                     <el-form-item label="downloadFile合法域名">http://localhost:8085</el-form-item>
-                    <el-form-item label="小程序名称" prop="wx_nick_name">
+                    <el-form-item :label="$t('wechat.miniprogram.name')" prop="wx_nick_name">
                         <el-col :span="12">
                             <el-input
                                 v-model="formData.wx_nick_name"
-                                placeholder="请输入小程序名称"
+                                :placeholder="$t('wechat.miniprogram.inputName')"
                             />
                         </el-col>
                     </el-form-item>
-                    <el-form-item label="AppId" prop="wx_appid">
+                    <el-form-item :label="$t('wechat.miniprogram.appid')" prop="wx_appid">
                         <el-col :span="8">
-                            <el-input v-model="formData.wx_appid" placeholder="请输入AppId" />
+                            <el-input
+                                v-model="formData.wx_appid"
+                                :placeholder="$t('wechat.miniprogram.inputAppid')"
                             />
-                            <span class="tip-info">
-                                <i class="el-icon-ali-tishi"></i>
-                                请至微信小程序平台 设置》基本设置 中复制粘贴过来
-                            </span>
                         </el-col>
+                        <span class="tip-info">
+                            <i class="el-icon-ali-tishi"></i>
+                            {{ $t('wechat.miniprogram.copyTip') }}
+                        </span>
                     </el-form-item>
-                    <el-form-item label="AppSecret" prop="wx_app_secret">
+                    <el-form-item :label="$t('wechat.miniprogram.appSecret')" prop="wx_app_secret">
                         <el-col :span="8">
                             <el-input
                                 v-model="formData.wx_app_secret"
-                                placeholder="请输入AppSecret"
+                                :placeholder="$t('wechat.miniprogram.inputAppSecret')"
                             />
                         </el-col>
                         <span class="tip-info">
                             <i class="el-icon-ali-tishi"></i>
-                            请至微信小程序平台 设置》基本设置 中复制粘贴过来
+                            {{ $t('wechat.miniprogram.copyTip') }}
                         </span>
                     </el-form-item>
-                    <el-form-item label="原始Id" prop="wx_user_name">
+                    <el-form-item :label="$t('wechat.miniprogram.originId')" prop="wx_user_name">
                         <el-col :span="8">
-                            <el-input v-model="formData.wx_user_name" placeholder="请输入原始Id" />
+                            <el-input
+                                v-model="formData.wx_user_name"
+                                :placeholder="$t('wechat.miniprogram.inputOriginId')"
+                            />
                         </el-col>
                         <span class="tip-info">
                             <i class="el-icon-ali-tishi"></i>
-                            请至微信小程序平台 设置》基本设置 中复制粘贴过来
+                            {{ $t('wechat.miniprogram.copyTip') }}
                         </span>
                     </el-form-item>
-                    <el-form-item label="主体信息" prop="wx_principal_name">
+                    <el-form-item
+                        :label="$t('wechat.miniprogram.principal')"
+                        prop="wx_principal_name"
+                    >
                         <el-col :span="8">
                             <el-input
                                 v-model="formData.wx_principal_name"
-                                placeholder="请输入主体信息"
+                                :placeholder="$t('wechat.miniprogram.inputPrincipal')"
                             />
                         </el-col>
                         <span class="tip-info">
                             <i class="el-icon-ali-tishi"></i>
-                            请至微信小程序平台 设置》基本设置 中复制粘贴过来
+                            {{ $t('wechat.miniprogram.copyTip') }}
                         </span>
                     </el-form-item>
-                    <el-form-item label="简介" prop="wx_signature">
+                    <el-form-item :label="$t('wechat.miniprogram.signature')" prop="wx_signature">
                         <el-input
                             v-model="formData.wx_signature"
                             :autosize="{ minRows: 4, maxRows: 8 }"
-                            placeholder="请输入简介"
+                            :placeholder="$t('wechat.miniprogram.inputSignature')"
                             type="textarea"
                         />
                     </el-form-item>
@@ -124,7 +132,13 @@ export default {
                 wx_signature: '', // 简介
             },
             formDataRules: {
-                wx_nick_name: [{ required: true, message: '请输入小程序名称', trigger: 'blur' }],
+                wx_nick_name: [
+                    {
+                        required: true,
+                        message: this.$t('wechat.miniprogram.inputName'),
+                        trigger: 'blur',
+                    },
+                ],
             },
         };
     },
@@ -136,29 +150,31 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
-                        this.editLoading = true;
-                        const data = Object.assign({}, this.formData);
+                    this.$confirm(this.$t('common.confirmSubmit'), this.$t('common.tip'), {}).then(
+                        async () => {
+                            this.editLoading = true;
+                            const data = Object.assign({}, this.formData);
 
-                        const _result = await this.$api.setting.save({
-                            key: 'miniprogram_setting',
-                            value: data,
-                        });
-                        if (_result.succeed === 1 && _result.code === 200) {
-                            this.$notify({
-                                title: '成功',
-                                message: _result.description,
-                                type: 'success',
+                            const _result = await this.$api.setting.save({
+                                key: 'miniprogram_setting',
+                                value: data,
                             });
-                        } else {
-                            this.$notify.error({
-                                title: '错误',
-                                message: _result.description,
-                            });
+                            if (_result.succeed === 1 && _result.code === 200) {
+                                this.$notify({
+                                    title: this.$t('common.success'),
+                                    message: _result.description,
+                                    type: 'success',
+                                });
+                            } else {
+                                this.$notify.error({
+                                    title: this.$t('common.error'),
+                                    message: _result.description,
+                                });
+                            }
+
+                            this.editLoading = false;
                         }
-
-                        this.editLoading = false;
-                    });
+                    );
                 }
             });
         },

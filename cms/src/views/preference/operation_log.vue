@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="largeSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('common.inputPlaceholder')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,12 +39,12 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -84,21 +87,31 @@ export default {
                 value: '',
             },
             props: [
-                { prop: 'username', label: '管理员' },
-                { prop: 'method', label: '方法' },
-                { prop: 'content', label: '参数' },
+                { prop: 'username', label: this.$t('operationLog.admin') },
+                { prop: 'method', label: this.$t('operationLog.method') },
+                { prop: 'content', label: this.$t('operationLog.param') },
                 { prop: 'ip', label: 'IP' },
             ],
             columns: [
                 { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'sysUser.username', label: '管理员', minWidth: 100 },
-                { prop: 'method', label: '方法', minWidth: 80 },
-                { prop: 'desc', label: '描述', minWidth: 120, showOverflowTooltip: true },
-                { prop: 'content', label: '参数', minWidth: 220, showOverflowTooltip: true },
+                { prop: 'sysUser.username', label: this.$t('operationLog.admin'), minWidth: 100 },
+                { prop: 'method', label: this.$t('operationLog.method'), minWidth: 80 },
+                {
+                    prop: 'desc',
+                    label: this.$t('operationLog.desc'),
+                    minWidth: 120,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'content',
+                    label: this.$t('operationLog.param'),
+                    minWidth: 220,
+                    showOverflowTooltip: true,
+                },
                 { prop: 'ip', label: 'IP', minWidth: 100 },
                 {
                     prop: 'createdAt',
-                    label: '创建时间',
+                    label: this.$t('common.createdAt'),
                     minWidth: 130,
                     formatter: this.env.formatDateTime,
                 },

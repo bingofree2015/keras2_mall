@@ -3,10 +3,9 @@
     <el-dialog
         :close-on-click-modal="false"
         :modal="false"
-        title="修改密码"
+        :title="$t('resetPassword.title')"
         v-bind="$attrs"
         width="30%"
-        v-on="$attrs"
     >
         <el-form
             ref="formData"
@@ -19,29 +18,29 @@
             <el-form-item v-if="false" label="ID" prop="id">
                 <el-input v-model="formData.id" :disabled="true" auto-complete="off" />
             </el-form-item>
-            <el-form-item label="用户名" prop="username">
+            <el-form-item :label="$t('resetPassword.username')" prop="username">
                 {{ formData.username }}
             </el-form-item>
-            <el-form-item label="原密码" prop="oldPwd">
+            <el-form-item :label="$t('resetPassword.oldPassword')" prop="oldPwd">
                 <el-input
                     v-model="formData.pwd"
-                    placeholder="请输入密码"
+                    :placeholder="$t('resetPassword.inputPassword')"
                     show-password
                     type="password"
                 />
             </el-form-item>
-            <el-form-item label="新密码" prop="newPwd">
+            <el-form-item :label="$t('resetPassword.newPassword')" prop="newPwd">
                 <el-input
                     v-model="formData.newPwd"
-                    placeholder="请输入新密码"
+                    :placeholder="$t('resetPassword.inputNewPassword')"
                     show-password
                     type="password"
                 />
             </el-form-item>
-            <el-form-item label="确认密码" prop="reNewPwd">
+            <el-form-item :label="$t('resetPassword.confirmPassword')" prop="reNewPwd">
                 <el-input
                     v-model="formData.reNewPwd"
-                    placeholder="确认密码"
+                    :placeholder="$t('resetPassword.inputConfirmPassword')"
                     show-password
                     type="password"
                 />
@@ -49,7 +48,7 @@
         </el-form>
         <template #footer>
             <div class="dialog-footer">
-                <el-button :size="size" round @click.native="$emit('update:visible', false)">
+                <el-button :size="size" round @click="$emit('update:visible', false)">
                     {{ $t('action.cancel') }}
                 </el-button>
                 <el-button
@@ -57,7 +56,7 @@
                     :size="size"
                     round
                     type="primary"
-                    @click.native="submitForm"
+                    @click="submitForm"
                 >
                     {{ $t('action.submit') }}
                 </el-button>
@@ -76,6 +75,7 @@ export default {
             default: 'mini',
         },
     },
+    emits: ['update:visible'],
     data() {
         const validatePass = (rule, value, callback) => {
             if (!value) {
@@ -126,30 +126,32 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
-                        this.editLoading = true;
-                        const data = Object.assign(
-                            {},
-                            _.pick(this.formData, 'id', 'pwd', 'newPwd')
-                        );
+                    this.$confirm(this.$t('common.confirmSubmit'), this.$t('common.tip'), {}).then(
+                        async () => {
+                            this.editLoading = true;
+                            const data = Object.assign(
+                                {},
+                                _.pick(this.formData, 'id', 'pwd', 'newPwd')
+                            );
 
-                        const _result = await this.$api.sysUser.resetPwd(data);
-                        this.editLoading = false;
-                        if (_result.succeed === 1 && _result.code === 200) {
-                            this.$notify({
-                                title: '成功',
-                                message: _result.description,
-                                type: 'success',
-                            });
-                            this.$refs.formData.resetFields();
-                            this.$emit('update:visible', false);
-                        } else {
-                            this.$notify.error({
-                                title: '错误',
-                                message: _result.description,
-                            });
+                            const _result = await this.$api.sysUser.resetPwd(data);
+                            this.editLoading = false;
+                            if (_result.succeed === 1 && _result.code === 200) {
+                                this.$notify({
+                                    title: this.$t('common.success'),
+                                    message: _result.description,
+                                    type: 'success',
+                                });
+                                this.$refs.formData.resetFields();
+                                this.$emit('update:visible', false);
+                            } else {
+                                this.$notify.error({
+                                    title: this.$t('common.error'),
+                                    message: _result.description,
+                                });
+                            }
                         }
-                    });
+                    );
                 }
             });
         },

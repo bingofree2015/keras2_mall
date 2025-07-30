@@ -27,8 +27,12 @@
                     </el-icon>
                 </template>
                 <ul class="lang-list">
-                    <li @click="changeLanguage('zh_cn')">简体中文</li>
-                    <li @click="changeLanguage('en_us')">English</li>
+                    <li @click="changeLanguage('zh_cn')">
+                        {{ $t('lang.zh_cn') }}
+                    </li>
+                    <li @click="changeLanguage('en_us')">
+                        {{ $t('lang.en_us') }}
+                    </li>
                 </ul>
             </el-popover>
             <!-- 用户信息 -->

@@ -42,6 +42,8 @@ const formatBoolean = (val) => {
     return val ? '是' : '否';
 };
 const formatState = (state) => {
+    // 这里需要从 Vue 实例获取 i18n，暂时保持原样
+    // 后续可以通过参数传入 i18n 实例
     return state ? '启用' : '禁用';
 };
 

@@ -2,20 +2,24 @@
     <div class="site-wrapper site-page--not-found">
         <div class="site-content__wrapper">
             <div class="site-content">
-                <h2 class="not-found-title">404</h2>
+                <h2 class="not-found-title">
+                    {{ $t('error404.title') }}
+                </h2>
                 <p class="not-found-desc">
-                    抱歉！您访问的页面
-                    <em>失联</em>
-                    啦 ...
+                    {{ $t('error404.description') }}
+                    <em>{{ $t('error404.lost') }}</em>
+                    {{ $t('error404.suffix') }}
                 </p>
-                <el-button round @click="$router.go(-1)">返回上一页</el-button>
+                <el-button round @click="$router.go(-1)">
+                    {{ $t('error404.goBack') }}
+                </el-button>
                 <el-button
                     round
                     type="primary"
                     class="not-found-btn-gohome"
                     @click="$router.push('/')"
                 >
-                    进入首页
+                    {{ $t('error404.goHome') }}
                 </el-button>
             </div>
         </div>

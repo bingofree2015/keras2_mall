@@ -41,6 +41,7 @@ export default {
             },
         },
     },
+    emits: ['update:content', 'content-change'],
     data() {
         return {
             editor: null,
@@ -68,14 +69,14 @@ export default {
                 setup: (editor) => {
                     const self = this;
                     editor.ui.registry.addButton('imageUpload', {
-                        tooltip: '插入图片',
+                        tooltip: this.$t('tinyEditor.insertImage'),
                         icon: 'image',
                         onAction: () => {
                             self.imageDialogVisible = true;
                         },
                     });
                     editor.ui.registry.addButton('videoUpload', {
-                        tooltip: '插入视频',
+                        tooltip: this.$t('tinyEditor.insertVideo'),
                         icon: 'upload',
                         onAction: () => {
                             self.videoDialogVisible = true;
@@ -121,7 +122,7 @@ export default {
                 if (
                     this.defaultConfig.language === zhCN &&
                     Object.prototype.toString.call(this.defaultConfig.font_formats) !==
-                    '[object String]'
+                        '[object String]'
                 ) {
                     this.defaultConfig.font_formats = '微软雅黑="微软雅黑";幼圆="幼圆";Arial=arial';
                 }
@@ -221,7 +222,9 @@ export default {
                     this.editor.destroy();
                     this.editor = null;
                 }
-            } catch (e) {}
+            } catch (e) {
+                // 忽略错误
+            }
         },
         setContent() {
             this.$nextTick(function () {

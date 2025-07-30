@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('common.inputPlaceholder')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,17 +39,17 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="新增" placement="top">
+                            <el-tooltip :content="$t('action.add')" placement="top">
                                 <el-button round @click="handleAdd">
                                     <i class="el-icon-ali-add"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -93,38 +96,38 @@ export default {
             props: [{ prop: 'name', label: '名称' }],
             columns: [
                 { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: '名称', minWidth: 120 },
+                { prop: 'name', label: this.$t('ship.name'), minWidth: 120 },
                 {
                     prop: 'hasCod',
-                    label: '货到付款',
+                    label: this.$t('ship.hasCod'),
                     minWidth: 100,
                     align: 'center',
                     formatter: this.env.formatBoolean,
                 },
                 {
                     prop: 'freePostage',
-                    label: '包邮',
+                    label: this.$t('ship.freePostage'),
                     minWidth: 80,
                     align: 'center',
                     formatter: this.env.formatBoolean,
                 },
-                { prop: 'logistics.logiName', label: '物流公司名称', minWidth: 160 },
-                { prop: 'logistics.logiCode', label: '物流公司编码', minWidth: 160 },
+                { prop: 'logistics.logiName', label: this.$t('ship.logisticsName'), minWidth: 160 },
+                { prop: 'logistics.logiCode', label: this.$t('ship.logisticsCode'), minWidth: 160 },
                 {
                     prop: 'isDef',
-                    label: '默认',
+                    label: this.$t('ship.isDef'),
                     minWidth: 70,
                     align: 'center',
                     formatter: this.env.formatBoolean,
                 },
                 {
                     prop: 'state',
-                    label: '状态',
+                    label: this.$t('ship.state'),
                     minWidth: 70,
                     align: 'center',
                     formatter: this.env.formatState,
                 },
-                { prop: 'sort', label: '排序', minWidth: 70 },
+                { prop: 'sort', label: this.$t('ship.sort'), minWidth: 70 },
             ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
@@ -151,7 +154,7 @@ export default {
                     size: this.normalSize,
                     type: 'danger',
                     func: (row) => {
-                        this.$confirm('确认删除选中记录吗？', '提示', {
+                        this.$confirm(this.$t('common.confirmDelete'), this.$t('common.tip'), {
                             type: 'warning',
                         }).then(async () => {
                             await this.batchDelete([row.id]);

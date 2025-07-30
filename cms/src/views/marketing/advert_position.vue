@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('common.inputPlaceholder')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,17 +39,17 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="新增" placement="top">
+                            <el-tooltip :content="$t('action.add')" placement="top">
                                 <el-button round @click="handleAdd">
                                     <i class="el-icon-ali-add"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -73,7 +76,7 @@
         <!--新增编辑界面-->
         <el-dialog
             :close-on-click-modal="false"
-            :title="isCreating ? '新增' : '编辑'"
+            :title="isCreating ? $t('action.add') : $t('action.edit')"
             :model-value="editDialogVisible"
             width="40%"
         >
@@ -86,11 +89,14 @@
             >
                 <el-row>
                     <el-col :span="16">
-                        <el-form-item label="广告位名称" prop="name">
+                        <el-form-item :label="$t('advertPosition.name')" prop="name">
                             <el-input v-model="formData.name" />
                         </el-form-item>
-                        <el-form-item label="模板编码" prop="code">
-                            <el-select v-model="formData.code" placeholder="请选择">
+                        <el-form-item :label="$t('advertPosition.code')" prop="code">
+                            <el-select
+                                v-model="formData.code"
+                                :placeholder="$t('common.selectPlaceholder')"
+                            >
                                 <el-option
                                     v-for="item in advertTemplates"
                                     :key="item.key"
@@ -99,7 +105,7 @@
                                 />
                             </el-select>
                         </el-form-item>
-                        <el-form-item label="排序" prop="sort">
+                        <el-form-item :label="$t('advertPosition.sort')" prop="sort">
                             <el-input-number
                                 v-model="formData.sort"
                                 :min="0"
@@ -149,21 +155,26 @@ export default {
                 key: 'name',
                 value: '',
             },
-            props: [{ prop: 'name', label: '广告位名称' }],
+            props: [{ prop: 'name', label: this.$t('advertPosition.name') }],
             columns: [
                 { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: '广告位名称', minWidth: 200 },
-                { prop: 'code', label: '模板编码', minWidth: 150 },
-                { prop: 'sort', label: '排序', minWidth: 70, align: 'center' },
+                { prop: 'name', label: this.$t('advertPosition.name'), minWidth: 200 },
+                { prop: 'code', label: this.$t('advertPosition.code'), minWidth: 150 },
+                {
+                    prop: 'sort',
+                    label: this.$t('advertPosition.sort'),
+                    minWidth: 70,
+                    align: 'center',
+                },
                 {
                     prop: 'updatedAt',
-                    label: '更新时间',
+                    label: this.$t('common.updatedAt'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
                 },
                 {
                     prop: 'createdAt',
-                    label: '创建时间',
+                    label: this.$t('common.createdAt'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
                 },
@@ -192,7 +203,7 @@ export default {
                     size: this.normalSize,
                     type: 'danger',
                     func: (row) => {
-                        this.$confirm('确认删除选中记录吗？', '提示', {
+                        this.$confirm(this.$t('common.confirmDelete'), this.$t('common.tip'), {
                             type: 'warning',
                         }).then(async () => {
                             await this.batchDelete([row.id]);
@@ -213,14 +224,20 @@ export default {
                 sort: 0,
             },
             advertTemplates: [
-                { key: 'tpl1_slider', value: '首页幻灯片广告位' },
-                { key: 'tpl1_index_banner1', value: '首页广告位1' },
-                { key: 'tpl1_index_banner2', value: '首页广告位2' },
-                { key: 'tpl1_index_banner3', value: '首页广告位3' },
-                { key: 'tpl1_class_banner1', value: '分类页广告位' },
+                { key: 'tpl1_slider', value: this.$t('advertPosition.tpl1Slider') },
+                { key: 'tpl1_index_banner1', value: this.$t('advertPosition.tpl1IndexBanner1') },
+                { key: 'tpl1_index_banner2', value: this.$t('advertPosition.tpl1IndexBanner2') },
+                { key: 'tpl1_index_banner3', value: this.$t('advertPosition.tpl1IndexBanner3') },
+                { key: 'tpl1_class_banner1', value: this.$t('advertPosition.tpl1ClassBanner1') },
             ],
             formDataRules: {
-                name: [{ required: true, message: '请输入广告位名称', trigger: 'blur' }],
+                name: [
+                    {
+                        required: true,
+                        message: this.$t('advertPosition.nameRequired'),
+                        trigger: 'blur',
+                    },
+                ],
             },
         };
     },
@@ -299,13 +316,13 @@ export default {
                                 Object.assign(_advertPosition, _result.data);
                             }
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('common.success'),
                                 message: _result.description,
                                 type: 'success',
                             });
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('common.error'),
                                 message: _result.description,
                             });
                         }

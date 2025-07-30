@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('common.inputPlaceholder')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,12 +39,12 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -69,26 +72,29 @@
         <el-dialog
             :close-on-click-modal="false"
             :model-value="editDialogVisible"
-            title="提货单编辑"
+            :title="$t('order.ladingEdit')"
             width="40%"
         >
             <el-form ref="formData" :model="formData" :rules="formDataRules" label-width="80px">
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="提货单号:" prop="ladingId">
+                        <el-form-item :label="$t('order.ladingId') + ':'" prop="ladingId">
                             {{ formData.ladingId }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="订单号:" prop="orderId">
+                        <el-form-item :label="$t('order.orderId') + ':'" prop="orderId">
                             {{ formData.orderId }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="提货门店:" prop="storeId">
-                            <el-select v-model="formData.storeId" placeholder="请选择">
+                        <el-form-item :label="$t('order.store') + ':'" prop="storeId">
+                            <el-select
+                                v-model="formData.storeId"
+                                :placeholder="$t('common.selectPlaceholder')"
+                            >
                                 <el-option
                                     v-for="item in stores"
                                     :key="item.id"
@@ -99,31 +105,37 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="提货人:" prop="name">
-                            <el-input v-model="formData.name" placeholder="请输入提货人" />
+                        <el-form-item :label="$t('order.ladingName') + ':'" prop="name">
+                            <el-input
+                                v-model="formData.name"
+                                :placeholder="$t('order.inputLadingName')"
+                            />
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="电话:" prop="mobile">
-                            <el-input v-model="formData.mobile" placeholder="请输入电话" />
+                        <el-form-item :label="$t('order.mobile') + ':'" prop="mobile">
+                            <el-input
+                                v-model="formData.mobile"
+                                :placeholder="$t('order.inputMobile')"
+                            />
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="状态:" prop="status">
+                        <el-form-item :label="$t('order.status') + ':'" prop="status">
                             {{ formData.status }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="时间:" prop="createdAt">
+                        <el-form-item :label="$t('order.createdAt') + ':'" prop="createdAt">
                             {{ formData.createdAt }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="接待店员:" prop="clerkId">
+                        <el-form-item :label="$t('order.clerkId') + ':'" prop="clerkId">
                             {{ formData.clerkId }}
                         </el-form-item>
                     </el-col>
@@ -171,15 +183,15 @@ export default {
             props: [{ prop: 'name', label: '提货人姓名' }],
             columns: [
                 { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'ladingId', label: '提货单号', minWidth: 120 },
-                { prop: 'orderId', label: '订单号', minWidth: 120 },
-                { prop: 'store.storeName', label: '门店', minWidth: 150 },
-                { prop: 'name', label: '提货人', minWidth: 100 },
-                { prop: 'mobile', label: '电话', minWidth: 120 },
-                { prop: 'status', label: '状态', minWidth: 70, align: 'center' },
+                { prop: 'ladingId', label: this.$t('order.ladingId'), minWidth: 120 },
+                { prop: 'orderId', label: this.$t('order.orderId'), minWidth: 120 },
+                { prop: 'store.storeName', label: this.$t('order.store'), minWidth: 150 },
+                { prop: 'name', label: this.$t('order.ladingName'), minWidth: 100 },
+                { prop: 'mobile', label: this.$t('order.mobile'), minWidth: 120 },
+                { prop: 'status', label: this.$t('order.status'), minWidth: 70, align: 'center' },
                 {
                     prop: 'createdAt',
-                    label: '下单时间',
+                    label: this.$t('order.createdAt'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
                 },
@@ -237,7 +249,13 @@ export default {
                 status: 1, // 1 提货状态1=未提货 2=已提货
             },
             formDataRules: {
-                name: [{ required: true, message: '请输入提货人姓名', trigger: 'blur' }],
+                name: [
+                    {
+                        required: true,
+                        message: this.$t('order.ladingNameRequired'),
+                        trigger: 'blur',
+                    },
+                ],
             },
         };
     },
@@ -316,13 +334,13 @@ export default {
                                 Object.assign(_lading, _result.data);
                             }
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('common.success'),
                                 message: _result.description,
                                 type: 'success',
                             });
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('common.error'),
                                 message: _result.description,
                             });
                         }

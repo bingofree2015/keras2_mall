@@ -1,6 +1,11 @@
 <template>
     <div>
-        <ext-button :size="miniSize" label="选择公告" type="primary" @click="handlePickNotices()">
+        <ext-button
+            :size="miniSize"
+            :label="$t('pickNotice.button')"
+            type="primary"
+            @click="handlePickNotices()"
+        >
             <i class="el-icon-ali-Newxuanzeshangpinxuanzhong"></i>
         </ext-button>
         <el-dialog
@@ -8,7 +13,7 @@
             :modal-append-to-body="false"
             :close-on-click-modal="false"
             :size="miniSize"
-            title="公告选择窗"
+            :title="$t('pickNotice.dialogTitle')"
             width="50%"
         >
             <el-table
@@ -23,7 +28,7 @@
                 <el-table-column
                     v-else-if="selectionType === 0"
                     align="center"
-                    label="选择"
+                    :label="$t('pickNotice.select')"
                     min-width="40"
                 >
                     <template #default="scope">
@@ -40,13 +45,13 @@
                 </el-table-column>
 
                 <el-table-column
-                    label="标题"
+                    :label="$t('pickNotice.title')"
                     min-width="310"
                     property="title"
                     show-overflow-tooltip
                 />
                 <el-table-column
-                    label="时间"
+                    :label="$t('pickNotice.time')"
                     min-width="120"
                     property="createdAt"
                     formatter="env.formatDateTime"
@@ -65,10 +70,10 @@
             <template #footer>
                 <span class="dialog-footer">
                     <el-button :size="miniSize" round @click="dialogVisible = false">
-                        >取 消
+                        {{ $t('action.cancel') }}
                     </el-button>
                     <el-button :size="miniSize" round type="primary" @click="chosedNotices">
-                        >确 定
+                        {{ $t('action.comfirm') }}
                     </el-button>
                 </span>
             </template>

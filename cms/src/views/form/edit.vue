@@ -433,117 +433,117 @@ export default {
             typeList: [
                 {
                     key: 1,
-                    value: '订单',
+                    value: this.$t('formEdit.order'),
                 },
                 {
                     key: 2,
-                    value: '付款码',
+                    value: this.$t('formEdit.paymentCode'),
                 },
                 {
                     key: 3,
-                    value: '留言',
+                    value: this.$t('formEdit.feedback'),
                 },
                 {
                     key: 4,
-                    value: '反馈',
+                    value: this.$t('formEdit.feedback'),
                 },
                 {
                     key: 5,
-                    value: '登记',
+                    value: this.$t('formEdit.register'),
                 },
                 {
                     key: 6,
-                    value: '调研',
+                    value: this.$t('formEdit.survey'),
                 },
             ],
             headTypeList: [
                 {
                     key: 1,
-                    value: '图片',
+                    value: this.$t('formEdit.image'),
                 },
                 {
                     key: 2,
-                    value: '轮播',
+                    value: this.$t('formEdit.carousel'),
                 },
                 {
                     key: 3,
-                    value: '视频',
+                    value: this.$t('formEdit.video'),
                 },
             ],
             validationTypeList: [
                 {
                     key: 'string',
-                    value: '字符串',
+                    value: this.$t('formEdit.string'),
                 },
                 {
                     key: 'number',
-                    value: '数字',
+                    value: this.$t('formEdit.number'),
                 },
                 {
                     key: 'integer',
-                    value: '整数',
+                    value: this.$t('formEdit.integer'),
                 },
                 {
                     key: 'price',
-                    value: '价格',
+                    value: this.$t('formEdit.price'),
                 },
                 {
                     key: 'email',
-                    value: '邮箱',
+                    value: this.$t('formEdit.email'),
                 },
                 {
                     key: 'mobile',
-                    value: '手机号',
+                    value: this.$t('formEdit.mobile'),
                 },
             ],
             itemTypeList: [
                 {
                     key: 'radio',
-                    value: '单选',
+                    value: this.$t('formEdit.radio'),
                 },
                 {
                     key: 'checkbox',
-                    value: '复选',
+                    value: this.$t('formEdit.checkbox'),
                 },
                 {
                     key: 'text',
-                    value: '文本框',
+                    value: this.$t('formEdit.text'),
                 },
                 {
                     key: 'textarea',
-                    value: '文本域',
+                    value: this.$t('formEdit.textarea'),
                 },
                 {
                     key: 'date',
-                    value: '日期',
+                    value: this.$t('formEdit.date'),
                 },
                 {
                     key: 'time',
-                    value: '时间',
+                    value: this.$t('formEdit.time'),
                 },
                 {
                     key: 'goods',
-                    value: '商品',
+                    value: this.$t('formEdit.goods'),
                 },
                 {
                     key: 'money',
-                    value: '金额',
+                    value: this.$t('formEdit.money'),
                 },
                 {
                     key: 'password',
-                    value: '密码',
+                    value: this.$t('formEdit.password'),
                 },
                 {
                     key: 'area',
-                    value: '省市区',
+                    value: this.$t('formEdit.area'),
                 },
                 {
                     key: 'image',
-                    value: '图片',
+                    value: this.$t('formEdit.image'),
                 },
                 {
                     key: 'coordinate',
-                    value: '坐标',
+                    value: this.$t('formEdit.coordinate'),
                 },
             ],
             formDataRules: {
@@ -585,7 +585,7 @@ export default {
         },
         handleAddItem() {
             this.formData.formItems.push({
-                name: '字段' + this.formData.formItems.length, // 字段名称
+                name: this.$t('formEdit.fieldName') + this.formData.formItems.length, // 字段名称
                 type: '', // 字段类型
                 validationType: '', // 验证类型
                 value: '', // 表单值

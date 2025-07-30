@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('common.inputPlaceholder')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,17 +39,17 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="新增" placement="top">
+                            <el-tooltip :content="$t('action.add')" placement="top">
                                 <el-button round @click="handleAdd">
                                     <i class="el-icon-ali-add"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -73,7 +76,7 @@
         <!--新增编辑界面-->
         <el-dialog
             :close-on-click-modal="false"
-            :title="isCreating ? '新增' : '编辑'"
+            :title="isCreating ? $t('action.add') : $t('action.edit')"
             :model-value="editDialogVisible"
             width="40%"
         >
@@ -86,13 +89,13 @@
             >
                 <el-row>
                     <el-col :span="16">
-                        <el-form-item label="门店名称" prop="storeName">
+                        <el-form-item :label="$t('store.name')" prop="storeName">
                             <el-input v-model="formData.storeName" />
                         </el-form-item>
-                        <el-form-item label="手机号" prop="mobile">
+                        <el-form-item :label="$t('store.mobile')" prop="mobile">
                             <el-input v-model="formData.mobile" maxlength="11" show-word-limit />
                         </el-form-item>
-                        <el-form-item label="联系人" prop="linkman">
+                        <el-form-item :label="$t('store.linkman')" prop="linkman">
                             <el-input v-model="formData.linkman" />
                         </el-form-item>
                     </el-col>
@@ -107,7 +110,7 @@
                 </el-row>
                 <el-row>
                     <el-col :span="10">
-                        <el-form-item label="地区" prop="areaId">
+                        <el-form-item :label="$t('store.area')" prop="areaId">
                             <el-cascader
                                 v-model="formData.areaId"
                                 :options="areaList"
@@ -117,7 +120,7 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="14" class="top-bar">
-                        <el-form-item label="坐标" prop="coordinate">
+                        <el-form-item :label="$t('store.coordinate')" prop="coordinate">
                             <el-input v-model="formData.coordinate" readonly>
                                 <el-button
                                     #append
@@ -128,7 +131,7 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
-                <el-form-item label="详细地址" prop="address">
+                <el-form-item :label="$t('store.address')" prop="address">
                     <el-input v-model="formData.address" />
                 </el-form-item>
             </el-form>
@@ -175,10 +178,10 @@ export default {
                 key: 'storeName',
                 value: '',
             },
-            props: [{ prop: 'storeName', label: '门店名称' }],
+            props: [{ prop: 'storeName', label: this.$t('store.name') }],
             columns: [
                 { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'storeName', label: '门店名称', minWidth: 180 },
+                { prop: 'storeName', label: this.$t('store.name'), minWidth: 180 },
                 {
                     prop: 'attachment.path',
                     label: 'LOGO',
@@ -186,18 +189,18 @@ export default {
                     propType: 'image',
                     align: 'center',
                 },
-                { prop: 'mobile', label: '电话/手机号', minWidth: 160 },
-                { prop: 'linkman', label: '联系人', minWidth: 120 },
-                { prop: 'areaId', label: '地区', minWidth: 160 },
+                { prop: 'mobile', label: this.$t('store.mobile'), minWidth: 160 },
+                { prop: 'linkman', label: this.$t('store.linkman'), minWidth: 120 },
+                { prop: 'areaId', label: this.$t('store.area'), minWidth: 160 },
                 {
                     prop: 'address',
-                    label: '详细地址',
+                    label: this.$t('store.address'),
                     minWidth: 280,
                     showOverflowTooltip: true,
                 },
                 {
                     prop: 'createdAt',
-                    label: '创建时间',
+                    label: this.$t('common.createdAt'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
                 },
@@ -226,7 +229,7 @@ export default {
                     size: this.normalSize,
                     type: 'danger',
                     func: (row) => {
-                        this.$confirm('确认删除选中记录吗？', '提示', {
+                        this.$confirm(this.$t('common.confirmDelete'), this.$t('common.tip'), {
                             type: 'warning',
                         }).then(async () => {
                             await this.batchDelete([row.id]);
@@ -264,7 +267,9 @@ export default {
                 longitude: '', // 经度
             },
             formDataRules: {
-                storeName: [{ required: true, message: '门店名称', trigger: 'blur' }],
+                storeName: [
+                    { required: true, message: this.$t('store.nameRequired'), trigger: 'blur' },
+                ],
             },
         };
     },
@@ -370,39 +375,41 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
-                        this.editLoading = true;
-                        const data = Object.assign({}, this.formData);
+                    this.$confirm(this.$t('common.confirmSubmit'), this.$t('common.tip'), {}).then(
+                        async () => {
+                            this.editLoading = true;
+                            const data = Object.assign({}, this.formData);
 
-                        if (Array.isArray(data.areaId) && data.areaId.length > 0) {
-                            data.areaId = data.areaId.pop();
-                        }
-                        const _result = await this.$api.store.save(data);
-                        if (_result.succeed === 1 && _result.code === 200) {
-                            const _store = this.paginated.list.find(
-                                (v) => v.id === _result.data.id
-                            );
-                            if (!_store) {
-                                this.paginated.list.unshift(_result.data);
-                            } else {
-                                Object.assign(_store, _result.data);
+                            if (Array.isArray(data.areaId) && data.areaId.length > 0) {
+                                data.areaId = data.areaId.pop();
                             }
-                            this.$notify({
-                                title: '成功',
-                                message: _result.description,
-                                type: 'success',
-                            });
-                        } else {
-                            this.$notify.error({
-                                title: '错误',
-                                message: _result.description,
-                            });
-                        }
+                            const _result = await this.$api.store.save(data);
+                            if (_result.succeed === 1 && _result.code === 200) {
+                                const _store = this.paginated.list.find(
+                                    (v) => v.id === _result.data.id
+                                );
+                                if (!_store) {
+                                    this.paginated.list.unshift(_result.data);
+                                } else {
+                                    Object.assign(_store, _result.data);
+                                }
+                                this.$notify({
+                                    title: this.$t('common.success'),
+                                    message: _result.description,
+                                    type: 'success',
+                                });
+                            } else {
+                                this.$notify.error({
+                                    title: this.$t('common.error'),
+                                    message: _result.description,
+                                });
+                            }
 
-                        this.editLoading = false;
-                        this.$refs.formData.resetFields();
-                        this.editDialogVisible = false;
-                    });
+                            this.editLoading = false;
+                            this.$refs.formData.resetFields();
+                            this.editDialogVisible = false;
+                        }
+                    );
                 }
             });
         },

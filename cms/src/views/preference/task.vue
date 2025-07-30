@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('common.inputPlaceholder')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,12 +39,12 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -86,25 +89,25 @@ export default {
                 value: '',
             }, // 默认查询字段与查询内容
             props: [
-                { prop: 'name', label: '任务名称' },
-                { prop: 'type', label: '任务类型' },
-                { prop: 'status', label: '任务状态' },
+                { prop: 'name', label: this.$t('task.name') },
+                { prop: 'type', label: this.$t('task.type') },
+                { prop: 'status', label: this.$t('task.status') },
             ], // 查询字段列表
             columns: [
                 { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: '名称', minWidth: 160 },
-                { prop: 'type', label: '类型', minWidth: 80 },
+                { prop: 'name', label: this.$t('task.name'), minWidth: 160 },
+                { prop: 'type', label: this.$t('task.type'), minWidth: 80 },
                 {
                     prop: 'fileName',
-                    label: '文件名称',
+                    label: this.$t('task.fileName'),
                     minWidth: 160,
                     showOverflowTooltip: true,
                 },
-                { prop: 'status', label: '状态', minWidth: 80 },
-                { prop: 'fileSize', label: '大小', minWidth: 90 },
+                { prop: 'status', label: this.$t('task.status'), minWidth: 80 },
+                { prop: 'fileSize', label: this.$t('task.fileSize'), minWidth: 90 },
                 {
                     prop: 'createdAt',
-                    label: '创建时间',
+                    label: this.$t('common.createdAt'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
                 },
@@ -122,8 +125,8 @@ export default {
                     // type: 'primary',            // 按钮类型
                     func: (row) => {
                         this.$notify({
-                            title: '信息',
-                            message: '下载',
+                            title: this.$t('common.info'),
+                            message: this.$t('task.download'),
                             type: 'info',
                         });
                     },
@@ -135,7 +138,7 @@ export default {
                     size: this.normalSize,
                     type: 'danger',
                     func: (row) => {
-                        this.$confirm('确认删除选中记录吗？', '提示', {
+                        this.$confirm(this.$t('common.confirmDelete'), this.$t('common.tip'), {
                             type: 'warning',
                         }).then(async () => {
                             await this.batchDelete([row.id]);

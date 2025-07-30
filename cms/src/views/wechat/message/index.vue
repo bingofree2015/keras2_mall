@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('common.inputPlaceholder')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,17 +39,17 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="新增" placement="top">
+                            <el-tooltip :content="$t('action.add')" placement="top">
                                 <el-button round @click="handleAdd">
                                     <i class="el-icon-ali-add"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -74,7 +77,7 @@
         <!--新增编辑界面-->
         <el-dialog
             :close-on-click-modal="false"
-            :title="isCreating ? '新增' : '编辑'"
+            :title="isCreating ? $t('action.add') : $t('action.edit')"
             :model-value="editDialogVisible"
             width="40%"
         >
@@ -85,49 +88,59 @@
                 :size="largeSize"
                 label-width="80px"
             >
-                <el-form-item label="消息名称" prop="name">
+                <el-form-item :label="$t('wechat.message.name')" prop="name">
                     <el-input v-model="formData.name" />
                 </el-form-item>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="关注回复" prop="isAttention">
+                        <el-form-item
+                            :label="$t('wechat.message.attentionReply')"
+                            prop="isAttention"
+                        >
                             <el-switch
                                 v-model="formData.isAttention"
-                                active-text="开启"
-                                inactive-text="关闭"
+                                active-text="$t('common.enable')"
+                                inactive-text="$t('common.disable')"
                             />
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="默认回复" prop="isDefault">
+                        <el-form-item :label="$t('wechat.message.defaultReply')" prop="isDefault">
                             <el-switch
                                 v-model="formData.isDefault"
-                                active-text="开启"
-                                inactive-text="关闭"
+                                active-text="$t('common.enable')"
+                                inactive-text="$t('common.disable')"
                             />
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="消息类型" prop="type">
-                            <el-select v-model="formData.type" placeholder="请选择">
-                                <el-option label="文字消息" value="1" />
-                                <el-option label="图文消息" value="3" />
+                        <el-form-item :label="$t('wechat.message.type')" prop="type">
+                            <el-select
+                                v-model="formData.type"
+                                :placeholder="$t('common.selectPlaceholder')"
+                            >
+                                <el-option :label="$t('wechat.message.text')" value="1" />
+                                <el-option :label="$t('wechat.message.richText')" value="3" />
                             </el-select>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="禁用" prop="enable">
+                        <el-form-item :label="$t('common.disable')" prop="enable">
                             <el-switch
                                 v-model="formData.enable"
-                                active-text="开启"
-                                inactive-text="关闭"
+                                :active-text="$t('common.enable')"
+                                :inactive-text="$t('common.disable')"
                             />
                         </el-form-item>
                     </el-col>
                 </el-row>
-                <el-form-item v-if="formData.type == 1" label="消息内容" prop="params">
+                <el-form-item
+                    v-if="formData.type == 1"
+                    :label="$t('wechat.message.content')"
+                    prop="params"
+                >
                     <el-input
                         v-model="formData.params['content']"
                         :autosize="{ minRows: 4, maxRows: 8 }"
@@ -137,7 +150,7 @@
                 <el-alert
                     v-else-if="formData.type == 3"
                     :closable="false"
-                    title="请稍后进入图文编辑页面继续编辑，否则图文消息不生效"
+                    :title="$t('wechat.message.richTextTip')"
                     type="info"
                 />
             </el-form>

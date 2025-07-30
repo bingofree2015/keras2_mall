@@ -2,8 +2,12 @@
     <div v-popover:popover class="lang-selector" :style="istyle">
         <li :style="iconStyle" :class="icon"></li>
         <el-popover ref="popover" v-model="visible" placement="bottom-start" :trigger="trigger">
-            <div class="item" @click="changeLanguage('zh_cn')">简体中文</div>
-            <div class="item" @click="changeLanguage('en_us')">English</div>
+            <div class="item" @click="changeLanguage('zh_cn')">
+                {{ $t('lang.zh_cn') }}
+            </div>
+            <div class="item" @click="changeLanguage('en_us')">
+                {{ $t('lang.en_us') }}
+            </div>
         </el-popover>
     </div>
 </template>
@@ -39,6 +43,14 @@ export default {
         changeLanguage(lang) {
             const _lang = lang === '' ? 'zh_cn' : lang;
             this.$i18n.locale = _lang;
+
+            // 同时切换 Element Plus 的语言
+            const newLocale = this.$elementPlusLocales[_lang];
+            if (newLocale) {
+                // 更新 Element Plus 的语言配置
+                Object.assign(this.$elementPlusLocale, newLocale);
+            }
+
             this.visible = false;
         },
     },

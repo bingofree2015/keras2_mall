@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('common.inputPlaceholder')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,17 +39,17 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="新增" placement="top">
+                            <el-tooltip :content="$t('action.add')" placement="top">
                                 <el-button round @click="handleAdd">
                                     <i class="el-icon-ali-add"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -73,7 +76,7 @@
         <!--新增编辑界面-->
         <el-dialog
             :close-on-click-modal="false"
-            :title="isCreating ? '新增' : '编辑'"
+            :title="isCreating ? $t('action.add') : $t('action.edit')"
             :model-value="editDialogVisible"
             width="40%"
         >
@@ -84,20 +87,26 @@
                 :size="largeSize"
                 label-width="80px"
             >
-                <el-form-item label="参数名称" prop="name">
+                <el-form-item :label="$t('goods.paramName')" prop="name">
                     <el-input v-model="formData.name" />
                 </el-form-item>
-                <el-form-item label="参数类型" prop="type">
+                <el-form-item :label="$t('goods.paramType')" prop="type">
                     <el-radio-group v-model="formData.type">
-                        <el-radio value="text">文本框</el-radio>
-                        <el-radio value="radio">单选</el-radio>
-                        <el-radio value="checkbox">复选框</el-radio>
+                        <el-radio value="text">
+                            {{ $t('goods.textbox') }}
+                        </el-radio>
+                        <el-radio value="radio">
+                            {{ $t('goods.radio') }}
+                        </el-radio>
+                        <el-radio value="checkbox">
+                            {{ $t('goods.checkbox') }}
+                        </el-radio>
                     </el-radio-group>
                 </el-form-item>
-                <el-form-item label="参数选项" prop="values">
+                <el-form-item :label="$t('goods.paramOption')" prop="values">
                     <el-input
                         v-model="formData.values"
-                        placeholder="多个用空格分开,文本框内容可不填"
+                        :placeholder="$t('goods.paramOptionPlaceholder')"
                     />
                 </el-form-item>
             </el-form>
@@ -176,7 +185,7 @@ export default {
                     size: this.normalSize,
                     type: 'danger',
                     func: (row) => {
-                        this.$confirm('确认删除选中记录吗？', '提示', {
+                        this.$confirm(this.$t('common.confirmDelete'), this.$t('common.tip'), {
                             type: 'warning',
                         }).then(async () => {
                             await this.batchDelete([row.id]);
@@ -197,8 +206,12 @@ export default {
                 values: '',
             },
             formDataRules: {
-                name: [{ required: true, message: '请输入参数名称', trigger: 'blur' }],
-                type: [{ required: true, message: '请选择参数类型', trigger: 'change' }],
+                name: [
+                    { required: true, message: this.$t('goods.inputParamName'), trigger: 'blur' },
+                ],
+                type: [
+                    { required: true, message: this.$t('goods.inputParamType'), trigger: 'change' },
+                ],
             },
         };
     },
@@ -269,35 +282,37 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
-                        this.editLoading = true;
-                        const data = Object.assign({}, this.formData);
-                        const _result = await this.$api.goodsParam.save(data);
-                        if (_result.succeed === 1 && _result.code === 200) {
-                            const _goodsParam = this.paginated.list.find(
-                                (v) => v.id === _result.data.id
-                            );
-                            if (!_goodsParam) {
-                                this.paginated.list.unshift(_result.data);
+                    this.$confirm(this.$t('common.confirmSubmit'), this.$t('common.tip'), {}).then(
+                        async () => {
+                            this.editLoading = true;
+                            const data = Object.assign({}, this.formData);
+                            const _result = await this.$api.goodsParam.save(data);
+                            if (_result.succeed === 1 && _result.code === 200) {
+                                const _goodsParam = this.paginated.list.find(
+                                    (v) => v.id === _result.data.id
+                                );
+                                if (!_goodsParam) {
+                                    this.paginated.list.unshift(_result.data);
+                                } else {
+                                    Object.assign(_goodsParam, _result.data);
+                                }
+                                this.$notify({
+                                    title: this.$t('common.success'),
+                                    message: _result.description,
+                                    type: 'success',
+                                });
                             } else {
-                                Object.assign(_goodsParam, _result.data);
+                                this.$notify.error({
+                                    title: this.$t('common.error'),
+                                    message: _result.description,
+                                });
                             }
-                            this.$notify({
-                                title: '成功',
-                                message: _result.description,
-                                type: 'success',
-                            });
-                        } else {
-                            this.$notify.error({
-                                title: '错误',
-                                message: _result.description,
-                            });
-                        }
 
-                        this.editLoading = false;
-                        this.$refs.formData.resetFields();
-                        this.editDialogVisible = false;
-                    });
+                            this.editLoading = false;
+                            this.$refs.formData.resetFields();
+                            this.editDialogVisible = false;
+                        }
+                    );
                 }
             });
         },

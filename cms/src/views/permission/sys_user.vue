@@ -99,18 +99,18 @@
             >
                 <el-row>
                     <el-col :span="14" class="top-bar">
-                        <el-form-item label="用户名" prop="username">
+                        <el-form-item :label="$t('permission.username')" prop="username">
                             <el-input v-model="formData.username" />
                         </el-form-item>
-                        <el-form-item label="密码" prop="pwd">
+                        <el-form-item :label="$t('permission.password')" prop="pwd">
                             <el-input v-model="formData.pwd" type="password" />
                         </el-form-item>
-                        <el-form-item label="邮箱" prop="email">
+                        <el-form-item :label="$t('permission.email')" prop="email">
                             <el-input v-model="formData.email" />
                         </el-form-item>
                     </el-col>
                     <el-col :span="10">
-                        <el-form-item label="头像" prop="attachment">
+                        <el-form-item :label="$t('permission.avatar')" prop="attachment">
                             <change-image-icon
                                 :img-url="formData.attachment ? formData.attachment.path : ''"
                                 @chosed-image-icon="chosedIcon"
@@ -120,27 +120,27 @@
                 </el-row>
                 <el-row>
                     <el-col :span="14" class="top-bar">
-                        <el-form-item label="手机" prop="mobile">
+                        <el-form-item :label="$t('permission.mobile')" prop="mobile">
                             <el-input v-model="formData.mobile" />
                         </el-form-item>
                     </el-col>
                     <el-col :span="10">
-                        <el-form-item label="状态" prop="status">
+                        <el-form-item :label="$t('permission.status')" prop="status">
                             <el-switch
                                 v-model="formData.status"
-                                active-text="正常"
-                                inactive-text="禁用"
+                                :active-text="$t('common.enable')"
+                                :inactive-text="$t('common.disable')"
                             />
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="24">
-                        <el-form-item label="角色" prop="roleIds">
+                        <el-form-item :label="$t('permission.role')" prop="roleIds">
                             <el-select
                                 v-model="formData.roleIds"
                                 multiple
-                                placeholder="请选择"
+                                :placeholder="$t('common.selectPlaceholder')"
                                 style="width: 100%"
                             >
                                 <el-option
@@ -195,15 +195,15 @@ export default {
             props: [
                 {
                     prop: 'username',
-                    label: '用户名',
+                    label: this.$t('action.username'),
                 },
                 {
                     prop: 'email',
-                    label: '邮箱',
+                    label: this.$t('action.email'),
                 },
                 {
                     prop: 'mobile',
-                    label: '手机',
+                    label: this.$t('action.mobile'),
                 },
             ],
             columns: [],
@@ -269,7 +269,7 @@ export default {
                 username: [
                     {
                         required: true,
-                        message: '请输入用户名',
+                        message: this.$t('permission.inputUsername'),
                         trigger: 'blur',
                     },
                 ],
@@ -443,39 +443,43 @@ export default {
                 },
                 {
                     prop: 'username',
-                    label: '用户名',
+                    label: this.$t('action.username'),
                     minWidth: 100,
                     showOverflowTooltip: true,
                 },
                 {
                     prop: 'attachment.path',
-                    label: '头像',
+                    label: this.$t('action.avatar'),
                     minWidth: 80,
                     propType: 'image',
                     align: 'center',
                 },
                 {
                     prop: 'roleNames',
-                    label: '角色',
+                    label: this.$t('action.role'),
                     minWidth: 210,
                     showOverflowTooltip: true,
                 },
                 {
                     prop: 'email',
-                    label: '邮箱',
+                    label: this.$t('action.email'),
                     minWidth: 120,
                     showOverflowTooltip: true,
                 },
                 {
                     prop: 'mobile',
-                    label: '手机',
+                    label: this.$t('action.mobile'),
                     minWidth: 100,
                 },
                 {
                     prop: 'state',
-                    label: '状态',
+                    label: this.$t('action.status'),
                     minWidth: 70,
-                    formatter: this.env.formatState,
+                    formatter: (state) => {
+                        return state
+                            ? this.$t('permission.enabled')
+                            : this.$t('permission.disabled');
+                    },
                     align: 'center',
                 },
             ];

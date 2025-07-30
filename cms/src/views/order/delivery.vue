@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('common.inputPlaceholder')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,12 +39,12 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -67,7 +70,7 @@
         <el-dialog
             :close-on-click-modal="false"
             :model-value="viewDialogVisible"
-            title="发货单查看"
+            :title="$t('order.deliveryView')"
             width="40%"
         >
             <el-form
@@ -79,63 +82,62 @@
             >
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="发货单号:" prop="deliveryId">
+                        <el-form-item :label="$t('order.deliveryId') + ':'" prop="deliveryId">
                             {{ formData.deliveryId }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="订单号:" prop="orderId">
+                        <el-form-item :label="$t('order.orderId') + ':'" prop="orderId">
                             {{ formData.orderId }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="用户名:" prop="user">
+                        <el-form-item :label="$t('order.userName') + ':'" prop="user">
                             {{ formData.user.name }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="收货人:" prop="shipName">
+                        <el-form-item :label="$t('order.shipName') + ':'" prop="shipName">
                             {{ formData.shipName }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="快递公司:" prop="logistics">
+                        <el-form-item :label="$t('order.logistics') + ':'" prop="logistics">
                             {{ formData.logistics.logiName }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="快递单号:" prop="logiNo">
+                        <el-form-item :label="$t('order.logiNo') + ':'" prop="logiNo">
                             {{ formData.logiNo }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="收货电话:" prop="shipMobile">
+                        <el-form-item :label="$t('order.shipMobile') + ':'" prop="shipMobile">
                             {{ formData.shipMobile }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="创建时间:" prop="createdAt">
+                        <el-form-item :label="$t('common.createdAt') + ':'" prop="createdAt">
                             {{ formData.createdAt }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="24">
-                        <el-form-item label="收货地址:" prop="shipAddress">
+                        <el-form-item :label="$t('order.shipAddress') + ':'" prop="shipAddress">
                             {{ formData.shipAddress }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="24">
-                        <el-form-item label="发货备注:" prop="memo">
-                            prop="memo" >
+                        <el-form-item :label="$t('order.memo') + ':'" prop="memo">
                             {{ formData.memo }}
                         </el-form-item>
                     </el-col>
@@ -149,12 +151,16 @@
                             style="width: 100%"
                         >
                             <el-table-column
-                                label="货品名称"
+                                :label="$t('order.goodsName')"
                                 min-width="360"
                                 prop="orderItem.name"
                                 show-overflow-tooltip
                             />
-                            <el-table-column label="发货数量" min-width="100" prop="num" />
+                            <el-table-column
+                                :label="$t('order.deliveryNum')"
+                                min-width="100"
+                                prop="num"
+                            />
                             />
                         </el-table>
                     </el-col>
@@ -194,24 +200,24 @@ export default {
                 key: 'deliveryId',
                 value: '',
             },
-            props: [{ prop: 'deliveryId', label: '发货单号' }],
+            props: [{ prop: 'deliveryId', label: this.$t('order.deliveryId') }],
             columns: [
                 { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'deliveryId', label: '发货单号', minWidth: 120 },
-                { prop: 'orderId', label: '订单号', minWidth: 120 },
-                { prop: 'user.name', label: '用户名', minWidth: 100 },
-                { prop: 'logistics.logiName', label: '快递公司', minWidth: 100 },
-                { prop: 'logiNo', label: '快递单号', minWidth: 120 },
+                { prop: 'deliveryId', label: this.$t('order.deliveryId'), minWidth: 120 },
+                { prop: 'orderId', label: this.$t('order.orderId'), minWidth: 120 },
+                { prop: 'user.name', label: this.$t('order.userName'), minWidth: 100 },
+                { prop: 'logistics.logiName', label: this.$t('order.logistics'), minWidth: 100 },
+                { prop: 'logiNo', label: this.$t('order.logiNo'), minWidth: 120 },
                 {
                     prop: 'shipAddress',
-                    label: '收货地址',
+                    label: this.$t('order.shipAddress'),
                     minWidth: 200,
                     showOverflowTooltip: true,
                 },
-                { prop: 'shipMobile', label: '电话', minWidth: 140 },
+                { prop: 'shipMobile', label: this.$t('order.shipMobile'), minWidth: 140 },
                 {
                     prop: 'createdAt',
-                    label: '创建时间',
+                    label: this.$t('common.createdAt'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
                 },

@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('common.inputPlaceholder')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,17 +39,17 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="新增" placement="top">
+                            <el-tooltip :content="$t('action.add')" placement="top">
                                 <el-button round @click="handleAdd">
                                     <i class="el-icon-ali-add"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -73,7 +76,7 @@
         <!--新增编辑界面-->
         <el-dialog
             :close-on-click-modal="false"
-            :title="isCreating ? '新增' : '编辑'"
+            :title="isCreating ? $t('action.add') : $t('action.edit')"
             :model-value="editDialogVisible"
             width="40%"
         >
@@ -84,13 +87,13 @@
                 :size="largeSize"
                 label-width="80px"
             >
-                <el-form-item label="公司名称" prop="logiName">
+                <el-form-item :label="$t('logistics.name')" prop="logiName">
                     <el-input v-model="formData.logiName" />
                 </el-form-item>
-                <el-form-item label="公司编码" prop="logiCode">
+                <el-form-item :label="$t('logistics.code')" prop="logiCode">
                     <el-input v-model="formData.logiCode" />
                 </el-form-item>
-                <el-form-item label="排序" prop="sort">
+                <el-form-item :label="$t('logistics.sort')" prop="sort">
                     <el-input-number
                         v-model="formData.sort"
                         :min="0"
@@ -142,12 +145,12 @@ export default {
             props: [{ prop: 'logiName', label: '公司名称' }],
             columns: [
                 { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'logiName', label: '公司名称', minWidth: 180 },
-                { prop: 'logiCode', label: '公司编码', minWidth: 100 },
-                { prop: 'sort', label: '排序', minWidth: 70, align: 'center' },
+                { prop: 'logiName', label: this.$t('logistics.name'), minWidth: 180 },
+                { prop: 'logiCode', label: this.$t('logistics.code'), minWidth: 100 },
+                { prop: 'sort', label: this.$t('logistics.sort'), minWidth: 70, align: 'center' },
                 {
                     prop: 'createdAt',
-                    label: '创建时间',
+                    label: this.$t('common.createdAt'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
                 },
@@ -177,7 +180,7 @@ export default {
                     size: this.size,
                     type: 'danger',
                     func: (row) => {
-                        this.$confirm('确认删除选中记录吗？', '提示', {
+                        this.$confirm(this.$t('common.confirmDelete'), this.$t('common.tip'), {
                             type: 'warning',
                         }).then(async () => {
                             await this.batchDelete([row.id]);
@@ -198,7 +201,9 @@ export default {
                 sort: 0, // 排序
             },
             formDataRules: {
-                logiName: [{ required: true, message: '物流公司名称', trigger: 'blur' }],
+                logiName: [
+                    { required: true, message: this.$t('logistics.nameRequired'), trigger: 'blur' },
+                ],
             },
         };
     },
@@ -277,13 +282,13 @@ export default {
                                 Object.assign(_logistics, _result.data);
                             }
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('common.success'),
                                 message: _result.description,
                                 type: 'success',
                             });
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('common.error'),
                                 message: _result.description,
                             });
                         }

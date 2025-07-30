@@ -12,17 +12,21 @@
                             v-model="rangeDate"
                             :picker-options="pickerOptions"
                             align="right"
-                            end-placeholder="结束日期"
-                            range-separator="至"
-                            start-placeholder="开始日期"
+                            :end-placeholder="$t('report.endDate')"
+                            :range-separator="$t('report.rangeSeparator')"
+                            :start-placeholder="$t('report.startDate')"
                             style="width: 240px"
                             type="daterange"
                             unlink-panels
                         />
-                        <el-form-item label="粒度" prop="unit">
+                        <el-form-item :label="$t('report.granularity')" prop="unit">
                             <el-radio-group v-model="unit">
-                                <el-radio :value="0" style="margin-right: 5px">小时</el-radio>
-                                <el-radio :value="1">天</el-radio>
+                                <el-radio :value="0" style="margin-right: 5px">
+                                    {{ $t('report.hour') }}
+                                </el-radio>
+                                <el-radio :value="1">
+                                    {{ $t('report.day') }}
+                                </el-radio>
                             </el-radio-group>
                         </el-form-item>
                         <ext-button
@@ -35,12 +39,12 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('report.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('report.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -78,7 +82,7 @@ export default {
             pickerOptions: {
                 shortcuts: [
                     {
-                        text: '最近一周',
+                        text: this.$t('report.lastWeek'),
                         onClick(picker) {
                             const end = new Date();
                             const start = new Date();
@@ -87,7 +91,7 @@ export default {
                         },
                     },
                     {
-                        text: '最近一个月',
+                        text: this.$t('report.lastMonth'),
                         onClick(picker) {
                             const end = new Date();
                             const start = new Date();
@@ -96,7 +100,7 @@ export default {
                         },
                     },
                     {
-                        text: '最近三个月',
+                        text: this.$t('report.lastThreeMonths'),
                         onClick(picker) {
                             const end = new Date();
                             const start = new Date();

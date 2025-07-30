@@ -8,17 +8,17 @@
                 <el-form :inline="true" :size="normalSize">
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="新增" placement="top">
+                            <el-tooltip :content="$t('action.add')" placement="top">
                                 <el-button round @click="handleAdd">
                                     <i class="el-icon-ali-add"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -40,13 +40,17 @@
         >
             <el-table-column align="center" label="ID" min-width="60" prop="id" />
             <table-tree-column
-                label="名称"
+                label="this.$t('articleType.name')"
                 min-width="280"
                 prop="typeName"
                 tree-key="id"
                 @send-tree-data="getTreeData"
             />
-            <el-table-column label="上级分类" min-width="160" prop="parentName" />
+            <el-table-column
+                label="this.$t('articleType.parentName')"
+                min-width="160"
+                prop="parentName"
+            />
             <el-table-column :label="$t('action.operation')" fixed="right" min-width="200">
                 <template #default="scope">
                     <ext-button
@@ -69,7 +73,7 @@
         <!-- 新增修改界面 -->
         <el-dialog
             :close-on-click-modal="false"
-            :title="!formData.id ? '新增' : '修改'"
+            :title="!formData.id ? $t('action.add') : $t('action.edit')"
             :model-value="dialogVisible"
             width="40%"
         >
@@ -83,7 +87,7 @@
             >
                 <el-row>
                     <el-col :span="16">
-                        <el-form-item label="上级分类" prop="parentName">
+                        <el-form-item :label="$t('articleType.parentName')" prop="parentName">
                             <popup-tree-input
                                 :current-change-handle="handleTreeSelectChange"
                                 :data="popupTreeData"
@@ -94,13 +98,13 @@
                                         : 'typeName'
                                 "
                                 :props="defaultProps"
-                                placeholder="请选择上级分类"
+                                :placeholder="$t('articleType.selectParentCategory')"
                                 style="width: 100%"
                             />
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                        <el-form-item label="排序" prop="sort">
+                        <el-form-item :label="$t('articleType.sort')" prop="sort">
                             <el-input-number
                                 v-model="formData.sort"
                                 :min="0"
@@ -110,13 +114,16 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
-                <el-form-item label="分类名称" prop="typeName">
-                    <el-input v-model="formData.typeName" placeholder="请输入分类名称" />
+                <el-form-item :label="$t('articleType.name')" prop="typeName">
+                    <el-input
+                        v-model="formData.typeName"
+                        :placeholder="$t('articleType.inputName')"
+                    />
                 </el-form-item>
-                <el-form-item label="分类描述" prop="description">
+                <el-form-item :label="$t('articleType.desc')" prop="description">
                     <el-input
                         v-model="formData.description"
-                        placeholder="请输入分类描述"
+                        :placeholder="$t('articleType.inputDesc')"
                         type="textarea"
                     />
                 </el-form-item>
@@ -175,7 +182,13 @@ export default {
                 parentName: '',
             },
             dataRule: {
-                typeName: [{ required: true, message: '分类名称不能为空', trigger: 'blur' }],
+                typeName: [
+                    {
+                        required: true,
+                        message: this.$t('articleType.nameRequired'),
+                        trigger: 'blur',
+                    },
+                ],
             },
             popupTreeProps: {
                 label: 'typeName',
@@ -188,7 +201,7 @@ export default {
             const _data = this.articleTypeTreeData.filter((x) => x.pid === 0);
             const parent = {
                 pid: 0,
-                typeName: '顶级分类',
+                typeName: this.$t('articleType.topLevel'),
                 children: _data,
             };
             return [parent];
@@ -251,7 +264,7 @@ export default {
         },
         // 删除
         handleDelete(row) {
-            this.$confirm('确认删除选中记录吗？', '提示', {
+            this.$confirm(this.$t('common.confirmDelete'), this.$t('common.tip'), {
                 type: 'warning',
             }).then(async () => {
                 const params = this.getDeleteIds([], row);
@@ -262,8 +275,8 @@ export default {
                         params
                     );
                     this.$notify({
-                        title: '成功',
-                        message: '删除成功',
+                        title: this.$t('common.success'),
+                        message: this.$t('articleType.deleteSuccess'),
                         type: 'success',
                     });
                 }
@@ -351,7 +364,7 @@ export default {
 
                             console.log('保存后的 articleTypeTreeData: ', this.articleTypeTreeData);
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('common.success'),
                                 message: _result.description,
                                 type: 'success',
                             });
@@ -359,7 +372,7 @@ export default {
                             this.dialogVisible = false;
                         } else {
                             this.$notify({
-                                title: '失败',
+                                title: this.$t('common.fail'),
                                 message: _result.description,
                                 type: 'error',
                             });

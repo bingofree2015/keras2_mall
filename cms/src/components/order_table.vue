@@ -17,23 +17,28 @@
                 @selection-change="selectionChange"
             >
                 <el-table-column min-width="60" type="selection" />
-                <el-table-column label="订单号" min-width="130" prop="orderId" />
-                <el-table-column align="center" label="打印" min-width="180" prop="orderId">
+                <el-table-column :label="$t('orderTable.orderId')" min-width="130" prop="orderId" />
+                <el-table-column
+                    align="center"
+                    :label="$t('orderTable.print')"
+                    min-width="180"
+                    prop="orderId"
+                >
                     <template #default="scope">
                         <el-link icon="el-icon-ali-mai" @click="handlePrint(scope.row, 'shopping')">
-                            购
+                            {{ $t('orderTable.buy') }}
                         </el-link>
                         <el-link
                             icon="el-icon-ali-icon209"
                             @click="handlePrint(scope.row, 'distribution')"
                         >
-                            配
+                            {{ $t('orderTable.delivery') }}
                         </el-link>
                         <el-link icon="el-icon-ali-lian" @click="handlePrint(scope.row, 'union')">
-                            联
+                            {{ $t('orderTable.contact') }}
                         </el-link>
                         <el-link icon="el-icon-ali-send" @click="handlePrint(scope.row, 'express')">
-                            递
+                            {{ $t('orderTable.express') }}
                         </el-link>
                     </template>
                 </el-table-column>
@@ -43,29 +48,53 @@
                             return env.formatDateTime(row[column.property]);
                         }
                     "
-                    label="下单时间"
+                    :label="$t('orderTable.orderTime')"
                     min-width="150"
                     prop="createdAt"
                 />
-                <el-table-column label="订单状态" min-width="90" prop="progress" />
                 <el-table-column
-                    label="售后状态"
+                    :label="$t('orderTable.orderStatus')"
+                    min-width="90"
+                    prop="progress"
+                />
+                <el-table-column
+                    :label="$t('orderTable.afterSaleStatus')"
                     min-width="180"
                     prop="afterSaleState"
                     show-overflow-tooltip
                 />
-                <el-table-column label="用户名" min-width="90" prop="user.username" />
-                <el-table-column label="收货人手机号" min-width="120" prop="shipMobile" />
+                <el-table-column
+                    :label="$t('orderTable.username')"
+                    min-width="90"
+                    prop="user.username"
                 />
                 <el-table-column
-                    label="收货地址"
+                    :label="$t('orderTable.receiverPhone')"
+                    min-width="120"
+                    prop="shipMobile"
+                />
+                />
+                <el-table-column
+                    :label="$t('orderTable.receiverAddress')"
                     min-width="240"
                     prop="shipAddress"
                     show-overflow-tooltip
                 />
-                <el-table-column label="支付状态" min-width="90" prop="payState" />
-                <el-table-column label="发货状态" min-width="90" prop="shipState" />
-                <el-table-column label="订单总额" min-width="90" prop="orderAmount" />
+                <el-table-column
+                    :label="$t('orderTable.paymentStatus')"
+                    min-width="90"
+                    prop="payState"
+                />
+                <el-table-column
+                    :label="$t('orderTable.deliveryStatus')"
+                    min-width="90"
+                    prop="shipState"
+                />
+                <el-table-column
+                    :label="$t('orderTable.orderAmount')"
+                    min-width="90"
+                    prop="orderAmount"
+                />
                 <el-table-column label="订单来源" min-width="90" prop="source" />
 
                 <el-table-column

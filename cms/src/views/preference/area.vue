@@ -9,17 +9,17 @@
                 <el-form :inline="true" :size="miniSize" class="search-form">
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="新增" placement="top">
+                            <el-tooltip :content="$t('action.add')" placement="top">
                                 <el-button round @click="handleAdd">
                                     <i class="el-icon-ali-add"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="getAreaData()">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -41,15 +41,15 @@
         >
             <el-table-column label="ID" min-width="80" prop="id" />
             <table-tree-column
-                label="名称"
+                label="this.$t('area.name')"
                 min-width="310"
                 prop="name"
                 tree-key="id"
                 @send-tree-data="getTreeData"
             />
-            <el-table-column label="层级" min-width="80" prop="depth" />
-            <el-table-column label="上级名称" min-width="120" prop="parentName" />
-            <el-table-column label="排序" min-width="80" prop="sort" />
+            <el-table-column label="this.$t('area.level')" min-width="80" prop="depth" />
+            <el-table-column label="this.$t('area.parentName')" min-width="120" prop="parentName" />
+            <el-table-column label="this.$t('area.sort')" min-width="80" prop="sort" />
             <el-table-column :label="$t('action.operation')" fixed="right" min-width="200">
                 <template #default="scope">
                     <ext-button
@@ -72,7 +72,7 @@
         <!-- 新增修改界面 -->
         <el-dialog
             :close-on-click-modal="false"
-            :title="!formData.id ? '新增' : '修改'"
+            :title="!formData.id ? $t('action.add') : $t('action.edit')"
             :model-value="dialogVisible"
             width="40%"
         >
@@ -86,19 +86,19 @@
             >
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="区域名称" prop="name">
-                            <el-input v-model="formData.name" placeholder="区域名称" />
+                        <el-form-item :label="$t('area.name')" prop="name">
+                            <el-input v-model="formData.name" :placeholder="$t('area.inputName')" />
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="上级名称" prop="parentName">
+                        <el-form-item :label="$t('area.parentName')" prop="parentName">
                             <popup-tree-input
                                 :current-change-handle="handleTreeSelectChange"
                                 :data="popupTreeData"
                                 :node-key="'' + formData.parentId"
                                 :model-value="
                                     formData.parentName === null || formData.parentName === ''
-                                        ? '顶级区域'
+                                        ? $t('area.topLevel')
                                         : formData.parentName
                                 "
                                 :props="popupTreeProps"
@@ -106,7 +106,7 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
-                <el-form-item label="排序" prop="sort" style="width: 80px">
+                <el-form-item :label="$t('area.sort')" prop="sort" style="width: 80px">
                     <el-input-number
                         v-model="formData.sort"
                         :min="0"
@@ -160,7 +160,7 @@ export default {
                 sort: 0,
             },
             dataRule: {
-                name: [{ required: true, message: '区域名称不能为空', trigger: 'blur' }],
+                name: [{ required: true, message: this.$t('area.nameRequired'), trigger: 'blur' }],
             },
             popupTreeProps: {
                 label: 'name',
@@ -172,7 +172,7 @@ export default {
         popupTreeData() {
             const parent = {
                 parentId: 0,
-                name: '顶级区域',
+                name: this.$t('area.topLevel'),
                 children: this.areaTreeData,
             };
             return [parent];
@@ -235,7 +235,7 @@ export default {
         },
         // 删除
         handleDelete(row) {
-            this.$confirm('确认删除选中记录吗？', '提示', {
+            this.$confirm(this.$t('common.confirmDelete'), this.$t('common.tip'), {
                 type: 'warning',
             }).then(async () => {
                 const params = this.getDeleteIds([], row);
@@ -243,8 +243,8 @@ export default {
                 if (_result.succeed === 1 && _result.code === 200) {
                     this.areaTreeData = removeTreeItemsByIds(this.areaTreeData, params);
                     this.$notify({
-                        title: '成功',
-                        message: '删除成功',
+                        title: this.$t('common.success'),
+                        message: this.$t('area.deleteSuccess'),
                         type: 'success',
                     });
                 }
@@ -332,7 +332,7 @@ export default {
 
                                 console.log('保存后的areaTreeData: ', this.areaTreeData);
                                 this.$notify({
-                                    title: '成功',
+                                    title: this.$t('common.success'),
                                     message: _result.description,
                                     type: 'success',
                                 });
@@ -340,15 +340,15 @@ export default {
                                 this.dialogVisible = false;
                             } else {
                                 this.$notify({
-                                    title: '失败',
+                                    title: this.$t('common.fail'),
                                     message: _result.description,
                                     type: 'error',
                                 });
                             }
                         } catch (error) {
                             this.$notify({
-                                title: '错误',
-                                message: '操作失败，请重试',
+                                title: this.$t('common.error'),
+                                message: this.$t('area.operateFail'),
                                 type: 'error',
                             });
                         } finally {

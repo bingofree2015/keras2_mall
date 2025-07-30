@@ -1,6 +1,11 @@
 <template>
     <div>
-        <ext-button :size="miniSize" label="选择地区" type="primary" @click="handlePickArea()">
+        <ext-button
+            :size="miniSize"
+            :label="$t('pickArea.button')"
+            type="primary"
+            @click="handlePickArea()"
+        >
             <i class="el-icon-ali-Newxuanzeshangpinxuanzhong"></i>
         </ext-button>
         <el-dialog
@@ -8,7 +13,7 @@
             :close-on-click-modal="false"
             :modal-append-to-body="false"
             :size="normalSize"
-            title="区域选择窗"
+            :title="$t('pickArea.dialogTitle')"
             width="40%"
         >
             <el-tree
@@ -23,10 +28,10 @@
             <template #footer>
                 <span class="dialog-footer">
                     <el-button :size="miniSize" round @click="dialogVisible = false">
-                        取 消
+                        {{ $t('action.cancel') }}
                     </el-button>
                     <el-button :size="miniSize" round type="primary" @click="chosedAreas">
-                        >确 定
+                        {{ $t('action.comfirm') }}
                     </el-button>
                 </span>
             </template>

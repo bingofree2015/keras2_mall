@@ -41,37 +41,48 @@
             stripe
             style="width: 100%"
         >
-            <el-table-column label="名称" min-width="180" prop="name">
+            <el-table-column :label="$t('menu.name')" min-width="180" prop="name">
                 <template #default="scope">
                     <span :style="getNameStyle(scope.row)">{{ scope.row.name }}</span>
                 </template>
             </el-table-column>
-            <el-table-column align="center" label="图标" min-width="60">
+            <el-table-column align="center" :label="$t('menu.icon')" min-width="60">
                 <template #default="scope">
                     <i :class="scope.row.icon || ''"></i>
                 </template>
             </el-table-column>
-            <el-table-column align="center" label="类型" min-width="60" prop="type">
+            <el-table-column align="center" :label="$t('menu.type')" min-width="60" prop="type">
                 <template #default="scope">
-                    <el-tag v-if="scope.row.type === 0">目录</el-tag>
-                    <el-tag v-else-if="scope.row.type === 1" type="success">菜单</el-tag>
-                    <el-tag v-else-if="scope.row.type === 2" type="info">按钮</el-tag>
+                    <el-tag v-if="scope.row.type === 0">
+                        {{ $t('menu.directory') }}
+                    </el-tag>
+                    <el-tag v-else-if="scope.row.type === 1" type="success">
+                        {{ $t('menu.menu') }}
+                    </el-tag>
+                    <el-tag v-else-if="scope.row.type === 2" type="info">
+                        {{ $t('menu.button') }}
+                    </el-tag>
                 </template>
             </el-table-column>
-            <el-table-column align="center" label="上级菜单" min-width="120" prop="parentName" />
+            <el-table-column
+                align="center"
+                :label="$t('menu.parentMenu')"
+                min-width="120"
+                prop="parentName"
+            />
             <el-table-column
                 :show-overflow-tooltip="true"
-                label="菜单URL"
+                :label="$t('menu.menuUrl')"
                 min-width="150"
                 prop="url"
             />
             <el-table-column
                 :show-overflow-tooltip="true"
-                label="授权标识"
+                :label="$t('menu.authId')"
                 min-width="180"
                 prop="perms"
             />
-            <el-table-column align="center" label="排序" prop="orderNum" />
+            <el-table-column align="center" :label="$t('menu.sort')" prop="orderNum" />
             <el-table-column :label="$t('action.operation')" fixed="right" min-width="210">
                 <template #default="scope">
                     <div style="display: flex; gap: 8px">
@@ -96,7 +107,7 @@
         <!-- 新增/编辑弹窗 -->
         <el-dialog
             :close-on-click-modal="false"
-            :title="!formData.id ? '新增' : '修改'"
+            :title="!formData.id ? $t('menu.add') : $t('menu.modify')"
             :model-value="dialogVisible"
             width="40%"
         >
@@ -107,44 +118,44 @@
                 label-width="80px"
                 @keyup.enter="submitForm()"
             >
-                <el-form-item label="菜单类型" prop="type">
+                <el-form-item :label="$t('menu.menuType')" prop="type">
                     <el-radio-group v-model="formData.type">
                         <el-radio v-for="(type, index) in menuTypeList" :key="index" :value="index">
                             {{ type }}
                         </el-radio>
                     </el-radio-group>
                 </el-form-item>
-                <el-form-item :label="menuTypeList[formData.type] + '名称'" prop="name">
+                <el-form-item :label="menuTypeList[formData.type] + $t('menu.name')" prop="name">
                     <el-input
                         v-model="formData.name"
-                        :placeholder="menuTypeList[formData.type] + '名称'"
+                        :placeholder="menuTypeList[formData.type] + $t('menu.name')"
                     />
                 </el-form-item>
-                <el-form-item label="上级菜单" prop="parentName">
+                <el-form-item :label="$t('menu.parentMenu')" prop="parentName">
                     <popup-tree-input
                         :current-change-handle="handleTreeSelectChange"
                         :data="popupTreeData"
                         :node-key="'' + formData.parentId"
                         :model-value="
                             formData.parentName === null || formData.parentName === ''
-                                ? '顶级菜单'
+                                ? $t('menu.topMenu')
                                 : formData.parentName
                         "
                         :props="popupTreeProps"
                     />
                 </el-form-item>
-                <el-form-item v-if="formData.type !== 0" label="授权标识" prop="perms">
+                <el-form-item v-if="formData.type !== 0" :label="$t('menu.authId')" prop="perms">
                     <el-input
                         v-model="formData.perms"
-                        placeholder="如: sys:user:add, sys:user:edit, sys:user:delete"
+                        :placeholder="$t('menu.authIdPlaceholder')"
                     />
                 </el-form-item>
-                <el-form-item v-if="formData.type === 1" label="菜单路由" prop="url">
+                <el-form-item v-if="formData.type === 1" :label="$t('menu.menuRoute')" prop="url">
                     <el-row>
                         <el-col :span="14" class="top-bar">
                             <el-input
                                 v-model="formData.url"
-                                placeholder="菜单路由（如：goods/edit，不要包含.vue扩展名）"
+                                :placeholder="$t('menu.menuRoutePlaceholder')"
                             />
                         </el-col>
                         <el-col :span="2" class="icon-list__tips">
@@ -179,22 +190,30 @@
                         </el-col>
                     </el-row>
                 </el-form-item>
-                <el-form-item v-if="formData.type !== 2" label="排序编号" prop="orderNum">
+                <el-form-item
+                    v-if="formData.type !== 2"
+                    :label="$t('permission.orderNum')"
+                    prop="orderNum"
+                >
                     <el-input-number
                         v-model="formData.orderNum"
                         :min="0"
                         controls-position="right"
-                        label="排序编号"
+                        :label="$t('permission.orderNum')"
                     />
                 </el-form-item>
-                <el-form-item v-if="formData.type !== 2" label="菜单图标" prop="icon">
+                <el-form-item
+                    v-if="formData.type !== 2"
+                    :label="$t('permission.menuIcon')"
+                    prop="icon"
+                >
                     <el-row>
                         <el-col :span="22">
                             <el-input
                                 v-model="formData.icon"
                                 :readonly="false"
                                 class="icon-list__input"
-                                placeholder="菜单图标名称（如：el-icon-ali-shouye）"
+                                :placeholder="$t('permission.iconPlaceholder')"
                             />
                         </el-col>
                         <el-col :span="2" class="icon-list__tips">

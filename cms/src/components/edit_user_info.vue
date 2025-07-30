@@ -4,7 +4,7 @@
         :close-on-click-modal="false"
         :modal="false"
         class="edit-dialog-container"
-        title="个人中心"
+        :title="$t('editUserInfo.dialogTitle')"
         v-bind="$attrs"
         width="40%"
         v-on="$attrs"
@@ -18,15 +18,15 @@
         >
             <el-row>
                 <el-col :span="14" class="top-bar">
-                    <el-form-item label="用户名" prop="username">
+                    <el-form-item :label="$t('editUserInfo.username')" prop="username">
                         {{ formData.username }}
                     </el-form-item>
-                    <el-form-item label="角色" prop="roles">
+                    <el-form-item :label="$t('editUserInfo.role')" prop="roles">
                         {{ formData.roles ? formData.roles.map((v) => v.remark).toString() : '' }}
                     </el-form-item>
                 </el-col>
                 <el-col :span="10">
-                    <el-form-item label="头像" prop="attachment">
+                    <el-form-item :label="$t('editUserInfo.avatar')" prop="attachment">
                         <change-image-icon
                             :img-url="formData.attachment ? formData.attachment.path : ''"
                             @chosed-image-icon="chosedIcon"
@@ -36,12 +36,12 @@
             </el-row>
             <el-row>
                 <el-col :span="12">
-                    <el-form-item label="邮箱" prop="email">
+                    <el-form-item :label="$t('editUserInfo.email')" prop="email">
                         <el-input v-model="formData.email" auto-complete="off" type="email" />
                     </el-form-item>
                 </el-col>
                 <el-col :span="12">
-                    <el-form-item label="手机" prop="mobile">
+                    <el-form-item :label="$t('editUserInfo.mobile')" prop="mobile">
                         <el-input v-model.number="formData.mobile" auto-complete="off" />
                     </el-form-item>
                 </el-col>
@@ -83,14 +83,14 @@ export default {
     data() {
         const checkPhone = (rule, value, callback) => {
             if (!value) {
-                return callback(new Error('手机号不能为空'));
+                return callback(new Error(this.$t('editUserInfo.mobileRequired')));
             } else {
                 const reg = /^1[3|4|5|7|8][0-9]\d{8}$/;
                 console.log(value, reg.test(value));
                 if (reg.test(value)) {
                     callback();
                 } else {
-                    return callback(new Error('请输入正确的手机号'));
+                    return callback(new Error(this.$t('editUserInfo.mobileFormatError')));
                 }
             }
         };
@@ -99,11 +99,19 @@ export default {
             editLoading: false,
             formDataRules: {
                 email: [
-                    { required: true, message: '请输入邮箱', trigger: 'blur' },
-                    { type: 'email', message: '邮箱格式不合法' },
+                    {
+                        required: true,
+                        message: this.$t('editUserInfo.emailRequired'),
+                        trigger: 'blur',
+                    },
+                    { type: 'email', message: this.$t('editUserInfo.emailFormatError') },
                 ],
                 mobile: [
-                    { required: true, message: '请输入手机号', trigger: 'blur' },
+                    {
+                        required: true,
+                        message: this.$t('editUserInfo.mobileInputRequired'),
+                        trigger: 'blur',
+                    },
                     { required: true, validator: checkPhone, trigger: 'blur' },
                 ],
             },
@@ -131,37 +139,39 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
-                        this.editLoading = true;
-                        const data = Object.assign(
-                            {},
-                            _.pick(
-                                this.formData,
-                                'id',
-                                'attachment',
-                                'attachmentId',
-                                'email',
-                                'mobile'
-                            )
-                        );
+                    this.$confirm(this.$t('common.confirmSubmit'), this.$t('common.tip'), {}).then(
+                        async () => {
+                            this.editLoading = true;
+                            const data = Object.assign(
+                                {},
+                                _.pick(
+                                    this.formData,
+                                    'id',
+                                    'attachment',
+                                    'attachmentId',
+                                    'email',
+                                    'mobile'
+                                )
+                            );
 
-                        const _result = await this.$api.sysUser.save(data);
-                        this.editLoading = false;
-                        if (_result.succeed === 1 && _result.code === 200) {
-                            this.$notify({
-                                title: '成功',
-                                message: _result.description,
-                                type: 'success',
-                            });
-                            this.setLoginUser(this.formData);
-                            this.$emit('update:visible', false);
-                        } else {
-                            this.$notify.error({
-                                title: '错误',
-                                message: _result.description,
-                            });
+                            const _result = await this.$api.sysUser.save(data);
+                            this.editLoading = false;
+                            if (_result.succeed === 1 && _result.code === 200) {
+                                this.$notify({
+                                    title: this.$t('common.success'),
+                                    message: _result.description,
+                                    type: 'success',
+                                });
+                                this.setLoginUser(this.formData);
+                                this.$emit('update:visible', false);
+                            } else {
+                                this.$notify.error({
+                                    title: this.$t('common.error'),
+                                    message: _result.description,
+                                });
+                            }
                         }
-                    });
+                    );
                 }
             });
         },

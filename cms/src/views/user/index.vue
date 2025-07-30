@@ -8,12 +8,12 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input v-model="filters.value" :placeholder="$t('user.inputMobile')">
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,17 +36,17 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="新增" placement="top">
+                            <el-tooltip :content="$t('action.add')" placement="top">
                                 <el-button round @click="handleAdd">
                                     <i class="el-icon-ali-add"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -74,7 +74,7 @@
         <!--新增编辑界面-->
         <el-dialog
             :close-on-click-modal="false"
-            :title="isCreating ? '新增' : '编辑'"
+            :title="isCreating ? $t('action.add') : $t('action.edit')"
             :model-value="editDialogVisible"
             width="45%"
         >
@@ -87,18 +87,18 @@
             >
                 <el-row>
                     <el-col :span="16">
-                        <el-form-item label="手机号" prop="mobile">
+                        <el-form-item :label="$t('user.mobile')" prop="mobile">
                             <el-input v-model="formData.mobile" maxlength="11" show-word-limit />
                         </el-form-item>
-                        <el-form-item label="昵称" prop="nickname">
+                        <el-form-item :label="$t('user.nickname')" prop="nickname">
                             <el-input v-model="formData.nickname" />
                         </el-form-item>
-                        <el-form-item label="密码" prop="password">
+                        <el-form-item :label="$t('user.password')" prop="password">
                             <el-input v-model="formData.password" show-password />
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                        <el-form-item label="头像" prop="attachment">
+                        <el-form-item :label="$t('user.avatar')" prop="attachment">
                             <change-image-icon
                                 :img-url="formData.attachment ? formData.attachment.path : ''"
                                 @chosed-image-icon="chosedLogo"
@@ -108,8 +108,11 @@
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="性别" prop="sex">
-                            <el-select v-model="formData.sex" placeholder="请选择">
+                        <el-form-item :label="$t('user.sex')" prop="sex">
+                            <el-select
+                                v-model="formData.sex"
+                                :placeholder="$t('common.selectPlaceholder')"
+                            >
                                 <el-option
                                     v-for="item in sexOpts"
                                     :key="item.value"
@@ -120,10 +123,10 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="生日" prop="birthday">
+                        <el-form-item :label="$t('user.birthday')" prop="birthday">
                             <el-date-picker
                                 v-model="formData.birthday"
-                                placeholder="选择日期"
+                                :placeholder="$t('user.selectDate')"
                                 type="date"
                             />
                         </el-form-item>
@@ -131,8 +134,11 @@
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="等级" prop="gradeId">
-                            <el-select v-model="formData.gradeId" placeholder="请选择">
+                        <el-form-item :label="$t('user.grade')" prop="gradeId">
+                            <el-select
+                                v-model="formData.gradeId"
+                                :placeholder="$t('common.selectPlaceholder')"
+                            >
                                 <el-option
                                     v-for="item in userGrades"
                                     :key="item.id"
@@ -143,11 +149,11 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="状态" prop="state">
+                        <el-form-item :label="$t('user.state')" prop="state">
                             <el-switch
                                 v-model="formData.state"
-                                active-text="开启"
-                                inactive-text="锁定"
+                                :active-text="$t('user.enable')"
+                                :inactive-text="$t('user.locked')"
                             />
                         </el-form-item>
                     </el-col>
@@ -282,7 +288,7 @@ export default {
                     size: this.normalSize,
                     type: 'danger',
                     func: (row) => {
-                        this.$confirm('确认删除选中记录吗？', '提示', {
+                        this.$confirm(this.$t('common.confirmDelete'), this.$t('common.tip'), {
                             type: 'warning',
                         }).then(async () => {
                             await this.batchDelete([row.id]);
@@ -311,7 +317,7 @@ export default {
                 mobile: [
                     {
                         required: true,
-                        message: '请输入手机号',
+                        message: this.$t('user.inputMobile'),
                         trigger: 'blur',
                     },
                 ],
@@ -415,33 +421,37 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
-                        this.editLoading = true;
-                        const data = Object.assign({}, this.formData);
-                        const _result = await this.$api.user.save(data);
-                        if (_result.succeed === 1 && _result.code === 200) {
-                            const _user = this.paginated.list.find((v) => v.id === _result.data.id);
-                            if (!_user) {
-                                this.paginated.list.unshift(_result.data);
+                    this.$confirm(this.$t('common.confirmSubmit'), this.$t('common.tip'), {}).then(
+                        async () => {
+                            this.editLoading = true;
+                            const data = Object.assign({}, this.formData);
+                            const _result = await this.$api.user.save(data);
+                            if (_result.succeed === 1 && _result.code === 200) {
+                                const _user = this.paginated.list.find(
+                                    (v) => v.id === _result.data.id
+                                );
+                                if (!_user) {
+                                    this.paginated.list.unshift(_result.data);
+                                } else {
+                                    Object.assign(_user, _result.data);
+                                }
+                                this.$notify({
+                                    title: this.$t('common.success'),
+                                    message: _result.description,
+                                    type: 'success',
+                                });
                             } else {
-                                Object.assign(_user, _result.data);
+                                this.$notify.error({
+                                    title: this.$t('common.error'),
+                                    message: _result.description,
+                                });
                             }
-                            this.$notify({
-                                title: '成功',
-                                message: _result.description,
-                                type: 'success',
-                            });
-                        } else {
-                            this.$notify.error({
-                                title: '错误',
-                                message: _result.description,
-                            });
-                        }
 
-                        this.editLoading = false;
-                        this.$refs.formData.resetFields();
-                        this.editDialogVisible = false;
-                    });
+                            this.editLoading = false;
+                            this.$refs.formData.resetFields();
+                            this.editDialogVisible = false;
+                        }
+                    );
                 }
             });
         },

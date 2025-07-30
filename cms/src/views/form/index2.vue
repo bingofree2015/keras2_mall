@@ -84,10 +84,10 @@
             <el-form :inline="true" :size="normalSize" class="search-form">
                 <el-row>
                     <el-col :span="24" style="text-align: right">
-                        <el-form-item label="总提交:" prop="totalCount">
+                        <el-form-item :label="$t('form.totalSubmit') + ':'" prop="totalCount">
                             <b>{{ totalCount }}</b>
                         </el-form-item>
-                        <el-form-item label="总金额:" prop="totalMoney">
+                        <el-form-item :label="$t('form.totalAmount') + ':'" prop="totalMoney">
                             <b>{{ totalMoney }}</b>
                         </el-form-item>
                     </el-col>

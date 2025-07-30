@@ -8,104 +8,269 @@
             <el-col class="top-bar flex-grow" />
         </el-row>
         <el-row :gutter="20">
-            <el-col
-                :span="8"
-                class="page-column"
-            >
+            <el-col :span="8" class="page-column">
                 <el-card>
                     <template #header>
                         <div>
-                            <span>组件库</span>
+                            <span>{{ $t('visualDesign.componentLibrary') }}</span>
                         </div>
                     </template>
                     <!-- 组件库 -->
                     <el-collapse v-model="activeNames">
-                        <el-collapse-item
-                            name="1"
-                            title="媒体组件"
-                        >
-                            title="媒体组件"
-                            >
-                            :list="mediaComponents"
-                            :options="componentOpts"
-                            class="component-group"
-                            @end="isDragging = false"
-                            element="ul"
-                            @start="isDragging = true"
-                            >
-                            <li
-                                v-for="(item, index) in mediaComponents"
-                                :key="index"
-                                class="component-item"
-                            >
-                                <el-card shadow="hover">
-                                    <i :class="item.icon"></i>
-                                    <div>{{ item.name }}</div>
-                                </el-card>
-                            </li>
-                            </draggable>
+                        <el-collapse-item name="1" :title="$t('visualDesign.mediaComponent')">
+                            <template #title>
+                                <i
+                                    class="el-icon-ali-delete item-delete"
+                                    @click.stop="
+                                        deleteEditWidgetConfigListItem(editWidget.config.list, key)
+                                    "
+                                ></i>
+                                <span style="padding: 0px 8px">第 {{ key + 1 }} 张图</span>
+                            </template>
+                            <change-image-icon
+                                :img-url="item.url"
+                                :init-style="{
+                                    width: '100%',
+                                    border: '1px dashed #d9d9d9',
+                                    borderRadius: '4px',
+                                }"
+                                @chosed-image-icon="
+                                    (img) => {
+                                        chosedImage(item, img);
+                                    }
+                                "
+                            />
+                            <el-form-item label="类型">
+                                <el-select
+                                    v-model="item.type"
+                                    :placeholder="$t('common.selectPlaceholder')"
+                                >
+                                    <el-option
+                                        v-for="linkType in linkTypes"
+                                        :key="linkType.key"
+                                        :label="linkType.value"
+                                        :value="linkType.key"
+                                    />
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item label="指向">
+                                <el-input
+                                    v-model="item.value"
+                                    :placeholder="$t('common.selectPlaceholder')"
+                                >
+                                    <template #append>
+                                        <pick-goods
+                                            v-if="item.type === 2"
+                                            :selection-type="0"
+                                            @chosed-goods="
+                                                (goods) => {
+                                                    chosedGoods(item, goods);
+                                                }
+                                            "
+                                        />
+                                        <pick-article
+                                            v-else-if="item.type === 3"
+                                            :selection-type="0"
+                                            @chosed-articles="
+                                                (articles) => {
+                                                    chosedArticles(item, 'value', articles, 'id');
+                                                }
+                                            "
+                                        />
+                                        <pick-articleType
+                                            v-else-if="item.type === 4"
+                                            :selection-type="0"
+                                            @chosed-article-types="
+                                                (articleTypes) => {
+                                                    chosedArticleTypes(item, 'value', articleTypes);
+                                                }
+                                            "
+                                        />
+                                        <pick-form
+                                            v-else-if="item.type === 5"
+                                            :selection-type="0"
+                                            @chosed-forms="
+                                                (forms) => {
+                                                    chosedForms(item, forms);
+                                                }
+                                            "
+                                        />
+                                    </template>
+                                </el-input>
+                            </el-form-item>
                         </el-collapse-item>
-                        <el-collapse-item
-                            name="2"
-                            title="商城组件"
-                        >
-                            title="商城组件"
-                            >
-                            :list="storeComponents"
-                            :options="componentOpts"
-                            class="component-group"
-                            @end="isDragging = false"
-                            element="ul"
-                            @start="isDragging = true"
-                            >
-                            <li
-                                v-for="(item, index) in storeComponents"
-                                :key="index"
-                                class="component-item"
-                            >
-                                <el-card shadow="hover">
-                                    <i :class="item.icon"></i>
-                                    <div>{{ item.name }}</div>
-                                </el-card>
-                            </li>
-                            </draggable>
+                        <el-collapse-item name="2" :title="$t('visualDesign.storeComponent')">
+                            <template #title>
+                                <i
+                                    class="el-icon-ali-delete item-delete"
+                                    @click.stop="
+                                        deleteEditWidgetConfigListItem(editWidget.config.list, key)
+                                    "
+                                ></i>
+                                <span style="padding: 0px 8px">第 {{ key + 1 }} 张图</span>
+                            </template>
+                            <change-image-icon
+                                :img-url="item.url"
+                                :init-style="{
+                                    width: '100%',
+                                    border: '1px dashed #d9d9d9',
+                                    borderRadius: '4px',
+                                }"
+                                @chosed-image-icon="
+                                    (img) => {
+                                        chosedImage(item, img);
+                                    }
+                                "
+                            />
+                            <el-form-item label="类型">
+                                <el-select
+                                    v-model="item.type"
+                                    :placeholder="$t('common.selectPlaceholder')"
+                                >
+                                    <el-option
+                                        v-for="linkType in linkTypes"
+                                        :key="linkType.key"
+                                        :label="linkType.value"
+                                        :value="linkType.key"
+                                    />
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item label="指向">
+                                <el-input
+                                    v-model="item.value"
+                                    :placeholder="$t('common.selectPlaceholder')"
+                                >
+                                    <template #append>
+                                        <pick-goods
+                                            v-if="item.type === 2"
+                                            :selection-type="0"
+                                            @chosed-goods="
+                                                (goods) => {
+                                                    chosedGoods(item, goods);
+                                                }
+                                            "
+                                        />
+                                        <pick-article
+                                            v-else-if="item.type === 3"
+                                            :selection-type="0"
+                                            @chosed-articles="
+                                                (articles) => {
+                                                    chosedArticles(item, 'value', articles, 'id');
+                                                }
+                                            "
+                                        />
+                                        <pick-articleType
+                                            v-else-if="item.type === 4"
+                                            :selection-type="0"
+                                            @chosed-article-types="
+                                                (articleTypes) => {
+                                                    chosedArticleTypes(item, 'value', articleTypes);
+                                                }
+                                            "
+                                        />
+                                        <pick-form
+                                            v-else-if="item.type === 5"
+                                            :selection-type="0"
+                                            @chosed-forms="
+                                                (forms) => {
+                                                    chosedForms(item, forms);
+                                                }
+                                            "
+                                        />
+                                    </template>
+                                </el-input>
+                            </el-form-item>
                         </el-collapse-item>
-                        <el-collapse-item
-                            name="3"
-                            title="工具组件"
-                        >
-                            title="工具组件"
-                            >
-                            :list="utilsComponents"
-                            :options="componentOpts"
-                            class="component-group"
-                            @end="isDragging = false"
-                            element="ul"
-                            @start="isDragging = true"
-                            >
-                            <li
-                                v-for="(item, index) in utilsComponents"
-                                :key="index"
-                                class="component-item"
-                            >
-                                <el-card shadow="hover">
-                                    <i :class="item.icon"></i>
-                                    <div>{{ item.name }}</div>
-                                </el-card>
-                            </li>
-                            </draggable>
+                        <el-collapse-item name="3" :title="$t('visualDesign.utilsComponent')">
+                            <template #title>
+                                <i
+                                    class="el-icon-ali-delete item-delete"
+                                    @click.stop="
+                                        deleteEditWidgetConfigListItem(editWidget.config.list, key)
+                                    "
+                                ></i>
+                                <span style="padding: 0px 8px">第 {{ key + 1 }} 张图</span>
+                            </template>
+                            <change-image-icon
+                                :img-url="item.url"
+                                :init-style="{
+                                    width: '100%',
+                                    border: '1px dashed #d9d9d9',
+                                    borderRadius: '4px',
+                                }"
+                                @chosed-image-icon="
+                                    (img) => {
+                                        chosedImage(item, img);
+                                    }
+                                "
+                            />
+                            <el-form-item label="类型">
+                                <el-select
+                                    v-model="item.type"
+                                    :placeholder="$t('common.selectPlaceholder')"
+                                >
+                                    <el-option
+                                        v-for="linkType in linkTypes"
+                                        :key="linkType.key"
+                                        :label="linkType.value"
+                                        :value="linkType.key"
+                                    />
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item label="指向">
+                                <el-input
+                                    v-model="item.value"
+                                    :placeholder="$t('common.selectPlaceholder')"
+                                >
+                                    <template #append>
+                                        <pick-goods
+                                            v-if="item.type === 2"
+                                            :selection-type="0"
+                                            @chosed-goods="
+                                                (goods) => {
+                                                    chosedGoods(item, goods);
+                                                }
+                                            "
+                                        />
+                                        <pick-article
+                                            v-else-if="item.type === 3"
+                                            :selection-type="0"
+                                            @chosed-articles="
+                                                (articles) => {
+                                                    chosedArticles(item, 'value', articles, 'id');
+                                                }
+                                            "
+                                        />
+                                        <pick-articleType
+                                            v-else-if="item.type === 4"
+                                            :selection-type="0"
+                                            @chosed-article-types="
+                                                (articleTypes) => {
+                                                    chosedArticleTypes(item, 'value', articleTypes);
+                                                }
+                                            "
+                                        />
+                                        <pick-form
+                                            v-else-if="item.type === 5"
+                                            :selection-type="0"
+                                            @chosed-forms="
+                                                (forms) => {
+                                                    chosedForms(item, forms);
+                                                }
+                                            "
+                                        />
+                                    </template>
+                                </el-input>
+                            </el-form-item>
                         </el-collapse-item>
                     </el-collapse>
                 </el-card>
             </el-col>
-            <el-col
-                :span="8"
-                class="page-column"
-            >
+            <el-col :span="8" class="page-column">
                 <el-card>
                     <template #header>
                         <div>
-                            <span>工作区</span>
+                            <span>{{ $t('visualDesign.workspace') }}</span>
                         </div>
                     </template>
                     <!-- 工作区 -->
@@ -128,7 +293,7 @@
                                 @click="handleSelectWidget(index)"
                             >
                                 <i class="el-icon-ali-message"></i>
-                                <span>xxx刚刚0.01元买到了xxx</span>
+                                <span>{{ $t('visualDesign.record') }}</span>
                                 <i
                                     class="el-icon-ali-delete1"
                                     @click.stop="handleDeleteWidget(index)"
@@ -171,13 +336,11 @@
                                     v-if="item && item.type === 'search'"
                                     v-model="item.config.keywords"
                                     :shape="item.config.style"
-                                    placeholder="请输入搜索关键词"
+                                    :placeholder="$t('visualDesign.inputSearchKeyword')"
                                     show-action
                                 >
                                     <template #action>
-                                        <div>
-                                            搜索
-                                        </div>
+                                        <div>{{ $t('visualDesign.search') }}</div>
                                     </template>
                                 </van-search>
                                 <!-- 商品组 -->
@@ -187,10 +350,7 @@
                                 >
                                     <div class="title">
                                         {{ item.config.title }}
-                                        <el-link
-                                            v-if="item.config.more"
-                                            class="goods-more"
-                                        >
+                                        <el-link v-if="item.config.more" class="goods-more">
                                             <i class="el-icon-ali-s_ic_more"></i>
                                         </el-link>
                                     </div>
@@ -209,7 +369,7 @@
                                                 "
                                             />
                                             <p class="goods-item-title">
-                                                {{ goodsItem.name || '商品名称' }}
+                                                {{ goodsItem.name || $t('visualDesign.goodsName') }}
                                             </p>
                                             <p class="goods-item-price">
                                                 {{ (goodsItem && goodsItem.price) || '99.00' }}
@@ -228,12 +388,8 @@
                                             )"
                                             :key="key"
                                         >
-                                            <van-grid
-                                                :column-num="item.config.column"
-                                                :gutter="10"
-                                            >
-                                                :gutter="10"
-                                                >
+                                            <van-grid :column-num="item.config.column" :gutter="10">
+                                                :gutter="10" >
                                                 <template
                                                     v-if="
                                                         item.config.list[
@@ -269,11 +425,7 @@
                                     v-if="item && item.type === 'groupPurchase'"
                                     :title="item.config.title"
                                 >
-                                    <el-carousel
-                                        :interval="5000"
-                                        arrow="always"
-                                        height="150px"
-                                    >
+                                    <el-carousel :interval="5000" arrow="always" height="150px">
                                         <el-carousel-item
                                             v-for="(groupPurchaseItem, key) in item.config.list"
                                             :key="key"
@@ -433,13 +585,8 @@
                                     class="widget-inner-container"
                                 >
                                     <van-row :gutter="8">
-                                        <van-col
-                                            class="title"
-                                            span="16"
-                                        >
-                                            span="16"
-                                            >
-                                            {{ item.config.title || '文章标题' }}
+                                        <van-col class="title" span="16">
+                                            <span>{{ $t('visualDesign.articleTitle') }}</span>
                                         </van-col>
                                         <van-col span="8">
                                             <van-image
@@ -465,11 +612,8 @@
                                         :key="key"
                                         :gutter="8"
                                     >
-                                        <van-col
-                                            class="title"
-                                            span="16"
-                                        >
-                                            文章标题
+                                        <van-col class="title" span="16">
+                                            <span>{{ $t('visualDesign.articleTitle') }}</span>
                                         </van-col>
                                         <van-col span="8">
                                             <van-image
@@ -505,27 +649,25 @@
                                         :key="i"
                                         class="coupon"
                                     >
-                                        <van-row
-                                            :gutter="8"
-                                            justify="center"
-                                            type="flex"
-                                        >
-                                            <van-col
-                                                class="coupon-left"
-                                                span="5"
-                                            >
-                                                span="5"
-                                                >
-                                                <p>满300减30</p>
+                                        <van-row :gutter="8" justify="center" type="flex">
+                                            <van-col class="coupon-left" span="5">
+                                                <p>{{ $t('visualDesign.full300Reduce30') }}</p>
                                             </van-col>
                                             <van-col span="19">
                                                 <div class="coupon-middle">
-                                                    <b>订单减1.44元 减100元</b>
-                                                    <p>购买订单满2元</p>
-                                                    <p>2019-05-01 - 2019-05-31</p>
+                                                    <b>
+                                                        {{ $t('visualDesign.orderReduce144') }}
+                                                        减100元
+                                                    </b>
+                                                    <p>
+                                                        {{ $t('visualDesign.purchaseOrderFull2') }}
+                                                    </p>
+                                                    <p>
+                                                        {{ $t('visualDesign.purchaseOrderDate') }}
+                                                    </p>
                                                 </div>
                                                 <div class="coupon-right">
-                                                    立即领取
+                                                    {{ $t('visualDesign.receiveImmediately') }}
                                                 </div>
                                             </van-col>
                                         </van-row>
@@ -545,7 +687,7 @@
                                             :src="env.getImgUrl(navBarItem.url, env.baseAssetsUrl)"
                                             round
                                         />
-                                        <p>{{ navBarItem.text || '名称' }}</p>
+                                        <p>{{ navBarItem.text || $t('visualDesign.name') }}</p>
                                     </van-grid-item>
                                 </van-grid>
                                 <!-- 辅助空白 -->
@@ -577,10 +719,7 @@
                     </draggable>
                 </el-card>
             </el-col>
-            <el-col
-                :span="8"
-                class="page-column"
-            >
+            <el-col :span="8" class="page-column">
                 <el-card
                     v-if="editWidget && Object.keys(editWidget).length > 0"
                     class="properties-container"
@@ -591,12 +730,7 @@
                         </div>
                     </template>
                     <!-- 属性设置 -->
-                    <el-form
-                        ref="form"
-                        :size="miniSize"
-                        label-position="right"
-                        label-width="80px"
-                    >
+                    <el-form ref="form" :size="miniSize" label-position="right" label-width="80px">
                         <!-- 团购秒杀 -->
                         <template v-if="editWidget.type == 'groupPurchase'">
                             <draggable
@@ -675,10 +809,10 @@
                             <el-form-item label="位置">
                                 <el-radio-group v-model="editWidget.config.style.align">
                                     <el-radio value="left">
-                                        居左
+                                        {{ $t('visualDesign.left') }}
                                     </el-radio>
                                     <el-radio value="right">
-                                        居右
+                                        {{ $t('visualDesign.right') }}
                                     </el-radio>
                                 </el-radio-group>
                             </el-form-item>
@@ -752,7 +886,9 @@
                                                     )
                                                 "
                                             ></i>
-                                            <span style="padding: 0px 8px">第 {{ key + 1 }} 张图</span>
+                                            <span style="padding: 0px 8px">
+                                                第 {{ key + 1 }} 张图
+                                            </span>
                                         </template>
                                         <change-image-icon
                                             :img-url="item.url"
@@ -770,42 +906,66 @@
                                         <el-form-item label="类型">
                                             <el-select
                                                 v-model="item.type"
-                                                placeholder="请选择"
+                                                :placeholder="$t('common.selectPlaceholder')"
                                             >
-                                                placeholder="请选择"
-                                                >
-                                                :key="linkType.key"
-                                                :label="linkType.value"
-                                                v-for="linkType in linkTypes"
-                                                :value="linkType.key"
+                                                <el-option
+                                                    v-for="linkType in linkTypes"
+                                                    :key="linkType.key"
+                                                    :label="linkType.value"
+                                                    :value="linkType.key"
                                                 />
                                             </el-select>
                                         </el-form-item>
                                         <el-form-item label="指向">
                                             <el-input
                                                 v-model="item.value"
-                                                placeholder="请选择"
+                                                :placeholder="$t('common.selectPlaceholder')"
                                             >
                                                 <template #append>
                                                     <pick-goods
                                                         v-if="item.type === 2"
                                                         :selection-type="0"
-                                                        @chosed-goods="(goods) => { chosedGoods(item, goods); }"
+                                                        @chosed-goods="
+                                                            (goods) => {
+                                                                chosedGoods(item, goods);
+                                                            }
+                                                        "
                                                     />
                                                     <pick-article
                                                         v-else-if="item.type === 3"
                                                         :selection-type="0"
-                                                        @chosed-articles="(articles) => { chosedArticles(item, 'value', articles, 'id'); }"
+                                                        @chosed-articles="
+                                                            (articles) => {
+                                                                chosedArticles(
+                                                                    item,
+                                                                    'value',
+                                                                    articles,
+                                                                    'id'
+                                                                );
+                                                            }
+                                                        "
                                                     />
                                                     <pick-articleType
                                                         v-else-if="item.type === 4"
                                                         :selection-type="0"
-                                                        @chosed-article-types="(articleTypes) => { chosedArticleTypes(item, 'value', articleTypes); }"
+                                                        @chosed-article-types="
+                                                            (articleTypes) => {
+                                                                chosedArticleTypes(
+                                                                    item,
+                                                                    'value',
+                                                                    articleTypes
+                                                                );
+                                                            }
+                                                        "
                                                     />
                                                     <pick-form
                                                         v-else-if="item.type === 5"
                                                         :selection-type="0"
-                                                        @chosed-forms="(forms) => { chosedForms(item, forms); }"
+                                                        @chosed-forms="
+                                                            (forms) => {
+                                                                chosedForms(item, forms);
+                                                            }
+                                                        "
                                                     />
                                                 </template>
                                             </el-input>
@@ -824,7 +984,8 @@
                                                     )
                                                 "
                                             >
-                                                <i class="el-icon-ali-add"></i> 添加
+                                                <i class="el-icon-ali-add"></i>
+                                                {{ $t('visualDesign.add') }}
                                             </el-button>
                                         </div>
                                     </template>
@@ -868,7 +1029,7 @@
                             <el-form-item label="添加文章">
                                 <el-input
                                     v-model="editWidget.config.title"
-                                    placeholder="请选择广告文章"
+                                    :placeholder="$t('visualDesign.selectAdArticle')"
                                 >
                                     <pick-article
                                         #append
@@ -893,7 +1054,7 @@
                             <el-form-item label="文章分类">
                                 <el-input
                                     v-model="editWidget.config.articleClassifyId"
-                                    placeholder="请选择文章分类"
+                                    :placeholder="$t('visualDesign.selectArticleClassify')"
                                 >
                                     <pick-articleType
                                         #append
@@ -931,10 +1092,10 @@
                             <el-form-item label="样式">
                                 <el-radio-group v-model="editWidget.config.style">
                                     <el-radio value="square">
-                                        方形
+                                        {{ $t('visualDesign.square') }}
                                     </el-radio>
                                     <el-radio value="round">
-                                        圆弧
+                                        {{ $t('visualDesign.round') }}
                                     </el-radio>
                                 </el-radio-group>
                             </el-form-item>
@@ -993,42 +1154,66 @@
                                     <el-form-item label="类型">
                                         <el-select
                                             v-model="item.type"
-                                            placeholder="请选择"
+                                            :placeholder="$t('common.selectPlaceholder')"
                                         >
-                                            placeholder="请选择"
-                                            >
-                                            v-for="linkType in linkTypes"
-                                            :key="linkType.key"
-                                            :label="linkType.value"
-                                            :value="linkType.key"
+                                            <el-option
+                                                v-for="linkType in linkTypes"
+                                                :key="linkType.key"
+                                                :label="linkType.value"
+                                                :value="linkType.key"
                                             />
                                         </el-select>
                                     </el-form-item>
                                     <el-form-item label="指向">
                                         <el-input
                                             v-model="item.value"
-                                            placeholder="请选择"
+                                            :placeholder="$t('common.selectPlaceholder')"
                                         >
                                             <template #append>
                                                 <pick-goods
                                                     v-if="item.type === 2"
                                                     :selection-type="0"
-                                                    @chosed-goods="(goods) => { chosedGoods(item, goods); }"
+                                                    @chosed-goods="
+                                                        (goods) => {
+                                                            chosedGoods(item, goods);
+                                                        }
+                                                    "
                                                 />
                                                 <pick-article
                                                     v-else-if="item.type === 3"
                                                     :selection-type="0"
-                                                    @chosed-articles="(articles) => { chosedArticles(item, 'value', articles, 'id'); }"
+                                                    @chosed-articles="
+                                                        (articles) => {
+                                                            chosedArticles(
+                                                                item,
+                                                                'value',
+                                                                articles,
+                                                                'id'
+                                                            );
+                                                        }
+                                                    "
                                                 />
                                                 <pick-articleType
                                                     v-else-if="item.type === 4"
                                                     :selection-type="0"
-                                                    @chosed-article-types="(articleTypes) => { chosedArticleTypes(item, 'value', articleTypes); }"
+                                                    @chosed-article-types="
+                                                        (articleTypes) => {
+                                                            chosedArticleTypes(
+                                                                item,
+                                                                'value',
+                                                                articleTypes
+                                                            );
+                                                        }
+                                                    "
                                                 />
                                                 <pick-form
                                                     v-else-if="item.type === 5"
                                                     :selection-type="0"
-                                                    @chosed-forms="(forms) => { chosedForms(item, forms); }"
+                                                    @chosed-forms="
+                                                        (forms) => {
+                                                            chosedForms(item, forms);
+                                                        }
+                                                    "
                                                 />
                                             </template>
                                         </el-input>
@@ -1047,7 +1232,8 @@
                                                 )
                                             "
                                         >
-                                            <i class="el-icon-ali-add"></i> 添加
+                                            <i class="el-icon-ali-add"></i>
+                                            {{ $t('visualDesign.add') }}
                                         </el-button>
                                     </div>
                                 </template>
@@ -1059,10 +1245,10 @@
                             <el-form-item label="获取">
                                 <el-radio-group v-model="editWidget.config.type">
                                     <el-radio value="auto">
-                                        自动获取
+                                        {{ $t('visualDesign.autoGet') }}
                                     </el-radio>
                                     <el-radio value="choose">
-                                        手动选择
+                                        {{ $t('visualDesign.manualSelection') }}
                                     </el-radio>
                                 </el-radio-group>
                             </el-form-item>
@@ -1117,13 +1303,13 @@
                             <el-form-item label="数量">
                                 <el-radio-group v-model="editWidget.config.column">
                                     <el-radio :value="3">
-                                        3个
+                                        {{ $t('visualDesign.three') }}
                                     </el-radio>
                                     <el-radio :value="4">
-                                        4个
+                                        {{ $t('visualDesign.four') }}
                                     </el-radio>
                                     <el-radio :value="5">
-                                        5个
+                                        {{ $t('visualDesign.five') }}
                                     </el-radio>
                                 </el-radio-group>
                             </el-form-item>
@@ -1166,50 +1352,71 @@
                                         "
                                     />
                                     <el-form-item label="文字">
-                                        <input
-                                            v-model="item.text"
-                                            type="text"
-                                        />
+                                        <input v-model="item.text" type="text" />
                                     </el-form-item>
                                     <el-form-item label="类型">
                                         <el-select
                                             v-model="item.type"
-                                            placeholder="请选择"
+                                            :placeholder="$t('common.selectPlaceholder')"
                                         >
-                                            placeholder="请选择"
-                                            >
-                                            v-for="linkType in linkTypes"
-                                            :key="linkType.key"
-                                            :label="linkType.value"
-                                            :value="linkType.key"
+                                            <el-option
+                                                v-for="linkType in linkTypes"
+                                                :key="linkType.key"
+                                                :label="linkType.value"
+                                                :value="linkType.key"
                                             />
                                         </el-select>
                                     </el-form-item>
                                     <el-form-item label="指向">
                                         <el-input
                                             v-model="item.value"
-                                            placeholder="请选择"
+                                            :placeholder="$t('common.selectPlaceholder')"
                                         >
                                             <template #append>
                                                 <pick-goods
                                                     v-if="item.type === 2"
                                                     :selection-type="0"
-                                                    @chosed-goods="(goods) => { chosedGoods(item, goods); }"
+                                                    @chosed-goods="
+                                                        (goods) => {
+                                                            chosedGoods(item, goods);
+                                                        }
+                                                    "
                                                 />
                                                 <pick-article
                                                     v-else-if="item.type === 3"
                                                     :selection-type="0"
-                                                    @chosed-articles="(articles) => { chosedArticles(item, 'value', articles, 'id'); }"
+                                                    @chosed-articles="
+                                                        (articles) => {
+                                                            chosedArticles(
+                                                                item,
+                                                                'value',
+                                                                articles,
+                                                                'id'
+                                                            );
+                                                        }
+                                                    "
                                                 />
                                                 <pick-articleType
                                                     v-else-if="item.type === 4"
                                                     :selection-type="0"
-                                                    @chosed-article-types="(articleTypes) => { chosedArticleTypes(item, 'value', articleTypes); }"
+                                                    @chosed-article-types="
+                                                        (articleTypes) => {
+                                                            chosedArticleTypes(
+                                                                item,
+                                                                'value',
+                                                                articleTypes
+                                                            );
+                                                        }
+                                                    "
                                                 />
                                                 <pick-form
                                                     v-else-if="item.type === 5"
                                                     :selection-type="0"
-                                                    @chosed-forms="(forms) => { chosedForms(item, forms); }"
+                                                    @chosed-forms="
+                                                        (forms) => {
+                                                            chosedForms(item, forms);
+                                                        }
+                                                    "
                                                 />
                                             </template>
                                         </el-input>
@@ -1228,7 +1435,8 @@
                                                 )
                                             "
                                         >
-                                            <i class="el-icon-ali-add"></i> 添加
+                                            <i class="el-icon-ali-add"></i>
+                                            {{ $t('visualDesign.add') }}
                                         </el-button>
                                     </div>
                                 </template>
@@ -1240,10 +1448,10 @@
                             <el-form-item label="来源">
                                 <el-radio-group v-model="editWidget.config.type">
                                     <el-radio value="auto">
-                                        自动
+                                        {{ $t('visualDesign.auto') }}
                                     </el-radio>
                                     <el-radio value="choose">
-                                        手动
+                                        {{ $t('visualDesign.manual') }}
                                     </el-radio>
                                 </el-radio-group>
                             </el-form-item>
@@ -1259,7 +1467,7 @@
                                 <el-form-item label="品牌">
                                     <el-select
                                         v-model="editWidget.config.brandId"
-                                        placeholder="请选择品牌"
+                                        :placeholder="$t('visualDesign.selectBrand')"
                                     >
                                         <el-option
                                             v-for="item in brandList"
@@ -1328,13 +1536,13 @@
                             <el-form-item label="类型">
                                 <el-radio-group v-model="editWidget.config.display">
                                     <el-radio value="list">
-                                        列表平铺
+                                        {{ $t('visualDesign.listFlatten') }}
                                     </el-radio>
                                     <el-radio
                                         :disabled="editWidget.config.column == 1"
                                         :value="slide"
                                     >
-                                        横向滚动
+                                        {{ $t('visualDesign.horizontalScroll') }}
                                     </el-radio>
                                 </el-radio-group>
                             </el-form-item>
@@ -1344,13 +1552,13 @@
                                         :disabled="editWidget.config.display == 'slide'"
                                         :value="1"
                                     >
-                                        单列
+                                        {{ $t('visualDesign.singleColumn') }}
                                     </el-radio>
                                     <el-radio :value="2">
-                                        两列
+                                        {{ $t('visualDesign.twoColumns') }}
                                     </el-radio>
                                     <el-radio :value="3">
-                                        三列
+                                        {{ $t('visualDesign.threeColumns') }}
                                     </el-radio>
                                 </el-radio-group>
                             </el-form-item>
@@ -1360,10 +1568,10 @@
                             <el-form-item label="更多">
                                 <el-radio-group v-model="editWidget.config.more">
                                     <el-radio value="true">
-                                        是
+                                        {{ $t('visualDesign.yes') }}
                                     </el-radio>
                                     <el-radio value="false">
-                                        否
+                                        {{ $t('visualDesign.no') }}
                                     </el-radio>
                                 </el-radio-group>
                             </el-form-item>
@@ -1387,7 +1595,7 @@
                             <el-form-item label="类型">
                                 <el-select
                                     v-model="editWidget.config.type"
-                                    placeholder="请选择"
+                                    :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
                                         v-for="linkType in linkTypes"
@@ -1400,28 +1608,53 @@
                             <el-form-item label="指向">
                                 <el-input
                                     v-model="editWidget.config.value"
-                                    placeholder="请选择"
+                                    :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <template #append>
                                         <pick-goods
                                             v-if="editWidget.config.type === 2"
                                             :selection-type="0"
-                                            @chosed-goods="(goods) => { chosedGoods(editWidget.config, goods); }"
+                                            @chosed-goods="
+                                                (goods) => {
+                                                    chosedGoods(editWidget.config, goods);
+                                                }
+                                            "
                                         />
                                         <pick-article
                                             v-else-if="editWidget.config.type === 3"
                                             :selection-type="0"
-                                            @chosed-articles="(articles) => { chosedArticles(editWidget.config, 'value', articles, 'id'); }"
+                                            @chosed-articles="
+                                                (articles) => {
+                                                    chosedArticles(
+                                                        editWidget.config,
+                                                        'value',
+                                                        articles,
+                                                        'id'
+                                                    );
+                                                }
+                                            "
                                         />
                                         <pick-articleType
                                             v-else-if="editWidget.config.type === 4"
                                             :selection-type="0"
-                                            @chosed-article-types="(articleTypes) => { chosedArticleTypes(editWidget.config, 'value', articleTypes); }"
+                                            @chosed-article-types="
+                                                (articleTypes) => {
+                                                    chosedArticleTypes(
+                                                        editWidget.config,
+                                                        'value',
+                                                        articleTypes
+                                                    );
+                                                }
+                                            "
                                         />
                                         <pick-form
                                             v-else-if="editWidget.config.type === 5"
                                             :selection-type="0"
-                                            @chosed-forms="(forms) => { chosedForms(editWidget.config, forms); }"
+                                            @chosed-forms="
+                                                (forms) => {
+                                                    chosedForms(editWidget.config, forms);
+                                                }
+                                            "
                                         />
                                     </template>
                                 </el-input>
@@ -1434,11 +1667,7 @@
                                 <el-color-picker v-model="editWidget.config.backgroundColor" />
                             </el-form-item>
                             <el-form-item label="组件高度">
-                                <el-slider
-                                    v-model="editWidget.config.height"
-                                    :max="200"
-                                    :min="1"
-                                />
+                                <el-slider v-model="editWidget.config.height" :max="200" :min="1" />
                                 />
                             </el-form-item>
                         </template>
@@ -1523,30 +1752,17 @@ export default {
             pageWidgets: pageWidgets,
             editWidget: null,
             imgWindowStyle: [
-                { style: 2,
-                  value: '1行2个',
-                  url: 'template/col-2.png' },
-                { style: 3,
-                  value: '1行3个',
-                  url: 'template/col-3.png' },
-                { style: 4,
-                  value: '1行4个',
-                  url: 'template/col-4.png' },
-                { style: 5,
-                  value: '1左3右',
-                  url: 'template/col-1-3.png' },
+                { style: 2, value: '1行2个', url: 'template/col-2.png' },
+                { style: 3, value: '1行3个', url: 'template/col-3.png' },
+                { style: 4, value: '1行4个', url: 'template/col-4.png' },
+                { style: 5, value: '1左3右', url: 'template/col-1-3.png' },
             ],
             linkTypes: [
-                { key: 1,
-                  value: 'URL链接' },
-                { key: 2,
-                  value: '商品' },
-                { key: 3,
-                  value: '文章' },
-                { key: 4,
-                  value: '文章分类' },
-                { key: 5,
-                  value: '智能表单' },
+                { key: 1, value: 'URL链接' },
+                { key: 2, value: '商品' },
+                { key: 3, value: '文章' },
+                { key: 4, value: '文章分类' },
+                { key: 5, value: '智能表单' },
             ],
             cascaderProps: {
                 label: 'name',
@@ -1560,9 +1776,7 @@ export default {
     computed: {
         componentOpts() {
             return {
-                group: { name: 'widget',
-                         pull: 'clone',
-                         put: false }, // 从列表中移出的元素为副本,不接收从其它列表中拖进来的元素
+                group: { name: 'widget', pull: 'clone', put: false }, // 从列表中移出的元素为副本,不接收从其它列表中拖进来的元素
                 sort: false,
                 ghostClass: 'draggable-ghost',
                 animation: 150,

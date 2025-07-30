@@ -2,7 +2,7 @@
     <div>
         <ext-button
             :size="miniSize"
-            label="选择文章类型"
+            :label="$t('pickArticleType.button')"
             type="primary"
             @click="handlePickArticleType()"
         >
@@ -13,7 +13,7 @@
             :close-on-click-modal="false"
             :modal-append-to-body="false"
             :size="normalSize"
-            title="文章分类选择窗"
+            :title="$t('pickArticleType.dialogTitle')"
             width="40%"
         >
             <el-table
@@ -28,27 +28,27 @@
                 <el-table-column
                     v-else-if="selectionType === 0"
                     align="center"
-                    label="选择"
+                    :label="$t('pickArticleType.select')"
                     min-width="80"
                 >
                     <template #default="scope">
                         <el-radio
                             v-model="radio"
                             :label="scope.$index"
-                            @change.native="choiceChange(scope.$index, scope.row)"
+                            @change="choiceChange(scope.$index, scope.row)"
                         >
                             &nbsp;
                         </el-radio>
                     </template>
                 </el-table-column>
                 <el-table-column
-                    label="分类名称"
+                    :label="$t('pickArticleType.typeName')"
                     min-width="210"
                     property="typeName"
                     show-overflow-tooltip
                 />
                 <el-table-column
-                    label="创建时间"
+                    :label="$t('pickArticleType.createdAt')"
                     min-width="130"
                     :formatter="env.formatDateTime"
                     property="createdAt"
@@ -57,10 +57,10 @@
             <template #footer>
                 <span class="dialog-footer">
                     <el-button :size="miniSize" round @click="dialogVisible = false">
-                        >取 消
+                        {{ $t('common.cancel') }}
                     </el-button>
                     <el-button :size="miniSize" round type="primary" @click="chosedArticleTypes">
-                        >确 定
+                        {{ $t('common.confirm') }}
                     </el-button>
                 </span>
             </template>

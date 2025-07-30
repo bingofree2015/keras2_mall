@@ -6,7 +6,7 @@
                     <template #header>
                         <div>
                             <i class="el-icon-edit"></i>
-                            快捷操作
+                            {{ $t('dashboard.quickActions') }}
                         </div>
                     </template>
                     <div>
@@ -15,28 +15,28 @@
                                 <div class="box-item">
                                     <i class="el-icon-ali-shangpin-copy"></i>
                                     <br />
-                                    商品
+                                    {{ $t('dashboard.goods') }}
                                 </div>
                             </el-col>
                             <el-col :span="6">
                                 <div class="box-item">
                                     <i class="el-icon-ali-dd"></i>
                                     <br />
-                                    订单
+                                    {{ $t('dashboard.order') }}
                                 </div>
                             </el-col>
                             <el-col :span="6">
                                 <div class="box-item">
                                     <i class="el-icon-ali-huiyuanguanli"></i>
                                     <br />
-                                    会员
+                                    {{ $t('dashboard.member') }}
                                 </div>
                             </el-col>
                             <el-col :span="6">
                                 <div class="box-item">
                                     <i class="el-icon-ali-gonggaoliebiao"></i>
                                     <br />
-                                    公告
+                                    {{ $t('dashboard.notice') }}
                                 </div>
                             </el-col>
                         </el-row>
@@ -45,28 +45,28 @@
                                 <div class="box-item">
                                     <i class="el-icon-ali-cuxiao"></i>
                                     <br />
-                                    促销
+                                    {{ $t('dashboard.promotion') }}
                                 </div>
                             </el-col>
                             <el-col :span="6">
                                 <div class="box-item">
                                     <i class="el-icon-ali-icon209"></i>
                                     <br />
-                                    配送
+                                    {{ $t('dashboard.delivery') }}
                                 </div>
                             </el-col>
                             <el-col :span="6">
                                 <div class="box-item">
                                     <i class="el-icon-ali-zhifu"></i>
                                     <br />
-                                    支付方式
+                                    {{ $t('dashboard.paymentMethod') }}
                                 </div>
                             </el-col>
                             <el-col :span="6">
                                 <div class="box-item">
                                     <i class="el-icon-ali-platform-setting"></i>
                                     <br />
-                                    平台设置
+                                    {{ $t('dashboard.platformSetting') }}
                                 </div>
                             </el-col>
                         </el-row>
@@ -78,21 +78,21 @@
                     <template #header>
                         <div>
                             <i class="el-icon-ali-daibanshixiang"></i>
-                            待办事项
+                            {{ $t('dashboard.todoList') }}
                         </div>
                     </template>
                     <div class="body">
                         <el-row :gutter="5" justify="space-between">
                             <el-col :span="12">
                                 <div class="box-item">
-                                    待支付
+                                    {{ $t('dashboard.pendingPayment') }}
                                     <br />
                                     <span class="summary">0</span>
                                 </div>
                             </el-col>
                             <el-col :span="12">
                                 <div class="box-item">
-                                    待发货
+                                    {{ $t('dashboard.pendingDelivery') }}
                                     <br />
                                     <span class="summary">0</span>
                                 </div>
@@ -101,14 +101,14 @@
                         <el-row :gutter="5" justify="space-between">
                             <el-col :span="12">
                                 <div class="box-item">
-                                    待售后
+                                    {{ $t('dashboard.pendingAfterSale') }}
                                     <br />
                                     <span class="summary">0</span>
                                 </div>
                             </el-col>
                             <el-col :span="12">
                                 <div class="box-item">
-                                    库存报警
+                                    {{ $t('dashboard.stockAlert') }}
                                     <br />
                                     <span class="summary">0</span>
                                 </div>
@@ -122,7 +122,7 @@
                     <template #header>
                         <div>
                             <i class="el-icon-ali-banbenxinxi"></i>
-                            版本信息
+                            {{ $t('dashboard.versionInfo') }}
                         </div>
                     </template>
                     <div class="body">
@@ -152,7 +152,7 @@
                     <template #header>
                         <div>
                             <i class="el-icon-ali-dingdantongji"></i>
-                            订单统计
+                            {{ $t('dashboard.orderStatistics') }}
                         </div>
                     </template>
                     <div class="body">
@@ -165,7 +165,7 @@
                     <template #header>
                         <div>
                             <i class="el-icon-ali-huiyuantongji"></i>
-                            会员统计
+                            {{ $t('dashboard.memberStatistics') }}
                         </div>
                     </template>
                     <div class="body">
@@ -181,15 +181,27 @@
                     <template #header>
                         <div>
                             <i class="el-icon-ali-zuijindenglu"></i>
-                            最近登录
+                            {{ $t('dashboard.recentLogin') }}
                         </div>
                     </template>
                     <div class="body">
                         <el-table :data="loginLogData" stripe>
-                            <el-table-column label="状态" min-width="60" prop="state" />
+                            <el-table-column
+                                :label="$t('dashboard.status')"
+                                min-width="60"
+                                prop="state"
                             />
-                            <el-table-column label="记录时间" min-width="120" prop="createdAt" />
-                            <el-table-column label="登录IP" min-width="100" prop="ip" />
+                            />
+                            <el-table-column
+                                :label="$t('dashboard.recordTime')"
+                                min-width="120"
+                                prop="createdAt"
+                            />
+                            <el-table-column
+                                :label="$t('dashboard.loginIP')"
+                                min-width="100"
+                                prop="ip"
+                            />
                             />
                         </el-table>
                     </div>
@@ -200,15 +212,31 @@
                     <template #header>
                         <div>
                             <i class="el-icon-ali-caozuorizhi"></i>
-                            操作日志
+                            {{ $t('dashboard.operationLog') }}
                         </div>
                     </template>
                     <div class="body">
                         <el-table :data="operateLogData" stripe>
-                            <el-table-column label="操作员" min-width="100" prop="username" />
-                            <el-table-column label="操作时间" min-width="120" prop="createdAt" />
-                            <el-table-column label="操作内容" min-width="200" prop="content" />
-                            <el-table-column label="操作IP" min-width="100" prop="ip" />
+                            <el-table-column
+                                :label="$t('dashboard.operator')"
+                                min-width="100"
+                                prop="username"
+                            />
+                            <el-table-column
+                                :label="$t('dashboard.operationTime')"
+                                min-width="120"
+                                prop="createdAt"
+                            />
+                            <el-table-column
+                                :label="$t('dashboard.operationContent')"
+                                min-width="200"
+                                prop="content"
+                            />
+                            <el-table-column
+                                :label="$t('dashboard.operationIP')"
+                                min-width="100"
+                                prop="ip"
+                            />
                         </el-table>
                     </div>
                 </el-card>
@@ -228,14 +256,14 @@ export default {
             chartColumn: null,
             activities: [
                 {
-                    content: '支持使用图标',
+                    content: this.$t('dashboard.supportIcon'),
                     timestamp: '2019-04-12 20:46',
                     size: 'large',
                     type: 'primary',
                     icon: 'el-icon-more',
                 },
                 {
-                    content: '支持自定义颜色',
+                    content: this.$t('dashboard.supportColor'),
                     timestamp: '2019-04-03 20:46',
                     color: '#0bbd87',
                 },
@@ -276,14 +304,25 @@ export default {
             this.chartColumn2.setOption({
                 baseOption: {
                     title: {
-                        text: '模拟商店一周销售情况',
-                        subtext: '虚拟数据',
+                        text: this.$t('dashboard.simulateSales'),
+                        subtext: this.$t('dashboard.virtualData'),
                     },
                     legend: {
-                        data: ['购买金额', '销售金额'],
+                        data: [
+                            this.$t('dashboard.purchaseAmount'),
+                            this.$t('dashboard.salesAmount'),
+                        ],
                     },
                     xAxis: {
-                        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+                        data: [
+                            this.$t('dashboard.monday'),
+                            this.$t('dashboard.tuesday'),
+                            this.$t('dashboard.wednesday'),
+                            this.$t('dashboard.thursday'),
+                            this.$t('dashboard.friday'),
+                            this.$t('dashboard.saturday'),
+                            this.$t('dashboard.sunday'),
+                        ],
                     },
                     yAxis: {},
                     tooltip: {
@@ -292,20 +331,20 @@ export default {
                     },
                     series: [
                         {
-                            name: '购买金额',
+                            name: this.$t('dashboard.purchaseAmount'),
                             type: 'bar',
                             data: [200, 312, 431, 241, 175, 275, 369],
                             markPoint: {
                                 data: [
-                                    { type: 'max', name: '最大值' },
-                                    { type: 'min', name: '最小值' },
+                                    { type: 'max', name: this.$t('dashboard.maxValue') },
+                                    { type: 'min', name: this.$t('dashboard.minValue') },
                                 ],
                             },
                             markLine: {
                                 data: [
                                     {
                                         type: 'average',
-                                        name: '平均值',
+                                        name: this.$t('dashboard.averageValue'),
                                         itemStyle: {
                                             normal: {
                                                 color: 'green',
@@ -316,20 +355,20 @@ export default {
                             },
                         },
                         {
-                            name: '销售金额',
+                            name: this.$t('dashboard.salesAmount'),
                             type: 'line',
                             data: [321, 432, 543, 376, 286, 298, 400],
                             markPoint: {
                                 data: [
-                                    { type: 'max', name: '最大值' },
-                                    { type: 'min', name: '最小值' },
+                                    { type: 'max', name: this.$t('dashboard.maxValue') },
+                                    { type: 'min', name: this.$t('dashboard.minValue') },
                                 ],
                             },
                             markLine: {
                                 data: [
                                     {
                                         type: 'average',
-                                        name: '平均值',
+                                        name: this.$t('dashboard.averageValue'),
                                         itemStyle: {
                                             normal: {
                                                 color: 'blue',
@@ -350,7 +389,7 @@ export default {
                         option: {
                             title: {
                                 show: true,
-                                text: '测试一下',
+                                text: this.$t('dashboard.testText'),
                             },
                         },
                     },

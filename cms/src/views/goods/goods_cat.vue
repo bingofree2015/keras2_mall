@@ -9,17 +9,17 @@
                 <el-form :inline="true" class="search-form">
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="新增" placement="top">
+                            <el-tooltip :content="$t('action.add')" placement="top">
                                 <el-button round @click="handleAdd">
                                     <i class="el-icon-ali-add"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -46,7 +46,7 @@
                 tree-key="id"
                 @send-tree-data="getTreeData"
             />
-            <el-table-column align="center" label="图标" min-width="80">
+            <el-table-column align="center" :label="$t('goods.icon')" min-width="80">
                 <template #default="scope">
                     <el-avatar
                         v-if="scope.row.attachment && scope.row.attachment.path"
@@ -55,9 +55,9 @@
                     />
                 </template>
             </el-table-column>
-            <el-table-column label="类型" min-width="90" prop="type.name" />
-            <el-table-column label="上级分类" min-width="160" prop="parentName" />
-            <el-table-column align="center" label="排序" min-width="60" prop="sort" />
+            <el-table-column :label="$t('goods.categoryType')" min-width="90" prop="type.name" />
+            <el-table-column :label="$t('goods.parentCategory')" min-width="160" prop="parentName" />
+            <el-table-column align="center" :label="$t('system.sort')" min-width="60" prop="sort" />
             <el-table-column :label="$t('action.operation')" fixed="right" min-width="200">
                 <template #default="scope">
                     <ext-button
@@ -80,7 +80,7 @@
         <!-- 新增修改界面 -->
         <el-dialog
             :close-on-click-modal="false"
-            :title="!formData.id ? '新增' : '修改'"
+            :title="!formData.id ? $t('action.add') : $t('action.edit')"
             :model-value="dialogVisible"
             width="40%"
         >
@@ -93,8 +93,11 @@
             >
                 <el-row>
                     <el-col :span="16">
-                        <el-form-item label="所属类型" prop="type">
-                            <el-select v-model="formData.typeId" placeholder="请选择">
+                        <el-form-item :label="$t('goods.type')" prop="type">
+                            <el-select
+                                v-model="formData.typeId"
+                                :placeholder="$t('common.selectPlaceholder')"
+                            >
                                 <el-option
                                     v-for="item in goodsTypeList"
                                     :key="item.id"
@@ -103,14 +106,14 @@
                                 />
                             </el-select>
                         </el-form-item>
-                        <el-form-item label="上级分类" prop="parentName">
+                        <el-form-item :label="$t('goods.parentCat')" prop="parentName">
                             <popup-tree-input
                                 :current-change-handle="handleTreeSelectChange"
                                 :data="popupTreeData"
                                 :node-key="'' + formData.parentId"
                                 :prop="
                                     formData.parentName === null || formData.parentName === ''
-                                        ? '顶级分类'
+                                        ? $t('goods.topCat')
                                         : formData.parentName
                                 "
                                 :props="popupTreeProps"
@@ -118,7 +121,7 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                        <el-form-item label="分类图标" prop="attachment">
+                        <el-form-item :label="$t('goods.catIcon')" prop="attachment">
                             <change-image-icon
                                 :img-url="formData.attachment ? formData.attachment.path : ''"
                                 @chosed-image-icon="chosedLogo"
@@ -128,17 +131,17 @@
                 </el-row>
                 <el-row>
                     <el-col :span="16">
-                        <el-form-item label="分类名称" prop="name">
-                            <el-input v-model="formData.name" placeholder="分类名称" />
+                        <el-form-item :label="$t('goods.catName')" prop="name">
+                            <el-input v-model="formData.name" :placeholder="$t('goods.catName')" />
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                        <el-form-item label="排序编号" prop="sort">
+                        <el-form-item :label="$t('goods.catSort')" prop="sort">
                             <el-input-number
                                 v-model="formData.sort"
                                 :min="0"
                                 controls-position="right"
-                                label="排序编号"
+                                :label="$t('goods.catSort')"
                                 style="width: 100px"
                             />
                         </el-form-item>
@@ -199,7 +202,7 @@ export default {
                 },
             },
             dataRule: {
-                name: [{ required: true, message: '分类名称不能为空', trigger: 'blur' }],
+                name: [{ required: true, message: this.$t('goods.inputCatName'), trigger: 'blur' }],
             },
             popupTreeProps: {
                 label: 'name',
@@ -298,7 +301,7 @@ export default {
         },
         // 删除
         handleDelete(row) {
-            this.$confirm('确认删除选中记录吗？', '提示', {
+            this.$confirm(this.$t('common.confirmDelete'), this.$t('common.tip'), {
                 type: 'warning',
             }).then(async () => {
                 const params = this.getDeleteIds([], row);
@@ -306,8 +309,8 @@ export default {
                 if (_result.succeed === 1 && _result.code === 200) {
                     this.goodsCatTreeData = removeTreeItemsByIds(this.goodsCatTreeData, params);
                     this.$notify({
-                        title: '成功',
-                        message: '删除成功',
+                        title: this.$t('common.success'),
+                        message: this.$t('common.deleteSuccess'),
                         type: 'success',
                     });
                 }
@@ -336,83 +339,85 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
-                        this.editLoading = true;
-                        const params = Object.assign({}, this.formData);
-                        const _result = await this.$api.goodsCat.save(params);
+                    this.$confirm(this.$t('common.confirmSubmit'), this.$t('common.tip'), {}).then(
+                        async () => {
+                            this.editLoading = true;
+                            const params = Object.assign({}, this.formData);
+                            const _result = await this.$api.goodsCat.save(params);
 
-                        this.editLoading = false;
-                        if (_result.succeed === 1 && _result.code === 200) {
-                            const _parentId = _result.data.parentId;
-                            const _parentTreeItem = getTreeItemById(
-                                this.goodsCatTreeData,
-                                _parentId
-                            );
-
-                            if (_parentTreeItem && Array.isArray(_parentTreeItem.children)) {
-                                const _treeItem = _parentTreeItem.children.filter(
-                                    (v) => v.id === _result.data.id
+                            this.editLoading = false;
+                            if (_result.succeed === 1 && _result.code === 200) {
+                                const _parentId = _result.data.parentId;
+                                const _parentTreeItem = getTreeItemById(
+                                    this.goodsCatTreeData,
+                                    _parentId
                                 );
-                                if (_treeItem.length === 0) {
-                                    _result.data.level =
-                                        _parentId === 0 ? 1 : _parentTreeItem.level + 1;
-                                    _parentTreeItem.children.push(_result.data);
-                                } else {
-                                    Object.assign(_treeItem[0], _result.data);
-                                }
 
-                                if (_parentTreeItem._expanded) {
+                                if (_parentTreeItem && Array.isArray(_parentTreeItem.children)) {
+                                    const _treeItem = _parentTreeItem.children.filter(
+                                        (v) => v.id === _result.data.id
+                                    );
                                     if (_treeItem.length === 0) {
-                                        const _preTreeItem =
-                                            _parentTreeItem.children.length > 1
-                                                ? _parentTreeItem.children[
-                                                    _parentTreeItem.children.length - 2
-                                                ]
-                                                : _parentTreeItem;
-                                        this.goodsCatTreeData = this.goodsCatTreeData
-                                            .splice(
-                                                0,
-                                                this.goodsCatTreeData.findIndex(
-                                                    (v) => v.id === _preTreeItem.id
-                                                ) + 1
-                                            )
-                                            .concat(_result.data)
-                                            .concat(this.goodsCatTreeData);
+                                        _result.data.level =
+                                            _parentId === 0 ? 1 : _parentTreeItem.level + 1;
+                                        _parentTreeItem.children.push(_result.data);
                                     } else {
-                                        const _filterItem = this.goodsCatTreeData.filter(
-                                            (v) => v.id === _result.data.id
-                                        );
-                                        Object.assign(_filterItem[0], _result.data);
+                                        Object.assign(_treeItem[0], _result.data);
+                                    }
+
+                                    if (_parentTreeItem._expanded) {
+                                        if (_treeItem.length === 0) {
+                                            const _preTreeItem =
+                                                _parentTreeItem.children.length > 1
+                                                    ? _parentTreeItem.children[
+                                                          _parentTreeItem.children.length - 2
+                                                      ]
+                                                    : _parentTreeItem;
+                                            this.goodsCatTreeData = this.goodsCatTreeData
+                                                .splice(
+                                                    0,
+                                                    this.goodsCatTreeData.findIndex(
+                                                        (v) => v.id === _preTreeItem.id
+                                                    ) + 1
+                                                )
+                                                .concat(_result.data)
+                                                .concat(this.goodsCatTreeData);
+                                        } else {
+                                            const _filterItem = this.goodsCatTreeData.filter(
+                                                (v) => v.id === _result.data.id
+                                            );
+                                            Object.assign(_filterItem[0], _result.data);
+                                        }
+                                    }
+                                } else {
+                                    const _treeItem = this.goodsCatTreeData.filter(
+                                        (v) => v.id === _result.data.id
+                                    );
+                                    if (_treeItem.length === 0) {
+                                        _result.data.level = 1;
+                                        this.goodsCatTreeData.push(_result.data);
+                                    } else {
+                                        Object.assign(_treeItem[0], _result.data);
                                     }
                                 }
-                            } else {
-                                const _treeItem = this.goodsCatTreeData.filter(
-                                    (v) => v.id === _result.data.id
-                                );
-                                if (_treeItem.length === 0) {
-                                    _result.data.level = 1;
-                                    this.goodsCatTreeData.push(_result.data);
-                                } else {
-                                    Object.assign(_treeItem[0], _result.data);
-                                }
-                            }
 
-                            console.log('保存后的goodsCatTreeData: ', this.goodsCatTreeData);
-                            this.$notify({
-                                title: '成功',
-                                message: _result.description,
-                                type: 'success',
-                            });
-                            this.$refs.formData.resetFields();
-                            this.dialogVisible = false;
-                        } else {
-                            this.$notify({
-                                title: '失败',
-                                message: _result.description,
-                                type: 'error',
-                            });
+                                console.log('保存后的goodsCatTreeData: ', this.goodsCatTreeData);
+                                this.$notify({
+                                    title: this.$t('common.success'),
+                                    message: _result.description,
+                                    type: 'success',
+                                });
+                                this.$refs.formData.resetFields();
+                                this.dialogVisible = false;
+                            } else {
+                                this.$notify({
+                                    title: this.$t('common.fail'),
+                                    message: _result.description,
+                                    type: 'error',
+                                });
+                            }
                         }
-                    });
+                    );
                 }
             });
         },

@@ -4,7 +4,7 @@
         :close-on-click-modal="false"
         :modal="false"
         class="edit-dialog-container"
-        title="地址选择"
+        :title="$t('mapPosition.dialogTitle')"
         width="50%"
     >
         <el-container class="map-container">
@@ -34,9 +34,9 @@
                 </el-amap>
             </el-main>
             <el-footer class="position-info">
-                当前位置:
+                {{ $t('mapPosition.currentPosition') }}
                 <span v-if="loaded">{{ position }}</span>
-                <span v-else>正在定位(可手动输入定位)</span>
+                <span v-else>{{ $t('mapPosition.locating') }}</span>
             </el-footer>
         </el-container>
         <template #footer>
@@ -234,8 +234,8 @@ export default {
         },
         // 把经纬度传到父组件
         chosedLocation() {
-            console.log('获取的精度和纬度', this.lng, this.lat);
-            console.log('获取的地址', this.position);
+            console.log(this.$t('mapPosition.getLngLat'), this.lng, this.lat);
+            console.log(this.$t('mapPosition.getAddress'), this.position);
             this.$emit('chosedLocation', this.position);
         },
     },

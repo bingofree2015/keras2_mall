@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('common.inputPlaceholder')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,17 +39,17 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="新增" placement="top">
+                            <el-tooltip :content="$t('action.add')" placement="top">
                                 <el-button round @click="handleAdd">
                                     <i class="el-icon-ali-add"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -93,26 +96,31 @@ export default {
             props: [{ prop: 'title', label: '文章标题' }],
             columns: [
                 { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'title', label: '文章标题', minWidth: 250, showOverflowTooltip: true },
+                {
+                    prop: 'title',
+                    label: this.$t('article.title'),
+                    minWidth: 250,
+                    showOverflowTooltip: true,
+                },
                 {
                     prop: 'attachment.path',
-                    label: '封面图',
+                    label: this.$t('article.cover'),
                     minWidth: 80,
                     propType: 'image',
                     align: 'center',
                 },
-                { prop: 'articleType.typeName', label: '分类', minWidth: 80 },
-                { prop: 'isPub', label: '状态', minWidth: 80 },
-                { prop: 'sort', label: '排序', minWidth: 70, align: 'center' },
+                { prop: 'articleType.typeName', label: this.$t('article.type'), minWidth: 80 },
+                { prop: 'isPub', label: this.$t('article.status'), minWidth: 80 },
+                { prop: 'sort', label: this.$t('article.sort'), minWidth: 70, align: 'center' },
                 {
                     prop: 'updatedAt',
-                    label: '更新时间',
+                    label: this.$t('common.updatedAt'),
                     minWidth: 130,
                     formatter: this.env.formatDateTime,
                 },
                 {
                     prop: 'createdAt',
-                    label: '创建时间',
+                    label: this.$t('common.createdAt'),
                     minWidth: 130,
                     formatter: this.env.formatDateTime,
                 },
@@ -142,7 +150,7 @@ export default {
                     size: this.normalSize,
                     type: 'danger',
                     func: (row) => {
-                        this.$confirm('确认删除选中记录吗？', '提示', {
+                        this.$confirm(this.$t('common.confirmDelete'), this.$t('common.tip'), {
                             type: 'warning',
                         }).then(async () => {
                             await this.batchDelete([row.id]);

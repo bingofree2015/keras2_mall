@@ -2,78 +2,95 @@
     <el-dialog
         :close-on-click-modal="false"
         :modal="false"
-        title="订单发货"
+        :title="$t('orderDelivery.dialogTitle')"
         v-bind="$attrs"
         width="60%"
         @open="openDialog"
         v-on="$attrs"
     >
         <div class="group-container">
-            <el-divider content-position="left">收货人信息</el-divider>
+            <el-divider content-position="left">
+                {{ $t('orderDelivery.receiverInfo') }}
+            </el-divider>
             <el-form :size="miniSize" class="dialog-container" label-width="100px">
                 <el-row>
                     <el-col :span="8">
-                        <el-form-item label="订单号:">
+                        <el-form-item :label="$t('orderDelivery.orderNumber') + ':'">
                             {{ viewData.orderId }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                        <el-form-item label="配送方式:">
+                        <el-form-item :label="$t('orderDelivery.deliveryMethod') + ':'">
                             {{ viewData.logisticsName }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                        <el-form-item label="配送费用:">
+                        <el-form-item :label="$t('orderDelivery.deliveryFee') + ':'">
                             {{ viewData.costFreight }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="8">
-                        <el-form-item label="商品总重:">
+                        <el-form-item :label="$t('orderDelivery.totalWeight') + ':'">
                             {{ viewData.weight }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                        <el-form-item label="收货人姓名:">
+                        <el-form-item :label="$t('orderDelivery.receiverName') + ':'">
                             {{ viewData.shipName }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                        <el-form-item label="收货人电话:">
+                        <el-form-item :label="$t('orderDelivery.receiverPhone') + ':'">
                             {{ viewData.shipMobile }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="8">
-                        <el-form-item label="收货区域:">
+                        <el-form-item :label="$t('orderDelivery.receiverArea') + ':'">
                             {{ viewData.shipAreaId }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="16">
-                        <el-form-item label="详细收货地址:">
+                        <el-form-item :label="$t('orderDelivery.receiverAddress') + ':'">
                             {{ viewData.shipAddress }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="24">
-                        <el-form-item label="买家备注信息:">
+                        <el-form-item :label="$t('orderDelivery.buyerRemark') + ':'">
                             {{ viewData.memo }}
                         </el-form-item>
                     </el-col>
                 </el-row>
             </el-form>
         </div>
-        <el-divider content-position="left">商品详情</el-divider>
+        <el-divider content-position="left">
+            {{ $t('orderDelivery.goodsDetail') }}
+        </el-divider>
         <el-table :data="viewData.orderItems" :size="miniSize" stripe style="width: 100%">
-            <el-table-column label="商品名称" min-width="180" prop="name" show-overflow-tooltip />
-            <el-table-column label="商品编码" min-width="120" prop="bn" />
-            <el-table-column label="货品编码" min-width="120" prop="sn" />
-            <el-table-column label="购买量" min-width="80" prop="num" />
-            <el-table-column label="已发数量" min-width="80" prop="sendNum" />
-            <el-table-column label="发货量" min-width="80" prop="num" />
+            <el-table-column
+                :label="$t('orderDelivery.goodsName')"
+                min-width="180"
+                prop="name"
+                show-overflow-tooltip
+            />
+            <el-table-column :label="$t('orderDelivery.goodsCode')" min-width="120" prop="bn" />
+            <el-table-column :label="$t('orderDelivery.productCode')" min-width="120" prop="sn" />
+            <el-table-column
+                :label="$t('orderDelivery.purchaseQuantity')"
+                min-width="80"
+                prop="num"
+            />
+            <el-table-column
+                :label="$t('orderDelivery.shippedQuantity')"
+                min-width="80"
+                prop="sendNum"
+            />
+            <el-table-column :label="$t('orderDelivery.shipQuantity')" min-width="80" prop="num" />
         </el-table>
         <el-form
             ref="formData"
@@ -82,11 +99,16 @@
             :size="normalSize"
             label-width="80px"
         >
-            <el-divider content-position="left">物流信息</el-divider>
+            <el-divider content-position="left">
+                {{ $t('orderDelivery.logisticsInfo') }}
+            </el-divider>
             <el-row>
                 <el-col :span="12">
-                    <el-form-item label="物流公司" prop="logisticsId">
-                        <el-select v-model="formData.logisticsId" placeholder="请选择">
+                    <el-form-item :label="$t('orderDelivery.logisticsCompany')" prop="logisticsId">
+                        <el-select
+                            v-model="formData.logisticsId"
+                            :placeholder="$t('orderDelivery.selectLogistics')"
+                        >
                             <el-option
                                 v-for="logi in logistics"
                                 :key="logi.id"
@@ -97,15 +119,21 @@
                     </el-form-item>
                 </el-col>
                 <el-col :span="12">
-                    <el-form-item label="物流单号" prop="logi_no">
-                        <el-input v-model="formData.logiNo" placeholder="请输入内容" />
+                    <el-form-item :label="$t('orderDelivery.logisticsNumber')" prop="logi_no">
+                        <el-input
+                            v-model="formData.logiNo"
+                            :placeholder="$t('orderDelivery.inputLogisticsNumber')"
+                        />
                     </el-form-item>
                 </el-col>
             </el-row>
             <el-row>
                 <el-col :span="24">
-                    <el-form-item label="发货备注" prop="memo">
-                        <el-input v-model="formData.memo" placeholder="请输入内容" />
+                    <el-form-item :label="$t('orderDelivery.shipmentRemark')" prop="memo">
+                        <el-input
+                            v-model="formData.memo"
+                            :placeholder="$t('orderDelivery.inputShipmentRemark')"
+                        />
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -173,7 +201,13 @@ export default {
                 memo: '', // 发货备注
             },
             formDataRules: {
-                logiName: [{ required: true, message: '请输入物流公司名称', trigger: 'blur' }],
+                logiName: [
+                    {
+                        required: true,
+                        message: this.$t('orderDelivery.inputLogisticsCompany'),
+                        trigger: 'blur',
+                    },
+                ],
             },
         };
     },
@@ -209,26 +243,28 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
-                        this.loading = true;
-                        const data = Object.assign({}, this.formData);
-                        const _result = await this.$api.order.save(data);
-                        this.loading = false;
-                        if (_result.succeed === 1 && _result.code === 200) {
-                            this.$notify({
-                                title: '成功',
-                                message: _result.description,
-                                type: 'success',
-                            });
-                            this.$refs.formData.resetFields();
-                            this.$emit('update:visible', false);
-                        } else {
-                            this.$notify.error({
-                                title: '错误',
-                                message: _result.description,
-                            });
+                    this.$confirm(this.$t('common.confirmSubmit'), this.$t('common.tip'), {}).then(
+                        async () => {
+                            this.loading = true;
+                            const data = Object.assign({}, this.formData);
+                            const _result = await this.$api.order.save(data);
+                            this.loading = false;
+                            if (_result.succeed === 1 && _result.code === 200) {
+                                this.$notify({
+                                    title: this.$t('common.success'),
+                                    message: _result.description,
+                                    type: 'success',
+                                });
+                                this.$refs.formData.resetFields();
+                                this.$emit('update:visible', false);
+                            } else {
+                                this.$notify.error({
+                                    title: this.$t('common.error'),
+                                    message: _result.description,
+                                });
+                            }
                         }
-                    });
+                    );
                 }
             });
         },

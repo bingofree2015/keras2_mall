@@ -17,10 +17,15 @@
             @selection-change="selectionChange"
         >
             <el-table-column min-width="40" type="selection" />
-            <el-table-column label="路径" min-width="180" prop="path" show-overflow-tooltip />
+            <el-table-column
+                :label="$t('database.path')"
+                min-width="180"
+                prop="path"
+                show-overflow-tooltip
+            />
             <el-table-column
                 :formatter="env.formatDateTime"
-                label="时间"
+                :label="$t('database.time')"
                 min-width="140"
                 prop="createdAt"
             />
@@ -69,10 +74,10 @@
         <template #footer>
             <span class="dialog-footer">
                 <el-button round @click.native="$emit('update:visible', false)">
-                    $t('action.cancel') }}
+                    {{ $t('action.cancel') }}
                 </el-button>
                 <el-button round type="primary" @click="handleBackup">
-                    $t('common.backup')
+                    {{ $t('common.backup') }}
                 </el-button>
             </span>
         </template>
@@ -110,7 +115,7 @@ export default {
                 this.paginatedData = _result.data;
             } else {
                 this.$notify.error({
-                    title: '错误',
+                    title: this.$t('common.error'),
                     message: _result.description,
                 });
             }
@@ -135,14 +140,14 @@ export default {
             const _result = await this.$api.db.destroy({ ids: [row.id] });
             if (_result.succeed === 1 && _result.code === 200) {
                 this.$notify({
-                    title: '成功',
+                    title: this.$t('common.success'),
                     message: _result.description,
                     type: 'success',
                 });
                 this.queryForPaginatedList();
             } else {
                 this.$notify.error({
-                    title: '错误',
+                    title: this.$t('common.error'),
                     message: _result.description,
                 });
             }
@@ -159,14 +164,14 @@ export default {
             const _result = await this.$api.db.destroy({ ids: _ids });
             if (_result.succeed === 1 && _result.code === 200) {
                 this.$notify({
-                    title: '成功',
+                    title: this.$t('common.success'),
                     message: _result.description,
                     type: 'success',
                 });
                 this.queryForPaginatedList();
             } else {
                 this.$notify.error({
-                    title: '错误',
+                    title: this.$t('common.error'),
                     message: _result.description,
                 });
             }
@@ -179,14 +184,14 @@ export default {
             const _result = await this.$api.db.backup();
             if (_result.succeed === 1 && _result.code === 200) {
                 this.$notify({
-                    title: '成功',
-                    message: '备份成功',
+                    title: this.$t('common.success'),
+                    message: this.$t('database.backupSuccess'),
                     type: 'success',
                 });
                 await this.queryForPaginatedList();
             } else {
                 this.$notify.error({
-                    title: '错误',
+                    title: this.$t('common.error'),
                     message: _result.description,
                 });
             }
@@ -199,13 +204,13 @@ export default {
             const _result = await this.$api.db.restore({ id: row.id });
             if (_result.succeed === 1 && _result.code === 200) {
                 this.$notify({
-                    title: '成功',
+                    title: this.$t('common.success'),
                     message: _result.description,
                     type: 'success',
                 });
             } else {
                 this.$notify.error({
-                    title: '错误',
+                    title: this.$t('common.error'),
                     message: _result.description,
                 });
             }

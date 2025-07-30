@@ -17,12 +17,12 @@
                 >
                     <el-row>
                         <el-col :span="16">
-                            <el-form-item label="标题" prop="title">
+                            <el-form-item :label="$t('article.title')" prop="title">
                                 <el-input v-model="formData.title" />
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
-                            <el-form-item label="分类" prop="typeId">
+                            <el-form-item :label="$t('article.type')" prop="typeId">
                                 <el-cascader
                                     v-model="formData.typeId"
                                     :options="articleTypeOpts"
@@ -32,13 +32,13 @@
                             </el-form-item>
                         </el-col>
                     </el-row>
-                    <el-form-item label="封面图" prop="attachment">
+                    <el-form-item :label="$t('article.cover')" prop="attachment">
                         <change-image-icon
                             :img-url="formData.attachment ? formData.attachment.path : ''"
                             @chosed-image-icon="chosedLogo"
                         />
                     </el-form-item>
-                    <el-form-item label="文章内容" prop="content">
+                    <el-form-item :label="$t('article.content')" prop="content">
                         <tinyEditor v-model:content="formData.content" />
                     </el-form-item>
                 </el-form>
@@ -99,7 +99,9 @@ export default {
                 isPub: 0, // 1 发布 2 不发布
             },
             formDataRules: {
-                title: [{ required: true, message: '请输入文章', trigger: 'blur' }],
+                title: [
+                    { required: true, message: this.$t('article.titleRequired'), trigger: 'blur' },
+                ],
             },
         };
     },
@@ -129,13 +131,13 @@ export default {
                         const _result = await this.$api.article.save(data);
                         if (_result.succeed === 1 && _result.code === 200) {
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('common.success'),
                                 message: _result.description,
                                 type: 'success',
                             });
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('common.error'),
                                 message: _result.description,
                             });
                         }

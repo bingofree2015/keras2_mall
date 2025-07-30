@@ -17,13 +17,16 @@
                 >
                     <el-row>
                         <el-col :span="16">
-                            <el-form-item label="广告名称" prop="name">
+                            <el-form-item :label="$t('advertisement.name')" prop="name">
                                 <el-input v-model="formData.name" />
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
-                            <el-form-item label="广告位" prop="positionId">
-                                <el-select v-model="formData.positionId" placeholder="请选择">
+                            <el-form-item :label="$t('advertisement.position')" prop="positionId">
+                                <el-select
+                                    v-model="formData.positionId"
+                                    :placeholder="$t('common.selectPlaceholder')"
+                                >
                                     <el-option
                                         v-for="advertPosition in advertPositions"
                                         :key="advertPosition.id"
@@ -36,8 +39,11 @@
                     </el-row>
                     <el-row>
                         <el-col :span="16">
-                            <el-form-item label="广告类型" prop="type">
-                                <el-select v-model="formData.type" placeholder="请选择">
+                            <el-form-item :label="$t('advertisement.type')" prop="type">
+                                <el-select
+                                    v-model="formData.type"
+                                    :placeholder="$t('common.selectPlaceholder')"
+                                >
                                     <el-option
                                         v-for="linkType in linkTypes"
                                         :key="linkType.key"
@@ -46,8 +52,11 @@
                                     />
                                 </el-select>
                             </el-form-item>
-                            <el-form-item label="广告商品" prop="val">
-                                <el-input v-model="formData.val" placeholder="请选择">
+                            <el-form-item :label="$t('advertisement.value')" prop="val">
+                                <el-input
+                                    v-model="formData.val"
+                                    :placeholder="$t('advertisement.inputValue')"
+                                >
                                     <template #append>
                                         <pick-goods
                                             v-if="formData.type === 2"
@@ -92,7 +101,7 @@
                                     </template>
                                 </el-input>
                             </el-form-item>
-                            <el-form-item label="广告排序" prop="sort">
+                            <el-form-item :label="$t('advertisement.sort')" prop="sort">
                                 <el-input-number
                                     v-model="formData.sort"
                                     :min="0"
@@ -103,7 +112,7 @@
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
-                            <el-form-item label="封面图" prop="attachment">
+                            <el-form-item :label="$t('advertisement.image')" prop="attachment">
                                 <change-image-icon
                                     :img-url="formData.attachment ? formData.attachment.path : ''"
                                     :init-style="{
@@ -186,7 +195,13 @@ export default {
                 { key: 5, value: '智能表单' },
             ],
             formDataRules: {
-                name: [{ required: true, message: '请输入广告名称', trigger: 'blur' }],
+                name: [
+                    {
+                        required: true,
+                        message: this.$t('advertisement.nameRequired'),
+                        trigger: 'blur',
+                    },
+                ],
             },
         };
     },
@@ -236,13 +251,13 @@ export default {
                         const _result = await this.$api.advertisement.save(data);
                         if (_result.succeed === 1 && _result.code === 200) {
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('common.success'),
                                 message: _result.description,
                                 type: 'success',
                             });
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('common.error'),
                                 message: _result.description,
                             });
                         }

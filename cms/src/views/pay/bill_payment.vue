@@ -80,48 +80,48 @@
             >
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="支付单号:" prop="paymentId">
+                        <el-form-item :label="$t('pay.paymentId') + ':'" prop="paymentId">
                             {{ formData.paymentId }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="用户:" prop="user.username">
+                        <el-form-item :label="$t('pay.user') + ':'" prop="user.username">
                             {{ formData.user.username }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="支付方式:" prop="paymentCode">
+                        <el-form-item :label="$t('pay.paymentMethod') + ':'" prop="paymentCode">
                             {{ formData.paymentCode }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="支付金额:" prop="money">
+                        <el-form-item :label="$t('pay.paymentAmount') + ':'" prop="money">
                             {{ formData.money }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="类型:" prop="type">
+                        <el-form-item :label="$t('pay.type') + ':'" prop="type">
                             {{ env.columnFormatter(formData.type, 'bill_payment', 'type') }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="状态:" prop="state">
+                        <el-form-item :label="$t('pay.status') + ':'" prop="state">
                             {{ env.columnFormatter(formData.state, 'bill_payment', 'state') }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="创建时间:" prop="isOnline">
+                        <el-form-item :label="$t('pay.createTime') + ':'" prop="isOnline">
                             {{ formData.createdAt }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="更新时间:" prop="isOnline">
+                        <el-form-item :label="$t('pay.updateTime') + ':'" prop="isOnline">
                             {{ formData.updatedAt }}
                         </el-form-item>
                     </el-col>

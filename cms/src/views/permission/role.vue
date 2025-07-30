@@ -136,10 +136,10 @@
                 <el-form-item v-if="false" label="ID" prop="id">
                     <el-input v-model="formData.id" :disabled="true" auto-complete="off" />
                 </el-form-item>
-                <el-form-item label="角色名" prop="name">
+                <el-form-item :label="$t('permission.roleName')" prop="name">
                     <el-input v-model="formData.name" auto-complete="off" />
                 </el-form-item>
-                <el-form-item label="备注 " prop="remark">
+                <el-form-item :label="$t('permission.remark')" prop="remark">
                     <el-input v-model="formData.remark" auto-complete="off" type="textarea" />
                 </el-form-item>
             </el-form>

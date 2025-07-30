@@ -12,9 +12,9 @@
                             v-model="rangeDate"
                             :picker-options="pickerOptions"
                             align="right"
-                            end-placeholder="结束日期"
-                            range-separator="至"
-                            start-placeholder="开始日期"
+                            :end-placeholder="$t('report.endDate')"
+                            :range-separator="$t('report.rangeSeparator')"
+                            :start-placeholder="$t('report.startDate')"
                             style="width: 240px"
                             type="daterange"
                             unlink-panels
@@ -28,12 +28,12 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('report.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('report.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -74,7 +74,7 @@ export default {
             pickerOptions: {
                 shortcuts: [
                     {
-                        text: '最近一周',
+                        text: this.$t('report.lastWeek'),
                         onClick(picker) {
                             const end = new Date();
                             const start = new Date();
@@ -83,7 +83,7 @@ export default {
                         },
                     },
                     {
-                        text: '最近一个月',
+                        text: this.$t('report.lastMonth'),
                         onClick(picker) {
                             const end = new Date();
                             const start = new Date();
@@ -92,7 +92,7 @@ export default {
                         },
                     },
                     {
-                        text: '最近三个月',
+                        text: this.$t('report.lastThreeMonths'),
                         onClick(picker) {
                             const end = new Date();
                             const start = new Date();
@@ -105,16 +105,16 @@ export default {
             rangeDate: [Date.now(), Date.now() + 3600 * 1000 * 24],
 
             columns: [
-                { prop: 'count', label: '收藏量', minWidth: 80 },
+                { prop: 'count', label: this.$t('report.collectionCount'), minWidth: 80 },
                 {
                     prop: 'goods.name',
-                    label: '商品名称',
+                    label: this.$t('report.goodsName'),
                     minWidth: 360,
                     showOverflowTooltip: true,
                 },
                 {
                     prop: 'goods.attachment.path',
-                    label: '图片',
+                    label: this.$t('report.image'),
                     minWidth: 80,
                     propType: 'image',
                     align: 'center',

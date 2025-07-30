@@ -1,10 +1,10 @@
 <template>
     <div>
-        <el-input :value="value" placeholder="请输入视频地址" readonly>
+        <el-input :value="value" :placeholder="$t('pickVideo.inputVideoUrl')" readonly>
             <template #append>
                 <el-button round @click="openVideoUploader">
                     <i class="el-icon-ali-camera_rec"></i>
-                    上传视频
+                    {{ $t('pickVideo.uploadVideo') }}
                 </el-button>
             </template>
         </el-input>
@@ -30,6 +30,7 @@ export default {
             default: null,
         },
     },
+    emits: ['input'],
     data() {
         return {
             smallSize: 'small',

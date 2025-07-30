@@ -17,12 +17,14 @@
                 @on-theme-change="onThemeChange"
             />
         </span>
-        <h2 class="title" style="padding-left: 22px">系统登录</h2>
+        <h2 class="title" style="padding-left: 22px">
+            {{ $t('login.title') }}
+        </h2>
         <el-form-item prop="username">
             <el-input
                 v-model="loginForm.username"
                 auto-complete="off"
-                placeholder="账号"
+                :placeholder="$t('login.username')"
                 type="text"
             />
         </el-form-item>
@@ -30,14 +32,14 @@
             <el-input
                 v-model="loginForm.pwd"
                 auto-complete="off"
-                placeholder="密码"
+                :placeholder="$t('login.password')"
                 show-password
                 type="password"
             />
         </el-form-item>
         <el-form-item style="width: 100%">
             <el-button round style="width: 48%" type="primary" @click.prevent="reset">
-                重 置
+                {{ $t('action.reset') }}
             </el-button>
             <el-button
                 :loading="loading"
@@ -46,7 +48,7 @@
                 type="primary"
                 @click.prevent="login"
             >
-                登 录
+                {{ $t('login.login') }}
             </el-button>
         </el-form-item>
     </el-form>
@@ -69,8 +71,10 @@ export default {
                 pwd: '111111',
             },
             fieldRules: {
-                username: [{ required: true, message: '请输入账号', trigger: 'blur' }],
-                pwd: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+                username: [
+                    { required: true, message: this.$t('login.inputUsername'), trigger: 'blur' },
+                ],
+                pwd: [{ required: true, message: this.$t('login.inputPassword'), trigger: 'blur' }],
             },
             checked: true,
         };
@@ -96,7 +100,7 @@ export default {
                     this.$router.push('/'); // 登录成功，路由到home页
                 } else {
                     this.$notify({
-                        title: '失败',
+                        title: this.$t('common.fail'),
                         message: _result.description,
                         type: 'error',
                     });
@@ -104,7 +108,7 @@ export default {
                 this.loading = false;
             } catch (err) {
                 this.$notify({
-                    title: '失败',
+                    title: this.$t('common.fail'),
                     message: err.message,
                     type: 'error',
                 });

@@ -1,6 +1,11 @@
 <template>
     <div>
-        <ext-button :size="miniSize" label="选择表单" type="primary" @click="handlePickForm()">
+        <ext-button
+            :size="miniSize"
+            :label="$t('pickForm.button')"
+            type="primary"
+            @click="handlePickForm()"
+        >
             <i class="el-icon-ali-Newxuanzeshangpinxuanzhong"></i>
         </ext-button>
         <el-dialog
@@ -8,7 +13,7 @@
             :modal-append-to-body="false"
             :close-on-click-modal="false"
             :size="normalSize"
-            title="商品选择窗"
+            :title="$t('pickForm.dialogTitle')"
             width="50%"
         >
             <el-table
@@ -23,7 +28,7 @@
                 <el-table-column
                     v-else-if="selectionType === 0"
                     align="center"
-                    label="选择"
+                    :label="$t('pickForm.select')"
                     min-width="80"
                 >
                     <template #default="scope">
@@ -37,13 +42,17 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                    label="名称"
+                    :label="$t('pickForm.name')"
                     min-width="180"
                     property="name"
                     show-overflow-tooltip
                 />
-                <el-table-column label="类型" min-width="90" property="type" />
-                <el-table-column label="创建时间" min-width="110" property="createdAt" />
+                <el-table-column :label="$t('pickForm.type')" min-width="90" property="type" />
+                <el-table-column
+                    :label="$t('pickForm.createdAt')"
+                    min-width="110"
+                    property="createdAt"
+                />
             </el-table>
             <div style="padding: 10px">
                 <el-pagination
@@ -58,10 +67,10 @@
             <template #footer>
                 <span class="dialog-footer">
                     <el-button :size="miniSize" round @click="dialogVisible = false">
-                        round
+                        {{ $t('action.cancel') }}
                     </el-button>
                     <el-button :size="miniSize" round type="primary" @click="chosedForms">
-                        确 定
+                        {{ $t('action.comfirm') }}
                     </el-button>
                 </span>
             </template>
@@ -116,7 +125,7 @@ export default {
                 this.paginated.attrs.count = _result.data.count;
             } else {
                 this.$notify.error({
-                    title: '错误',
+                    title: this.$t('pickForm.error'),
                     message: _result.description,
                 });
             }

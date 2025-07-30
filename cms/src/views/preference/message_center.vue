@@ -32,10 +32,10 @@ export default {
             smallSize: 'small',
             columns: [
                 { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'code', label: '消息节点', minWidth: 200 },
+                { prop: 'code', label: this.$t('messageCenter.code'), minWidth: 200 },
                 {
                     prop: 'sms',
-                    label: '短信',
+                    label: this.$t('messageCenter.sms'),
                     minWidth: 100,
                     propType: 'bool',
                     clickFlag: true,
@@ -49,7 +49,7 @@ export default {
                 },
                 {
                     prop: 'message',
-                    label: '站内消息',
+                    label: this.$t('messageCenter.message'),
                     minWidth: 100,
                     propType: 'bool',
                     clickFlag: true,
@@ -63,7 +63,7 @@ export default {
                 },
                 {
                     prop: 'wxTplMessage',
-                    label: '微信消息',
+                    label: this.$t('messageCenter.wxTplMessage'),
                     minWidth: 100,
                     propType: 'bool',
                     clickFlag: true,
@@ -108,13 +108,13 @@ export default {
             const _result = await this.$api.messageCenter.save(data);
             if (_result.succeed === 1 && _result.code === 200) {
                 this.$notify({
-                    title: '成功',
+                    title: this.$t('common.success'),
                     message: _result.description,
                     type: 'success',
                 });
             } else {
                 this.$notify.error({
-                    title: '错误',
+                    title: this.$t('common.error'),
                     message: _result.description,
                 });
             }

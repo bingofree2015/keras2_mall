@@ -18,16 +18,19 @@
                 <el-col :span="16">
                     <el-row>
                         <el-col :span="14">
-                            <el-form-item label="配送方式:" prop="name">
+                            <el-form-item :label="$t('ship.name') + ':'" prop="name">
                                 <el-input
                                     v-model="formData.name"
-                                    placeholder="请输入配送方式名称"
+                                    :placeholder="$t('ship.inputName')"
                                 />
                             </el-form-item>
                         </el-col>
                         <el-col :span="10">
-                            <el-form-item label="物流公司:" prop="logiCode">
-                                <el-select v-model="formData.logiCode" placeholder="请选择">
+                            <el-form-item :label="$t('ship.logistics') + ':'" prop="logiCode">
+                                <el-select
+                                    v-model="formData.logiCode"
+                                    :placeholder="$t('common.selectPlaceholder')"
+                                >
                                     <el-option
                                         v-for="logi in logistics"
                                         :key="logi.logiCode"
@@ -40,48 +43,51 @@
                     </el-row>
                     <el-row>
                         <el-col :span="6">
-                            <el-form-item label="是否包邮:" prop="freePostage">
+                            <el-form-item :label="$t('ship.freePostage') + ':'" prop="freePostage">
                                 <el-switch
                                     v-model="formData.freePostage"
-                                    active-text="是"
-                                    inactive-text="否"
+                                    :active-text="$t('common.yes')"
+                                    :inactive-text="$t('common.no')"
                                 />
                             </el-form-item>
                         </el-col>
                         <el-col :span="6">
-                            <el-form-item label="货到付款:" prop="hasCod">
+                            <el-form-item :label="$t('ship.hasCod') + ':'" prop="hasCod">
                                 <el-switch
                                     v-model="formData.hasCod"
-                                    active-text="是"
-                                    inactive-text="否"
+                                    :active-text="$t('common.yes')"
+                                    :inactive-text="$t('common.no')"
                                 />
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row>
                         <el-col :span="6">
-                            <el-form-item label="是否默认:" prop="isDef">
+                            <el-form-item :label="$t('ship.isDef') + ':'" prop="isDef">
                                 <el-switch
                                     v-model="formData.isDef"
-                                    active-text="是"
-                                    inactive-text="否"
+                                    :active-text="$t('common.yes')"
+                                    :inactive-text="$t('common.no')"
                                 />
                             </el-form-item>
                         </el-col>
                         <el-col :span="6">
-                            <el-form-item label="是否启用:" prop="state">
+                            <el-form-item :label="$t('ship.state') + ':'" prop="state">
                                 <el-switch
                                     v-model="formData.state"
-                                    active-text="是"
-                                    inactive-text="否"
+                                    :active-text="$t('common.yes')"
+                                    :inactive-text="$t('common.no')"
                                 />
                             </el-form-item>
                         </el-col>
                     </el-row>
-                    <el-form-item label="重量设置:">
+                    <el-form-item :label="$t('ship.weightSetting')">
                         <el-col :span="8">
-                            首重
-                            <el-select v-model="formData.firstUnit" placeholder="请选择">
+                            {{ $t('ship.firstWeight') }}
+                            <el-select
+                                v-model="formData.firstUnit"
+                                :placeholder="$t('common.selectPlaceholder')"
+                            >
                                 <el-option
                                     v-for="(val, key, index) in mapAlias.ship_unit"
                                     :key="index"
@@ -91,8 +97,11 @@
                             </el-select>
                         </el-col>
                         <el-col :span="8">
-                            续重
-                            <el-select v-model="formData.continueUnit" placeholder="请选择">
+                            {{ $t('ship.continueWeight') }}
+                            <el-select
+                                v-model="formData.continueUnit"
+                                :placeholder="$t('common.selectPlaceholder')"
+                            >
                                 <el-option
                                     v-for="(val, key, index) in mapAlias.ship_unit"
                                     :key="index"
@@ -102,58 +111,62 @@
                             </el-select>
                         </el-col>
                     </el-form-item>
-                    <el-form-item label="配送费用:">
+                    <el-form-item :label="$t('ship.feeSetting')">
                         <el-col :span="6">
-                            首重
+                            {{ $t('ship.firstWeight') }}
                             <el-input-number
                                 v-model="formData.firstunitPrice"
                                 :max="10"
                                 :min="1"
                                 controls-position="right"
-                                label="请输入首重配送费用"
+                                :label="$t('ship.inputFirstWeightFee')"
                             />
                         </el-col>
                         <el-col :span="6">
-                            续重
+                            {{ $t('ship.continueWeight') }}
                             <el-input-number
                                 v-model="formData.continueUnitPrice"
                                 :max="10"
                                 :min="1"
                                 controls-position="right"
-                                label="请输入续重配送费用"
+                                :label="$t('ship.inputContinueWeightFee')"
                             />
                         </el-col>
                         <el-col :span="6">
-                            <el-form-item label="排序:" prop="sort">
+                            <el-form-item :label="$t('ship.sort') + ':'" prop="sort">
                                 <el-input-number
                                     v-model="formData.sort"
                                     :max="100"
                                     :min="0"
                                     controls-position="right"
-                                    label="请输入顺序码"
+                                    :label="$t('ship.inputSort')"
                                 />
                             </el-form-item>
                         </el-col>
                     </el-form-item>
 
-                    <el-form-item label="商品满多少" prop="goodsMoney">
+                    <el-form-item :label="$t('ship.goodsMoney')" prop="goodsMoney">
                         <el-input-number
                             v-model="formData.goodsMoney"
                             :max="99"
                             :min="0"
                             controls-position="right"
-                            label="请输入数量"
+                            :label="$t('ship.inputGoodsMoney')"
                         />
-                        <span class="tip-info">免运费（此项大于0时参与计算）</span>
+                        <span class="tip-info">{{ $t('ship.freeShippingTip') }}</span>
                     </el-form-item>
-                    <el-form-item label="地区类型:" prop="type">
+                    <el-form-item :label="$t('ship.areaType') + ':'" prop="type">
                         <el-col :span="6">
                             <el-radio-group v-model="formData.type">
-                                <el-radio :value="1">所有</el-radio>
-                                <el-radio :value="2">部分</el-radio>
+                                <el-radio :value="1">
+                                    {{ $t('ship.all') }}
+                                </el-radio>
+                                <el-radio :value="2">
+                                    {{ $t('ship.part') }}
+                                </el-radio>
                             </el-radio-group>
                         </el-col>
-                        <span class="tip-info">设置部分地区后，未配置地区采用默认配置</span>
+                        <span class="tip-info">{{ $t('ship.areaTypeTip') }}</span>
                     </el-form-item>
 
                     <el-table
@@ -162,7 +175,7 @@
                         style="width: 100%"
                     >
                         <el-table-column
-                            label="地区列表"
+                            label="{{ this.$t('ship.areaList') }}"
                             min-width="280"
                             prop="areas"
                             show-overflow-tooltip
@@ -171,7 +184,11 @@
                                 {{ scope.row.areas.map((v) => v.name).join(',') }}
                             </template>
                         </el-table-column>
-                        <el-table-column label="选择" min-width="130" prop="areas">
+                        <el-table-column
+                            label="{{ this.$t('ship.select') }}"
+                            min-width="130"
+                            prop="areas"
+                        >
                             <template #default="scope">
                                 <pick-area
                                     :area-ids="scope.row.areas.map((v) => v.id)"
@@ -183,7 +200,11 @@
                                 />
                             </template>
                         </el-table-column>
-                        <el-table-column label="首重费用" min-width="130" prop="firstUnitAreaPrice">
+                        <el-table-column
+                            label="{{ this.$t('ship.firstWeightFee') }}"
+                            min-width="130"
+                            prop="firstUnitAreaPrice"
+                        >
                             <template #default="scope">
                                 <el-input
                                     v-model="scope.row.firstUnitAreaPrice"
@@ -193,7 +214,7 @@
                             </template>
                         </el-table-column>
                         <el-table-column
-                            label="续重费用"
+                            label="{{ this.$t('ship.continueWeightFee') }}"
                             min-width="130"
                             prop="continueUnitAreaPrice"
                         >
@@ -205,7 +226,12 @@
                                 />
                             </template>
                         </el-table-column>
-                        <el-table-column align="center" fixed="right" label="操作" min-width="80">
+                        <el-table-column
+                            align="center"
+                            fixed="right"
+                            :label="$t('action.operation')"
+                            min-width="80"
+                        >
                             <template #header>
                                 <el-button
                                     round
@@ -214,7 +240,7 @@
                                     type="primary"
                                     @click.prevent="handleAddAreaFee()"
                                 >
-                                    添加
+                                    {{ $t('action.add') }}
                                 </el-button>
                             </template>
                             <template #default="scope">
@@ -347,28 +373,30 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
-                        this.editLoading = true;
-                        const data = Object.assign({}, this.formData);
+                    this.$confirm(this.$t('common.confirmDelete'), this.$t('common.tip'), {}).then(
+                        async () => {
+                            this.editLoading = true;
+                            const data = Object.assign({}, this.formData);
 
-                        const _result = await this.$api.ship.save(data);
-                        if (_result.succeed === 1 && _result.code === 200) {
-                            this.$notify({
-                                title: '成功',
-                                message: _result.description,
-                                type: 'success',
-                            });
-                        } else {
-                            this.$notify.error({
-                                title: '错误',
-                                message: _result.description,
-                            });
+                            const _result = await this.$api.ship.save(data);
+                            if (_result.succeed === 1 && _result.code === 200) {
+                                this.$notify({
+                                    title: this.$t('common.success'),
+                                    message: _result.description,
+                                    type: 'success',
+                                });
+                            } else {
+                                this.$notify.error({
+                                    title: this.$t('common.error'),
+                                    message: _result.description,
+                                });
+                            }
+
+                            this.editLoading = false;
+
+                            this.$router.push({ path: '/preference/ship' });
                         }
-
-                        this.editLoading = false;
-
-                        this.$router.push({ path: '/preference/ship' });
-                    });
+                    );
                 }
             });
         },

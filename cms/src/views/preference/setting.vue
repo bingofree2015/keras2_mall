@@ -16,23 +16,20 @@
             label-width="150px"
         >
             <el-row>
-                <el-col
-:span="24"
-:xs="24" :sm="24" :md="20" :lg="18"
->
+                <el-col :span="24" :xs="24" :sm="24" :md="20" :lg="18">
                     <el-tabs v-model="activeName" class="settings-tabs">
-                        <el-tab-pane label="平台设置" name="platform">
+                        <el-tab-pane :label="$t('preference.platformSetting')" name="platform">
                             <template #label>
                                 <span>
                                     <i class="el-icon-ali-platform-setting"></i>
-                                    平台设置
+                                    {{ $t('preference.platformSetting') }}
                                 </span>
                             </template>
-                            <el-form-item label="平台名称" prop="shopName">
+                            <el-form-item :label="$t('preference.platformName')" prop="shopName">
                                 <el-col :span="12" :xs="24" :sm="12" :md="8">
                                     <el-input
                                         v-model="formData.shopName"
-                                        placeholder="请输入平台名称"
+                                        :placeholder="$t('preference.inputPlatformName')"
                                     />
                                 </el-col>
                                 <span class="tip-info">
@@ -40,12 +37,12 @@
                                     平台名称会显示到前台，请合理输入此名称
                                 </span>
                             </el-form-item>
-                            <el-form-item label="平台描述" prop="shopDesc">
+                            <el-form-item :label="$t('preference.platformDesc')" prop="shopDesc">
                                 <el-col :span="20" :xs="24" :sm="20" :md="16">
                                     <el-input
                                         v-model="formData.shopDesc"
                                         :rows="2"
-                                        placeholder="请输入平台描述"
+                                        :placeholder="$t('preference.inputPlatformDesc')"
                                         type="textarea"
                                     />
                                 </el-col>
@@ -785,7 +782,7 @@ export default {
             if (reg.test(value)) {
                 callback();
             } else {
-                callback(new Error('请输入大于零小于十万不超过三位小数的数字'));
+                callback(new Error(this.$t('setting.inputNumberTip')));
             }
         };
         return {
@@ -802,10 +799,10 @@ export default {
             editLoading: false,
             // 编辑界面数据
             formData: {
-                shopName: '我的平台', // 平台名称
-                shopDesc: '平台描述会展示在前台及微信分享店铺描述', // 平台描述
-                shopAddress: '我的平台地址', // 平台地址
-                shopFiling: '网站备案信息', // 备案信息
+                shopName: this.$t('setting.myPlatform'), // 平台名称
+                shopDesc: this.$t('setting.platformDescTip'), // 平台描述
+                shopAddress: this.$t('setting.myPlatformAddress'), // 平台地址
+                shopFiling: this.$t('setting.siteFiling'), // 备案信息
                 shopLogo: '', // 平台logo
                 shopFavicon: '', // Favicon图标
                 shopDefaultImage: '', // 默认图
@@ -845,8 +842,8 @@ export default {
                 wxAppId: '', // AppId
                 wxAppSecret: '', // AppSecret
                 wxUserName: '', // 原始Id
-                wxPrincipalName: '科技有限公司', // 主体信息
-                wxSignature: '一款标准B2C商城小程序', // 简介
+                wxPrincipalName: this.$t('setting.company'), // 主体信息
+                wxSignature: this.$t('setting.miniappDesc'), // 简介
 
                 // 公众号设置
                 wxOfficialName: '', // 公众号名称
@@ -870,7 +867,7 @@ export default {
                 imageStorageParams: '', // 图片存储配置参数
 
                 // 搜索发现关键字
-                searchKeywords: '羽绒服 iphone 小米mix', // 搜索发现关键词
+                searchKeywords: this.$t('setting.searchKeywordsExample'), // 搜索发现关键词
 
                 // 统计代码
                 baiduStatisticalCode: '', // 百度统计代码

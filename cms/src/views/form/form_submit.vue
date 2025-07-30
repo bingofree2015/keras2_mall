@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('common.inputPlaceholder')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,12 +39,12 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -68,25 +71,25 @@
             :close-on-click-modal="false"
             :model-value="viewDialogVisible"
             class="dialog-container"
-            title="表单提交明细"
+            :title="$t('formSubmit.detailTitle')"
             width="50%"
         >
             <el-form :line="true" :size="normalSize">
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="表单名称:" prop="formName">
+                        <el-form-item :label="$t('formSubmit.formName') + ':'" prop="formName">
                             <span>{{ formData.formName }}</span>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="用户:" prop="user.username">
+                        <el-form-item :label="$t('formSubmit.user') + ':'" prop="user.username">
                             <span>{{ formData.user.username }}</span>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="是否支付:" prop="payState">
+                        <el-form-item :label="$t('formSubmit.payState') + ':'" prop="payState">
                             <span>
                                 {{
                                     env.columnFormatter(
@@ -99,21 +102,21 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="支付金额:" prop="money">
+                        <el-form-item :label="$t('formSubmit.money') + ':'" prop="money">
                             <span>{{ formData.money }}</span>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="表单类型:" prop="form.type">
+                        <el-form-item :label="$t('formSubmit.type') + ':'" prop="form.type">
                             <span>
                                 {{ env.columnFormatter(formData.form.type, 'form', 'type') }}
                             </span>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="状态:" prop="state">
+                        <el-form-item :label="$t('formSubmit.state') + ':'" prop="state">
                             <span>
                                 {{ env.columnFormatter(formData.state, 'form_submit', 'state') }}
                             </span>
@@ -122,19 +125,19 @@
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="创建时间:" prop="createdAt">
+                        <el-form-item :label="$t('formSubmit.createdAt') + ':'" prop="createdAt">
                             <span>{{ formData.createdAt }}</span>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="更新时间:" prop="updatedAt">
+                        <el-form-item :label="$t('formSubmit.updatedAt') + ':'" prop="updatedAt">
                             <span>{{ formData.updatedAt }}</span>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="24">
-                        <el-form-item label="表单反馈:" prop="feedback">
+                        <el-form-item :label="$t('formSubmit.feedback') + ':'" prop="feedback">
                             {{ formData.feedback }}
                         </el-form-item>
                     </el-col>
@@ -142,8 +145,16 @@
                 <el-row>
                     <el-col :span="24">
                         <el-table :data="formData.formItems" stripe style="width: 100%">
-                            <el-table-column label="字段名" min-width="120" prop="name" />
-                            <el-table-column label="字段值" min-width="240" prop="formItemValue" />
+                            <el-table-column
+                                :label="$t('formSubmit.fieldName')"
+                                min-width="120"
+                                prop="name"
+                            />
+                            <el-table-column
+                                :label="$t('formSubmit.fieldValue')"
+                                min-width="240"
+                                prop="formItemValue"
+                            />
                         </el-table>
                     </el-col>
                 </el-row>
@@ -166,7 +177,7 @@
         <el-dialog
             :close-on-click-modal="false"
             :model-value="feedbackDialogVisible"
-            title="反馈表单"
+            :title="$t('formSubmit.feedbackTitle')"
             width="40%"
         >
             <el-form
@@ -176,11 +187,11 @@
                 :size="normalSize"
                 label-width="80px"
             >
-                <el-form-item label="反馈" prop="feedback">
+                <el-form-item :label="$t('formSubmit.feedback')" prop="feedback">
                     <el-input
                         v-model="formData.feedback"
                         :autosize="{ minRows: 2, maxRows: 4 }"
-                        placeholder="请输入内容"
+                        :placeholder="$t('common.inputPlaceholder')"
                         type="textarea"
                     />
                 </el-form-item>
@@ -229,33 +240,38 @@ export default {
                 key: 'name',
                 value: '',
             },
-            props: [{ prop: 'name', label: '表单名称' }],
+            props: [{ prop: 'name', label: this.$t('form.formName') }],
             columns: [
                 { prop: 'id', label: 'ID', minWidth: 60 },
                 {
                     prop: 'formName',
-                    label: '表单名称',
+                    label: this.$t('form.formName'),
                     minWidth: 150,
                     showOverflowTooltip: true,
                 },
-                { prop: 'user.username', label: '用户名', minWidth: 90 },
-                { prop: 'ip', label: '用户IP', minWidth: 100 },
+                { prop: 'user.username', label: this.$t('system.username'), minWidth: 90 },
+                { prop: 'ip', label: this.$t('system.ip'), minWidth: 100 },
                 {
                     prop: 'state',
-                    label: '状态',
+                    label: this.$t('common.status'),
                     minWidth: 80,
                     formatter: this.env.columnFormatter,
                 },
-                { prop: 'feedback', label: '反馈', minWidth: 80, showOverflowTooltip: true },
-                { prop: 'money', label: '支付金额', minWidth: 95 },
+                {
+                    prop: 'feedback',
+                    label: this.$t('formSubmit.feedback'),
+                    minWidth: 80,
+                    showOverflowTooltip: true,
+                },
+                { prop: 'money', label: this.$t('formSubmit.paymentAmount'), minWidth: 95 },
                 {
                     prop: 'payState',
-                    label: '支付状态',
+                    label: this.$t('formSubmit.paymentStatus'),
                     minWidth: 95,
                     formatter: this.env.columnFormatter,
                 },
-                { prop: 'createdAt', label: '提交时间', minWidth: 135 },
-                { prop: 'updatedAt', label: '更新时间', minWidth: 135 },
+                { prop: 'createdAt', label: this.$t('formSubmit.submitTime'), minWidth: 135 },
+                { prop: 'updatedAt', label: this.$t('formSubmit.updateTime'), minWidth: 135 },
             ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
@@ -296,7 +312,7 @@ export default {
                     perms: 'form:form_submit:delete',
                     size: this.normalSize,
                     func: (row) => {
-                        this.$confirm('确认删除选中记录吗？', '提示', {
+                        this.$confirm(this.$t('common.confirmDelete'), this.$t('common.tip'), {
                             type: 'warning',
                         }).then(async () => {
                             await this.batchDelete([row.id]);
@@ -321,7 +337,13 @@ export default {
                 formItems: [],
             },
             formDataRules: {
-                feedback: [{ required: true, message: '请输入内容', trigger: 'blur' }],
+                feedback: [
+                    {
+                        required: true,
+                        message: this.$t('common.inputPlaceholder'),
+                        trigger: 'blur',
+                    },
+                ],
             },
             viewDialogVisible: false,
 
@@ -376,33 +398,38 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
-                        this.editLoading = true;
-                        const data = Object.assign({}, _.pick(this.formData, ['id', 'feedback']));
-                        const _result = await this.$api.formSubmit.save(data);
-                        if (_result.succeed === 1 && _result.code === 200) {
-                            const _formSubmit = this.paginated.list.find(
-                                (v) => v.id === _result.data.id
+                    this.$confirm(this.$t('common.confirmSubmit'), this.$t('common.tip'), {}).then(
+                        async () => {
+                            this.editLoading = true;
+                            const data = Object.assign(
+                                {},
+                                _.pick(this.formData, ['id', 'feedback'])
                             );
-                            if (!_formSubmit) {
-                                this.paginated.list.unshift(_result.data);
+                            const _result = await this.$api.formSubmit.save(data);
+                            if (_result.succeed === 1 && _result.code === 200) {
+                                const _formSubmit = this.paginated.list.find(
+                                    (v) => v.id === _result.data.id
+                                );
+                                if (!_formSubmit) {
+                                    this.paginated.list.unshift(_result.data);
+                                } else {
+                                    Object.assign(_formSubmit, _result.data);
+                                }
+                                this.$notify({
+                                    title: this.$t('common.success'),
+                                    message: _result.description,
+                                    type: 'success',
+                                });
+                                this.feedbackDialogVisible = false;
                             } else {
-                                Object.assign(_formSubmit, _result.data);
+                                this.$notify.error({
+                                    title: this.$t('common.error'),
+                                    message: _result.description,
+                                });
                             }
-                            this.$notify({
-                                title: '成功',
-                                message: _result.description,
-                                type: 'success',
-                            });
-                            this.feedbackDialogVisible = false;
-                        } else {
-                            this.$notify.error({
-                                title: '错误',
-                                message: _result.description,
-                            });
+                            this.editLoading = false;
                         }
-                        this.editLoading = false;
-                    });
+                    );
                 }
             });
         },

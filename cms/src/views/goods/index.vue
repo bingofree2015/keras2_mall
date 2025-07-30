@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('common.inputPlaceholder')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,17 +39,17 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="新增" placement="top">
+                            <el-tooltip :content="$t('action.add')" placement="top">
                                 <el-button round @click="handleAdd">
                                     <i class="el-icon-ali-add"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -68,7 +71,7 @@
                     <span>
                         <el-badge :value="paginated['all'].attrs.count" class="item">
                             <i class="el-icon-ali-quanbushangpin"></i>
-                            全部商品
+                            {{ $t('goods.allGoods') }}
                         </el-badge>
                     </span>
                 </template>
@@ -91,7 +94,7 @@
                     <span>
                         <el-badge :value="paginated['up'].attrs.count" class="item">
                             <i class="el-icon-ali-shangjiashangpin"></i>
-                            上架商品
+                            {{ $t('goods.upGoods') }}
                         </el-badge>
                     </span>
                 </template>
@@ -114,7 +117,7 @@
                     <span>
                         <el-badge :value="paginated['down'].attrs.count" class="item">
                             <i class="el-icon-ali-xiajiashangpin"></i>
-                            下架商品
+                            {{ $t('goods.downGoods') }}
                         </el-badge>
                     </span>
                 </template>
@@ -137,7 +140,7 @@
                     <span>
                         <el-badge :value="paginated['warn'].attrs.count" class="item">
                             <i class="el-icon-ali-kucunbaojing"></i>
-                            库存报警
+                            {{ $t('goods.stockWarn') }}
                         </el-badge>
                     </span>
                 </template>
@@ -180,7 +183,7 @@ export default {
             props: [
                 {
                     prop: 'name',
-                    label: '商品名称',
+                    label: this.$t('goods.goodsName'),
                 },
             ],
             activeName: 'all',
@@ -193,50 +196,50 @@ export default {
                 },
                 {
                     prop: 'name',
-                    label: '商品名称',
+                    label: this.$t('goods.goodsName'),
                     minWidth: 120,
                     showOverflowTooltip: true,
                 },
                 {
                     prop: 'price',
-                    label: '价格',
+                    label: this.$t('goods.price'),
                     minWidth: 70,
                 },
                 {
                     prop: 'costPrice',
-                    label: '成本价',
+                    label: this.$t('goods.costPrice'),
                     minWidth: 80,
                 },
                 {
                     prop: 'mktPrice',
-                    label: '市场价',
+                    label: this.$t('goods.marketPrice'),
                     minWidth: 80,
                 },
                 {
                     prop: 'attachment.path',
-                    label: '默认图片',
+                    label: this.$t('goods.defaultImage'),
                     minWidth: 100,
                     propType: 'image',
                     align: 'center',
                 },
                 {
                     prop: 'goodsCat.name',
-                    label: '分类',
+                    label: this.$t('goods.category'),
                     minWidth: 90,
                 },
                 {
                     prop: 'goodsType.name',
-                    label: '类别',
+                    label: this.$t('goods.type'),
                     minWidth: 90,
                 },
                 {
                     prop: 'brand.name',
-                    label: '品牌',
+                    label: this.$t('goods.brand'),
                     minWidth: 90,
                 },
                 {
                     prop: 'marketable',
-                    label: '上架',
+                    label: this.$t('goods.onSale'),
                     minWidth: 70,
                     propType: 'bool',
                     clickFlag: true,
@@ -251,13 +254,13 @@ export default {
                 },
                 {
                     prop: 'labelIds',
-                    label: '标签',
+                    label: this.$t('goods.tag'),
                     minWidth: 80,
                     showOverflowTooltip: true,
                 },
                 {
                     prop: 'createdAt',
-                    label: '创建时间',
+                    label: this.$t('common.createTime'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
                 },
@@ -303,7 +306,7 @@ export default {
                     size: this.normalSize,
                     type: 'danger',
                     func: (row) => {
-                        this.$confirm('确认删除选中记录吗？', '提示', {
+                        this.$confirm(this.$t('common.confirmDelete'), this.$t('common.tip'), {
                             type: 'warning',
                         }).then(async () => {
                             await this.batchDelete([row.id]);

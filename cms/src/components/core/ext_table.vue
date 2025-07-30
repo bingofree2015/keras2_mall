@@ -79,13 +79,12 @@
             </el-table>
         </el-main>
         <!--分页栏-->
-        <el-footer style="height: 42px">
+        <el-footer>
             <ext-button
                 v-if="batchDelete && showOperation"
                 :disabled="selections.length === 0"
                 :label="$t('action.batchDelete')"
                 :perms="permsBatchDelete"
-                style="float: left"
                 type="danger"
                 @click="handleBatchDelete()"
             />
@@ -94,8 +93,8 @@
                 :current-page="attrs.currPage"
                 :page-size="pageSize"
                 :total="count"
+                :pager-count="5"
                 layout="total, prev, pager, next, jumper"
-                style="float: right"
                 @current-change="handleCurrentChange"
             />
         </el-footer>
@@ -179,7 +178,10 @@ export default {
             },
             required: false,
         },
-        permsBatchDelete: String,
+        permsBatchDelete: {
+            type: String,
+            default: '',
+        },
         disableIds: {
             type: Array,
             default: () => {
@@ -211,6 +213,7 @@ export default {
             required: false,
         },
     },
+    emits: ['queryForPaginatedList', 'selectionChange', 'handleCurrentRowChange'],
     data() {
         return {
             // 分页信息

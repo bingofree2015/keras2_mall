@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('common.inputPlaceholder')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,17 +39,17 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="新增" placement="top">
+                            <el-tooltip :content="$t('action.add')" placement="top">
                                 <el-button round @click="handleAdd">
                                     <i class="el-icon-ali-add"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -73,7 +76,7 @@
         <!--新增编辑界面-->
         <el-dialog
             :close-on-click-modal="false"
-            :title="isCreating ? '新增' : '编辑'"
+            :title="isCreating ? $t('action.add') : $t('action.edit')"
             :model-value="editDialogVisible"
             width="40%"
         >
@@ -86,10 +89,10 @@
             >
                 <el-row>
                     <el-col :span="16">
-                        <el-form-item label="名称" prop="name">
+                        <el-form-item :label="$t('goods.name')" prop="name">
                             <el-input v-model="formData.name" />
                         </el-form-item>
-                        <el-form-item label="排序" prop="sort">
+                        <el-form-item :label="$t('goods.sort')" prop="sort">
                             <el-input-number
                                 v-model="formData.sort"
                                 :min="0"
@@ -100,7 +103,7 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                        <el-form-item label="Logo" prop="attachment">
+                        <el-form-item :label="$t('goods.logo')" prop="attachment">
                             <change-image-icon
                                 :img-url="formData.attachment ? formData.attachment.path : ''"
                                 @chosed-image-icon="chosedLogo"
@@ -149,21 +152,21 @@ export default {
                 key: 'name',
                 value: '',
             },
-            props: [{ prop: 'name', label: '品牌名称' }],
+            props: [{ prop: 'name', label: this.$t('brand.brandName') }],
             columns: [
                 { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: '名称', minWidth: 200 },
+                { prop: 'name', label: this.$t('brand.name'), minWidth: 200 },
                 {
                     prop: 'attachment.path',
-                    label: 'LOGO',
+                    label: this.$t('brand.logo'),
                     minWidth: 80,
                     propType: 'image',
                     align: 'center',
                 },
-                { prop: 'sort', label: '排序', minWidth: 70, align: 'center' },
+                { prop: 'sort', label: this.$t('system.sort'), minWidth: 70, align: 'center' },
                 {
                     prop: 'createdAt',
-                    label: '创建时间',
+                    label: this.$t('common.createTime'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
                 },
@@ -192,7 +195,7 @@ export default {
                     size: this.normalSize,
                     type: 'danger',
                     func: (row) => {
-                        this.$confirm('确认删除选中记录吗？', '提示', {
+                        this.$confirm(this.$t('common.confirmDelete'), this.$t('common.tip'), {
                             type: 'warning',
                         }).then(async () => {
                             await this.batchDelete([row.id]);
@@ -217,7 +220,9 @@ export default {
                 sort: 0,
             },
             formDataRules: {
-                name: [{ required: true, message: '请输入品牌名称', trigger: 'blur' }],
+                name: [
+                    { required: true, message: this.$t('brand.inputBrandName'), trigger: 'blur' },
+                ],
             },
         };
     },
@@ -290,34 +295,36 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
-                        this.editLoading = true;
-                        const data = Object.assign({}, this.formData);
-                        const _result = await this.$api.brand.save(data);
-                        if (_result.succeed === 1 && _result.code === 200) {
-                            const _brand = this.paginated.list.find(
-                                (v) => v.id === _result.data.id
-                            );
-                            if (!_brand) {
-                                this.paginated.list.unshift(_result.data);
+                    this.$confirm(this.$t('common.confirmSubmit'), this.$t('common.tip'), {}).then(
+                        async () => {
+                            this.editLoading = true;
+                            const data = Object.assign({}, this.formData);
+                            const _result = await this.$api.brand.save(data);
+                            if (_result.succeed === 1 && _result.code === 200) {
+                                const _brand = this.paginated.list.find(
+                                    (v) => v.id === _result.data.id
+                                );
+                                if (!_brand) {
+                                    this.paginated.list.unshift(_result.data);
+                                } else {
+                                    Object.assign(_brand, _result.data);
+                                }
+                                this.$notify({
+                                    title: this.$t('common.success'),
+                                    message: _result.description,
+                                    type: 'success',
+                                });
                             } else {
-                                Object.assign(_brand, _result.data);
+                                this.$notify.error({
+                                    title: this.$t('common.error'),
+                                    message: _result.description,
+                                });
                             }
-                            this.$notify({
-                                title: '成功',
-                                message: _result.description,
-                                type: 'success',
-                            });
-                        } else {
-                            this.$notify.error({
-                                title: '错误',
-                                message: _result.description,
-                            });
+                            this.editLoading = false;
+                            this.$refs.formData.resetFields();
+                            this.editDialogVisible = false;
                         }
-                        this.editLoading = false;
-                        this.$refs.formData.resetFields();
-                        this.editDialogVisible = false;
-                    });
+                    );
                 }
             });
         },

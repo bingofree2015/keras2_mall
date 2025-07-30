@@ -293,27 +293,27 @@ export default {
             cascaderOpts: [
                 {
                     value: 'zhinan',
-                    label: '指南',
+                    label: this.$t('demo.guide'),
                     children: [
                         {
                             value: 'shejiyuanze',
-                            label: '设计原则',
+                            label: this.$t('demo.designPrinciple'),
                             children: [
                                 {
                                     value: 'yizhi',
-                                    label: '一致',
+                                    label: this.$t('demo.consistency'),
                                 },
                                 {
                                     value: 'fankui',
-                                    label: '反馈',
+                                    label: this.$t('demo.feedback'),
                                 },
                                 {
                                     value: 'xiaolv',
-                                    label: '效率',
+                                    label: this.$t('demo.efficiency'),
                                 },
                                 {
                                     value: 'kekong',
-                                    label: '可控',
+                                    label: this.$t('demo.controllable'),
                                 },
                             ],
                         },

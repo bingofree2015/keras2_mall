@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('common.inputPlaceholder')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -37,12 +40,12 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('action.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('action.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -68,7 +71,7 @@
         <el-dialog
             :close-on-click-modal="false"
             :model-value="editDialogVisible"
-            title="商家回复"
+            :title="$t('goods.sellerReply')"
             width="40%"
         >
             <el-form
@@ -78,17 +81,17 @@
                 :size="largeSize"
                 label-width="80px"
             >
-                <el-form-item label="用户评价" prop="content">
+                <el-form-item :label="$t('goods.userComment')" prop="content">
                     {{ formData.content }}
                 </el-form-item>
-                <el-form-item label="用户评分" prop="score">
+                <el-form-item :label="$t('goods.userScore')" prop="score">
                     {{ formData.score }}
                 </el-form-item>
-                <el-form-item label="商家回复" prop="sellerContent">
+                <el-form-item :label="$t('goods.sellerReply')" prop="sellerContent">
                     <el-input
                         v-model="formData.sellerContent"
                         :rows="2"
-                        placeholder="请输入内容"
+                        :placeholder="$t('common.inputPlaceholder')"
                         type="textarea"
                     />
                 </el-form-item>
@@ -211,7 +214,13 @@ export default {
                 display: true,
             },
             formDataRules: {
-                sellerContent: [{ required: true, message: '请输入内容', trigger: 'blur' }],
+                sellerContent: [
+                    {
+                        required: true,
+                        message: this.$t('common.inputPlaceholder'),
+                        trigger: 'blur',
+                    },
+                ],
             },
         };
     },
@@ -260,38 +269,40 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
-                        this.editLoading = true;
-                        const data = Object.assign(
-                            {},
-                            _.pick(this.formData, ['id', 'sellerContent'])
-                        );
-                        const _result = await this.$api.goodsComment.save(data);
-                        if (_result.succeed === 1 && _result.code === 200) {
-                            const _goodsComment = this.paginated.list.find(
-                                (v) => v.id === _result.data.id
+                    this.$confirm(this.$t('common.confirmSubmit'), this.$t('common.tip'), {}).then(
+                        async () => {
+                            this.editLoading = true;
+                            const data = Object.assign(
+                                {},
+                                _.pick(this.formData, ['id', 'sellerContent'])
                             );
-                            if (!_goodsComment) {
-                                this.paginated.list.unshift(_result.data);
+                            const _result = await this.$api.goodsComment.save(data);
+                            if (_result.succeed === 1 && _result.code === 200) {
+                                const _goodsComment = this.paginated.list.find(
+                                    (v) => v.id === _result.data.id
+                                );
+                                if (!_goodsComment) {
+                                    this.paginated.list.unshift(_result.data);
+                                } else {
+                                    Object.assign(_goodsComment, _result.data);
+                                }
+                                this.$notify({
+                                    title: this.$t('common.success'),
+                                    message: _result.description,
+                                    type: 'success',
+                                });
                             } else {
-                                Object.assign(_goodsComment, _result.data);
+                                this.$notify.error({
+                                    title: this.$t('common.error'),
+                                    message: _result.description,
+                                });
                             }
-                            this.$notify({
-                                title: '成功',
-                                message: _result.description,
-                                type: 'success',
-                            });
-                        } else {
-                            this.$notify.error({
-                                title: '错误',
-                                message: _result.description,
-                            });
-                        }
 
-                        this.editLoading = false;
-                        this.$refs.formData.resetFields();
-                        this.editDialogVisible = false;
-                    });
+                            this.editLoading = false;
+                            this.$refs.formData.resetFields();
+                            this.editDialogVisible = false;
+                        }
+                    );
                 }
             });
         },

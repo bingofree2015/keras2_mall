@@ -19,20 +19,20 @@
             <span class="main-operation-item">
                 <el-button round @click="showEditUserInfoDialog">
                     <i class="el-icon-ali-ziyuan"></i>
-                    个人中心
+                    {{ $t('personal.center') }}
                 </el-button>
             </span>
             <span class="main-operation-item">
                 <el-button round @click="showResetUserPwdDialog">
                     <i class="el-icon-ali-changeadmin"></i>
-                    修改密码
+                    {{ $t('personal.changePwd') }}
                 </el-button>
             </span>
         </div>
         <div class="other-operation">
             <div class="other-operation-item">
                 <i class="el-icon-ali-qingchuhuancun"></i>
-                清除缓存
+                {{ $t('personal.clearCache') }}
             </div>
             <div class="other-operation-item" @click="showBackupDialog">
                 <i class="el-icon-ali-beifenhuanyuan1"></i>
@@ -80,7 +80,7 @@ export default {
     methods: {
         // 退出登录
         logout() {
-            this.$confirm('确认退出吗?', '提示', {
+            this.$confirm(this.$t('personal.confirmLogout'), this.$t('personal.tip'), {
                 type: 'warning',
             })
                 .then(() => {

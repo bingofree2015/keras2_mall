@@ -3,7 +3,7 @@
         v-model="dialogVisible"
         :close-on-click-modal="false"
         :modal="false"
-        title="多文件上传"
+        :title="$t('multiUploader.title')"
         width="60%"
         @open="openDialog"
         v-on="$attrs"
@@ -20,9 +20,9 @@
                     @cell-click="cellClick"
                     @cell-dblclick="cellDblClick"
                 >
-                    <el-table-column label="图片分组" prop="name">
+                    <el-table-column :label="$t('multiUploader.imageGroup')" prop="name">
                         <template #header="scope">
-                            图片分组
+                            {{ $t('multiUploader.imageGroup') }}
                             <ext-button
                                 :label="$t('action.add')"
                                 :size="normalSize"
@@ -36,7 +36,7 @@
                                 v-if="scope.row.id === editGroupItem.id"
                                 v-model="scope.row.name"
                                 :size="normalSize"
-                                placeholder="请输入内容"
+                                :placeholder="$t('common.inputPlaceholder')"
                                 style="width: 100%"
                                 @blur="onSaveAttachGroup(scope.row)"
                             />
@@ -62,7 +62,7 @@
                         <template #label>
                             <span>
                                 <i class="el-icon-ali-fuwuqi1"></i>
-                                本地服务器
+                                {{ $t('multiUploader.localServer') }}
                             </span>
                         </template>
                         <el-upload
@@ -123,11 +123,14 @@
                         <template #label>
                             <span>
                                 <i class="el-icon-ali-xiazai2"></i>
-                                提取网络图片
+                                {{ $t('multiUploader.extractNetworkImage') }}
                             </span>
                         </template>
                         <div style="padding: 0px 5px">
-                            <el-input v-model="downloadImgUrl" placeholder="请粘进图片的Url地址">
+                            <el-input
+                                v-model="downloadImgUrl"
+                                :placeholder="$t('multiUploader.inputImageUrl')"
+                            >
                                 <template #append>
                                     <el-button
                                         icon="el-icon-ali-xiazai"
@@ -136,7 +139,7 @@
                                         }"
                                         @click="onDownloadImage()"
                                     >
-                                        下载
+                                        {{ $t('multiUploader.download') }}
                                     </el-button>
                                 </template>
                             </el-input>
@@ -164,7 +167,7 @@
                 v-model="cropDialogVisible"
                 :before-close="closeCropDialog"
                 append-to-body
-                title="图片剪裁"
+                :title="$t('multiUploader.imageCrop')"
             >
                 <el-form :inline="true" :size="normalSize">
                     <el-container>
@@ -209,7 +212,7 @@
                 <template #footer>
                     <div class="dialog-footer">
                         <el-button :size="normalSize" round @click="closeCropDialog">
-                            取 消
+                            {{ $t('multiUploader.cancel') }}
                         </el-button>
                         <el-button
                             :loading="loading"
@@ -218,7 +221,7 @@
                             type="primary"
                             @click="uploadCropData"
                         >
-                            确认
+                            {{ $t('multiUploader.confirm') }}
                         </el-button>
                     </div>
                 </template>
@@ -352,7 +355,7 @@ export default {
         onCreateAttachGroup() {
             this.attachGroups.push({
                 id: 0,
-                name: '新建分类',
+                name: this.$t('multiUploader.newCategory'),
                 remark: '',
             });
         },
@@ -383,7 +386,7 @@ export default {
             }
         },
         onDeleteAttachGroup(row) {
-            this.$confirm('此操作将永久删除该分类, 是否继续?', '提示', {
+            this.$confirm(this.$t('multiUploader.deleteCategoryConfirm'), this.$t('common.tip'), {
                 type: 'warning',
             })
                 .then(async () => {
@@ -396,14 +399,14 @@ export default {
                         this.attachGroupId = _result.data.id;
                     } else {
                         this.$notify.error({
-                            title: '错误',
+                            title: this.$t('common.error'),
                             message: _result.description,
                         });
                     }
                 })
                 .catch((err) => {
                     this.$notify({
-                        title: '错误',
+                        title: this.$t('common.error'),
                         message: err,
                         type: 'error',
                     });
@@ -415,8 +418,8 @@ export default {
             const _isLt5M = file.size / 1024 / 1024 < 5;
             if (!_isLt5M) {
                 this.$notify.error({
-                    title: '错误',
-                    message: '上传文件大小不能超过 5MB!',
+                    title: this.$t('common.error'),
+                    message: this.$t('multiUploader.uploadFileSizeLimit'),
                 });
                 return false;
             }
@@ -475,8 +478,8 @@ export default {
                             }
                         } else {
                             this.$notify.error({
-                                title: '错误',
-                                message: '上传图片失败！',
+                                title: this.$t('common.error'),
+                                message: this.$t('multiUploader.uploadImageFailed'),
                             });
                         }
                     })
@@ -497,14 +500,14 @@ export default {
             this.cropDialogVisible = false;
         },
         deleteImage(file, fileList) {
-            this.$confirm('此操作将永久删除该图片, 是否继续?', '提示', {
+            this.$confirm(this.$t('multiUploader.deleteImageConfirm'), this.$t('common.tip'), {
                 type: 'warning',
             }).then(async () => {
                 const _result = await this.$api.attachment.destroy({ ids: [file.id] });
                 if (_result.succeed === 1 && _result.code === 200) {
                     await this.getAttachments(this.attachGroupId);
                     this.$notify({
-                        title: '成功',
+                        title: this.$t('common.success'),
                         message: _result.description,
                         type: 'success',
                     });
@@ -531,7 +534,7 @@ export default {
             });
             if (_result.succeed === 1 && _result.code === 200) {
                 this.$notify({
-                    title: '成功',
+                    title: this.$t('common.success'),
                     message: _result.description,
                     type: 'success',
                 });

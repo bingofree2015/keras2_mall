@@ -133,7 +133,34 @@ export default {
             },
         };
     },
-    computed: {},
+    computed: {
+        // 响应式的 formDataRules 配置
+        formDataRules() {
+            return {
+                wx_nick_name: [
+                    {
+                        required: true,
+                        message: this.$t('wechat.miniprogram.inputName'),
+                        trigger: 'blur',
+                    },
+                ],
+                wx_appid: [
+                    {
+                        required: true,
+                        message: this.$t('wechat.miniprogram.inputAppid'),
+                        trigger: 'blur',
+                    },
+                ],
+                wx_app_secret: [
+                    {
+                        required: true,
+                        message: this.$t('wechat.miniprogram.inputAppSecret'),
+                        trigger: 'blur',
+                    },
+                ],
+            };
+        },
+    },
     async mounted() {
         await this.getSettings();
     },

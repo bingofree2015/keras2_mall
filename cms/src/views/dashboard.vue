@@ -191,7 +191,6 @@
                                 min-width="60"
                                 prop="state"
                             />
-                            />
                             <el-table-column
                                 :label="$t('dashboard.recordTime')"
                                 min-width="120"
@@ -201,7 +200,6 @@
                                 :label="$t('dashboard.loginIP')"
                                 min-width="100"
                                 prop="ip"
-                            />
                             />
                         </el-table>
                     </div>
@@ -254,6 +252,7 @@ export default {
             loginLogData: [],
             operateLogData: [],
             chartColumn: null,
+            chartColumn2: null,
         };
     },
     computed: {

@@ -226,6 +226,21 @@
             "richText": "图文消息",
             "content": "消息内容",
             "richTextTip": "请稍后进入图文编辑页面继续编辑，否则图文消息不生效"
+        },
+        "miniprogram": {
+            "name": "小程序名称",
+            "appid": "AppId",
+            "appSecret": "AppSecret",
+            "originId": "原始Id",
+            "principal": "主体信息",
+            "signature": "简介",
+            "inputName": "请输入小程序名称",
+            "inputAppid": "请输入AppId",
+            "inputAppSecret": "请输入AppSecret",
+            "inputOriginId": "请输入原始Id",
+            "inputPrincipal": "请输入主体信息",
+            "inputSignature": "请输入简介",
+            "copyTip": "请从微信公众平台复制"
         }
     },
     "demo": {
@@ -533,7 +548,8 @@
         "orderStatistics": "订单统计",
         "memberStatistics": "会员统计",
         "recentLogin": "最近登录",
-        "operationLog": {
+        "operationLog": "操作日志",
+        "operationLogDetail": {
             "admin": "管理员",
             "method": "方法",
             "param": "参数",
@@ -860,7 +876,22 @@
         "inputVerifyToken": "请输入微信验证TOKEN",
         "inputEncodingAesKey": "请输入EncodingAESKey",
         "actionType": "动作类型",
-        "selectActionType": "请选择动作类型"
+        "selectActionType": "请选择动作类型",
+        "miniprogram": {
+            "name": "小程序名称",
+            "appid": "AppId",
+            "appSecret": "AppSecret",
+            "originId": "原始Id",
+            "principal": "主体信息",
+            "signature": "简介",
+            "inputName": "请输入小程序名称",
+            "inputAppid": "请输入AppId",
+            "inputAppSecret": "请输入AppSecret",
+            "inputOriginId": "请输入原始Id",
+            "inputPrincipal": "请输入主体信息",
+            "inputSignature": "请输入简介",
+            "copyTip": "请从微信公众平台复制"
+        }
     },
     "video": {
         "inputVideoUrl": "请输入视频地址"

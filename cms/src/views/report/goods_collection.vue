@@ -74,6 +74,40 @@ export default {
         };
     },
     computed: {
+        // 响应式的日期选择器配置
+        pickerOptions() {
+            return {
+                shortcuts: [
+                    {
+                        text: this.$t('report.lastWeek'),
+                        onClick(picker) {
+                            const end = new Date();
+                            const start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                            picker.$emit('pick', [start, end]);
+                        },
+                    },
+                    {
+                        text: this.$t('report.lastMonth'),
+                        onClick(picker) {
+                            const end = new Date();
+                            const start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                            picker.$emit('pick', [start, end]);
+                        },
+                    },
+                    {
+                        text: this.$t('report.lastThreeMonths'),
+                        onClick(picker) {
+                            const end = new Date();
+                            const start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                            picker.$emit('pick', [start, end]);
+                        },
+                    },
+                ],
+            };
+        },
         // 响应式的图表配置
         chartOptions() {
             return {

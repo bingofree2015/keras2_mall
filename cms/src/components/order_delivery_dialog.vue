@@ -214,7 +214,7 @@ export default {
             };
         },
     },
-    async methods: {
+    methods: {
         openDialog() {
             this.$nextTick(async () => {
                 // 基于 orderId  向服务器请求 订单明细数据

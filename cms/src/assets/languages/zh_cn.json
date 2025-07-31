@@ -427,6 +427,7 @@
     },
     "article": {
         "title": "文章标题",
+        "author": "作者",
         "cover": "封面图",
         "type": "分类",
         "status": "状态",
@@ -972,5 +973,20 @@
         "threeColumns": "三列",
         "yes": "是",
         "no": "否"
+    },
+    "task": {
+        "name": "任务名称",
+        "type": "任务类型",
+        "status": "任务状态",
+        "fileName": "文件名称",
+        "fileSize": "文件大小",
+        "download": "下载任务文件"
+    },
+    "area": {
+        "name": "地区名称",
+        "inputName": "请输入地区名称",
+        "parentName": "上级地区",
+        "topLevel": "顶级地区",
+        "sort": "排序"
     }
 }

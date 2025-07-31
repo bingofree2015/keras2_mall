@@ -76,7 +76,6 @@ export default {
             collapse: (state) => state.app.collapse,
         }),
     },
-    mounted() {},
     methods: {
         // 退出登录
         logout() {

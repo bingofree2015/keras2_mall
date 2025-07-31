@@ -23,7 +23,14 @@
         "tip": "Tip",
         "confirmSubmit": "Confirm submit?",
         "inputName": "Please enter name",
-        "createTime": "Create Time"
+        "createTime": "Create Time",
+        "createdAt": "Created At",
+        "updatedAt": "Updated At",
+        "required": "Required",
+        "deleteSuccess": "Delete Success",
+        "deleteFailed": "Delete Failed",
+        "saveSuccess": "Save Success",
+        "saveFailed": "Save Failed"
     },
     "action": {
         "operation": "Operation",
@@ -81,6 +88,28 @@
         "menuMng": "Menu Manage",
         "logMng": "Log Manage",
         "sysMonitor": "System Monitor"
+    },
+    "system": {
+        "labelName": "Label Name",
+        "value": "Value",
+        "type": "Type",
+        "description": "Description",
+        "sort": "Sort",
+        "remark": "Remark",
+        "creator": "Creator",
+        "username": "Username"
+    },
+    "dict": {
+        "label": "Label Name",
+        "value": "Value",
+        "type": "Type",
+        "sort": "Sort",
+        "description": "Description",
+        "remark": "Remark",
+        "inputLabel": "Please enter label name",
+        "inputValue": "Please enter value",
+        "inputType": "Please enter type",
+        "inputDescription": "Please enter description"
     },
     "formEdit": {
         "formName": "Form Name",
@@ -149,6 +178,10 @@
         "money": "Money",
         "password": "Password",
         "area": "Area",
+        "areaName": "Area Name",
+        "areaLevel": "Area Level",
+        "areaParentName": "Parent Area",
+        "areaSort": "Sort",
         "coordinate": "Coordinate",
         "fieldName": "Field Name"
     },
@@ -247,14 +280,9 @@
         "updateTime": "Update Time",
         "feedbackTitle": "Feedback Window"
     },
-    "dict": {
-        "inputLabel": "Please enter label name",
-        "inputValue": "Please enter value",
-        "inputType": "Please enter type",
-        "inputDescription": "Please enter description"
-    },
     "articleType": {
         "name": "Category Name",
+        "parentName": "Parent Category",
         "desc": "Category Description",
         "sort": "Sort",
         "inputName": "Please enter category name",
@@ -439,7 +467,12 @@
         "orderStatistics": "Order Statistics",
         "memberStatistics": "Member Statistics",
         "recentLogin": "Recent Login",
-        "operationLog": "Operation Log",
+        "operationLog": {
+            "admin": "Admin",
+            "method": "Method",
+            "param": "Parameter",
+            "desc": "Description"
+        },
         "status": "Status",
         "recordTime": "Record Time",
         "loginIP": "Login IP",
@@ -566,7 +599,11 @@
         "formDesc": "Form Description",
         "type": "Type",
         "needLogin": "Need Login",
-        "inputFormName": "Please enter form name"
+        "inputFormName": "Please enter form name",
+        "totalSubmit": "Total Submit",
+        "totalAmount": "Total Amount",
+        "reportView": "Report View",
+        "qrcodeGenerate": "QR Code Generate"
     },
     "notice": {
         "title": "Title",
@@ -694,7 +731,30 @@
         "receiverName": "Receiver Name",
         "receiverPhone": "Receiver Phone",
         "inputReceiverName": "Please enter receiver name",
-        "inputReceiverPhone": "Please enter receiver phone"
+        "inputReceiverPhone": "Please enter receiver phone",
+        "deliveryId": "Delivery ID",
+        "orderId": "Order ID",
+        "userName": "Username",
+        "logistics": "Logistics",
+        "logiNo": "Logistics Number",
+        "shipAddress": "Shipping Address",
+        "shipMobile": "Shipping Mobile",
+        "deliveryView": "Delivery View",
+        "shipName": "Receiver Name",
+        "memo": "Memo",
+        "goodsName": "Goods Name",
+        "deliveryNum": "Delivery Quantity",
+        "ladingId": "Lading ID",
+        "store": "Store",
+        "ladingName": "Lading Name",
+        "mobile": "Mobile",
+        "status": "Status",
+        "createdAt": "Created At",
+        "ladingEdit": "Lading Edit",
+        "ladingNameRequired": "Lading name is required",
+        "inputLadingName": "Please enter lading name",
+        "inputMobile": "Please enter mobile number",
+        "clerkId": "Clerk ID"
     },
     "wechat": {
         "officialAccountName": "Official Account Name",
@@ -723,19 +783,40 @@
         "categoryName": "Name",
         "icon": "Icon",
         "categoryType": "Type",
-        "parentCategory": "Parent Category"
+        "parentCategory": "Parent Category",
+        "param": "Parameter",
+        "paramName": "Parameter Name",
+        "paramType": "Parameter Type",
+        "paramOption": "Parameter Option",
+        "spaceSeparated": "Space Separated",
+        "textbox": "Text Box",
+        "radio": "Radio",
+        "checkbox": "Checkbox",
+        "spec": "Specification",
+        "specName": "Specification Name",
+        "specValue": "Specification Value",
+        "sellerReply": "Seller Reply",
+        "userComment": "User Comment",
+        "userScore": "User Score",
+        "allGoods": "All Goods",
+        "upGoods": "On-sale Goods",
+        "downGoods": "Off-sale Goods",
+        "stockWarn": "Stock Warning"
     },
     "ship": {
         "firstWeightFee": "First Weight Fee",
         "additionalWeightFee": "Additional Weight Fee",
         "inputFirstWeightFee": "Please enter first weight fee",
-        "inputAdditionalWeightFee": "Please enter additional weight fee"
+        "inputAdditionalWeightFee": "Please enter additional weight fee",
+        "logisticsName": "Logistics Company Name",
+        "logisticsCode": "Logistics Company Code"
     },
     "video": {
         "inputVideoUrl": "Please enter video URL"
     },
     "user": {
-        "grade": "Grade"
+        "grade": "Grade",
+        "inputMobile": "Please enter mobile number"
     },
     "tinyEditor": {
         "insertImage": "Insert Image",
@@ -801,5 +882,56 @@
     },
     "menuTree": {
         "pageNotExist": "Page does not exist or failed to load"
+    },
+    "visualDesign": {
+        "componentLibrary": "Component Library",
+        "mediaComponent": "Media Components",
+        "storeComponent": "Store Components",
+        "utilsComponent": "Utility Components",
+        "workspace": "Workspace",
+        "record": "Purchase Record",
+        "inputSearchKeyword": "Please enter search keyword",
+        "search": "Search",
+        "goodsName": "Product Name",
+        "articleTitle": "Article Title",
+        "full300Reduce30": "Full 300 minus 30",
+        "orderReduce144": "Order full 144 minus 10",
+        "purchaseOrderFull2": "Purchase order full 2 minus 5",
+        "purchaseOrderDate": "Purchase order date",
+        "receiveImmediately": "Receive immediately",
+        "name": "Name",
+        "left": "Left",
+        "right": "Right",
+        "add": "Add",
+        "selectAdArticle": "Select advertisement article",
+        "selectArticleClassify": "Select article category",
+        "square": "Square",
+        "round": "Round",
+        "autoGet": "Auto get",
+        "manualSelection": "Manual selection",
+        "three": "Three",
+        "four": "Four",
+        "five": "Five",
+        "auto": "Auto",
+        "manual": "Manual",
+        "selectBrand": "Select brand",
+        "listFlatten": "List flatten",
+        "horizontalScroll": "Horizontal scroll",
+        "singleColumn": "Single column",
+        "twoColumns": "Two columns",
+        "threeColumns": "Three columns",
+        "yes": "Yes",
+        "no": "No"
+    },
+    "advertPosition": {
+        "name": "Ad Position Name",
+        "code": "Ad Position Code",
+        "sort": "Sort",
+        "nameRequired": "Ad position name cannot be empty",
+        "tpl1Slider": "Template 1 Slider",
+        "tpl1IndexBanner1": "Template 1 Index Banner 1",
+        "tpl1IndexBanner2": "Template 1 Index Banner 2",
+        "tpl1IndexBanner3": "Template 1 Index Banner 3",
+        "tpl1ClassBanner1": "Template 1 Class Banner 1"
     }
 }

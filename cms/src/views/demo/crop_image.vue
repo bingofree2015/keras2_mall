@@ -359,7 +359,6 @@ export default {
         };
     },
     computed: {},
-    mounted() {},
     methods: {
         // 上传按钮,限制图片大小
         changeUpload(file, fileList) {

@@ -56,7 +56,11 @@
                 </template>
             </el-table-column>
             <el-table-column :label="$t('goods.categoryType')" min-width="90" prop="type.name" />
-            <el-table-column :label="$t('goods.parentCategory')" min-width="160" prop="parentName" />
+            <el-table-column
+                :label="$t('goods.parentCategory')"
+                min-width="160"
+                prop="parentName"
+            />
             <el-table-column align="center" :label="$t('system.sort')" min-width="60" prop="sort" />
             <el-table-column :label="$t('action.operation')" fixed="right" min-width="200">
                 <template #default="scope">
@@ -201,9 +205,6 @@ export default {
                     path: '',
                 },
             },
-            dataRule: {
-                name: [{ required: true, message: this.$t('goods.inputCatName'), trigger: 'blur' }],
-            },
             popupTreeProps: {
                 label: 'name',
                 children: 'children',
@@ -211,6 +212,12 @@ export default {
         };
     },
     computed: {
+        // 响应式的表单验证规则
+        dataRule() {
+            return {
+                name: [{ required: true, message: this.$t('goods.inputCatName'), trigger: 'blur' }],
+            };
+        },
         popupTreeData() {
             const _data = this.goodsCatTreeData.filter((x) => x.parentId === 0);
             const parent = {

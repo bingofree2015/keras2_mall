@@ -70,7 +70,7 @@
 <script>
 import extButton from '@/components/core/ext_button.vue';
 export default {
-    name: 'PickArticleTypes',
+    name: 'PickArticleType',
     components: {
         extButton,
     },
@@ -86,6 +86,7 @@ export default {
             default: 1, // 1 多选; 0 单选
         },
     },
+    emits: ['chosedArticleTypes'],
     data() {
         return {
             miniSize: 'default',

@@ -148,34 +148,11 @@ export default {
     data() {
         return {
             normalSize: 'default',
+            largeSize: 'large',
             filters: {
                 key: 'title',
                 value: '',
             },
-            props: [{ prop: 'title', label: this.$t('marketing.title') }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                {
-                    prop: 'title',
-                    label: this.$t('notice.title'),
-                    minWidth: 180,
-                    showOverflowTooltip: true,
-                },
-                {
-                    prop: 'content',
-                    label: this.$t('notice.content'),
-                    minWidth: 240,
-                    showOverflowTooltip: true,
-                },
-                { prop: 'type', label: this.$t('notice.type'), minWidth: 90 },
-                { prop: 'sort', label: this.$t('notice.sort'), minWidth: 70, align: 'center' },
-                {
-                    prop: 'createdAt',
-                    label: this.$t('common.createdAt'),
-                    minWidth: 140,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -221,7 +198,42 @@ export default {
                 type: 0, // 公告类型
                 sort: 0, // 排序
             },
-            formDataRules: {
+        };
+    },
+    computed: {
+        // 响应式的 props 配置
+        props() {
+            return [{ prop: 'title', label: this.$t('marketing.title') }];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                {
+                    prop: 'title',
+                    label: this.$t('notice.title'),
+                    minWidth: 180,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'content',
+                    label: this.$t('notice.content'),
+                    minWidth: 240,
+                    showOverflowTooltip: true,
+                },
+                { prop: 'type', label: this.$t('notice.type'), minWidth: 90 },
+                { prop: 'sort', label: this.$t('notice.sort'), minWidth: 70, align: 'center' },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('common.createdAt'),
+                    minWidth: 140,
+                    formatter: this.env.formatDateTime,
+                },
+            ];
+        },
+        // 响应式的表单验证规则
+        formDataRules() {
+            return {
                 title: [
                     {
                         required: true,
@@ -229,21 +241,18 @@ export default {
                         trigger: 'blur',
                     },
                 ],
-            },
-        };
-    },
-    computed: {
+            };
+        },
         operationWidth: {
             get() {
                 let _operationWidth = 0;
                 if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
+                    _operationWidth += this.operations.length * 120;
                 }
                 return _operationWidth;
             },
         },
     },
-    mounted() {},
     methods: {
         /**
          * 处理刷新按钮点击

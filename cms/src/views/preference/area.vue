@@ -41,15 +41,15 @@
         >
             <el-table-column label="ID" min-width="80" prop="id" />
             <table-tree-column
-                label="this.$t('area.name')"
+                :label="$t('areaName')"
                 min-width="310"
                 prop="name"
                 tree-key="id"
                 @send-tree-data="getTreeData"
             />
-            <el-table-column label="this.$t('area.level')" min-width="80" prop="depth" />
-            <el-table-column label="this.$t('area.parentName')" min-width="120" prop="parentName" />
-            <el-table-column label="this.$t('area.sort')" min-width="80" prop="sort" />
+            <el-table-column :label="$t('areaLevel')" min-width="80" prop="depth" />
+            <el-table-column :label="$t('areaParentName')" min-width="120" prop="parentName" />
+            <el-table-column :label="$t('areaSort')" min-width="80" prop="sort" />
             <el-table-column :label="$t('action.operation')" fixed="right" min-width="200">
                 <template #default="scope">
                     <ext-button
@@ -145,6 +145,7 @@ export default {
     data() {
         return {
             normalSize: 'default',
+            largeSize: 'large',
             miniSize: 'default',
             loading: false,
             editLoading: false,
@@ -159,9 +160,6 @@ export default {
                 postalCode: '', // 邮编
                 sort: 0,
             },
-            dataRule: {
-                name: [{ required: true, message: this.$t('area.nameRequired'), trigger: 'blur' }],
-            },
             popupTreeProps: {
                 label: 'name',
                 children: 'children',
@@ -169,6 +167,12 @@ export default {
         };
     },
     computed: {
+        // 响应式的 dataRule 配置
+        dataRule() {
+            return {
+                name: [{ required: true, message: this.$t('area.nameRequired'), trigger: 'blur' }],
+            };
+        },
         popupTreeData() {
             const parent = {
                 parentId: 0,

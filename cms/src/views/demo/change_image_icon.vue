@@ -80,7 +80,6 @@ export default {
         };
     },
     computed: {},
-    mounted() {},
     methods: {
         chosedLogo(logo) {
             this.$notify({

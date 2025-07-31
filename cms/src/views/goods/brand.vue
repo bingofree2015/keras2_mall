@@ -148,29 +148,11 @@ export default {
     data() {
         return {
             normalSize: 'default',
+            largeSize: 'large',
             filters: {
                 key: 'name',
                 value: '',
             },
-            props: [{ prop: 'name', label: this.$t('brand.brandName') }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: this.$t('brand.name'), minWidth: 200 },
-                {
-                    prop: 'attachment.path',
-                    label: this.$t('brand.logo'),
-                    minWidth: 80,
-                    propType: 'image',
-                    align: 'center',
-                },
-                { prop: 'sort', label: this.$t('system.sort'), minWidth: 70, align: 'center' },
-                {
-                    prop: 'createdAt',
-                    label: this.$t('common.createTime'),
-                    minWidth: 140,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 8, count: 0 },
                 list: [],
@@ -219,11 +201,6 @@ export default {
                 },
                 sort: 0,
             },
-            formDataRules: {
-                name: [
-                    { required: true, message: this.$t('brand.inputBrandName'), trigger: 'blur' },
-                ],
-            },
         };
     },
     computed: {
@@ -231,13 +208,45 @@ export default {
             get() {
                 let _operationWidth = 0;
                 if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
+                    _operationWidth += this.operations.length * 120;
                 }
                 return _operationWidth;
             },
         },
+        // 响应式的 props 配置
+        props() {
+            return [{ prop: 'name', label: this.$t('brand.brandName') }];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                { prop: 'name', label: this.$t('brand.name'), minWidth: 200 },
+                {
+                    prop: 'attachment.path',
+                    label: this.$t('brand.logo'),
+                    minWidth: 80,
+                    propType: 'image',
+                    align: 'center',
+                },
+                { prop: 'sort', label: this.$t('system.sort'), minWidth: 70, align: 'center' },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('common.createTime'),
+                    minWidth: 140,
+                    formatter: this.env.formatDateTime,
+                },
+            ];
+        },
+        // 响应式的表单验证规则
+        formDataRules() {
+            return {
+                name: [
+                    { required: true, message: this.$t('brand.inputBrandName'), trigger: 'blur' },
+                ],
+            };
+        },
     },
-    mounted() {},
     methods: {
         /**
          * 处理刷新按钮点击

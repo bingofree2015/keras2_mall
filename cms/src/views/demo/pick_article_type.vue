@@ -89,7 +89,6 @@ export default {
         };
     },
     computed: {},
-    mounted() {},
     methods: {
         chosedArticleTypes(articleTypes) {
             this.articleTypes = articleTypes;

@@ -70,14 +70,24 @@ export default {
                 username: 'admin',
                 pwd: '111111',
             },
-            fieldRules: {
+        };
+    },
+    computed: {
+        // 响应式的 fieldRules 配置
+        fieldRules() {
+            return {
                 username: [
                     { required: true, message: this.$t('login.inputUsername'), trigger: 'blur' },
                 ],
                 pwd: [{ required: true, message: this.$t('login.inputPassword'), trigger: 'blur' }],
-            },
-            checked: true,
-        };
+            };
+        },
+        ...mapState({
+            themeColor: (state) => state.app.themeColor,
+        }),
+    },
+    mounted() {
+        this.refreshCaptcha();
     },
     methods: {
         ...mapActions(['setLoginUser', 'setThemeColor', 'setMapAlias']),
@@ -125,14 +135,6 @@ export default {
         onThemeChange: function (themeColor) {
             this.setThemeColor(themeColor);
         },
-    },
-    mounted() {
-        this.refreshCaptcha();
-    },
-    computed: {
-        ...mapState({
-            themeColor: (state) => state.app.themeColor,
-        }),
     },
 };
 </script>

@@ -72,8 +72,7 @@ export default {
         };
     },
     computed: {},
-    mounted() {},
-};
+    };
 </script>
 <style scoped lang="scss">
 .demo-title {

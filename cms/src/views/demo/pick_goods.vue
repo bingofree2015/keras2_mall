@@ -75,7 +75,6 @@ export default {
         };
     },
     computed: {},
-    mounted() {},
     methods: {
         chosedGoods(goods) {
             this.goods = goods;

@@ -72,7 +72,7 @@
         </el-container>
         <template #footer>
             <div class="dialog-footer">
-                <el-button :size="miniSize" round @click.native="$emit('update:visible', false)">
+                <el-button :size="miniSize" round @click="$emit('update:visible', false)">
                     {{ $t('action.close') }}
                 </el-button>
                 <el-button
@@ -80,7 +80,7 @@
                     :size="miniSize"
                     round
                     type="primary"
-                    @click.native="chosedVideo"
+                    @click="chosedVideo"
                 >
                     {{ $t('action.submit') }}
                 </el-button>
@@ -95,6 +95,13 @@ import Cookies from 'js-cookie';
 export default {
     name: 'VideoUploader',
     components: {},
+    props: {
+        visible: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    emits: ['update:visible', 'chosedVideo'],
     data() {
         const token = Cookies.get('token');
         return {
@@ -121,8 +128,7 @@ export default {
             };
         },
     },
-    async mounted() {},
-    methods: {
+    async methods: {
         cancelUpload() {
             this.videoFile = null;
             this.uploadProgressState = 0;

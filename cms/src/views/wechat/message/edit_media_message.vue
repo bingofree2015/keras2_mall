@@ -107,7 +107,6 @@
 </template>
 
 <script>
-import _ from 'lodash';
 import breadCrumb from '@/components/bread_crumb.vue';
 import tinyEditor from '@/components/tiny_editor';
 import changeImageIcon from '@/components/change_image_icon.vue';

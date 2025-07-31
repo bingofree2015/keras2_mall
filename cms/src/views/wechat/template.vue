@@ -99,7 +99,6 @@ export default {
             normalSize: 'default',
         };
     },
-    mounted() {},
     methods: {},
 };
 </script>

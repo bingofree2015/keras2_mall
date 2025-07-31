@@ -6,7 +6,7 @@
 
 <script>
 import 'element-plus/dist/index.css';
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 export default {
     name: 'App',
     components: {},

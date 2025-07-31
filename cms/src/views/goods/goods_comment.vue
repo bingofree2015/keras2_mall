@@ -131,6 +131,7 @@ export default {
     data() {
         return {
             normalSize: 'default',
+            largeSize: 'large',
             filters: {
                 key: 'name',
                 value: '',
@@ -213,29 +214,31 @@ export default {
                 sellerContent: '',
                 display: true,
             },
-            formDataRules: {
-                sellerContent: [
+        };
+    },
+    computed: {
+        // 响应式的表单验证规则
+        formDataRules() {
+            return {
+                content: [
                     {
                         required: true,
                         message: this.$t('common.inputPlaceholder'),
                         trigger: 'blur',
                     },
                 ],
-            },
-        };
-    },
-    computed: {
+            };
+        },
         operationWidth: {
             get() {
                 let _operationWidth = 0;
                 if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
+                    _operationWidth += this.operations.length * 120;
                 }
                 return _operationWidth;
             },
         },
     },
-    mounted() {},
     methods: {
         /**
          * 处理刷新按钮点击

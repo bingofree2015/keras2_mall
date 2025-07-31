@@ -87,12 +87,9 @@
     </div>
 </template>
 <script>
-import extButton from '@/components/core/ext_button.vue';
 export default {
-    name: 'PickArticles',
-    components: {
-        extButton,
-    },
+    name: 'PickArticle',
+    components: {},
     props: {
         articles: {
             type: Array,
@@ -105,6 +102,7 @@ export default {
             default: 1, // 1 多选; 0 单选
         },
     },
+    emits: ['chosedArticles'],
     data() {
         return {
             normalSize: 'default',

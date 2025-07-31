@@ -35,7 +35,7 @@
                         <el-radio
                             v-model="radio"
                             :label="scope.$index"
-                            @change.native="choiceChange(scope.$index, scope.row)"
+                            @change="choiceChange(scope.$index, scope.row)"
                         >
                             &nbsp;
                         </el-radio>
@@ -78,12 +78,9 @@
     </div>
 </template>
 <script>
-import extButton from '@/components/core/ext_button.vue';
 export default {
     name: 'PickForm',
-    components: {
-        extButton,
-    },
+    components: {},
     props: {
         forms: {
             type: Array,
@@ -96,6 +93,7 @@ export default {
             default: 1, // 1 多选; 0 单选
         },
     },
+    emits: ['chosedForms'],
     data() {
         return {
             miniSize: 'default',

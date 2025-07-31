@@ -12,6 +12,7 @@
 const ORIGINAL_THEME = '#409EFF'; // default color
 export default {
     name: 'ThemePicker',
+    components: {},
     props: {
         default: {
             // 初始化主题，可由外部传入
@@ -24,6 +25,7 @@ export default {
             default: 'small',
         },
     },
+    emits: ['onThemeChange'],
     data() {
         return {
             chalk: '', // content of theme-chalk css

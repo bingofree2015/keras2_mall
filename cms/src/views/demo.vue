@@ -264,8 +264,6 @@ import tinyEditor from '@/components/tiny_editor.vue';
 import videoUploader from '@/components/video_uploader.vue';
 import pickVideo from '@/components/pick_video.vue';
 import pickArea from '@/components/pick_area.vue';
-import { ref } from 'vue';
-const dialogVisible = ref(false);
 export default {
     components: {
         draggableImageList,
@@ -367,7 +365,6 @@ export default {
         };
     },
     computed: {},
-    mounted() {},
     methods: {
         chosedLogo(logo) {
             this.$notify({

@@ -1,54 +1,85 @@
 <template>
-    <div class="page-container">
-        <!--新增编辑界面-->
-        <el-row>
-            <el-col :span="24">
-                <bread-crumb />
-            </el-col>
-        </el-row>
-        <el-row>
-            <el-col :span="18">
-                <el-form
-                    ref="formData"
-                    :model="formData"
-                    :rules="formDataRules"
-                    :size="normalSize"
-                    label-width="80px"
-                >
-                    <el-row>
-                        <el-col :span="16">
-                            <el-form-item :label="$t('article.title')" prop="title">
-                                <el-input v-model="formData.title" />
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="8">
-                            <el-form-item :label="$t('article.type')" prop="typeId">
-                                <el-cascader
-                                    v-model="formData.typeId"
-                                    :options="articleTypeOpts"
-                                    :props="{ label: 'typeName', value: 'id' }"
-                                    :show-all-levels="false"
-                                />
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                    <el-form-item :label="$t('article.cover')" prop="attachment">
-                        <change-image-icon
-                            :img-url="formData.attachment ? formData.attachment.path : ''"
-                            @chosed-image-icon="chosedLogo"
+    <div class="app-container">
+        <el-form
+            ref="formData"
+            :model="formData"
+            :rules="formDataRules"
+            :size="normalSize"
+            label-width="120px"
+        >
+            <el-divider content-position="left">
+                {{ $t('article.basicInfo') }}
+            </el-divider>
+            <el-row>
+                <el-col :span="12">
+                    <el-form-item :label="$t('article.title')" prop="title">
+                        <el-input
+                            v-model="formData.title"
+                            :placeholder="$t('article.inputTitle')"
                         />
                     </el-form-item>
-                    <el-form-item :label="$t('article.content')" prop="content">
-                        <tinyEditor v-model:content="formData.content" />
+                </el-col>
+                <el-col :span="12">
+                    <el-form-item :label="$t('article.type')" prop="typeId">
+                        <el-select
+                            v-model="formData.typeId"
+                            :placeholder="$t('article.selectType')"
+                        >
+                            <el-option
+                                v-for="type in articleTypeOpts"
+                                :key="type.id"
+                                :label="type.typeName"
+                                :value="type.id"
+                            />
+                        </el-select>
                     </el-form-item>
-                </el-form>
-            </el-col>
-        </el-row>
-        <el-row>
-            <el-col :span="18" class="footer">
-                <el-button :size="normalSize" round @click="resetForm('formData')">
-                    {{ $t('action.cancel') }}
-                </el-button>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="12">
+                    <el-form-item :label="$t('article.cover')" prop="attachmentId">
+                        <change-image-icon
+                            :image="formData.attachment"
+                            @chosed-image="chosedLogo"
+                        />
+                    </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                    <el-form-item :label="$t('article.sort')" prop="sort">
+                        <el-input-number
+                            v-model="formData.sort"
+                            :min="0"
+                            :max="999"
+                            controls-position="right"
+                        />
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="24">
+                    <el-form-item :label="$t('article.content')" prop="content">
+                        <tiny-editor
+                            v-model="formData.content"
+                            :placeholder="$t('article.inputContent')"
+                        />
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="12">
+                    <el-form-item :label="$t('article.status')" prop="isPub">
+                        <el-radio-group v-model="formData.isPub">
+                            <el-radio :label="1">
+                                {{ $t('article.published') }}
+                            </el-radio>
+                            <el-radio :label="0">
+                                {{ $t('article.unpublished') }}
+                            </el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-form-item>
                 <el-button
                     :loading="editLoading"
                     :size="normalSize"
@@ -58,29 +89,24 @@
                 >
                     {{ $t('action.submit') }}
                 </el-button>
-            </el-col>
-        </el-row>
+                <el-button :size="normalSize" round @click="resetForm('formData')">
+                    {{ $t('action.reset') }}
+                </el-button>
+            </el-form-item>
+        </el-form>
     </div>
 </template>
 
 <script>
-import tinyEditor from '@/components/tiny_editor.vue';
-import breadCrumb from '@/components/bread_crumb.vue';
-import changeImageIcon from '@/components/change_image_icon.vue';
-
 export default {
-    components: {
-        breadCrumb,
-        tinyEditor,
-        changeImageIcon,
-    },
+    name: 'ArticleEdit',
+    components: {},
     data() {
         return {
             normalSize: 'default',
             articleTypeOpts: [],
             isCreating: false, // true:新增, false:编辑
             editLoading: false,
-
             // 新增编辑界面数据
             formData: {
                 id: 0, // 文章ID
@@ -88,7 +114,8 @@ export default {
                 attachment: {
                     id: 0,
                     path: '',
-                }, // 文章封面图
+                },
+                // 文章封面图
                 content: '', // 文章内容
                 typeId: 0, // 文章分类id
                 articleType: {
@@ -98,12 +125,17 @@ export default {
                 sort: 0, // 文章排序 从小到大
                 isPub: 0, // 1 发布 2 不发布
             },
-            formDataRules: {
+        };
+    },
+    computed: {
+        // 响应式的 formDataRules 配置
+        formDataRules() {
+            return {
                 title: [
                     { required: true, message: this.$t('article.titleRequired'), trigger: 'blur' },
                 ],
-            },
-        };
+            };
+        },
     },
     async mounted() {
         this.isCreating = this.$route.query.isCreating;

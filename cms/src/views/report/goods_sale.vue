@@ -122,7 +122,6 @@ export default {
             collectionList: [],
         };
     },
-    mounted() {},
     methods: {
         // 获取分页数据
         async getGoodsList(data) {

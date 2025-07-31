@@ -249,4 +249,4 @@ const allComponents = {
     ],
 };
 
-module.exports = allComponents;
+export default allComponents;

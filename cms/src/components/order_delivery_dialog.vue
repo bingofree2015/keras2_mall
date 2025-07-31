@@ -140,7 +140,7 @@
         </el-form>
         <template #footer>
             <div class="dialog-footer">
-                <el-button :size="miniSize" round @click.native="$emit('update:visible', false)">
+                <el-button :size="miniSize" round @click="$emit('update:visible', false)">
                     {{ $t('action.cancel') }}
                 </el-button>
                 <el-button
@@ -148,7 +148,7 @@
                     :size="miniSize"
                     round
                     type="primary"
-                    @click.native="submitForm"
+                    @click="submitForm"
                 >
                     {{ $t('action.submit') }}
                 </el-button>
@@ -168,19 +168,17 @@ export default {
             required: true,
         },
     },
+    emits: ['update:visible'],
     data() {
         return {
             normalSize: 'large',
             miniSize: 'default',
-
             loading: false,
-
             // 订单发货数据
             logistics: [],
             viewData: {
                 id: 0,
                 orderId: '', // 订单号
-
                 // 收货人信息
                 logisticsName: '', // 配送方式
                 costFreight: '', // 配送费用
@@ -200,7 +198,12 @@ export default {
                 logiNo: '', // 物流单号
                 memo: '', // 发货备注
             },
-            formDataRules: {
+        };
+    },
+    computed: {
+        // 响应式的 formDataRules 配置
+        formDataRules() {
+            return {
                 logiName: [
                     {
                         required: true,
@@ -208,12 +211,10 @@ export default {
                         trigger: 'blur',
                     },
                 ],
-            },
-        };
+            };
+        },
     },
-    computed: {},
-    async mounted() {},
-    methods: {
+    async methods: {
         openDialog() {
             this.$nextTick(async () => {
                 // 基于 orderId  向服务器请求 订单明细数据

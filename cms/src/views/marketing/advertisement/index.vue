@@ -94,48 +94,6 @@ export default {
                 key: 'name',
                 value: '',
             },
-            props: [{ prop: 'name', label: '广告名称' }],
-            //
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                {
-                    prop: 'name',
-                    label: this.$t('advertisement.name'),
-                    minWidth: 180,
-                    showOverflowTooltip: true,
-                },
-                {
-                    prop: 'attachment.path',
-                    label: this.$t('advertisement.image'),
-                    minWidth: 80,
-                    propType: 'image',
-                    align: 'center',
-                },
-                { prop: 'type', label: this.$t('advertisement.type'), minWidth: 80 },
-                {
-                    prop: 'val',
-                    label: this.$t('advertisement.value'),
-                    minWidth: 80,
-                    showOverflowTooltip: true,
-                },
-                {
-                    prop: 'advertPosition.name',
-                    label: this.$t('advertisement.position'),
-                    minWidth: 80,
-                },
-                {
-                    prop: 'sort',
-                    label: this.$t('advertisement.sort'),
-                    minWidth: 70,
-                    align: 'center',
-                },
-                {
-                    prop: 'createdAt',
-                    label: this.$t('common.createdAt'),
-                    minWidth: 140,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -173,17 +131,41 @@ export default {
         };
     },
     computed: {
+        // 响应式的 props 配置
+        props() {
+            return [{ prop: 'name', label: this.$t('advertisement.name') }];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                {
+                    prop: 'name',
+                    label: this.$t('advertisement.name'),
+                    minWidth: 180,
+                    showOverflowTooltip: true,
+                },
+                { prop: 'positionId', label: this.$t('advertisement.position'), minWidth: 120 },
+                { prop: 'type', label: this.$t('advertisement.type'), minWidth: 100 },
+                { prop: 'sort', label: this.$t('advertisement.sort'), minWidth: 80 },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('common.createdAt'),
+                    minWidth: 140,
+                    formatter: this.env.formatDateTime,
+                },
+            ];
+        },
         operationWidth: {
             get() {
                 let _operationWidth = 0;
                 if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
+                    _operationWidth += this.operations.length * 120;
                 }
                 return _operationWidth;
             },
         },
     },
-    mounted() {},
     methods: {
         /**
          * 处理刷新按钮点击

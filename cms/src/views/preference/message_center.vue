@@ -88,7 +88,6 @@ export default {
             },
         };
     },
-    mounted() {},
     methods: {
         // 获取分页数据
         async queryForPaginatedList(data) {

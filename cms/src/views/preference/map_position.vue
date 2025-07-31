@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 <template>
     <el-container class="map-container">
         <el-main>
@@ -38,6 +39,17 @@
 <script>
 export default {
     name: 'MapPosition',
+    props: {
+        lng: {
+            type: Number,
+            default: 0,
+        },
+        lat: {
+            type: Number,
+            default: 0,
+        },
+    },
+    emits: ['leaveSelectAdress'],
     data() {
         const self = this;
         return {
@@ -91,25 +103,43 @@ export default {
                                     self.markers[0].position = [self.lng, self.lat];
                                     self.loaded = true; // load
                                     if (typeof AMap !== 'undefined') {
+                                        // eslint-disable-next-line no-undef
                                         var geocoder = new AMap.Geocoder({
                                             radius: 1000,
                                             extensions: 'all',
                                         });
-                                    }
-                                    geocoder.getAddress(
-                                        [self.lng, self.lat],
-                                        function (status, result) {
-                                            if (status === 'complete' && result.info === 'OK') {
-                                                if (result && result.regeocode) {
-                                                    self.loaded = true;
-                                                    self.position.address =
-                                                        result.regeocode.formattedAddress;
-                                                    self.$nextTick();
+                                        geocoder.getAddress(
+                                            [self.lng, self.lat],
+                                            function (status, result) {
+                                                if (status === 'complete' && result.info === 'OK') {
+                                                    if (result && result.regeocode) {
+                                                        self.loaded = true;
+                                                        self.position.address =
+                                                            result.regeocode.formattedAddress;
+                                                        self.$nextTick(() => {
+                                                            // 页面渲染完成后的回调
+                                                        }); // 页面渲染好后
+                                                    }
+                                                } else {
+                                                    // 处理API错误，包括每日查询限制
+                                                    console.warn(
+                                                        '高德地图API错误:',
+                                                        result.info || '未知错误'
+                                                    );
+                                                    if (
+                                                        result &&
+                                                        result.info ===
+                                                            'USER_DAILY_QUERY_OVER_LIMIT'
+                                                    ) {
+                                                        self.position.address =
+                                                            'API查询次数已达上限，请稍后再试';
+                                                    } else {
+                                                        self.position.address = '地址解析失败';
+                                                    }
                                                 }
                                             }
-                                        }
-                                    );
-                                    self.$nextTick(); // 页面渲染好后
+                                        );
+                                    }
                                 }
                             });
                         },
@@ -139,20 +169,31 @@ export default {
 
                     // 这里通过高德 SDK 完成。
                     if (typeof AMap !== 'undefined') {
+                        // eslint-disable-next-line no-undef
                         var geocoder = new AMap.Geocoder({
                             radius: 1000,
                             extensions: 'all',
                         });
-                    }
-                    geocoder.getAddress([lng, lat], function (status, result) {
-                        if (status === 'complete' && result.info === 'OK') {
-                            if (result && result.regeocode) {
-                                self.loaded = true;
-                                self.position.address = result.regeocode.formattedAddress;
-                                self.$nextTick();
+                        geocoder.getAddress([lng, lat], function (status, result) {
+                            if (status === 'complete' && result.info === 'OK') {
+                                if (result && result.regeocode) {
+                                    self.loaded = true;
+                                    self.position.address = result.regeocode.formattedAddress;
+                                    self.$nextTick(() => {
+                                        // 页面渲染完成后的回调
+                                    });
+                                }
+                            } else {
+                                // 处理API错误，包括每日查询限制
+                                console.warn('高德地图API错误:', result.info || '未知错误');
+                                if (result && result.info === 'USER_DAILY_QUERY_OVER_LIMIT') {
+                                    self.position.address = 'API查询次数已达上限，请稍后再试';
+                                } else {
+                                    self.position.address = '地址解析失败';
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 },
             },
             loaded: false,
@@ -180,20 +221,31 @@ export default {
 
                 // 这里通过高德 SDK 完成。
                 if (typeof AMap !== 'undefined') {
+                    // eslint-disable-next-line no-undef
                     const geocoder = new AMap.Geocoder({
                         radius: 1000,
                         extensions: 'all',
                     });
-                }
-                geocoder.getAddress([center.lng, center.lat], function (status, result) {
-                    if (status === 'complete' && result.info === 'OK') {
-                        if (result && result.regeocode) {
-                            self.loaded = true;
-                            self.position.address = result.regeocode.formattedAddress;
-                            self.$nextTick();
+                    geocoder.getAddress([center.lng, center.lat], function (status, result) {
+                        if (status === 'complete' && result.info === 'OK') {
+                            if (result && result.regeocode) {
+                                self.loaded = true;
+                                self.position.address = result.regeocode.formattedAddress;
+                                self.$nextTick(() => {
+                                    // 页面渲染完成后的回调
+                                });
+                            }
+                        } else {
+                            // 处理API错误，包括每日查询限制
+                            console.warn('高德地图API错误:', result.info || '未知错误');
+                            if (result && result.info === 'USER_DAILY_QUERY_OVER_LIMIT') {
+                                self.position.address = 'API查询次数已达上限，请稍后再试';
+                            } else {
+                                self.position.address = '地址解析失败';
+                            }
                         }
-                    }
-                });
+                    });
+                }
                 self.center = [center.lng, center.lat];
                 self.markers[0].position = [center.lng, center.lat];
             }

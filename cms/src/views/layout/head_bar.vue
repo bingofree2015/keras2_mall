@@ -69,6 +69,13 @@ export default {
             langVisible: false,
         };
     },
+    computed: {
+        ...mapState({
+            loginUser: (state) => state.loginUser,
+            themeColor: (state) => state.app.themeColor,
+            collapse: (state) => state.app.collapse,
+        }),
+    },
     methods: {
         openWindow(url) {
             window.open(url);
@@ -87,13 +94,6 @@ export default {
             this.$i18n.locale = _lang;
             this.langVisible = false;
         },
-    },
-    computed: {
-        ...mapState({
-            loginUser: (state) => state.loginUser,
-            themeColor: (state) => state.app.themeColor,
-            collapse: (state) => state.app.collapse,
-        }),
     },
 };
 </script>

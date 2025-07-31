@@ -171,30 +171,13 @@ export default {
     data() {
         return {
             normalSize: 'default',
+            largeSize: 'large',
             filters: {
                 key: 'name',
                 value: '',
             },
-            props: [{ prop: 'name', label: this.$t('page.pageName') }],
-
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                {
-                    prop: 'name',
-                    label: this.$t('page.name'),
-                    minWidth: 160,
-                    showOverflowTooltip: true,
-                },
-                { prop: 'code', label: this.$t('page.code'), minWidth: 120 },
-                {
-                    prop: 'desc',
-                    label: this.$t('page.desc'),
-                    minWidth: 250,
-                    showOverflowTooltip: true,
-                },
-                { prop: 'layout', label: this.$t('page.layoutStyle'), minWidth: 100 },
-                { prop: 'type', label: this.$t('page.layoutType'), minWidth: 100 },
-            ],
+            props: [],
+            columns: [],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -252,23 +235,25 @@ export default {
                 layout: 1, // 布局样式
                 type: 1, // 布局类型
             },
-            formDataRules: {
-                name: [{ required: true, message: this.$t('common.inputName'), trigger: 'blur' }],
-            },
         };
     },
     computed: {
+        // 响应式的表单验证规则
+        formDataRules() {
+            return {
+                name: [{ required: true, message: this.$t('common.inputName'), trigger: 'blur' }],
+            };
+        },
         operationWidth: {
             get() {
                 let _operationWidth = 0;
                 if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
+                    _operationWidth += this.operations.length * 120;
                 }
                 return _operationWidth;
             },
         },
     },
-    mounted() {},
     methods: {
         /**
          * 处理刷新按钮点击

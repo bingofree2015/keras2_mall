@@ -76,7 +76,6 @@ export default {
         };
     },
     computed: {},
-    mounted() {},
     methods: {
         chosedForms(forms) {
             this.forms = forms;

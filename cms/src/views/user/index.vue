@@ -196,6 +196,7 @@ export default {
     data() {
         return {
             normalSize: 'default',
+            largeSize: 'large',
             filters: {
                 key: 'mobile',
                 value: '',
@@ -313,7 +314,12 @@ export default {
                 point: 0,
                 state: 1,
             },
-            formDataRules: {
+        };
+    },
+    computed: {
+        // 响应式的 formDataRules 配置
+        formDataRules() {
+            return {
                 mobile: [
                     {
                         required: true,
@@ -321,10 +327,9 @@ export default {
                         trigger: 'blur',
                     },
                 ],
-            },
-        };
-    },
-    computed: {
+            };
+        },
+
         ...mapState({
             loginUser: (state) => state.loginUser,
         }),
@@ -332,7 +337,7 @@ export default {
             get() {
                 let _operationWidth = 0;
                 if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
+                    _operationWidth += this.operations.length * 120;
                 }
                 return _operationWidth;
             },

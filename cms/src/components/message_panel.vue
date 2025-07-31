@@ -67,10 +67,10 @@ export default {
             ],
         },
     },
+    emits: ['click'],
     data() {
         return {};
     },
-    mounted() {},
     methods: {
         handleClick: function () {
             // 按钮操作处理函数

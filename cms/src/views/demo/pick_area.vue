@@ -74,7 +74,6 @@ export default {
         };
     },
     computed: {},
-    mounted() {},
     methods: {
         chosedAreas(areas) {
             this.areas = areas;

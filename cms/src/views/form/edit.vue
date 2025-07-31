@@ -430,123 +430,59 @@ export default {
             },
             currentFormItemRow: -1,
             headers: { authorization: 'Bearer ' + token },
-            typeList: [
-                {
-                    key: 1,
-                    value: this.$t('formEdit.order'),
-                },
-                {
-                    key: 2,
-                    value: this.$t('formEdit.paymentCode'),
-                },
-                {
-                    key: 3,
-                    value: this.$t('formEdit.feedback'),
-                },
-                {
-                    key: 4,
-                    value: this.$t('formEdit.feedback'),
-                },
-                {
-                    key: 5,
-                    value: this.$t('formEdit.register'),
-                },
-                {
-                    key: 6,
-                    value: this.$t('formEdit.survey'),
-                },
-            ],
-            headTypeList: [
-                {
-                    key: 1,
-                    value: this.$t('formEdit.image'),
-                },
-                {
-                    key: 2,
-                    value: this.$t('formEdit.carousel'),
-                },
-                {
-                    key: 3,
-                    value: this.$t('formEdit.video'),
-                },
-            ],
-            validationTypeList: [
-                {
-                    key: 'string',
-                    value: this.$t('formEdit.string'),
-                },
-                {
-                    key: 'number',
-                    value: this.$t('formEdit.number'),
-                },
-                {
-                    key: 'integer',
-                    value: this.$t('formEdit.integer'),
-                },
-                {
-                    key: 'price',
-                    value: this.$t('formEdit.price'),
-                },
-                {
-                    key: 'email',
-                    value: this.$t('formEdit.email'),
-                },
-                {
-                    key: 'mobile',
-                    value: this.$t('formEdit.mobile'),
-                },
-            ],
-            itemTypeList: [
-                {
-                    key: 'radio',
-                    value: this.$t('formEdit.radio'),
-                },
-                {
-                    key: 'checkbox',
-                    value: this.$t('formEdit.checkbox'),
-                },
-                {
-                    key: 'text',
-                    value: this.$t('formEdit.text'),
-                },
-                {
-                    key: 'textarea',
-                    value: this.$t('formEdit.textarea'),
-                },
-                {
-                    key: 'date',
-                    value: this.$t('formEdit.date'),
-                },
-                {
-                    key: 'time',
-                    value: this.$t('formEdit.time'),
-                },
-                {
-                    key: 'goods',
-                    value: this.$t('formEdit.goods'),
-                },
-                {
-                    key: 'money',
-                    value: this.$t('formEdit.money'),
-                },
-                {
-                    key: 'password',
-                    value: this.$t('formEdit.password'),
-                },
-                {
-                    key: 'area',
-                    value: this.$t('formEdit.area'),
-                },
-                {
-                    key: 'image',
-                    value: this.$t('formEdit.image'),
-                },
-                {
-                    key: 'coordinate',
-                    value: this.$t('formEdit.coordinate'),
-                },
-            ],
-            formDataRules: {
+        };
+    },
+    computed: {
+        // 响应式的字段类型配置
+        typeList() {
+            return [
+                { key: 1, value: this.$t('formEdit.order') },
+                { key: 2, value: this.$t('formEdit.paymentCode') },
+                { key: 3, value: this.$t('formEdit.feedback') },
+                { key: 4, value: this.$t('formEdit.feedback') },
+                { key: 5, value: this.$t('formEdit.register') },
+                { key: 6, value: this.$t('formEdit.survey') },
+            ];
+        },
+        // 响应式的头部类型配置
+        headTypeList() {
+            return [
+                { key: 1, value: this.$t('formEdit.image') },
+                { key: 2, value: this.$t('formEdit.carousel') },
+                { key: 3, value: this.$t('formEdit.video') },
+            ];
+        },
+        // 响应式的验证类型配置
+        validationTypeList() {
+            return [
+                { key: 'string', value: this.$t('formEdit.string') },
+                { key: 'number', value: this.$t('formEdit.number') },
+                { key: 'integer', value: this.$t('formEdit.integer') },
+                { key: 'price', value: this.$t('formEdit.price') },
+                { key: 'email', value: this.$t('formEdit.email') },
+                { key: 'mobile', value: this.$t('formEdit.mobile') },
+            ];
+        },
+        // 响应式的项目类型配置
+        itemTypeList() {
+            return [
+                { key: 'radio', value: this.$t('formEdit.radio') },
+                { key: 'checkbox', value: this.$t('formEdit.checkbox') },
+                { key: 'text', value: this.$t('formEdit.text') },
+                { key: 'textarea', value: this.$t('formEdit.textarea') },
+                { key: 'date', value: this.$t('formEdit.date') },
+                { key: 'time', value: this.$t('formEdit.time') },
+                { key: 'goods', value: this.$t('formEdit.goods') },
+                { key: 'money', value: this.$t('formEdit.money') },
+                { key: 'password', value: this.$t('formEdit.password') },
+                { key: 'area', value: this.$t('formEdit.area') },
+                { key: 'image', value: this.$t('formEdit.image') },
+                { key: 'coordinate', value: this.$t('formEdit.coordinate') },
+            ];
+        },
+        // 响应式的表单验证规则
+        formDataRules() {
+            return {
                 name: [
                     {
                         required: true,
@@ -554,10 +490,9 @@ export default {
                         trigger: 'blur',
                     },
                 ],
-            },
-        };
+            };
+        },
     },
-    computed: {},
     mounted() {
         this.isCreating = this.$route.query.isCreating;
         const _formId = this.$route.query.id;

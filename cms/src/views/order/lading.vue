@@ -248,7 +248,12 @@ export default {
                 ptime: null, // 提货时间
                 status: 1, // 1 提货状态1=未提货 2=已提货
             },
-            formDataRules: {
+        };
+    },
+    computed: {
+        // 响应式的 formDataRules 配置
+        formDataRules() {
+            return {
                 name: [
                     {
                         required: true,
@@ -256,15 +261,14 @@ export default {
                         trigger: 'blur',
                     },
                 ],
-            },
-        };
-    },
-    computed: {
+            };
+        },
+
         operationWidth: {
             get() {
                 let _operationWidth = 0;
                 if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
+                    _operationWidth += this.operations.length * 120;
                 }
                 return _operationWidth;
             },

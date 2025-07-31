@@ -254,7 +254,89 @@ export default {
             loginLogData: [],
             operateLogData: [],
             chartColumn: null,
-            activities: [
+        };
+    },
+    computed: {
+        // 响应式的图表配置
+        chartOptions() {
+            return {
+                title: {
+                    text: this.$t('dashboard.simulateSales'),
+                    subtext: this.$t('dashboard.virtualData'),
+                },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                legend: {
+                    data: [this.$t('dashboard.purchaseAmount'), this.$t('dashboard.salesAmount')],
+                },
+                xAxis: {
+                    type: 'category',
+                    data: [
+                        this.$t('dashboard.monday'),
+                        this.$t('dashboard.tuesday'),
+                        this.$t('dashboard.wednesday'),
+                        this.$t('dashboard.thursday'),
+                        this.$t('dashboard.friday'),
+                        this.$t('dashboard.saturday'),
+                        this.$t('dashboard.sunday'),
+                    ],
+                },
+                yAxis: {
+                    type: 'value',
+                },
+                series: [
+                    {
+                        name: this.$t('dashboard.purchaseAmount'),
+                        type: 'line',
+                        data: [120, 132, 101, 134, 90, 230, 210],
+                        markPoint: {
+                            data: [
+                                { type: 'max', name: this.$t('dashboard.maxValue') },
+                                { type: 'min', name: this.$t('dashboard.minValue') },
+                            ],
+                        },
+                    },
+                    {
+                        name: this.$t('dashboard.averageValue'),
+                        type: 'line',
+                        data: [220, 182, 191, 234, 290, 330, 310],
+                        markPoint: {
+                            data: [
+                                { type: 'max', name: this.$t('dashboard.maxValue') },
+                                { type: 'min', name: this.$t('dashboard.minValue') },
+                            ],
+                        },
+                    },
+                    {
+                        name: this.$t('dashboard.salesAmount'),
+                        type: 'line',
+                        data: [150, 232, 201, 154, 190, 330, 410],
+                        markPoint: {
+                            data: [
+                                { type: 'max', name: this.$t('dashboard.maxValue') },
+                                { type: 'min', name: this.$t('dashboard.minValue') },
+                            ],
+                        },
+                    },
+                ],
+            };
+        },
+        // 响应式的测试文本
+        testText() {
+            return this.$t('dashboard.testText');
+        },
+        // 响应式的支持图标配置
+        supportIcon() {
+            return this.$t('dashboard.supportIcon');
+        },
+        // 响应式的支持颜色配置
+        supportColor() {
+            return this.$t('dashboard.supportColor');
+        },
+        // 响应式的活动配置
+        activities() {
+            return [
                 {
                     content: this.$t('dashboard.supportIcon'),
                     timestamp: '2019-04-12 20:46',
@@ -267,8 +349,8 @@ export default {
                     timestamp: '2019-04-03 20:46',
                     color: '#0bbd87',
                 },
-            ],
-        };
+            ];
+        },
     },
 
     created() {},

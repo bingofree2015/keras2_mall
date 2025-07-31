@@ -93,38 +93,6 @@ export default {
                 key: 'title',
                 value: '',
             },
-            props: [{ prop: 'title', label: '文章标题' }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                {
-                    prop: 'title',
-                    label: this.$t('article.title'),
-                    minWidth: 250,
-                    showOverflowTooltip: true,
-                },
-                {
-                    prop: 'attachment.path',
-                    label: this.$t('article.cover'),
-                    minWidth: 80,
-                    propType: 'image',
-                    align: 'center',
-                },
-                { prop: 'articleType.typeName', label: this.$t('article.type'), minWidth: 80 },
-                { prop: 'isPub', label: this.$t('article.status'), minWidth: 80 },
-                { prop: 'sort', label: this.$t('article.sort'), minWidth: 70, align: 'center' },
-                {
-                    prop: 'updatedAt',
-                    label: this.$t('common.updatedAt'),
-                    minWidth: 130,
-                    formatter: this.env.formatDateTime,
-                },
-                {
-                    prop: 'createdAt',
-                    label: this.$t('common.createdAt'),
-                    minWidth: 130,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -162,17 +130,40 @@ export default {
         };
     },
     computed: {
+        // 响应式的 props 配置
+        props() {
+            return [{ prop: 'title', label: this.$t('article.title') }];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                {
+                    prop: 'title',
+                    label: this.$t('article.title'),
+                    minWidth: 180,
+                    showOverflowTooltip: true,
+                },
+                { prop: 'typeId', label: this.$t('article.type'), minWidth: 120 },
+                { prop: 'author', label: this.$t('article.author'), minWidth: 100 },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('common.createdAt'),
+                    minWidth: 140,
+                    formatter: this.env.formatDateTime,
+                },
+            ];
+        },
         operationWidth: {
             get() {
                 let _operationWidth = 0;
                 if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
+                    _operationWidth += this.operations.length * 120;
                 }
                 return _operationWidth;
             },
         },
     },
-    mounted() {},
     methods: {
         /**
          * 处理刷新按钮点击

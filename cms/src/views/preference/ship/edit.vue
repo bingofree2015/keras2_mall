@@ -277,7 +277,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 import breadCrumb from '@/components/bread_crumb.vue';
 import pickArea from '@/components/pick_area';
 export default {
@@ -289,7 +289,6 @@ export default {
         ...mapState(['mapAlias']),
     },
     data() {
-        let _self = this;
         const checkPrice = (rule, value, callback) => {
             var reg = /^-?\d{1,5}(?:\.\d{1,3})?$/;
             if (reg.test(value)) {
@@ -300,6 +299,7 @@ export default {
         };
         return {
             normalSize: 'default',
+            largeSize: 'large',
             miniSize: 'default',
             isCreating: false, // true:新增, false:编辑
             editLoading: false,

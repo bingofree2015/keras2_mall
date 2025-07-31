@@ -180,91 +180,7 @@ export default {
                 key: 'name',
                 value: '',
             },
-            props: [
-                {
-                    prop: 'name',
-                    label: this.$t('goods.goodsName'),
-                },
-            ],
             activeName: 'all',
-
-            columns: [
-                {
-                    prop: 'id',
-                    label: 'ID',
-                    minWidth: 60,
-                },
-                {
-                    prop: 'name',
-                    label: this.$t('goods.goodsName'),
-                    minWidth: 120,
-                    showOverflowTooltip: true,
-                },
-                {
-                    prop: 'price',
-                    label: this.$t('goods.price'),
-                    minWidth: 70,
-                },
-                {
-                    prop: 'costPrice',
-                    label: this.$t('goods.costPrice'),
-                    minWidth: 80,
-                },
-                {
-                    prop: 'mktPrice',
-                    label: this.$t('goods.marketPrice'),
-                    minWidth: 80,
-                },
-                {
-                    prop: 'attachment.path',
-                    label: this.$t('goods.defaultImage'),
-                    minWidth: 100,
-                    propType: 'image',
-                    align: 'center',
-                },
-                {
-                    prop: 'goodsCat.name',
-                    label: this.$t('goods.category'),
-                    minWidth: 90,
-                },
-                {
-                    prop: 'goodsType.name',
-                    label: this.$t('goods.type'),
-                    minWidth: 90,
-                },
-                {
-                    prop: 'brand.name',
-                    label: this.$t('goods.brand'),
-                    minWidth: 90,
-                },
-                {
-                    prop: 'marketable',
-                    label: this.$t('goods.onSale'),
-                    minWidth: 70,
-                    propType: 'bool',
-                    clickFlag: true,
-                    func: async (id, value) => {
-                        const _data = { id, marketable: value };
-                        Object.assign(
-                            _data,
-                            value ? { upTime: Date.now() } : { downTime: Date.now() }
-                        );
-                    },
-                    align: 'center',
-                },
-                {
-                    prop: 'labelIds',
-                    label: this.$t('goods.tag'),
-                    minWidth: 80,
-                    showOverflowTooltip: true,
-                },
-                {
-                    prop: 'createdAt',
-                    label: this.$t('common.createTime'),
-                    minWidth: 140,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
 
             paginated: {
                 all: {
@@ -318,17 +234,47 @@ export default {
         };
     },
     computed: {
+        // 响应式的 props 配置
+        props() {
+            return [
+                { prop: 'goodsName', label: this.$t('goods.goodsName') },
+                { prop: 'price', label: this.$t('goods.price') },
+                { prop: 'costPrice', label: this.$t('goods.costPrice') },
+                { prop: 'marketPrice', label: this.$t('goods.marketPrice') },
+                { prop: 'defaultImage', label: this.$t('goods.defaultImage') },
+                { prop: 'category', label: this.$t('goods.category') },
+                { prop: 'type', label: this.$t('goods.type') },
+                { prop: 'brand', label: this.$t('goods.brand') },
+                { prop: 'onSale', label: this.$t('goods.onSale') },
+            ];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                { prop: 'goodsName', label: this.$t('goods.goodsName'), minWidth: 200 },
+                { prop: 'price', label: this.$t('goods.price'), minWidth: 100 },
+                { prop: 'costPrice', label: this.$t('goods.costPrice'), minWidth: 100 },
+                { prop: 'marketPrice', label: this.$t('goods.marketPrice'), minWidth: 100 },
+                { prop: 'defaultImage', label: this.$t('goods.defaultImage'), minWidth: 80 },
+                { prop: 'category', label: this.$t('goods.category'), minWidth: 100 },
+                { prop: 'type', label: this.$t('goods.type'), minWidth: 100 },
+                { prop: 'brand', label: this.$t('goods.brand'), minWidth: 100 },
+                { prop: 'onSale', label: this.$t('goods.onSale'), minWidth: 80 },
+                { prop: 'tag', label: this.$t('goods.tag'), minWidth: 100 },
+                { prop: 'createTime', label: this.$t('common.createTime'), minWidth: 140 },
+            ];
+        },
         operationWidth: {
             get() {
                 let _operationWidth = 0;
                 if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
+                    _operationWidth += this.operations.length * 120;
                 }
                 return _operationWidth;
             },
         },
     },
-    mounted() {},
     methods: {
         /**
          * 处理刷新按钮点击

@@ -129,7 +129,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 import extTable from '@/components/core/ext_table.vue';
 import breadCrumb from '@/components/bread_crumb.vue';
 import extButton from '@/components/core/ext_button.vue';
@@ -143,6 +143,7 @@ export default {
     data() {
         return {
             normalSize: 'default',
+            largeSize: 'large',
             filters: {
                 key: 'mobile',
                 value: '',
@@ -238,13 +239,12 @@ export default {
             get() {
                 let _operationWidth = 0;
                 if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
+                    _operationWidth += this.operations.length * 120;
                 }
                 return _operationWidth;
             },
         },
     },
-    mounted() {},
     methods: {
         /**
          * 处理刷新按钮点击

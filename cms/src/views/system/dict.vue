@@ -146,28 +146,6 @@ export default {
                 key: 'label',
                 value: '',
             },
-            props: [
-                { prop: 'label', label: this.$t('system.labelName') },
-                { prop: 'value', label: this.$t('system.value') },
-                { prop: 'type', label: this.$t('system.type') },
-                { prop: 'description', label: this.$t('system.description') },
-            ],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'label', label: this.$t('system.labelName'), minWidth: 80 },
-                { prop: 'value', label: this.$t('system.value'), minWidth: 80 },
-                { prop: 'type', label: this.$t('system.type'), minWidth: 80 },
-                { prop: 'sort', label: this.$t('system.sort'), minWidth: 70, align: 'center' },
-                { prop: 'description', label: this.$t('system.description'), minWidth: 120 },
-                { prop: 'remark', label: this.$t('system.remark'), minWidth: 120 },
-                { prop: 'createBy', label: this.$t('system.creator'), minWidth: 100 },
-                {
-                    prop: 'createdAt',
-                    label: this.$t('common.createTime'),
-                    minWidth: 140,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -215,28 +193,59 @@ export default {
                 description: '', // 描述
                 remark: '',
             },
-            formDataRules: {
+        };
+    },
+    computed: {
+        // 响应式的 props 配置
+        props() {
+            return [
+                { prop: 'label', label: this.$t('system.labelName') },
+                { prop: 'value', label: this.$t('system.value') },
+                { prop: 'type', label: this.$t('system.type') },
+                { prop: 'description', label: this.$t('system.description') },
+            ];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                { prop: 'label', label: this.$t('system.labelName'), minWidth: 90 },
+                { prop: 'value', label: this.$t('system.value'), minWidth: 80 },
+                { prop: 'type', label: this.$t('system.type'), minWidth: 80 },
+                { prop: 'sort', label: this.$t('system.sort'), minWidth: 70, align: 'center' },
+                { prop: 'description', label: this.$t('system.description'), minWidth: 120 },
+                { prop: 'remark', label: this.$t('system.remark'), minWidth: 120 },
+                { prop: 'createBy', label: this.$t('system.creator'), minWidth: 100 },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('common.createTime'),
+                    minWidth: 140,
+                    formatter: this.env.formatDateTime,
+                },
+            ];
+        },
+        // 响应式的表单验证规则
+        formDataRules() {
+            return {
                 label: [{ required: true, message: this.$t('dict.inputLabel'), trigger: 'blur' }],
                 value: [{ required: true, message: this.$t('dict.inputValue'), trigger: 'blur' }],
                 type: [{ required: true, message: this.$t('dict.inputType'), trigger: 'blur' }],
                 description: [
                     { required: true, message: this.$t('dict.inputDescription'), trigger: 'blur' },
                 ],
-            },
-        };
-    },
-    computed: {
+            };
+        },
+
         operationWidth: {
             get() {
                 let _operationWidth = 0;
                 if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
+                    _operationWidth += this.operations.length * 120;
                 }
                 return _operationWidth;
             },
         },
     },
-    mounted() {},
     methods: {
         /**
          * 处理刷新按钮点击

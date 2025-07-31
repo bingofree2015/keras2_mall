@@ -192,21 +192,6 @@ export default {
                 key: 'username',
                 value: '',
             },
-            props: [
-                {
-                    prop: 'username',
-                    label: this.$t('action.username'),
-                },
-                {
-                    prop: 'email',
-                    label: this.$t('action.email'),
-                },
-                {
-                    prop: 'mobile',
-                    label: this.$t('action.mobile'),
-                },
-            ],
-            columns: [],
             filterColumns: [],
             paginated: {
                 attrs: {
@@ -264,15 +249,7 @@ export default {
                 mobile: '',
                 status: 1,
                 roles: [],
-            },
-            formDataRules: {
-                username: [
-                    {
-                        required: true,
-                        message: this.$t('permission.inputUsername'),
-                        trigger: 'blur',
-                    },
-                ],
+                roleIds: [],
             },
             allRoles: [],
         };
@@ -285,15 +262,94 @@ export default {
             get() {
                 let _operationWidth = 0;
                 if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
+                    _operationWidth += this.operations.length * 120;
                 }
                 return _operationWidth;
             },
         },
+        // 响应式的 props 配置
+        props() {
+            return [
+                {
+                    prop: 'username',
+                    label: this.$t('action.username'),
+                },
+                {
+                    prop: 'email',
+                    label: this.$t('action.email'),
+                },
+                {
+                    prop: 'mobile',
+                    label: this.$t('action.mobile'),
+                },
+            ];
+        },
+        // 响应式的表单验证规则
+        formDataRules() {
+            return {
+                username: [
+                    {
+                        required: true,
+                        message: this.$t('permission.inputUsername'),
+                        trigger: 'blur',
+                    },
+                ],
+            };
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                {
+                    prop: 'id',
+                    label: 'ID',
+                    minWidth: 60,
+                },
+                {
+                    prop: 'username',
+                    label: this.$t('action.username'),
+                    minWidth: 100,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'attachment.path',
+                    label: this.$t('action.avatar'),
+                    minWidth: 80,
+                    propType: 'image',
+                    align: 'center',
+                },
+                {
+                    prop: 'roleNames',
+                    label: this.$t('action.role'),
+                    minWidth: 210,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'email',
+                    label: this.$t('action.email'),
+                    minWidth: 120,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'mobile',
+                    label: this.$t('action.mobile'),
+                    minWidth: 100,
+                },
+                {
+                    prop: 'state',
+                    label: this.$t('action.status'),
+                    minWidth: 70,
+                    formatter: (state) => {
+                        return state
+                            ? this.$t('permission.enabled')
+                            : this.$t('permission.disabled');
+                    },
+                    align: 'center',
+                },
+            ];
+        },
     },
     mounted() {
         this.disableIds.push(this.loginUser.id);
-        this.initColumns();
         this.getAllRoles();
     },
     methods: {
@@ -369,6 +425,7 @@ export default {
                 mobile: '',
                 status: 1,
                 roles: [],
+                roleIds: [],
             };
         },
         // 提交编辑结果
@@ -432,58 +489,6 @@ export default {
         handleFilterColumns(data) {
             this.filterColumns = data.filterColumns;
             this.$refs.tableColumnFilterDialog.setDialogVisible(false);
-        },
-        // 处理表格列过滤显示
-        initColumns() {
-            this.columns = [
-                {
-                    prop: 'id',
-                    label: 'ID',
-                    minWidth: 60,
-                },
-                {
-                    prop: 'username',
-                    label: this.$t('action.username'),
-                    minWidth: 100,
-                    showOverflowTooltip: true,
-                },
-                {
-                    prop: 'attachment.path',
-                    label: this.$t('action.avatar'),
-                    minWidth: 80,
-                    propType: 'image',
-                    align: 'center',
-                },
-                {
-                    prop: 'roleNames',
-                    label: this.$t('action.role'),
-                    minWidth: 210,
-                    showOverflowTooltip: true,
-                },
-                {
-                    prop: 'email',
-                    label: this.$t('action.email'),
-                    minWidth: 120,
-                    showOverflowTooltip: true,
-                },
-                {
-                    prop: 'mobile',
-                    label: this.$t('action.mobile'),
-                    minWidth: 100,
-                },
-                {
-                    prop: 'state',
-                    label: this.$t('action.status'),
-                    minWidth: 70,
-                    formatter: (state) => {
-                        return state
-                            ? this.$t('permission.enabled')
-                            : this.$t('permission.disabled');
-                    },
-                    align: 'center',
-                },
-            ];
-            this.filterColumns = Object.assign([], this.columns);
         },
     },
 };

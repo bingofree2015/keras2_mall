@@ -59,12 +59,10 @@
                                     v-model="formData.sort"
                                     :max="10"
                                     :min="1"
-                                    <span
-                                    class="tip-info"
-                                >
+                                />
+                                <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i> 数字越小，权重越大
-                                    </span>
-                                </el-input-number>
+                                </span>
                             </el-form-item>
                         </el-col>
                     </el-row>

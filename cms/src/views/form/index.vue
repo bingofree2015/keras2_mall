@@ -156,42 +156,6 @@ export default {
                 key: 'name',
                 value: '',
             },
-            props: [{ prop: 'name', label: this.$t('form.formName') }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                {
-                    prop: 'name',
-                    label: this.$t('form.formName'),
-                    minWidth: 180,
-                    showOverflowTooltip: true,
-                },
-                {
-                    prop: 'desc',
-                    label: this.$t('form.formDesc'),
-                    minWidth: 200,
-                    showOverflowTooltip: true,
-                },
-                {
-                    prop: 'type',
-                    label: this.$t('form.type'),
-                    minWidth: 70,
-                    formatter: this.env.columnFormatter,
-                },
-                {
-                    prop: 'isLogin',
-                    label: this.$t('form.needLogin'),
-                    minWidth: 100,
-                    align: 'center',
-                    formatter: this.env.formatBoolean,
-                },
-                { prop: 'sort', label: this.$t('system.sort'), minWidth: 70, align: 'center' },
-                {
-                    prop: 'createdAt',
-                    label: this.$t('common.createTime'),
-                    minWidth: 140,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -247,6 +211,48 @@ export default {
                 }
                 return _operationWidth;
             },
+        },
+        // 响应式的 props 配置
+        props() {
+            return [{ prop: 'name', label: this.$t('form.formName') }];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                {
+                    prop: 'name',
+                    label: this.$t('form.formName'),
+                    minWidth: 180,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'desc',
+                    label: this.$t('form.formDesc'),
+                    minWidth: 200,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'type',
+                    label: this.$t('form.type'),
+                    minWidth: 70,
+                    formatter: this.env.columnFormatter,
+                },
+                {
+                    prop: 'isLogin',
+                    label: this.$t('form.needLogin'),
+                    minWidth: 100,
+                    align: 'center',
+                    formatter: this.env.formatBoolean,
+                },
+                { prop: 'sort', label: this.$t('system.sort'), minWidth: 70, align: 'center' },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('common.createTime'),
+                    minWidth: 140,
+                    formatter: this.env.formatDateTime,
+                },
+            ];
         },
     },
     mounted() {

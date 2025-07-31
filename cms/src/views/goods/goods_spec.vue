@@ -170,28 +170,11 @@ export default {
     data() {
         return {
             normalSize: 'default',
+            largeSize: 'large',
             filters: {
                 key: 'name',
                 value: '',
             },
-            props: [{ prop: 'name', label: this.$t('goodsSpec.attributeName') }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: this.$t('goodsSpec.attributeName'), minWidth: 100 },
-                {
-                    prop: 'values',
-                    label: this.$t('goodsSpec.attributeValue'),
-                    minWidth: 200,
-                    showOverflowTooltip: true,
-                },
-                { prop: 'sort', label: this.$t('system.sort'), minWidth: 70, align: 'center' },
-                {
-                    prop: 'createdAt',
-                    label: this.$t('common.createTime'),
-                    minWidth: 140,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -236,15 +219,6 @@ export default {
                 sort: 0,
                 goodsSpecValues: [],
             },
-            formDataRules: {
-                name: [
-                    {
-                        required: true,
-                        message: this.$t('goodsSpec.inputSpecName'),
-                        trigger: 'blur',
-                    },
-                ],
-            },
         };
     },
     computed: {
@@ -252,13 +226,44 @@ export default {
             get() {
                 let _operationWidth = 0;
                 if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
+                    _operationWidth += this.operations.length * 120;
                 }
                 return _operationWidth;
             },
         },
+        // 响应式的 props 配置
+        props() {
+            return [{ prop: 'name', label: this.$t('goodsSpec.attributeName') }];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                { prop: 'name', label: this.$t('goodsSpec.attributeName'), minWidth: 100 },
+                {
+                    prop: 'values',
+                    label: this.$t('goodsSpec.attributeValue'),
+                    minWidth: 200,
+                    showOverflowTooltip: true,
+                },
+                { prop: 'sort', label: this.$t('system.sort'), minWidth: 70, align: 'center' },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('common.createTime'),
+                    minWidth: 140,
+                    formatter: this.env.formatDateTime,
+                },
+            ];
+        },
+        // 响应式的表单验证规则
+        formDataRules() {
+            return {
+                name: [
+                    { required: true, message: this.$t('goods.inputSpecName'), trigger: 'blur' },
+                ],
+            };
+        },
     },
-    mounted() {},
     methods: {
         /**
          * 处理刷新按钮点击

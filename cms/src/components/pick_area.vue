@@ -39,13 +39,9 @@
     </div>
 </template>
 <script>
-import _ from 'lodash';
-import extButton from '@/components/core/ext_button.vue';
 export default {
-    name: 'PickAreas',
-    components: {
-        extButton,
-    },
+    name: 'PickArea',
+    components: {},
     props: {
         areaIds: {
             type: Array,
@@ -54,6 +50,7 @@ export default {
             },
         },
     },
+    emits: ['chosedAreas'],
     data() {
         return {
             miniSize: 'default',
@@ -68,7 +65,6 @@ export default {
             },
         };
     },
-    mounted() {},
     methods: {
         /**
          * 地区列表

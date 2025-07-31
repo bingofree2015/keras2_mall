@@ -68,7 +68,7 @@ export default {
     data() {
         return {};
     },
-    mounted() {},
+
     methods: {
         handleClick: function (event) {
             // 按钮操作处理函数

@@ -1,5 +1,7 @@
 
 const moment = require('moment');
+const _ = require('lodash');
+const validator = require('validator');
 
 const logger = require('tracer').colorConsole();
 const { Op } = require('sequelize');

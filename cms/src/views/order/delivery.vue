@@ -200,28 +200,6 @@ export default {
                 key: 'deliveryId',
                 value: '',
             },
-            props: [{ prop: 'deliveryId', label: this.$t('order.deliveryId') }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'deliveryId', label: this.$t('order.deliveryId'), minWidth: 120 },
-                { prop: 'orderId', label: this.$t('order.orderId'), minWidth: 120 },
-                { prop: 'user.name', label: this.$t('order.userName'), minWidth: 100 },
-                { prop: 'logistics.logiName', label: this.$t('order.logistics'), minWidth: 100 },
-                { prop: 'logiNo', label: this.$t('order.logiNo'), minWidth: 120 },
-                {
-                    prop: 'shipAddress',
-                    label: this.$t('order.shipAddress'),
-                    minWidth: 200,
-                    showOverflowTooltip: true,
-                },
-                { prop: 'shipMobile', label: this.$t('order.shipMobile'), minWidth: 140 },
-                {
-                    prop: 'createdAt',
-                    label: this.$t('common.createdAt'),
-                    minWidth: 140,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -266,17 +244,33 @@ export default {
         };
     },
     computed: {
+        // 响应式的 props 配置
+        props() {
+            return [{ prop: 'deliveryId', label: this.$t('order.deliveryId') }];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'deliveryId', label: this.$t('order.deliveryId'), minWidth: 120 },
+                { prop: 'orderId', label: this.$t('order.orderId'), minWidth: 120 },
+                { prop: 'user.name', label: this.$t('order.userName'), minWidth: 100 },
+                { prop: 'logistics.logiName', label: this.$t('order.logistics'), minWidth: 100 },
+                { prop: 'logiNo', label: this.$t('order.logiNo'), minWidth: 120 },
+                { prop: 'shipAddress', label: this.$t('order.shipAddress'), minWidth: 200 },
+                { prop: 'shipMobile', label: this.$t('order.shipMobile'), minWidth: 140 },
+                { prop: 'createdAt', label: this.$t('common.createdAt'), minWidth: 140 },
+            ];
+        },
         operationWidth: {
             get() {
                 let _operationWidth = 0;
                 if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
+                    _operationWidth += this.operations.length * 120;
                 }
                 return _operationWidth;
             },
         },
     },
-    mounted() {},
     methods: {
         /**
          * 处理刷新按钮点击

@@ -597,4 +597,4 @@ const pageConfig = [
     },
 ];
 
-module.exports = pageConfig;
+export default pageConfig;

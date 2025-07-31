@@ -151,34 +151,11 @@ export default {
     data() {
         return {
             normalSize: 'default',
+            largeSize: 'large',
             filters: {
                 key: 'name',
                 value: '',
             },
-            props: [{ prop: 'name', label: this.$t('advertPosition.name') }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: this.$t('advertPosition.name'), minWidth: 200 },
-                { prop: 'code', label: this.$t('advertPosition.code'), minWidth: 150 },
-                {
-                    prop: 'sort',
-                    label: this.$t('advertPosition.sort'),
-                    minWidth: 70,
-                    align: 'center',
-                },
-                {
-                    prop: 'updatedAt',
-                    label: this.$t('common.updatedAt'),
-                    minWidth: 140,
-                    formatter: this.env.formatDateTime,
-                },
-                {
-                    prop: 'createdAt',
-                    label: this.$t('common.createdAt'),
-                    minWidth: 140,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -230,7 +207,42 @@ export default {
                 { key: 'tpl1_index_banner3', value: this.$t('advertPosition.tpl1IndexBanner3') },
                 { key: 'tpl1_class_banner1', value: this.$t('advertPosition.tpl1ClassBanner1') },
             ],
-            formDataRules: {
+        };
+    },
+    computed: {
+        // 响应式的 props 配置
+        props() {
+            return [{ prop: 'name', label: this.$t('advertPosition.name') }];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                { prop: 'name', label: this.$t('advertPosition.name'), minWidth: 200 },
+                { prop: 'code', label: this.$t('advertPosition.code'), minWidth: 150 },
+                {
+                    prop: 'sort',
+                    label: this.$t('advertPosition.sort'),
+                    minWidth: 70,
+                    align: 'center',
+                },
+                {
+                    prop: 'updatedAt',
+                    label: this.$t('common.updatedAt'),
+                    minWidth: 140,
+                    formatter: this.env.formatDateTime,
+                },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('common.createdAt'),
+                    minWidth: 140,
+                    formatter: this.env.formatDateTime,
+                },
+            ];
+        },
+        // 响应式的表单验证规则
+        formDataRules() {
+            return {
                 name: [
                     {
                         required: true,
@@ -238,21 +250,18 @@ export default {
                         trigger: 'blur',
                     },
                 ],
-            },
-        };
-    },
-    computed: {
+            };
+        },
         operationWidth: {
             get() {
                 let _operationWidth = 0;
                 if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
+                    _operationWidth += this.operations.length * 120;
                 }
                 return _operationWidth;
             },
         },
     },
-    mounted() {},
     methods: {
         /**
          * 处理刷新按钮点击

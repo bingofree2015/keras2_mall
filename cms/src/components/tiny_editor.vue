@@ -53,8 +53,9 @@ export default {
                 remove_script_host: false,
                 convert_urls: false,
                 relative_urls: false,
-                language_url: `${this.url}/langs/zh_CN.js`,
-                language: 'zh_CN',
+                // 暂时使用英文界面，避免语言包加载问题
+                // language_url: '',
+                // language: 'zh_CN',
                 theme_url: `${this.url}/themes/silver/theme.min.js`,
                 skin_url: `${this.url}/skins/ui/oxide`,
                 branding: false,
@@ -98,34 +99,31 @@ export default {
                 Object.assign(this.defaultConfig, val);
                 // ============================================================================
                 // 如果语言相关为默认英语，则修改默认配置为中文
-                const zhCN = 'zh_CN';
                 const enUS = 'en_US';
+                // 暂时禁用中文语言包，使用英文界面
                 // 如果语言没有配置，则默认配置为中文
-                if (!this.defaultConfig.language) {
-                    this.defaultConfig.language = zhCN;
-                }
+                // if (!this.defaultConfig.language) {
+                //     this.defaultConfig.language = zhCN;
+                // }
                 // 如果有配置语言，并且不是"en_US"，并且没有配置language_url，则使用本项目的语言包
-                if (
-                    Object.prototype.toString.call(this.defaultConfig.language) ===
-                        '[object String]' &&
-                    this.defaultConfig.language !== enUS &&
-                    Object.prototype.toString.call(this.defaultConfig.language_url) !==
-                        '[object String]'
-                ) {
-                    let langCDN = 'https://cdn.jsdelivr.net/npm/';
-                    if (/unpkg.com/.test(this.url)) {
-                        langCDN = 'https://unpkg.com/';
-                    }
-                    this.defaultConfig.language_url = `${langCDN}@panhezeng/vue-tinymce@latest/src/langs/${this.defaultConfig.language}.min.js`;
-                }
+                // if (
+                //     Object.prototype.toString.call(this.defaultConfig.language) ===
+                //         '[object String]' &&
+                //     this.defaultConfig.language !== enUS &&
+                //     Object.prototype.toString.call(this.defaultConfig.language_url) !==
+                //         '[object String]'
+                // ) {
+                //     // 使用 TinyMCE 官方语言包
+                //     this.defaultConfig.language_url = `${this.url}/langs/${this.defaultConfig.language}.js`;
+                // }
                 // 如果语言为中文，并且没有配置字体，则使用内部配置
-                if (
-                    this.defaultConfig.language === zhCN &&
-                    Object.prototype.toString.call(this.defaultConfig.font_formats) !==
-                        '[object String]'
-                ) {
-                    this.defaultConfig.font_formats = '微软雅黑="微软雅黑";幼圆="幼圆";Arial=arial';
-                }
+                // if (
+                //     this.defaultConfig.language === zhCN &&
+                //     Object.prototype.toString.call(this.defaultConfig.font_formats) !==
+                //         '[object String]'
+                // ) {
+                //     this.defaultConfig.font_formats = '微软雅黑="微软雅黑";幼圆="幼圆";Arial=arial';
+                // }
                 // 如果配置为默认英语，则删除语言相关配置节点
                 if (this.defaultConfig.language === enUS) {
                     delete this.defaultConfig.language;
@@ -192,6 +190,23 @@ export default {
                 this.defaultConfig.target = refEditor;
                 this.defaultConfig.init_instance_callback = (editor) => {
                     if (this && this.$refs.editor) {
+                        // 检查语言包是否加载成功
+                        if (
+                            this.defaultConfig.language === 'zh_CN' &&
+                            editor.getLang &&
+                            editor.getLang('Insert/edit link') === 'Insert/edit link'
+                        ) {
+                            // 语言包加载失败，回退到英文
+                            console.warn('TinyMCE 中文语言包加载失败，使用英文界面');
+                            delete this.defaultConfig.language;
+                            delete this.defaultConfig.language_url;
+                            // 重新初始化编辑器
+                            this.$nextTick(() => {
+                                this.init();
+                            });
+                            return;
+                        }
+
                         if (
                             /^\[object [^F]*Function\]$/.test(
                                 Object.prototype.toString.call(this.config.init_instance_callback)

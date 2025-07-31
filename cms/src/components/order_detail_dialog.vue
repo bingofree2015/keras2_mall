@@ -384,11 +384,7 @@
                     </el-form-item>
                 </el-form>
                 <div class="dialog-footer">
-                    <el-button
-                        :size="miniSize"
-                        round
-                        @click.native="$emit('update:visible', false)"
-                    >
+                    <el-button :size="miniSize" round @click="$emit('update:visible', false)">
                         {{ $t('action.cancel') }}
                     </el-button>
                     <el-button
@@ -396,7 +392,7 @@
                         :size="miniSize"
                         round
                         type="primary"
-                        @click.native="submitForm"
+                        @click="submitForm"
                     >
                         {{ $t('action.submit') }}
                     </el-button>
@@ -408,7 +404,7 @@
 
 <script>
 import _ from 'lodash';
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
     name: 'OrderDetailDialog',
@@ -419,6 +415,7 @@ export default {
             required: true,
         },
     },
+    emits: ['update:visible'],
     computed: {
         ...mapState(['mapAlias']),
     },

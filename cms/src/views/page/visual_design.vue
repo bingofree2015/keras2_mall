@@ -18,250 +18,13 @@
                     <!-- 组件库 -->
                     <el-collapse v-model="activeNames">
                         <el-collapse-item name="1" :title="$t('visualDesign.mediaComponent')">
-                            <template #title>
-                                <i
-                                    class="el-icon-ali-delete item-delete"
-                                    @click.stop="
-                                        deleteEditWidgetConfigListItem(editWidget.config.list, key)
-                                    "
-                                ></i>
-                                <span style="padding: 0px 8px">第 {{ key + 1 }} 张图</span>
-                            </template>
-                            <change-image-icon
-                                :img-url="item.url"
-                                :init-style="{
-                                    width: '100%',
-                                    border: '1px dashed #d9d9d9',
-                                    borderRadius: '4px',
-                                }"
-                                @chosed-image-icon="
-                                    (img) => {
-                                        chosedImage(item, img);
-                                    }
-                                "
-                            />
-                            <el-form-item label="类型">
-                                <el-select
-                                    v-model="item.type"
-                                    :placeholder="$t('common.selectPlaceholder')"
-                                >
-                                    <el-option
-                                        v-for="linkType in linkTypes"
-                                        :key="linkType.key"
-                                        :label="linkType.value"
-                                        :value="linkType.key"
-                                    />
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item label="指向">
-                                <el-input
-                                    v-model="item.value"
-                                    :placeholder="$t('common.selectPlaceholder')"
-                                >
-                                    <template #append>
-                                        <pick-goods
-                                            v-if="item.type === 2"
-                                            :selection-type="0"
-                                            @chosed-goods="
-                                                (goods) => {
-                                                    chosedGoods(item, goods);
-                                                }
-                                            "
-                                        />
-                                        <pick-article
-                                            v-else-if="item.type === 3"
-                                            :selection-type="0"
-                                            @chosed-articles="
-                                                (articles) => {
-                                                    chosedArticles(item, 'value', articles, 'id');
-                                                }
-                                            "
-                                        />
-                                        <pick-articleType
-                                            v-else-if="item.type === 4"
-                                            :selection-type="0"
-                                            @chosed-article-types="
-                                                (articleTypes) => {
-                                                    chosedArticleTypes(item, 'value', articleTypes);
-                                                }
-                                            "
-                                        />
-                                        <pick-form
-                                            v-else-if="item.type === 5"
-                                            :selection-type="0"
-                                            @chosed-forms="
-                                                (forms) => {
-                                                    chosedForms(item, forms);
-                                                }
-                                            "
-                                        />
-                                    </template>
-                                </el-input>
-                            </el-form-item>
+                            <!-- 媒体组件内容 -->
                         </el-collapse-item>
                         <el-collapse-item name="2" :title="$t('visualDesign.storeComponent')">
-                            <template #title>
-                                <i
-                                    class="el-icon-ali-delete item-delete"
-                                    @click.stop="
-                                        deleteEditWidgetConfigListItem(editWidget.config.list, key)
-                                    "
-                                ></i>
-                                <span style="padding: 0px 8px">第 {{ key + 1 }} 张图</span>
-                            </template>
-                            <change-image-icon
-                                :img-url="item.url"
-                                :init-style="{
-                                    width: '100%',
-                                    border: '1px dashed #d9d9d9',
-                                    borderRadius: '4px',
-                                }"
-                                @chosed-image-icon="
-                                    (img) => {
-                                        chosedImage(item, img);
-                                    }
-                                "
-                            />
-                            <el-form-item label="类型">
-                                <el-select
-                                    v-model="item.type"
-                                    :placeholder="$t('common.selectPlaceholder')"
-                                >
-                                    <el-option
-                                        v-for="linkType in linkTypes"
-                                        :key="linkType.key"
-                                        :label="linkType.value"
-                                        :value="linkType.key"
-                                    />
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item label="指向">
-                                <el-input
-                                    v-model="item.value"
-                                    :placeholder="$t('common.selectPlaceholder')"
-                                >
-                                    <template #append>
-                                        <pick-goods
-                                            v-if="item.type === 2"
-                                            :selection-type="0"
-                                            @chosed-goods="
-                                                (goods) => {
-                                                    chosedGoods(item, goods);
-                                                }
-                                            "
-                                        />
-                                        <pick-article
-                                            v-else-if="item.type === 3"
-                                            :selection-type="0"
-                                            @chosed-articles="
-                                                (articles) => {
-                                                    chosedArticles(item, 'value', articles, 'id');
-                                                }
-                                            "
-                                        />
-                                        <pick-articleType
-                                            v-else-if="item.type === 4"
-                                            :selection-type="0"
-                                            @chosed-article-types="
-                                                (articleTypes) => {
-                                                    chosedArticleTypes(item, 'value', articleTypes);
-                                                }
-                                            "
-                                        />
-                                        <pick-form
-                                            v-else-if="item.type === 5"
-                                            :selection-type="0"
-                                            @chosed-forms="
-                                                (forms) => {
-                                                    chosedForms(item, forms);
-                                                }
-                                            "
-                                        />
-                                    </template>
-                                </el-input>
-                            </el-form-item>
+                            <!-- 商城组件内容 -->
                         </el-collapse-item>
                         <el-collapse-item name="3" :title="$t('visualDesign.utilsComponent')">
-                            <template #title>
-                                <i
-                                    class="el-icon-ali-delete item-delete"
-                                    @click.stop="
-                                        deleteEditWidgetConfigListItem(editWidget.config.list, key)
-                                    "
-                                ></i>
-                                <span style="padding: 0px 8px">第 {{ key + 1 }} 张图</span>
-                            </template>
-                            <change-image-icon
-                                :img-url="item.url"
-                                :init-style="{
-                                    width: '100%',
-                                    border: '1px dashed #d9d9d9',
-                                    borderRadius: '4px',
-                                }"
-                                @chosed-image-icon="
-                                    (img) => {
-                                        chosedImage(item, img);
-                                    }
-                                "
-                            />
-                            <el-form-item label="类型">
-                                <el-select
-                                    v-model="item.type"
-                                    :placeholder="$t('common.selectPlaceholder')"
-                                >
-                                    <el-option
-                                        v-for="linkType in linkTypes"
-                                        :key="linkType.key"
-                                        :label="linkType.value"
-                                        :value="linkType.key"
-                                    />
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item label="指向">
-                                <el-input
-                                    v-model="item.value"
-                                    :placeholder="$t('common.selectPlaceholder')"
-                                >
-                                    <template #append>
-                                        <pick-goods
-                                            v-if="item.type === 2"
-                                            :selection-type="0"
-                                            @chosed-goods="
-                                                (goods) => {
-                                                    chosedGoods(item, goods);
-                                                }
-                                            "
-                                        />
-                                        <pick-article
-                                            v-else-if="item.type === 3"
-                                            :selection-type="0"
-                                            @chosed-articles="
-                                                (articles) => {
-                                                    chosedArticles(item, 'value', articles, 'id');
-                                                }
-                                            "
-                                        />
-                                        <pick-articleType
-                                            v-else-if="item.type === 4"
-                                            :selection-type="0"
-                                            @chosed-article-types="
-                                                (articleTypes) => {
-                                                    chosedArticleTypes(item, 'value', articleTypes);
-                                                }
-                                            "
-                                        />
-                                        <pick-form
-                                            v-else-if="item.type === 5"
-                                            :selection-type="0"
-                                            @chosed-forms="
-                                                (forms) => {
-                                                    chosedForms(item, forms);
-                                                }
-                                            "
-                                        />
-                                    </template>
-                                </el-input>
-                            </el-form-item>
+                            <!-- 工具组件内容 -->
                         </el-collapse-item>
                     </el-collapse>
                 </el-card>
@@ -279,440 +42,461 @@
                         :class="{ 'widget-empty': pageWidgets.length === 0 }"
                         :options="widgetOpts"
                         class="widget-container clearfix"
+                        :item-key="(item, index) => index"
                         @add="handleAddWidget"
                         @end="isDragging = false"
                         @start="isDragging = true"
                     >
-                        <template v-for="(item, index) in pageWidgets">
-                            <!-- 购买记录 -->
-                            <div
-                                v-if="item && item.type === 'record'"
-                                :key="index"
-                                :class="[item.config.style.align, 'record']"
-                                :style="{ top: item.config.style.top + '%' }"
-                                @click="handleSelectWidget(index)"
-                            >
-                                <i class="el-icon-ali-message"></i>
-                                <span>{{ $t('visualDesign.record') }}</span>
-                                <i
-                                    class="el-icon-ali-delete1"
-                                    @click.stop="handleDeleteWidget(index)"
-                                ></i>
-                            </div>
+                        <template #item="{ element: item, index }">
+                            <div :key="`widget-${index}`">
+                                <!-- 购买记录 -->
+                                <div
+                                    v-if="item && item.type === 'record'"
+                                    :class="[item.config.style.align, 'record']"
+                                    :style="{ top: item.config.style.top + '%' }"
+                                    @click="handleSelectWidget(index)"
+                                >
+                                    <i class="el-icon-ali-message"></i>
+                                    <span>{{ $t('visualDesign.record') }}</span>
+                                    <i
+                                        class="el-icon-ali-delete1"
+                                        @click.stop="handleDeleteWidget(index)"
+                                    ></i>
+                                </div>
 
-                            <div
-                                v-else
-                                :key="index"
-                                class="widget-item"
-                                @click="handleSelectWidget(index)"
-                            >
-                                <!--<div>index:{{index}} editWidget.idx:{{editWidget?editWidget.idx:0}}</div>-->
-                                <el-button-group
-                                    v-if="
-                                        editWidget &&
+                                <div v-else class="widget-item" @click="handleSelectWidget(index)">
+                                    <!--<div>index:{{index}} editWidget.idx:{{editWidget?editWidget.idx:0}}</div>-->
+                                    <el-button-group
+                                        v-if="
+                                            editWidget &&
                                             editWidget.idx === index &&
                                             editWidget.type !== 'record'
-                                    "
-                                >
-                                    <el-button
-                                        :size="miniSize"
-                                        round
-                                        type="primary"
-                                        @click="handleCloneWidget(index)"
+                                        "
                                     >
-                                        <i class="el-icon-ali-fuzhi2"></i>
-                                    </el-button>
-                                    <el-button
-                                        :size="miniSize"
-                                        round
-                                        type="danger"
-                                        @click="handleDeleteWidget(index)"
-                                    >
-                                        <i class="el-icon-ali-delete"></i>
-                                    </el-button>
-                                </el-button-group>
-                                <!-- 搜索框 -->
-                                <van-search
-                                    v-if="item && item.type === 'search'"
-                                    v-model="item.config.keywords"
-                                    :shape="item.config.style"
-                                    :placeholder="$t('visualDesign.inputSearchKeyword')"
-                                    show-action
-                                >
-                                    <template #action>
-                                        <div>{{ $t('visualDesign.search') }}</div>
-                                    </template>
-                                </van-search>
-                                <!-- 商品组 -->
-                                <div
-                                    v-if="item && item.type === 'goods'"
-                                    class="widget-inner-container"
-                                >
-                                    <div class="title">
-                                        {{ item.config.title }}
-                                        <el-link v-if="item.config.more" class="goods-more">
-                                            <i class="el-icon-ali-s_ic_more"></i>
-                                        </el-link>
-                                    </div>
-                                    <van-grid
-                                        v-if="item.config.display === 'list'"
-                                        :column-num="item.config.column"
-                                        :gutter="10"
-                                    >
-                                        <van-grid-item
-                                            v-for="(goodsItem, key) in item.config.list"
-                                            :key="key"
+                                        <el-button
+                                            :size="miniSize"
+                                            round
+                                            type="primary"
+                                            @click="handleCloneWidget(index)"
                                         >
-                                            <van-image
-                                                :src="
-                                                    env.getImgUrl(goodsItem.url, env.baseAssetsUrl)
-                                                "
-                                            />
-                                            <p class="goods-item-title">
-                                                {{ goodsItem.name || $t('visualDesign.goodsName') }}
-                                            </p>
-                                            <p class="goods-item-price">
-                                                {{ (goodsItem && goodsItem.price) || '99.00' }}
-                                            </p>
-                                        </van-grid-item>
-                                    </van-grid>
-                                    <el-carousel
-                                        v-else-if="item.config.display === 'slide'"
-                                        :interval="5000"
-                                        arrow="always"
-                                        height="150px"
-                                    >
-                                        <el-carousel-item
-                                            v-for="(offset, key) in Math.ceil(
-                                                item.config.list.length / item.config.column
-                                            )"
-                                            :key="key"
+                                            <i class="el-icon-ali-fuzhi2"></i>
+                                        </el-button>
+                                        <el-button
+                                            :size="miniSize"
+                                            round
+                                            type="danger"
+                                            @click="handleDeleteWidget(index)"
                                         >
-                                            <van-grid :column-num="item.config.column" :gutter="10">
-                                                :gutter="10" >
-                                                <template
-                                                    v-if="
-                                                        item.config.list[
-                                                            (offset - 1) * item.config.column +
-                                                            (i - 1)
-                                                        ]
-                                                    "
-                                                >
-                                                    <van-grid-item
-                                                        v-for="i in item.config.column"
-                                                        :key="key + '_' + i"
-                                                    >
-                                                        <van-image
-                                                            :src="
-                                                                env.getImgUrl(
-                                                                    item.config.list[
-                                                                        (offset - 1) *
-                                                                        item.config.column +
-                                                                        (i - 1)
-                                                                    ].url,
-                                                                    env.baseAssetsUrl
-                                                                )
-                                                            "
-                                                        />
-                                                    </van-grid-item>
-                                                </template>
-                                            </van-grid>
-                                        </el-carousel-item>
-                                    </el-carousel>
-                                </div>
-                                <!-- 团购秒杀 -->
-                                <van-panel
-                                    v-if="item && item.type === 'groupPurchase'"
-                                    :title="item.config.title"
-                                >
-                                    <el-carousel :interval="5000" arrow="always" height="150px">
-                                        <el-carousel-item
-                                            v-for="(groupPurchaseItem, key) in item.config.list"
-                                            :key="key"
-                                        >
-                                            <van-row>
-                                                <van-col span="8">
-                                                    <van-image
-                                                        :src="
-                                                            env.getImgUrl(
-                                                                groupPurchaseItem.url,
-                                                                env.baseAssetsUrl
-                                                            )
-                                                        "
-                                                    />
-                                                </van-col>
-                                                <van-col span="16">
-                                                    <p>{{ groupPurchaseItem.name }}</p>
-                                                    <p>{{ groupPurchaseItem.price }}</p>
-                                                </van-col>
-                                            </van-row>
-                                        </el-carousel-item>
-                                    </el-carousel>
-                                </van-panel>
-                                <!-- 图片轮播 -->
-                                <van-swipe
-                                    v-if="item && item.type === 'imgSlide'"
-                                    :autoplay="3000"
-                                    :duration="item.config.duration"
-                                >
-                                    <van-swipe-item
-                                        v-for="(imgSlideItem, key) in item.config.list"
-                                        :key="key"
+                                            <i class="el-icon-ali-delete"></i>
+                                        </el-button>
+                                    </el-button-group>
+                                    <!-- 搜索框 -->
+                                    <van-search
+                                        v-if="item && item.type === 'search'"
+                                        v-model="item.config.keywords"
+                                        :shape="item.config.style"
+                                        :placeholder="$t('visualDesign.inputSearchKeyword')"
+                                        show-action
                                     >
-                                        <van-image
-                                            :src="
-                                                env.getImgUrl(imgSlideItem.url, env.baseAssetsUrl)
-                                            "
-                                            fit="contain"
-                                        />
-                                    </van-swipe-item>
-                                </van-swipe>
-                                <!-- 单图组 -->
-                                <div
-                                    v-if="item && item.type === 'imgSingle'"
-                                    class="widget-inner-container"
-                                >
-                                    <van-image
-                                        :src="env.getImgUrl(item.config.url, env.baseAssetsUrl)"
-                                        fit="contain"
-                                    />
-                                </div>
-                                <!-- 图片橱窗 -->
-                                <div
-                                    v-if="item && item.type === 'imgWindow'"
-                                    class="widget-inner-container"
-                                >
-                                    <template v-if="item.config.style == 5">
-                                        <!--页面布局为 1左3右 -->
-                                        <van-row :gutter="item.config.margin">
-                                            <van-col :span="12">
-                                                <van-image
-                                                    :src="
-                                                        env.getImgUrl(
-                                                            item.config.list[0]
-                                                                ? item.config.list[0].url
-                                                                : '',
-                                                            env.baseAssetsUrl
-                                                        )
-                                                    "
-                                                    fit="contain"
-                                                />
-                                            </van-col>
-                                            <van-col :span="12">
-                                                <van-row :gutter="item.config.margin">
-                                                    <van-col :span="24">
-                                                        <van-image
-                                                            :src="
-                                                                env.getImgUrl(
-                                                                    item.config.list[1]
-                                                                        ? item.config.list[1].url
-                                                                        : '',
-                                                                    env.baseAssetsUrl
-                                                                )
-                                                            "
-                                                            fit="contain"
-                                                        />
-                                                    </van-col>
-                                                </van-row>
-                                                <van-row :gutter="item.config.margin">
-                                                    <van-col :span="12">
-                                                        <van-image
-                                                            :src="
-                                                                env.getImgUrl(
-                                                                    item.config.list[2]
-                                                                        ? item.config.list[2].url
-                                                                        : '',
-                                                                    env.baseAssetsUrl
-                                                                )
-                                                            "
-                                                            fit="contain"
-                                                        />
-                                                    </van-col>
-                                                    <van-col :span="12">
-                                                        <van-image
-                                                            :src="
-                                                                env.getImgUrl(
-                                                                    item.config.list[3]
-                                                                        ? item.config.list[3].url
-                                                                        : '',
-                                                                    env.baseAssetsUrl
-                                                                )
-                                                            "
-                                                            fit="contain"
-                                                        />
-                                                    </van-col>
-                                                </van-row>
-                                            </van-col>
-                                        </van-row>
-                                    </template>
-                                    <template v-else>
-                                        <!-- 1行2个; 1行3个; 1行4个 -->
-                                        <van-row :gutter="item.config.margin">
-                                            <van-col
-                                                v-for="(imgWindowItem, key) in item.config.list"
+                                        <template #action>
+                                            <div>{{ $t('visualDesign.search') }}</div>
+                                        </template>
+                                    </van-search>
+                                    <!-- 商品组 -->
+                                    <div
+                                        v-if="item && item.type === 'goods'"
+                                        class="widget-inner-container"
+                                    >
+                                        <div class="title">
+                                            {{ item.config.title }}
+                                            <el-link v-if="item.config.more" class="goods-more">
+                                                <i class="el-icon-ali-s_ic_more"></i>
+                                            </el-link>
+                                        </div>
+                                        <van-grid
+                                            v-if="item.config.display === 'list'"
+                                            :column-num="item.config.column"
+                                            :gutter="10"
+                                        >
+                                            <van-grid-item
+                                                v-for="(goodsItem, key) in item.config.list"
                                                 :key="key"
-                                                :span="24 / item.config.style"
                                             >
                                                 <van-image
                                                     :src="
                                                         env.getImgUrl(
-                                                            imgWindowItem.url,
+                                                            goodsItem.url,
                                                             env.baseAssetsUrl
                                                         )
                                                     "
+                                                />
+                                                <p class="goods-item-title">
+                                                    {{
+                                                        goodsItem.name ||
+                                                        $t('visualDesign.goodsName')
+                                                    }}
+                                                </p>
+                                                <p class="goods-item-price">
+                                                    {{ (goodsItem && goodsItem.price) || '99.00' }}
+                                                </p>
+                                            </van-grid-item>
+                                        </van-grid>
+                                        <el-carousel
+                                            v-else-if="item.config.display === 'slide'"
+                                            :interval="5000"
+                                            arrow="always"
+                                            height="150px"
+                                        >
+                                            <el-carousel-item
+                                                v-for="(offset, key) in Math.ceil(
+                                                    item.config.list.length / item.config.column
+                                                )"
+                                                :key="key"
+                                            >
+                                                <van-grid
+                                                    :column-num="item.config.column"
+                                                    :gutter="10"
+                                                >
+                                                    <template
+                                                        v-if="
+                                                            item.config.list[
+                                                                (offset - 1) * item.config.column +
+                                                                    (i - 1)
+                                                            ]
+                                                        "
+                                                    >
+                                                        <van-grid-item
+                                                            v-for="i in item.config.column"
+                                                            :key="key + '_' + i"
+                                                        >
+                                                            <van-image
+                                                                :src="
+                                                                    env.getImgUrl(
+                                                                        item.config.list[
+                                                                            (offset - 1) *
+                                                                                item.config.column +
+                                                                                (i - 1)
+                                                                        ].url,
+                                                                        env.baseAssetsUrl
+                                                                    )
+                                                                "
+                                                            />
+                                                        </van-grid-item>
+                                                    </template>
+                                                </van-grid>
+                                            </el-carousel-item>
+                                        </el-carousel>
+                                    </div>
+                                    <!-- 团购秒杀 -->
+                                    <van-cell-group
+                                        v-if="item && item.type === 'groupPurchase'"
+                                        :title="item.config.title"
+                                    >
+                                        <el-carousel :interval="5000" arrow="always" height="150px">
+                                            <el-carousel-item
+                                                v-for="(groupPurchaseItem, key) in item.config.list"
+                                                :key="key"
+                                            >
+                                                <van-row>
+                                                    <van-col span="8">
+                                                        <van-image
+                                                            :src="
+                                                                env.getImgUrl(
+                                                                    groupPurchaseItem.url,
+                                                                    env.baseAssetsUrl
+                                                                )
+                                                            "
+                                                        />
+                                                    </van-col>
+                                                    <van-col span="16">
+                                                        <p>{{ groupPurchaseItem.name }}</p>
+                                                        <p>{{ groupPurchaseItem.price }}</p>
+                                                    </van-col>
+                                                </van-row>
+                                            </el-carousel-item>
+                                        </el-carousel>
+                                    </van-cell-group>
+                                    <!-- 图片轮播 -->
+                                    <van-swipe
+                                        v-if="item && item.type === 'imgSlide'"
+                                        :autoplay="3000"
+                                        :duration="item.config.duration"
+                                    >
+                                        <van-swipe-item
+                                            v-for="(imgSlideItem, key) in item.config.list"
+                                            :key="key"
+                                        >
+                                            <van-image
+                                                :src="
+                                                    env.getImgUrl(
+                                                        imgSlideItem.url,
+                                                        env.baseAssetsUrl
+                                                    )
+                                                "
+                                                fit="contain"
+                                            />
+                                        </van-swipe-item>
+                                    </van-swipe>
+                                    <!-- 单图组 -->
+                                    <div
+                                        v-if="item && item.type === 'imgSingle'"
+                                        class="widget-inner-container"
+                                    >
+                                        <van-image
+                                            :src="env.getImgUrl(item.config.url, env.baseAssetsUrl)"
+                                            fit="contain"
+                                        />
+                                    </div>
+                                    <!-- 图片橱窗 -->
+                                    <div
+                                        v-if="item && item.type === 'imgWindow'"
+                                        class="widget-inner-container"
+                                    >
+                                        <template v-if="item.config.style == 5">
+                                            <!--页面布局为 1左3右 -->
+                                            <van-row :gutter="item.config.margin">
+                                                <van-col :span="12">
+                                                    <van-image
+                                                        :src="
+                                                            env.getImgUrl(
+                                                                item.config.list[0]
+                                                                    ? item.config.list[0].url
+                                                                    : '',
+                                                                env.baseAssetsUrl
+                                                            )
+                                                        "
+                                                        fit="contain"
+                                                    />
+                                                </van-col>
+                                                <van-col :span="12">
+                                                    <van-row :gutter="item.config.margin">
+                                                        <van-col :span="24">
+                                                            <van-image
+                                                                :src="
+                                                                    env.getImgUrl(
+                                                                        item.config.list[1]
+                                                                            ? item.config.list[1]
+                                                                                  .url
+                                                                            : '',
+                                                                        env.baseAssetsUrl
+                                                                    )
+                                                                "
+                                                                fit="contain"
+                                                            />
+                                                        </van-col>
+                                                    </van-row>
+                                                    <van-row :gutter="item.config.margin">
+                                                        <van-col :span="12">
+                                                            <van-image
+                                                                :src="
+                                                                    env.getImgUrl(
+                                                                        item.config.list[2]
+                                                                            ? item.config.list[2]
+                                                                                  .url
+                                                                            : '',
+                                                                        env.baseAssetsUrl
+                                                                    )
+                                                                "
+                                                                fit="contain"
+                                                            />
+                                                        </van-col>
+                                                        <van-col :span="12">
+                                                            <van-image
+                                                                :src="
+                                                                    env.getImgUrl(
+                                                                        item.config.list[3]
+                                                                            ? item.config.list[3]
+                                                                                  .url
+                                                                            : '',
+                                                                        env.baseAssetsUrl
+                                                                    )
+                                                                "
+                                                                fit="contain"
+                                                            />
+                                                        </van-col>
+                                                    </van-row>
+                                                </van-col>
+                                            </van-row>
+                                        </template>
+                                        <template v-else>
+                                            <!-- 1行2个; 1行3个; 1行4个 -->
+                                            <van-row :gutter="item.config.margin">
+                                                <van-col
+                                                    v-for="(imgWindowItem, key) in item.config.list"
+                                                    :key="key"
+                                                    :span="24 / item.config.style"
+                                                >
+                                                    <van-image
+                                                        :src="
+                                                            env.getImgUrl(
+                                                                imgWindowItem.url,
+                                                                env.baseAssetsUrl
+                                                            )
+                                                        "
+                                                        fit="contain"
+                                                    />
+                                                </van-col>
+                                            </van-row>
+                                        </template>
+                                    </div>
+                                    <!-- 视频组 -->
+                                    <div
+                                        v-if="item && item.type === 'video'"
+                                        class="widget-inner-container"
+                                    >
+                                        <video
+                                            :autoplay="item.config.autoplay"
+                                            :poster="
+                                                env.getImgUrl(item.config.url, env.baseAssetsUrl)
+                                            "
+                                            :src="item.config.videoUrl"
+                                            controls="controls"
+                                            style="width: 100%; height: 100%; object-fit: fill"
+                                        ></video>
+                                    </div>
+                                    <!-- 文章组 -->
+                                    <div
+                                        v-if="item && item.type === 'article'"
+                                        class="widget-inner-container"
+                                    >
+                                        <van-row :gutter="8">
+                                            <van-col class="title" span="16">
+                                                <span>{{ $t('visualDesign.articleTitle') }}</span>
+                                            </van-col>
+                                            <van-col span="8">
+                                                <van-image
+                                                    :src="
+                                                        env.getImgUrl(
+                                                            item.config.url,
+                                                            env.baseAssetsUrl
+                                                        )
+                                                    "
+                                                    alt
                                                     fit="contain"
                                                 />
                                             </van-col>
                                         </van-row>
-                                    </template>
-                                </div>
-                                <!-- 视频组 -->
-                                <div
-                                    v-if="item && item.type === 'video'"
-                                    class="widget-inner-container"
-                                >
-                                    <video
-                                        :autoplay="item.config.autoplay"
-                                        :poster="env.getImgUrl(item.config.url, env.baseAssetsUrl)"
-                                        :src="item.config.videoUrl"
-                                        controls="controls"
-                                        style="width: 100%; height: 100%; object-fit: fill"
-                                    ></video>
-                                </div>
-                                <!-- 文章组 -->
-                                <div
-                                    v-if="item && item.type === 'article'"
-                                    class="widget-inner-container"
-                                >
-                                    <van-row :gutter="8">
-                                        <van-col class="title" span="16">
-                                            <span>{{ $t('visualDesign.articleTitle') }}</span>
-                                        </van-col>
-                                        <van-col span="8">
-                                            <van-image
-                                                :src="
-                                                    env.getImgUrl(
-                                                        item.config.url,
-                                                        env.baseAssetsUrl
-                                                    )
-                                                "
-                                                alt
-                                                fit="contain"
-                                            />
-                                        </van-col>
-                                    </van-row>
-                                </div>
-                                <!-- 文章分类 -->
-                                <div
-                                    v-if="item && item.type === 'articleClassify'"
-                                    class="widget-inner-container"
-                                >
-                                    <van-row
-                                        v-for="(articleItem, key) in item.config.limit"
-                                        :key="key"
-                                        :gutter="8"
+                                    </div>
+                                    <!-- 文章分类 -->
+                                    <div
+                                        v-if="item && item.type === 'articleClassify'"
+                                        class="widget-inner-container"
                                     >
-                                        <van-col class="title" span="16">
-                                            <span>{{ $t('visualDesign.articleTitle') }}</span>
-                                        </van-col>
-                                        <van-col span="8">
-                                            <van-image
-                                                :src="env.getImgUrl('', env.baseAssetsUrl)"
-                                                alt
-                                                fit="contain"
-                                            />
-                                        </van-col>
-                                    </van-row>
-                                </div>
-                                <!-- 公告组 -->
-                                <div
-                                    v-if="item && item.type === 'notice'"
-                                    class="widget-inner-container"
-                                >
-                                    <van-cell
-                                        v-for="(noticeItem, key) in item.config.list"
-                                        :key="key"
-                                    >
-                                        <van-notice-bar
-                                            :text="noticeItem.title"
-                                            left-icon="volume-o"
-                                        />
-                                    </van-cell>
-                                </div>
-                                <!-- 优惠券组 -->
-                                <div
-                                    v-if="item && item.type === 'coupon'"
-                                    class="widget-inner-container"
-                                >
-                                    <van-cell
-                                        v-for="i in item.config.limit"
-                                        :key="i"
-                                        class="coupon"
-                                    >
-                                        <van-row :gutter="8" justify="center" type="flex">
-                                            <van-col class="coupon-left" span="5">
-                                                <p>{{ $t('visualDesign.full300Reduce30') }}</p>
+                                        <van-row
+                                            v-for="(articleItem, key) in item.config.limit"
+                                            :key="key"
+                                            :gutter="8"
+                                        >
+                                            <van-col class="title" span="16">
+                                                <span>{{ $t('visualDesign.articleTitle') }}</span>
                                             </van-col>
-                                            <van-col span="19">
-                                                <div class="coupon-middle">
-                                                    <b>
-                                                        {{ $t('visualDesign.orderReduce144') }}
-                                                        减100元
-                                                    </b>
-                                                    <p>
-                                                        {{ $t('visualDesign.purchaseOrderFull2') }}
-                                                    </p>
-                                                    <p>
-                                                        {{ $t('visualDesign.purchaseOrderDate') }}
-                                                    </p>
-                                                </div>
-                                                <div class="coupon-right">
-                                                    {{ $t('visualDesign.receiveImmediately') }}
-                                                </div>
+                                            <van-col span="8">
+                                                <van-image
+                                                    :src="env.getImgUrl('', env.baseAssetsUrl)"
+                                                    alt
+                                                    fit="contain"
+                                                />
                                             </van-col>
                                         </van-row>
-                                    </van-cell>
-                                </div>
-                                <!-- 导航组 -->
-                                <van-grid
-                                    v-if="item && item.type === 'navBar'"
-                                    :column-num="item.config.column"
-                                    :gutter="10"
-                                >
-                                    <van-grid-item
-                                        v-for="(navBarItem, key) in item.config.list"
-                                        :key="key"
+                                    </div>
+                                    <!-- 公告组 -->
+                                    <div
+                                        v-if="item && item.type === 'notice'"
+                                        class="widget-inner-container"
                                     >
-                                        <van-image
-                                            :src="env.getImgUrl(navBarItem.url, env.baseAssetsUrl)"
-                                            round
-                                        />
-                                        <p>{{ navBarItem.text || $t('visualDesign.name') }}</p>
-                                    </van-grid-item>
-                                </van-grid>
-                                <!-- 辅助空白 -->
-                                <div
-                                    v-if="item && item.type === 'blank'"
-                                    class="widget-inner-container"
-                                >
+                                        <van-cell
+                                            v-for="(noticeItem, key) in item.config.list"
+                                            :key="key"
+                                        >
+                                            <van-notice-bar
+                                                :text="noticeItem.title"
+                                                left-icon="volume-o"
+                                            />
+                                        </van-cell>
+                                    </div>
+                                    <!-- 优惠券组 -->
                                     <div
-                                        :style="{
-                                            height: item.config.height + 'px',
-                                            backgroundColor: item.config.backgroundColor,
-                                            margin: '10px 5px',
-                                        }"
-                                    ></div>
-                                </div>
-                                <!-- 文本域 -->
-                                <div
-                                    v-if="item && item.type === 'textarea'"
-                                    class="widget-inner-container"
-                                >
+                                        v-if="item && item.type === 'coupon'"
+                                        class="widget-inner-container"
+                                    >
+                                        <van-cell
+                                            v-for="i in item.config.limit"
+                                            :key="i"
+                                            class="coupon"
+                                        >
+                                            <van-row :gutter="8" justify="center" type="flex">
+                                                <van-col class="coupon-left" span="5">
+                                                    <p>{{ $t('visualDesign.full300Reduce30') }}</p>
+                                                </van-col>
+                                                <van-col span="19">
+                                                    <div class="coupon-middle">
+                                                        <b>
+                                                            {{ $t('visualDesign.orderReduce144') }}
+                                                            减100元
+                                                        </b>
+                                                        <p>
+                                                            {{
+                                                                $t(
+                                                                    'visualDesign.purchaseOrderFull2'
+                                                                )
+                                                            }}
+                                                        </p>
+                                                        <p>
+                                                            {{
+                                                                $t('visualDesign.purchaseOrderDate')
+                                                            }}
+                                                        </p>
+                                                    </div>
+                                                    <div class="coupon-right">
+                                                        {{ $t('visualDesign.receiveImmediately') }}
+                                                    </div>
+                                                </van-col>
+                                            </van-row>
+                                        </van-cell>
+                                    </div>
+                                    <!-- 导航组 -->
+                                    <van-grid
+                                        v-if="item && item.type === 'navBar'"
+                                        :column-num="item.config.column"
+                                        :gutter="10"
+                                    >
+                                        <van-grid-item
+                                            v-for="(navBarItem, key) in item.config.list"
+                                            :key="key"
+                                        >
+                                            <van-image
+                                                :src="
+                                                    env.getImgUrl(navBarItem.url, env.baseAssetsUrl)
+                                                "
+                                                round
+                                            />
+                                            <p>{{ navBarItem.text || $t('visualDesign.name') }}</p>
+                                        </van-grid-item>
+                                    </van-grid>
+                                    <!-- 辅助空白 -->
                                     <div
-                                        id="textarea-container"
-                                        style="width: 100%; min-height: 48px; overflow: hidden"
-                                        v-html="item.config"
-                                    ></div>
+                                        v-if="item && item.type === 'blank'"
+                                        class="widget-inner-container"
+                                    >
+                                        <div
+                                            :style="{
+                                                height: item.config.height + 'px',
+                                                backgroundColor: item.config.backgroundColor,
+                                                margin: '10px 5px',
+                                            }"
+                                        ></div>
+                                    </div>
+                                    <!-- 文本域 -->
+                                    <div
+                                        v-if="item && item.type === 'textarea'"
+                                        class="widget-inner-container"
+                                    >
+                                        <div
+                                            id="textarea-container"
+                                            style="width: 100%; min-height: 48px; overflow: hidden"
+                                            v-html="item.config"
+                                        ></div>
+                                    </div>
                                 </div>
                             </div>
                         </template>
@@ -741,13 +525,10 @@
                                     animation: 150,
                                 }"
                                 element="ul"
+                                :item-key="(item, index) => index"
                             >
-                                <li
-                                    v-for="(goods, key) in editWidget.config.list"
-                                    :key="key"
-                                    :class="['goods-list-item']"
-                                >
-                                    <slot :goods="goods">
+                                <template #item="{ element: goods, index: key }">
+                                    <li :key="key" :class="['goods-list-item']">
                                         <i
                                             class="el-icon-ali-delete item-delete goods-delete"
                                             @click.stop="
@@ -761,8 +542,8 @@
                                             :src="env.getImgUrl(goods.url, env.baseAssetsUrl)"
                                             alt
                                         />
-                                    </slot>
-                                </li>
+                                    </li>
+                                </template>
                                 <template #footer>
                                     <div class="drag-footer">
                                         <pick-goods
@@ -861,7 +642,12 @@
                                 </el-row>
                             </el-form-item>
                             <el-form-item label="图片间距">
-                                v-model="editWidget.config.margin" />
+                                <el-input-number
+                                    v-model="editWidget.config.margin"
+                                    :min="0"
+                                    :max="50"
+                                    controls-position="right"
+                                />
                                 <draggable
                                     :list="editWidget.config.list"
                                     :options="{
@@ -870,107 +656,106 @@
                                         animation: 150,
                                     }"
                                     element="el-collapse"
+                                    :item-key="(item, index) => index"
                                 >
-                                    <el-collapse-item
-                                        v-for="(item, key) in editWidget.config.list"
-                                        :key="key"
-                                        :name="item.name"
-                                    >
-                                        <template #title>
-                                            <i
-                                                class="el-icon-ali-delete item-delete"
-                                                @click.stop="
-                                                    deleteEditWidgetConfigListItem(
-                                                        editWidget.config.list,
-                                                        key
-                                                    )
+                                    <template #item="{ element: item, index: key }">
+                                        <el-collapse-item :key="key" :name="item.name">
+                                            <template #title>
+                                                <i
+                                                    class="el-icon-ali-delete item-delete"
+                                                    @click.stop="
+                                                        deleteEditWidgetConfigListItem(
+                                                            editWidget.config.list,
+                                                            key
+                                                        )
+                                                    "
+                                                ></i>
+                                                <span style="padding: 0px 8px">
+                                                    第 {{ key + 1 }} 张图
+                                                </span>
+                                            </template>
+                                            <change-image-icon
+                                                :img-url="item.url"
+                                                :init-style="{
+                                                    width: '100%',
+                                                    border: '1px dashed #d9d9d9',
+                                                    borderRadius: '4px',
+                                                }"
+                                                @chosed-image-icon="
+                                                    (img) => {
+                                                        chosedImage(item, img);
+                                                    }
                                                 "
-                                            ></i>
-                                            <span style="padding: 0px 8px">
-                                                第 {{ key + 1 }} 张图
-                                            </span>
-                                        </template>
-                                        <change-image-icon
-                                            :img-url="item.url"
-                                            :init-style="{
-                                                width: '100%',
-                                                border: '1px dashed #d9d9d9',
-                                                borderRadius: '4px',
-                                            }"
-                                            @chosed-image-icon="
-                                                (img) => {
-                                                    chosedImage(item, img);
-                                                }
-                                            "
-                                        />
-                                        <el-form-item label="类型">
-                                            <el-select
-                                                v-model="item.type"
-                                                :placeholder="$t('common.selectPlaceholder')"
-                                            >
-                                                <el-option
-                                                    v-for="linkType in linkTypes"
-                                                    :key="linkType.key"
-                                                    :label="linkType.value"
-                                                    :value="linkType.key"
-                                                />
-                                            </el-select>
-                                        </el-form-item>
-                                        <el-form-item label="指向">
-                                            <el-input
-                                                v-model="item.value"
-                                                :placeholder="$t('common.selectPlaceholder')"
-                                            >
-                                                <template #append>
-                                                    <pick-goods
-                                                        v-if="item.type === 2"
-                                                        :selection-type="0"
-                                                        @chosed-goods="
-                                                            (goods) => {
-                                                                chosedGoods(item, goods);
-                                                            }
-                                                        "
+                                            />
+                                            <el-form-item label="类型">
+                                                <el-select
+                                                    v-model="item.type"
+                                                    :placeholder="$t('common.selectPlaceholder')"
+                                                >
+                                                    <el-option
+                                                        v-for="linkType in linkTypes"
+                                                        :key="linkType.key"
+                                                        :label="linkType.value"
+                                                        :value="linkType.key"
                                                     />
-                                                    <pick-article
-                                                        v-else-if="item.type === 3"
-                                                        :selection-type="0"
-                                                        @chosed-articles="
-                                                            (articles) => {
-                                                                chosedArticles(
-                                                                    item,
-                                                                    'value',
-                                                                    articles,
-                                                                    'id'
-                                                                );
-                                                            }
-                                                        "
-                                                    />
-                                                    <pick-articleType
-                                                        v-else-if="item.type === 4"
-                                                        :selection-type="0"
-                                                        @chosed-article-types="
-                                                            (articleTypes) => {
-                                                                chosedArticleTypes(
-                                                                    item,
-                                                                    'value',
-                                                                    articleTypes
-                                                                );
-                                                            }
-                                                        "
-                                                    />
-                                                    <pick-form
-                                                        v-else-if="item.type === 5"
-                                                        :selection-type="0"
-                                                        @chosed-forms="
-                                                            (forms) => {
-                                                                chosedForms(item, forms);
-                                                            }
-                                                        "
-                                                    />
-                                                </template>
-                                            </el-input>
-                                        </el-form-item>
-                                    </el-collapse-item>
+                                                </el-select>
+                                            </el-form-item>
+                                            <el-form-item label="指向">
+                                                <el-input
+                                                    v-model="item.value"
+                                                    :placeholder="$t('common.selectPlaceholder')"
+                                                >
+                                                    <template #append>
+                                                        <pick-goods
+                                                            v-if="item.type === 2"
+                                                            :selection-type="0"
+                                                            @chosed-goods="
+                                                                (goods) => {
+                                                                    chosedGoods(item, goods);
+                                                                }
+                                                            "
+                                                        />
+                                                        <pick-article
+                                                            v-else-if="item.type === 3"
+                                                            :selection-type="0"
+                                                            @chosed-articles="
+                                                                (articles) => {
+                                                                    chosedArticles(
+                                                                        item,
+                                                                        'value',
+                                                                        articles,
+                                                                        'id'
+                                                                    );
+                                                                }
+                                                            "
+                                                        />
+                                                        <pick-articleType
+                                                            v-else-if="item.type === 4"
+                                                            :selection-type="0"
+                                                            @chosed-article-types="
+                                                                (articleTypes) => {
+                                                                    chosedArticleTypes(
+                                                                        item,
+                                                                        'value',
+                                                                        articleTypes
+                                                                    );
+                                                                }
+                                                            "
+                                                        />
+                                                        <pick-form
+                                                            v-else-if="item.type === 5"
+                                                            :selection-type="0"
+                                                            @chosed-forms="
+                                                                (forms) => {
+                                                                    chosedForms(item, forms);
+                                                                }
+                                                            "
+                                                        />
+                                                    </template>
+                                                </el-input>
+                                            </el-form-item>
+                                        </el-collapse-item>
+                                    </template>
                                     <template #footer>
                                         <div class="drag-footer">
                                             <el-button
@@ -1120,105 +905,106 @@
                                     animation: 150,
                                 }"
                                 element="el-collapse"
+                                :item-key="(item, index) => index"
                             >
-                                <el-collapse-item
-                                    v-for="(item, key) in editWidget.config.list"
-                                    :key="key"
-                                    :name="item.name"
-                                >
-                                    <template #title>
-                                        <i
-                                            class="el-icon-ali-delete item-delete"
-                                            @click.stop="
-                                                deleteEditWidgetConfigListItem(
-                                                    editWidget.config.list,
-                                                    key
-                                                )
+                                <template #item="{ element: item, index: key }">
+                                    <el-collapse-item :key="key" :name="item.name">
+                                        <template #title>
+                                            <i
+                                                class="el-icon-ali-delete item-delete"
+                                                @click.stop="
+                                                    deleteEditWidgetConfigListItem(
+                                                        editWidget.config.list,
+                                                        key
+                                                    )
+                                                "
+                                            ></i>
+                                            <span style="padding: 0px 8px">
+                                                第 {{ key + 1 }} 张图
+                                            </span>
+                                        </template>
+                                        <change-image-icon
+                                            :img-url="item.url"
+                                            :init-style="{
+                                                width: '100%',
+                                                border: '1px dashed #d9d9d9',
+                                                borderRadius: '4px',
+                                            }"
+                                            @chosed-image-icon="
+                                                (img) => {
+                                                    chosedImage(item, img);
+                                                }
                                             "
-                                        ></i>
-                                        <span style="padding: 0px 8px">第 {{ key + 1 }} 张图</span>
-                                    </template>
-                                    <change-image-icon
-                                        :img-url="item.url"
-                                        :init-style="{
-                                            width: '100%',
-                                            border: '1px dashed #d9d9d9',
-                                            borderRadius: '4px',
-                                        }"
-                                        @chosed-image-icon="
-                                            (img) => {
-                                                chosedImage(item, img);
-                                            }
-                                        "
-                                    />
-                                    <el-form-item label="类型">
-                                        <el-select
-                                            v-model="item.type"
-                                            :placeholder="$t('common.selectPlaceholder')"
-                                        >
-                                            <el-option
-                                                v-for="linkType in linkTypes"
-                                                :key="linkType.key"
-                                                :label="linkType.value"
-                                                :value="linkType.key"
-                                            />
-                                        </el-select>
-                                    </el-form-item>
-                                    <el-form-item label="指向">
-                                        <el-input
-                                            v-model="item.value"
-                                            :placeholder="$t('common.selectPlaceholder')"
-                                        >
-                                            <template #append>
-                                                <pick-goods
-                                                    v-if="item.type === 2"
-                                                    :selection-type="0"
-                                                    @chosed-goods="
-                                                        (goods) => {
-                                                            chosedGoods(item, goods);
-                                                        }
-                                                    "
+                                        />
+                                        <el-form-item label="类型">
+                                            <el-select
+                                                v-model="item.type"
+                                                :placeholder="$t('common.selectPlaceholder')"
+                                            >
+                                                <el-option
+                                                    v-for="linkType in linkTypes"
+                                                    :key="linkType.key"
+                                                    :label="linkType.value"
+                                                    :value="linkType.key"
                                                 />
-                                                <pick-article
-                                                    v-else-if="item.type === 3"
-                                                    :selection-type="0"
-                                                    @chosed-articles="
-                                                        (articles) => {
-                                                            chosedArticles(
-                                                                item,
-                                                                'value',
-                                                                articles,
-                                                                'id'
-                                                            );
-                                                        }
-                                                    "
-                                                />
-                                                <pick-articleType
-                                                    v-else-if="item.type === 4"
-                                                    :selection-type="0"
-                                                    @chosed-article-types="
-                                                        (articleTypes) => {
-                                                            chosedArticleTypes(
-                                                                item,
-                                                                'value',
-                                                                articleTypes
-                                                            );
-                                                        }
-                                                    "
-                                                />
-                                                <pick-form
-                                                    v-else-if="item.type === 5"
-                                                    :selection-type="0"
-                                                    @chosed-forms="
-                                                        (forms) => {
-                                                            chosedForms(item, forms);
-                                                        }
-                                                    "
-                                                />
-                                            </template>
-                                        </el-input>
-                                    </el-form-item>
-                                </el-collapse-item>
+                                            </el-select>
+                                        </el-form-item>
+                                        <el-form-item label="指向">
+                                            <el-input
+                                                v-model="item.value"
+                                                :placeholder="$t('common.selectPlaceholder')"
+                                            >
+                                                <template #append>
+                                                    <pick-goods
+                                                        v-if="item.type === 2"
+                                                        :selection-type="0"
+                                                        @chosed-goods="
+                                                            (goods) => {
+                                                                chosedGoods(item, goods);
+                                                            }
+                                                        "
+                                                    />
+                                                    <pick-article
+                                                        v-else-if="item.type === 3"
+                                                        :selection-type="0"
+                                                        @chosed-articles="
+                                                            (articles) => {
+                                                                chosedArticles(
+                                                                    item,
+                                                                    'value',
+                                                                    articles,
+                                                                    'id'
+                                                                );
+                                                            }
+                                                        "
+                                                    />
+                                                    <pick-articleType
+                                                        v-else-if="item.type === 4"
+                                                        :selection-type="0"
+                                                        @chosed-article-types="
+                                                            (articleTypes) => {
+                                                                chosedArticleTypes(
+                                                                    item,
+                                                                    'value',
+                                                                    articleTypes
+                                                                );
+                                                            }
+                                                        "
+                                                    />
+                                                    <pick-form
+                                                        v-else-if="item.type === 5"
+                                                        :selection-type="0"
+                                                        @chosed-forms="
+                                                            (forms) => {
+                                                                chosedForms(item, forms);
+                                                            }
+                                                        "
+                                                    />
+                                                </template>
+                                            </el-input>
+                                        </el-form-item>
+                                    </el-collapse-item>
+                                </template>
                                 <template #footer>
                                     <div class="drag-footer">
                                         <el-button
@@ -1261,24 +1047,22 @@
                                         animation: 150,
                                     }"
                                     element="ul"
+                                    :item-key="(item, index) => index"
                                 >
-                                    <li
-                                        v-for="(item, key) in editWidget.config.list"
-                                        :key="key"
-                                        :name="key"
-                                        class="notice-item"
-                                    >
-                                        <i
-                                            class="el-icon-ali-delete item-delete"
-                                            @click.stop="
-                                                deleteEditWidgetConfigListItem(
-                                                    editWidget.config.list,
-                                                    key
-                                                )
-                                            "
-                                        ></i>
-                                        <span style="padding: 0px 8px">{{ item.title }}</span>
-                                    </li>
+                                    <template #item="{ element: item, index: key }">
+                                        <li :key="key" :name="key" class="notice-item">
+                                            <i
+                                                class="el-icon-ali-delete item-delete"
+                                                @click.stop="
+                                                    deleteEditWidgetConfigListItem(
+                                                        editWidget.config.list,
+                                                        key
+                                                    )
+                                                "
+                                            ></i>
+                                            <span style="padding: 0px 8px">{{ item.title }}</span>
+                                        </li>
+                                    </template>
                                     <template #footer>
                                         <div class="drag-footer">
                                             <pick-notice
@@ -1321,107 +1105,107 @@
                                     animation: 150,
                                 }"
                                 tag="el-collapse"
+                                :item-key="(item, index) => index"
                             >
-                                <el-collapse-item
-                                    v-for="(item, key) in editWidget.config.list"
-                                    :key="key"
-                                >
-                                    <template #title>
-                                        <i
-                                            class="el-icon-ali-delete item-delete"
-                                            @click.stop="
-                                                deleteEditWidgetConfigListItem(
-                                                    editWidget.config.list,
-                                                    key
-                                                )
+                                <template #item="{ element: item, index: key }">
+                                    <el-collapse-item :key="key">
+                                        <template #title>
+                                            <i
+                                                class="el-icon-ali-delete item-delete"
+                                                @click.stop="
+                                                    deleteEditWidgetConfigListItem(
+                                                        editWidget.config.list,
+                                                        key
+                                                    )
+                                                "
+                                            ></i>
+                                            <span style="padding: 0px 8px">{{ item.text }}</span>
+                                        </template>
+                                        <change-image-icon
+                                            :img-url="item.url"
+                                            :init-style="{
+                                                width: '100%',
+                                                border: '1px dashed #d9d9d9',
+                                                borderRadius: '4px',
+                                            }"
+                                            @chosed-image-icon="
+                                                (img) => {
+                                                    chosedImage(item, img);
+                                                }
                                             "
-                                        ></i>
-                                        <span style="padding: 0px 8px">{{ item.text }}</span>
-                                    </template>
-                                    <change-image-icon
-                                        :img-url="item.url"
-                                        :init-style="{
-                                            width: '100%',
-                                            border: '1px dashed #d9d9d9',
-                                            borderRadius: '4px',
-                                        }"
-                                        @chosed-image-icon="
-                                            (img) => {
-                                                chosedImage(item, img);
-                                            }
-                                        "
-                                    />
-                                    <el-form-item label="文字">
-                                        <input v-model="item.text" type="text" />
-                                    </el-form-item>
-                                    <el-form-item label="类型">
-                                        <el-select
-                                            v-model="item.type"
-                                            :placeholder="$t('common.selectPlaceholder')"
-                                        >
-                                            <el-option
-                                                v-for="linkType in linkTypes"
-                                                :key="linkType.key"
-                                                :label="linkType.value"
-                                                :value="linkType.key"
-                                            />
-                                        </el-select>
-                                    </el-form-item>
-                                    <el-form-item label="指向">
-                                        <el-input
-                                            v-model="item.value"
-                                            :placeholder="$t('common.selectPlaceholder')"
-                                        >
-                                            <template #append>
-                                                <pick-goods
-                                                    v-if="item.type === 2"
-                                                    :selection-type="0"
-                                                    @chosed-goods="
-                                                        (goods) => {
-                                                            chosedGoods(item, goods);
-                                                        }
-                                                    "
+                                        />
+                                        <el-form-item label="文字">
+                                            <input v-model="item.text" type="text" />
+                                        </el-form-item>
+                                        <el-form-item label="类型">
+                                            <el-select
+                                                v-model="item.type"
+                                                :placeholder="$t('common.selectPlaceholder')"
+                                            >
+                                                <el-option
+                                                    v-for="linkType in linkTypes"
+                                                    :key="linkType.key"
+                                                    :label="linkType.value"
+                                                    :value="linkType.key"
                                                 />
-                                                <pick-article
-                                                    v-else-if="item.type === 3"
-                                                    :selection-type="0"
-                                                    @chosed-articles="
-                                                        (articles) => {
-                                                            chosedArticles(
-                                                                item,
-                                                                'value',
-                                                                articles,
-                                                                'id'
-                                                            );
-                                                        }
-                                                    "
-                                                />
-                                                <pick-articleType
-                                                    v-else-if="item.type === 4"
-                                                    :selection-type="0"
-                                                    @chosed-article-types="
-                                                        (articleTypes) => {
-                                                            chosedArticleTypes(
-                                                                item,
-                                                                'value',
-                                                                articleTypes
-                                                            );
-                                                        }
-                                                    "
-                                                />
-                                                <pick-form
-                                                    v-else-if="item.type === 5"
-                                                    :selection-type="0"
-                                                    @chosed-forms="
-                                                        (forms) => {
-                                                            chosedForms(item, forms);
-                                                        }
-                                                    "
-                                                />
-                                            </template>
-                                        </el-input>
-                                    </el-form-item>
-                                </el-collapse-item>
+                                            </el-select>
+                                        </el-form-item>
+                                        <el-form-item label="指向">
+                                            <el-input
+                                                v-model="item.value"
+                                                :placeholder="$t('common.selectPlaceholder')"
+                                            >
+                                                <template #append>
+                                                    <pick-goods
+                                                        v-if="item.type === 2"
+                                                        :selection-type="0"
+                                                        @chosed-goods="
+                                                            (goods) => {
+                                                                chosedGoods(item, goods);
+                                                            }
+                                                        "
+                                                    />
+                                                    <pick-article
+                                                        v-else-if="item.type === 3"
+                                                        :selection-type="0"
+                                                        @chosed-articles="
+                                                            (articles) => {
+                                                                chosedArticles(
+                                                                    item,
+                                                                    'value',
+                                                                    articles,
+                                                                    'id'
+                                                                );
+                                                            }
+                                                        "
+                                                    />
+                                                    <pick-articleType
+                                                        v-else-if="item.type === 4"
+                                                        :selection-type="0"
+                                                        @chosed-article-types="
+                                                            (articleTypes) => {
+                                                                chosedArticleTypes(
+                                                                    item,
+                                                                    'value',
+                                                                    articleTypes
+                                                                );
+                                                            }
+                                                        "
+                                                    />
+                                                    <pick-form
+                                                        v-else-if="item.type === 5"
+                                                        :selection-type="0"
+                                                        @chosed-forms="
+                                                            (forms) => {
+                                                                chosedForms(item, forms);
+                                                            }
+                                                        "
+                                                    />
+                                                </template>
+                                            </el-input>
+                                        </el-form-item>
+                                    </el-collapse-item>
+                                </template>
                                 <template #footer>
                                     <div class="drag-footer">
                                         <el-button
@@ -1495,13 +1279,10 @@
                                     animation: 150,
                                 }"
                                 element="ul"
+                                :item-key="(item, index) => index"
                             >
-                                <li
-                                    v-for="(goods, key) in editWidget.config.list"
-                                    :key="key"
-                                    :class="['goods-list-item']"
-                                >
-                                    <slot :goods="goods">
+                                <template #item="{ element: goods, index: key }">
+                                    <li :key="key" :class="['goods-list-item']">
                                         <i
                                             class="el-icon-ali-delete item-delete goods-delete"
                                             @click.stop="
@@ -1515,8 +1296,8 @@
                                             :src="env.getImgUrl(goods.url, env.baseAssetsUrl)"
                                             alt
                                         />
-                                    </slot>
-                                </li>
+                                    </li>
+                                </template>
                                 <template #footer>
                                     <div class="drag-footer">
                                         <pick-goods
@@ -1540,7 +1321,7 @@
                                     </el-radio>
                                     <el-radio
                                         :disabled="editWidget.config.column == 1"
-                                        :value="slide"
+                                        value="slide"
                                     >
                                         {{ $t('visualDesign.horizontalScroll') }}
                                     </el-radio>
@@ -1682,11 +1463,9 @@
 import {
     Search,
     NoticeBar,
-    Panel,
     Grid,
     GridItem,
     Image,
-    Card,
     Swipe,
     SwipeItem,
     Row,
@@ -1694,7 +1473,6 @@ import {
     CellGroup,
     Cell,
     Divider,
-    Field,
 } from 'vant';
 import _ from 'lodash';
 import draggable from 'vuedraggable';
@@ -1727,9 +1505,7 @@ export default {
         [NoticeBar.name]: NoticeBar,
         [Grid.name]: Grid,
         [GridItem.name]: GridItem,
-        [Panel.name]: Panel,
         [Image.name]: Image,
-        [Card.name]: Card,
         [Swipe.name]: Swipe,
         [SwipeItem.name]: SwipeItem,
         [Row.name]: Row,
@@ -1737,12 +1513,12 @@ export default {
         [CellGroup.name]: CellGroup,
         [Cell.name]: Cell,
         [Divider.name]: Divider,
-        [Field.name]: Field,
     },
     data() {
         return {
             normalSize: 'default',
             smallSize: 'small',
+            miniSize: 'small',
             activeNames: ['1'],
             isDragging: false,
             storeComponents: allComponents.storeComponents,
@@ -1811,10 +1587,12 @@ export default {
         this.getBrandList();
 
         const _textArea = document.getElementById('textarea-container');
-        const _img = _textArea.getElementsByTagName('img');
-        for (let i = 0; i < _img.length; i++) {
-            _img[i].style['max-width'] = _textArea.offsetWidth - 40 + 'px'; // 这里-40是padding的左右宽度和
-            _img[i].style.display = 'inline';
+        if (_textArea) {
+            const _img = _textArea.getElementsByTagName('img');
+            for (let i = 0; i < _img.length; i++) {
+                _img[i].style['max-width'] = _textArea.offsetWidth - 40 + 'px'; // 这里-40是padding的左右宽度和
+                _img[i].style.display = 'inline';
+            }
         }
     },
     methods: {

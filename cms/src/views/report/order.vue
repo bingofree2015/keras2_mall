@@ -77,44 +77,35 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            // miniSize: 'mini', // 删除 miniSize
-
-            pickerOptions: {
-                shortcuts: [
-                    {
-                        text: this.$t('report.lastWeek'),
-                        onClick(picker) {
-                            const end = new Date();
-                            const start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                            picker.$emit('pick', [start, end]);
-                        },
-                    },
-                    {
-                        text: this.$t('report.lastMonth'),
-                        onClick(picker) {
-                            const end = new Date();
-                            const start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                            picker.$emit('pick', [start, end]);
-                        },
-                    },
-                    {
-                        text: this.$t('report.lastThreeMonths'),
-                        onClick(picker) {
-                            const end = new Date();
-                            const start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                            picker.$emit('pick', [start, end]);
-                        },
-                    },
-                ],
-            },
-            rangeDate: [Date.now(), Date.now() + 3600 * 1000 * 24],
-            unit: 0,
-
-            orderChart: null,
+            unit: 1,
+            rangeDate: [],
         };
+    },
+    computed: {
+        // 响应式的图表配置
+        chartOptions() {
+            return {
+                title: {
+                    text: this.$t('report.lastWeek'),
+                },
+            };
+        },
+        // 响应式的月度图表配置
+        monthlyChartOptions() {
+            return {
+                title: {
+                    text: this.$t('report.lastMonth'),
+                },
+            };
+        },
+        // 响应式的季度图表配置
+        quarterlyChartOptions() {
+            return {
+                title: {
+                    text: this.$t('report.lastThreeMonths'),
+                },
+            };
+        },
     },
     mounted() {
         this.drawLine();

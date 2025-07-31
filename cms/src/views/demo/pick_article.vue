@@ -74,7 +74,6 @@ export default {
         };
     },
     computed: {},
-    mounted() {},
     methods: {
         chosedArticles(articles) {
             this.articles = articles;

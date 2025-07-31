@@ -13,10 +13,7 @@
                     :on-search-result="onSearchResult"
                     :search-option="searchOption"
                 />
-                <el-amap
-:center="center"
-:events="events" :plugin="plugin" :zoom="zoom" vid="amap"
->
+                <el-amap :center="center" :events="events" :plugin="plugin" :zoom="zoom" vid="amap">
                     <el-amap-marker
                         v-for="(marker, index) in markers"
                         :key="marker.index"
@@ -41,10 +38,10 @@
         </el-container>
         <template #footer>
             <div class="dialog-footer">
-                <el-button :size="normalSize" round @click.native="mapDialogVisible = false">
+                <el-button :size="normalSize" round @click="mapDialogVisible = false">
                     {{ $t('action.cancel') }}
                 </el-button>
-                <el-button :size="normalSize" round type="primary" @click.native="chosedLocation">
+                <el-button :size="normalSize" round type="primary" @click="chosedLocation">
                     {{ $t('action.submit') }}
                 </el-button>
             </div>
@@ -71,6 +68,7 @@ export default {
             },
         },
     },
+    emits: ['chosedLocation'],
     data() {
         const self = this;
         return {
@@ -125,21 +123,38 @@ export default {
                                             radius: 1000,
                                             extensions: 'all',
                                         });
-                                    }
-                                    geocoder.getAddress(
-                                        [self.lng, self.lat],
-                                        function (status, result) {
-                                            if (status === 'complete' && result.info === 'OK') {
-                                                if (result && result.regeocode) {
-                                                    self.loaded = true;
-                                                    self.position.address =
-                                                        result.regeocode.formattedAddress;
-                                                    self.$nextTick();
+                                        geocoder.getAddress(
+                                            [self.lng, self.lat],
+                                            function (status, result) {
+                                                if (status === 'complete' && result.info === 'OK') {
+                                                    if (result && result.regeocode) {
+                                                        self.loaded = true;
+                                                        self.position.address =
+                                                            result.regeocode.formattedAddress;
+                                                        self.$nextTick(() => {
+                                                            // 页面渲染完成后的回调
+                                                        }); // 页面渲染好后
+                                                    }
+                                                } else {
+                                                    // 处理API错误，包括每日查询限制
+                                                    console.warn(
+                                                        '高德地图API错误:',
+                                                        result.info || '未知错误'
+                                                    );
+                                                    if (
+                                                        result &&
+                                                        result.info ===
+                                                            'USER_DAILY_QUERY_OVER_LIMIT'
+                                                    ) {
+                                                        self.position.address =
+                                                            'API查询次数已达上限，请稍后再试';
+                                                    } else {
+                                                        self.position.address = '地址解析失败';
+                                                    }
                                                 }
                                             }
-                                        }
-                                    );
-                                    self.$nextTick(); // 页面渲染好后
+                                        );
+                                    }
                                 }
                             });
                         },
@@ -173,16 +188,26 @@ export default {
                             radius: 1000,
                             extensions: 'all',
                         });
-                    }
-                    geocoder.getAddress([lng, lat], function (status, result) {
-                        if (status === 'complete' && result.info === 'OK') {
-                            if (result && result.regeocode) {
-                                self.loaded = true;
-                                self.position.address = result.regeocode.formattedAddress;
-                                self.$nextTick();
+                        geocoder.getAddress([lng, lat], function (status, result) {
+                            if (status === 'complete' && result.info === 'OK') {
+                                if (result && result.regeocode) {
+                                    self.loaded = true;
+                                    self.position.address = result.regeocode.formattedAddress;
+                                    self.$nextTick(() => {
+                                        // 页面渲染完成后的回调
+                                    });
+                                }
+                            } else {
+                                // 处理API错误，包括每日查询限制
+                                console.warn('高德地图API错误:', result.info || '未知错误');
+                                if (result && result.info === 'USER_DAILY_QUERY_OVER_LIMIT') {
+                                    self.position.address = 'API查询次数已达上限，请稍后再试';
+                                } else {
+                                    self.position.address = '地址解析失败';
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 },
             },
             loaded: false,
@@ -218,16 +243,18 @@ export default {
                         radius: 1000,
                         extensions: 'all',
                     });
-                }
-                geocoder.getAddress([center.lng, center.lat], function (status, result) {
-                    if (status === 'complete' && result.info === 'OK') {
-                        if (result && result.regeocode) {
-                            self.loaded = true;
-                            self.position.address = result.regeocode.formattedAddress;
-                            self.$nextTick();
+                    geocoder.getAddress([center.lng, center.lat], function (status, result) {
+                        if (status === 'complete' && result.info === 'OK') {
+                            if (result && result.regeocode) {
+                                self.loaded = true;
+                                self.position.address = result.regeocode.formattedAddress;
+                                self.$nextTick(() => {
+                                    // 页面渲染完成后的回调
+                                });
+                            }
                         }
-                    }
-                });
+                    });
+                }
                 self.center = [center.lng, center.lat];
                 self.markers[0].position = [center.lng, center.lat];
             }

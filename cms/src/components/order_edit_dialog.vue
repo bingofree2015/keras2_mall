@@ -91,7 +91,7 @@
         </el-form>
         <template #footer>
             <div class="dialog-footer">
-                <el-button :size="miniSize" round @click.native="$emit('update:visible', false)">
+                <el-button :size="miniSize" round @click="$emit('update:visible', false)">
                     {{ $t('action.cancel') }}
                 </el-button>
                 <el-button
@@ -99,7 +99,7 @@
                     :size="miniSize"
                     round
                     type="primary"
-                    @click.native="submitForm"
+                    @click="submitForm"
                 >
                     {{ $t('action.submit') }}
                 </el-button>
@@ -118,6 +118,7 @@ export default {
             required: true,
         },
     },
+    emits: ['update:visible'],
     data() {
         return {
             normalSize: 'default',
@@ -153,8 +154,7 @@ export default {
         };
     },
     computed: {},
-    async mounted() {},
-    methods: {
+    async methods: {
         openDialog() {
             this.$nextTick(async () => {
                 // 基于 orderId  向服务器请求 订单明细数据

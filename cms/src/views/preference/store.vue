@@ -174,37 +174,13 @@ export default {
     data() {
         return {
             normalSize: 'default',
+            largeSize: 'large',
             filters: {
                 key: 'storeName',
                 value: '',
             },
-            props: [{ prop: 'storeName', label: this.$t('store.name') }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'storeName', label: this.$t('store.name'), minWidth: 180 },
-                {
-                    prop: 'attachment.path',
-                    label: 'LOGO',
-                    minWidth: 80,
-                    propType: 'image',
-                    align: 'center',
-                },
-                { prop: 'mobile', label: this.$t('store.mobile'), minWidth: 160 },
-                { prop: 'linkman', label: this.$t('store.linkman'), minWidth: 120 },
-                { prop: 'areaId', label: this.$t('store.area'), minWidth: 160 },
-                {
-                    prop: 'address',
-                    label: this.$t('store.address'),
-                    minWidth: 280,
-                    showOverflowTooltip: true,
-                },
-                {
-                    prop: 'createdAt',
-                    label: this.$t('common.createdAt'),
-                    minWidth: 140,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
+            props: [],
+            columns: [],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -266,19 +242,20 @@ export default {
                 latitude: '', // 纬度
                 longitude: '', // 经度
             },
-            formDataRules: {
-                storeName: [
-                    { required: true, message: this.$t('store.nameRequired'), trigger: 'blur' },
-                ],
-            },
         };
     },
     computed: {
+        // 响应式的表单验证规则
+        formDataRules() {
+            return {
+                name: [{ required: true, message: this.$t('store.nameRequired'), trigger: 'blur' }],
+            };
+        },
         operationWidth: {
             get() {
                 let _operationWidth = 0;
                 if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
+                    _operationWidth += this.operations.length * 120;
                 }
                 return _operationWidth;
             },

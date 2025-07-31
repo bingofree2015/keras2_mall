@@ -38,7 +38,7 @@
                                     <el-row justify="space-between" type="flex">
                                         <el-col :span="20">
                                             <el-link
-                                                :underline="false"
+                                                underline="never"
                                                 @click.stop="editMenu(idx, subIdx)"
                                             >
                                                 {{ subBtn.name }}
@@ -54,7 +54,7 @@
                                     :index="idx + '_addSubMenu'"
                                 >
                                     <el-link
-                                        :underline="false"
+                                        underline="never"
                                         icon="el-icon-ali-zengjia"
                                         @click.stop="addSubMenu(idx)"
                                     >
@@ -64,7 +64,7 @@
                             </el-sub-menu>
                             <el-menu-item v-if="menuConfig.button.length < 3" index="add">
                                 <el-link
-                                    :underline="false"
+                                    underline="never"
                                     icon="el-icon-ali-zengjia"
                                     @click.stop="addMenu()"
                                 >
@@ -134,6 +134,7 @@ export default {
     data() {
         return {
             normalSize: 'default',
+            largeSize: 'large',
             miniSize: 'default',
             weixinTitle: '公众号菜单设置',
             activeIndex: '1',

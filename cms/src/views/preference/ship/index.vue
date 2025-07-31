@@ -93,42 +93,6 @@ export default {
                 key: 'name',
                 value: '',
             },
-            props: [{ prop: 'name', label: '名称' }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: this.$t('ship.name'), minWidth: 120 },
-                {
-                    prop: 'hasCod',
-                    label: this.$t('ship.hasCod'),
-                    minWidth: 100,
-                    align: 'center',
-                    formatter: this.env.formatBoolean,
-                },
-                {
-                    prop: 'freePostage',
-                    label: this.$t('ship.freePostage'),
-                    minWidth: 80,
-                    align: 'center',
-                    formatter: this.env.formatBoolean,
-                },
-                { prop: 'logistics.logiName', label: this.$t('ship.logisticsName'), minWidth: 160 },
-                { prop: 'logistics.logiCode', label: this.$t('ship.logisticsCode'), minWidth: 160 },
-                {
-                    prop: 'isDef',
-                    label: this.$t('ship.isDef'),
-                    minWidth: 70,
-                    align: 'center',
-                    formatter: this.env.formatBoolean,
-                },
-                {
-                    prop: 'state',
-                    label: this.$t('ship.state'),
-                    minWidth: 70,
-                    align: 'center',
-                    formatter: this.env.formatState,
-                },
-                { prop: 'sort', label: this.$t('ship.sort'), minWidth: 70 },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -166,17 +130,58 @@ export default {
         };
     },
     computed: {
+        // 响应式的 props 配置
+        props() {
+            return [{ prop: 'name', label: this.$t('ship.name') }];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                { prop: 'name', label: this.$t('ship.name'), minWidth: 120 },
+                {
+                    prop: 'hasCod',
+                    label: this.$t('ship.hasCod'),
+                    minWidth: 100,
+                    align: 'center',
+                    formatter: this.env.formatBoolean,
+                },
+                {
+                    prop: 'freePostage',
+                    label: this.$t('ship.freePostage'),
+                    minWidth: 80,
+                    align: 'center',
+                    formatter: this.env.formatBoolean,
+                },
+                { prop: 'logistics.logiName', label: this.$t('ship.logisticsName'), minWidth: 160 },
+                { prop: 'logistics.logiCode', label: this.$t('ship.logisticsCode'), minWidth: 160 },
+                {
+                    prop: 'isDef',
+                    label: this.$t('ship.isDef'),
+                    minWidth: 70,
+                    align: 'center',
+                    formatter: this.env.formatBoolean,
+                },
+                {
+                    prop: 'state',
+                    label: this.$t('ship.state'),
+                    minWidth: 70,
+                    align: 'center',
+                    formatter: this.env.formatState,
+                },
+                { prop: 'sort', label: this.$t('ship.sort'), minWidth: 70 },
+            ];
+        },
         operationWidth: {
             get() {
                 let _operationWidth = 0;
                 if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
+                    _operationWidth += this.operations.length * 120;
                 }
                 return _operationWidth;
             },
         },
     },
-    mounted() {},
     methods: {
         /**
          * 处理刷新按钮点击

@@ -49,7 +49,7 @@
         </el-form>
         <template #footer>
             <div class="dialog-footer">
-                <el-button :size="size" round @click.native="$emit('update:visible', false)">
+                <el-button :size="size" round @click="$emit('update:visible', false)">
                     {{ $t('action.cancel') }}
                 </el-button>
                 <el-button
@@ -57,7 +57,7 @@
                     :size="size"
                     round
                     type="primary"
-                    @click.native="submitForm"
+                    @click="submitForm"
                 >
                     {{ $t('action.submit') }}
                 </el-button>
@@ -80,6 +80,7 @@ export default {
             default: 'mini',
         },
     },
+    emits: ['update:visible'],
     data() {
         const checkPhone = (rule, value, callback) => {
             if (!value) {
@@ -130,6 +131,10 @@ export default {
     computed: {
         ...mapState(['loginUser']),
     },
+    mounted() {
+        // 编辑界面数据
+        this.formData = this.loginUser;
+    },
     methods: {
         ...mapMutations(['setLoginUser']),
         chosedIcon(chosen) {
@@ -175,10 +180,6 @@ export default {
                 }
             });
         },
-    },
-    mounted() {
-        // 编辑界面数据
-        this.formData = this.loginUser;
     },
 };
 </script>

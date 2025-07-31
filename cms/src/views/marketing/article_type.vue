@@ -40,14 +40,14 @@
         >
             <el-table-column align="center" label="ID" min-width="60" prop="id" />
             <table-tree-column
-                label="this.$t('articleType.name')"
+                :label="$t('articleType.name')"
                 min-width="280"
                 prop="typeName"
                 tree-key="id"
                 @send-tree-data="getTreeData"
             />
             <el-table-column
-                label="this.$t('articleType.parentName')"
+                :label="$t('articleType.parentName')"
                 min-width="160"
                 prop="parentName"
             />
@@ -171,6 +171,7 @@ export default {
     data() {
         return {
             normalSize: 'default',
+            largeSize: 'large',
             miniSize: 'default',
             loading: false,
             articleTypeTreeData: [],
@@ -181,7 +182,13 @@ export default {
                 pid: 0,
                 parentName: '',
             },
-            dataRule: {
+            popupTreeProps: {},
+        };
+    },
+    computed: {
+        // 响应式的表单验证规则
+        dataRule() {
+            return {
                 typeName: [
                     {
                         required: true,
@@ -189,35 +196,11 @@ export default {
                         trigger: 'blur',
                     },
                 ],
-            },
-            popupTreeProps: {
-                label: 'typeName',
-                children: 'children',
-            },
-        };
-    },
-    computed: {
-        popupTreeData() {
-            const _data = this.articleTypeTreeData.filter((x) => x.pid === 0);
-            const parent = {
-                pid: 0,
-                typeName: this.$t('articleType.topLevel'),
-                children: _data,
             };
-            return [parent];
         },
-    },
-    watch: {
-        articleTypeTreeData: {
-            // 深度监听，可监听到对象、数组的变化
-            handler(val, oldVal) {
-                console.log(
-                    `articleTypeTreeData变化: ${oldVal ? oldVal.length : 0} -> ${
-                        val ? val.length : 0
-                    }`
-                ); // 但是这两个值打印出来却都是一样的
-            },
-            deep: true,
+        // 响应式的顶级类型名称
+        topLevelTypeName() {
+            return this.$t('articleType.topLevel');
         },
     },
     mounted() {

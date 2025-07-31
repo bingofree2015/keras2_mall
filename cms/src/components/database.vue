@@ -73,7 +73,7 @@
         </div>
         <template #footer>
             <span class="dialog-footer">
-                <el-button round @click.native="$emit('update:visible', false)">
+                <el-button round @click="$emit('update:visible', false)">
                     {{ $t('action.cancel') }}
                 </el-button>
                 <el-button round type="primary" @click="handleBackup">
@@ -87,6 +87,7 @@
 <script>
 export default {
     components: {},
+    emits: ['update:visible'],
     data() {
         return {
             normalSize: 'large',

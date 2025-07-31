@@ -105,7 +105,6 @@ export default {
             },
         };
     },
-    mounted() {},
     methods: {
         /**
          * 处理刷新按钮点击

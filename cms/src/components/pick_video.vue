@@ -38,7 +38,6 @@ export default {
             videoDialogVisible: false,
         };
     },
-    mounted() {},
     methods: {
         openVideoUploader() {
             this.videoDialogVisible = true;

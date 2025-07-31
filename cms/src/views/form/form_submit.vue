@@ -222,7 +222,6 @@
 </template>
 
 <script>
-import _ from 'lodash';
 import extTable from '@/components/core/ext_table.vue';
 import breadCrumb from '@/components/bread_crumb.vue';
 import extButton from '@/components/core/ext_button.vue';
@@ -240,43 +239,19 @@ export default {
                 key: 'name',
                 value: '',
             },
-            props: [{ prop: 'name', label: this.$t('form.formName') }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                {
-                    prop: 'formName',
-                    label: this.$t('form.formName'),
-                    minWidth: 150,
-                    showOverflowTooltip: true,
-                },
-                { prop: 'user.username', label: this.$t('system.username'), minWidth: 90 },
-                { prop: 'ip', label: this.$t('system.ip'), minWidth: 100 },
-                {
-                    prop: 'state',
-                    label: this.$t('common.status'),
-                    minWidth: 80,
-                    formatter: this.env.columnFormatter,
-                },
-                {
-                    prop: 'feedback',
-                    label: this.$t('formSubmit.feedback'),
-                    minWidth: 80,
-                    showOverflowTooltip: true,
-                },
-                { prop: 'money', label: this.$t('formSubmit.paymentAmount'), minWidth: 95 },
-                {
-                    prop: 'payState',
-                    label: this.$t('formSubmit.paymentStatus'),
-                    minWidth: 95,
-                    formatter: this.env.columnFormatter,
-                },
-                { prop: 'createdAt', label: this.$t('formSubmit.submitTime'), minWidth: 135 },
-                { prop: 'updatedAt', label: this.$t('formSubmit.updateTime'), minWidth: 135 },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
             },
+            columns: [
+                { prop: 'formName', label: this.$t('form.formName') },
+                { prop: 'user.username', label: this.$t('formSubmit.user') },
+                { prop: 'payState', label: this.$t('formSubmit.payState') },
+                { prop: 'money', label: this.$t('formSubmit.money') },
+                { prop: 'state', label: this.$t('formSubmit.state') },
+                { prop: 'createdAt', label: this.$t('formSubmit.createdAt') },
+                { prop: 'updatedAt', label: this.$t('formSubmit.updatedAt') },
+            ],
             operations: [
                 // 明细  formSubmitDetail
                 {
@@ -336,102 +311,112 @@ export default {
                 },
                 formItems: [],
             },
+            viewDialogVisible: false,
+            feedbackDialogVisible: false,
+            operationWidth: 200,
             formDataRules: {
                 feedback: [
-                    {
-                        required: true,
-                        message: this.$t('common.inputPlaceholder'),
-                        trigger: 'blur',
-                    },
+                    { required: true, message: this.$t('common.required'), trigger: 'blur' },
                 ],
             },
-            viewDialogVisible: false,
-
-            feedbackDialogVisible: false,
-            editLoading: false,
         };
     },
     computed: {
-        operationWidth: {
-            get() {
-                let _operationWidth = 0;
-                if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
-                }
-                return _operationWidth;
-            },
+        // 响应式的 props 配置
+        props() {
+            return [{ prop: 'name', label: this.$t('form.formName') }];
         },
     },
-    mounted() {},
+    mounted() {
+        // 初始化数据
+        this.$nextTick(() => {
+            if (this.$el) {
+                this.handleRefresh();
+            }
+        });
+    },
     methods: {
-        /**
-         * 处理刷新按钮点击
-         * 使用父组件提供的 reload 方法进行页面刷新
-         */
-        handleRefresh() {
-            this.reload();
-        },
-        // 获取分页数据
-        async queryForPaginatedList(data) {
-            if (data && data.attrs) {
-                this.paginated.attrs = data.attrs;
-            }
-            this.paginated.attrs.searchKey = {};
-            if (this.filters.key && this.filters.value) {
-                this.paginated.attrs.searchKey[this.filters.key] = this.filters.value;
-            }
-            const _result = await this.$api.formSubmit.list(this.paginated.attrs);
-            if (_result.succeed === 1 && _result.code === 200) {
-                this.paginated.list = _result.data.list;
-                this.paginated.attrs.count = _result.data.count;
-            }
-            if (data && data.cb) data.cb();
-        },
-        // 表单明细
-        async getFormSubmitDetail(submitId) {
-            const _result = await this.$api.formSubmit.get({ id: submitId });
-            if (_result.succeed === 1 && _result.code === 200) {
-                Object.assign(this.formData, _result.data);
-            }
-        },
-        // 提交表单数据
-        submitForm() {
-            this.$refs.formData.validate((valid) => {
-                if (valid) {
-                    this.$confirm(this.$t('common.confirmSubmit'), this.$t('common.tip'), {}).then(
-                        async () => {
-                            this.editLoading = true;
-                            const data = Object.assign(
-                                {},
-                                _.pick(this.formData, ['id', 'feedback'])
-                            );
-                            const _result = await this.$api.formSubmit.save(data);
-                            if (_result.succeed === 1 && _result.code === 200) {
-                                const _formSubmit = this.paginated.list.find(
-                                    (v) => v.id === _result.data.id
-                                );
-                                if (!_formSubmit) {
-                                    this.paginated.list.unshift(_result.data);
-                                } else {
-                                    Object.assign(_formSubmit, _result.data);
-                                }
-                                this.$notify({
-                                    title: this.$t('common.success'),
-                                    message: _result.description,
-                                    type: 'success',
-                                });
-                                this.feedbackDialogVisible = false;
-                            } else {
-                                this.$notify.error({
-                                    title: this.$t('common.error'),
-                                    message: _result.description,
-                                });
-                            }
-                            this.editLoading = false;
-                        }
-                    );
+        // 查询分页列表
+        async queryForPaginatedList(params) {
+            try {
+                const result = await this.$api.formSubmit.list(params);
+                // 检查组件是否仍然存在
+                if (this.$el && result.succeed === 1 && result.code === 200) {
+                    // 确保数据结构完整
+                    this.paginated = {
+                        attrs: {
+                            ...this.paginated.attrs,
+                            ...result.data.attrs,
+                        },
+                        list: result.data.list || [],
+                    };
                 }
-            });
+                // 调用回调函数关闭loading状态
+                if (params.cb) {
+                    params.cb();
+                }
+            } catch (error) {
+                console.error('查询分页列表失败:', error);
+                // 检查组件是否仍然存在
+                if (this.$el) {
+                    // 保持原有结构，只清空列表
+                    this.paginated.list = [];
+                }
+                // 即使出错也要调用回调函数关闭loading状态
+                if (params.cb) {
+                    params.cb();
+                }
+            }
+        },
+
+        // 刷新数据
+        handleRefresh() {
+            this.queryForPaginatedList(this.paginated.attrs);
+        },
+
+        // 获取表单提交详情
+        async getFormSubmitDetail(id) {
+            try {
+                const result = await this.$api.formSubmit.get({ id });
+                if (this.$el && result.succeed === 1 && result.code === 200) {
+                    Object.assign(this.formData, result.data);
+                }
+            } catch (error) {
+                console.error('获取详情失败:', error);
+            }
+        },
+
+        // 批量删除
+        async batchDelete(ids) {
+            try {
+                const result = await this.$api.formSubmit.destroy({ ids });
+                if (this.$el && result.succeed === 1 && result.code === 200) {
+                    this.$message.success(this.$t('common.deleteSuccess'));
+                    this.handleRefresh();
+                }
+            } catch (error) {
+                console.error('删除失败:', error);
+                if (this.$el) {
+                    this.$message.error(this.$t('common.deleteFailed'));
+                }
+            }
+        },
+
+        // 保存反馈
+        async saveFeedback() {
+            try {
+                const result = await this.$api.formSubmit.save(this.formData);
+                if (this.$el && result.succeed === 1 && result.code === 200) {
+                    this.$message.success(this.$t('common.saveSuccess'));
+                    this.feedbackDialogVisible = false;
+                    this.handleRefresh();
+                }
+            } catch (error) {
+                console.error('保存反馈失败:', error);
+                if (this.$el) {
+                    this.$message.error(this.$t('common.saveFailed'));
+                }
+            }
         },
     },
 };

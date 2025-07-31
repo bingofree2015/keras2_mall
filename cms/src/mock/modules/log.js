@@ -43,6 +43,7 @@ export function getContent(pageNum, pageSize) {
         obj.ip = '127.0.0.1';
         obj.remark = 'remark log' + index;
         if (i % 2 === 0) {
+            // 偶数行的特殊处理（如果需要的话）
         }
         obj.createBy = 'admin';
         obj.createTime = '2018-08-14 11:11:11';

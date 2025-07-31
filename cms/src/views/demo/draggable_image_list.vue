@@ -101,7 +101,6 @@ export default {
         };
     },
     computed: {},
-    mounted() {},
     methods: {
         chosedImage(chosen) {
             this.imageItems.push(chosen);

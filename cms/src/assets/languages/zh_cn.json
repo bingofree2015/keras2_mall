@@ -23,7 +23,17 @@
         "tip": "提示",
         "confirmSubmit": "确认提交吗？",
         "inputName": "请输入名称",
-        "createTime": "创建时间"
+        "createTime": "创建时间",
+        "createdAt": "创建时间",
+        "updatedAt": "更新时间",
+        "desc": "描述",
+        "layout": "布局",
+        "type": "类型",
+        "required": "必填",
+        "deleteSuccess": "删除成功",
+        "deleteFailed": "删除失败",
+        "saveSuccess": "保存成功",
+        "saveFailed": "保存失败"
     },
     "action": {
         "operation": "操作",
@@ -82,6 +92,28 @@
         "logMng": "日志管理",
         "sysMonitor": "系统监控"
     },
+    "system": {
+        "labelName": "标签名称",
+        "value": "值",
+        "type": "类型",
+        "description": "描述",
+        "sort": "排序",
+        "remark": "备注",
+        "creator": "创建者",
+        "username": "用户名"
+    },
+    "dict": {
+        "label": "标签名称",
+        "value": "值",
+        "type": "类型",
+        "sort": "排序",
+        "description": "描述",
+        "remark": "备注",
+        "inputLabel": "请输入标签名称",
+        "inputValue": "请输入值",
+        "inputType": "请输入类型",
+        "inputDescription": "请输入描述"
+    },
     "page": {
         "mobile": "移动端",
         "pc": "PC端",
@@ -114,6 +146,10 @@
         "money": "金额",
         "password": "密码",
         "area": "省市区",
+        "areaName": "地区名称",
+        "areaLevel": "地区级别",
+        "areaParentName": "上级地区",
+        "areaSort": "排序",
         "coordinate": "坐标",
         "fieldName": "字段名称"
     },
@@ -248,6 +284,7 @@
     },
     "articleType": {
         "name": "分类名称",
+        "parentName": "上级分类",
         "desc": "分类描述",
         "sort": "排序",
         "inputName": "请输入分类名称",
@@ -272,7 +309,9 @@
         "code": "编码",
         "desc": "描述",
         "layoutStyle": "布局样式",
-        "layoutType": "布局类型"
+        "layoutType": "布局类型",
+        "mobile": "移动端",
+        "pc": "PC端"
     },
     "orderDelivery": {
         "dialogTitle": "订单发货",
@@ -382,7 +421,9 @@
         "areaList": "地区列表",
         "select": "选择",
         "firstWeightFee": "首重费用",
-        "continueWeightFee": "续重费用"
+        "continueWeightFee": "续重费用",
+        "logisticsName": "物流公司名称",
+        "logisticsCode": "物流公司代码"
     },
     "article": {
         "title": "文章标题",
@@ -402,6 +443,17 @@
         "sort": "排序",
         "inputValue": "请输入值",
         "nameRequired": "广告名称不能为空"
+    },
+    "advertPosition": {
+        "name": "广告位名称",
+        "code": "广告位编码",
+        "sort": "排序",
+        "nameRequired": "广告位名称不能为空",
+        "tpl1Slider": "模板1轮播图",
+        "tpl1IndexBanner1": "模板1首页横幅1",
+        "tpl1IndexBanner2": "模板1首页横幅2",
+        "tpl1IndexBanner3": "模板1首页横幅3",
+        "tpl1ClassBanner1": "模板1分类横幅1"
     },
     "database": {
         "path": "路径",
@@ -480,7 +532,12 @@
         "orderStatistics": "订单统计",
         "memberStatistics": "会员统计",
         "recentLogin": "最近登录",
-        "operationLog": "操作日志",
+        "operationLog": {
+            "admin": "管理员",
+            "method": "方法",
+            "param": "参数",
+            "desc": "描述"
+        },
         "status": "状态",
         "recordTime": "记录时间",
         "loginIP": "登录IP",
@@ -574,7 +631,28 @@
         "material": "材质",
         "size": "大小",
         "model": "型号",
-        "inputTypeName": "请输入类型名称"
+        "inputTypeName": "请输入类型名称",
+        "icon": "图标",
+        "categoryType": "分类类型",
+        "parentCategory": "父级分类",
+        "param": "参数",
+        "paramName": "参数名称",
+        "paramType": "参数类型",
+        "paramOption": "参数选项",
+        "spaceSeparated": "空格分隔",
+        "textbox": "文本框",
+        "radio": "单选",
+        "checkbox": "多选",
+        "spec": "规格",
+        "specName": "规格名称",
+        "specValue": "规格值",
+        "sellerReply": "商家回复",
+        "userComment": "用户评价",
+        "userScore": "用户评分",
+        "allGoods": "全部商品",
+        "upGoods": "上架商品",
+        "downGoods": "下架商品",
+        "stockWarn": "库存预警"
     },
     "system": {
         "username": "用户名",
@@ -609,7 +687,9 @@
         "needLogin": "需要登录",
         "inputFormName": "请输入表单名称",
         "totalSubmit": "总提交",
-        "totalAmount": "总金额"
+        "totalAmount": "总金额",
+        "reportView": "报表查看",
+        "qrcodeGenerate": "二维码生成"
     },
     "notice": {
         "title": "标题",
@@ -737,7 +817,30 @@
         "receiverName": "收货人姓名",
         "receiverPhone": "提货人电话",
         "inputReceiverName": "请输入收货人姓名",
-        "inputReceiverPhone": "请输入提货人电话"
+        "inputReceiverPhone": "请输入提货人电话",
+        "deliveryId": "发货单号",
+        "orderId": "订单号",
+        "userName": "用户名",
+        "logistics": "物流公司",
+        "logiNo": "物流单号",
+        "shipAddress": "收货地址",
+        "shipMobile": "收货电话",
+        "deliveryView": "发货查看",
+        "shipName": "收货人姓名",
+        "memo": "发货备注",
+        "goodsName": "商品名称",
+        "deliveryNum": "发货数量",
+        "ladingId": "提货单号",
+        "store": "门店",
+        "ladingName": "提货人姓名",
+        "mobile": "手机号",
+        "status": "状态",
+        "createdAt": "创建时间",
+        "ladingEdit": "提货单编辑",
+        "ladingNameRequired": "提货人姓名必填",
+        "inputLadingName": "请输入提货人姓名",
+        "inputMobile": "请输入手机号",
+        "clerkId": "处理店员ID"
     },
     "wechat": {
         "officialAccountName": "公众号名称",
@@ -762,7 +865,8 @@
         "inputVideoUrl": "请输入视频地址"
     },
     "user": {
-        "grade": "等级"
+        "grade": "等级",
+        "inputMobile": "请输入手机号"
     },
     "tinyEditor": {
         "insertImage": "插入图片",
@@ -828,5 +932,45 @@
     },
     "menuTree": {
         "pageNotExist": "页面不存在或加载失败"
+    },
+    "visualDesign": {
+        "componentLibrary": "组件库",
+        "mediaComponent": "媒体组件",
+        "storeComponent": "商城组件",
+        "utilsComponent": "工具组件",
+        "workspace": "工作区",
+        "record": "购买记录",
+        "inputSearchKeyword": "请输入关键字搜索",
+        "search": "搜索",
+        "goodsName": "商品名称",
+        "articleTitle": "文章标题",
+        "full300Reduce30": "满300减30",
+        "orderReduce144": "订单满144减10",
+        "purchaseOrderFull2": "购买订单满2件减5",
+        "purchaseOrderDate": "购买订单日期",
+        "receiveImmediately": "立即领取",
+        "name": "名称",
+        "left": "左",
+        "right": "右",
+        "add": "添加",
+        "selectAdArticle": "选择广告文章",
+        "selectArticleClassify": "选择文章分类",
+        "square": "方形",
+        "round": "圆形",
+        "autoGet": "自动获取",
+        "manualSelection": "手动选择",
+        "three": "三个",
+        "four": "四个",
+        "five": "五个",
+        "auto": "自动",
+        "manual": "手动",
+        "selectBrand": "选择品牌",
+        "listFlatten": "列表平铺",
+        "horizontalScroll": "横向滚动",
+        "singleColumn": "单列",
+        "twoColumns": "两列",
+        "threeColumns": "三列",
+        "yes": "是",
+        "no": "否"
     }
 }

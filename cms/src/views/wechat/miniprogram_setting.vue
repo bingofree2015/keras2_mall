@@ -131,17 +131,9 @@ export default {
                 wx_principal_name: '', // 主体信息
                 wx_signature: '', // 简介
             },
-            formDataRules: {
-                wx_nick_name: [
-                    {
-                        required: true,
-                        message: this.$t('wechat.miniprogram.inputName'),
-                        trigger: 'blur',
-                    },
-                ],
-            },
         };
     },
+    computed: {},
     async mounted() {
         await this.getSettings();
     },

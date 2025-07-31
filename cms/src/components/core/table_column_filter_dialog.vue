@@ -36,10 +36,10 @@
         </el-table>
         <template #footer>
             <div class="dialog-footer">
-                <el-button :size="size" round @click.native="dialogVisible = false">
+                <el-button :size="size" round @click="dialogVisible = false">
                     {{ $t('action.cancel') }}
                 </el-button>
-                <el-button :size="size" round type="primary" @click.native="handleFilterColumns">
+                <el-button :size="size" round type="primary" @click="handleFilterColumns">
                     {{ $t('action.comfirm') }}
                 </el-button>
             </div>
@@ -61,13 +61,13 @@ export default {
             default: 'mini',
         },
     },
+    emits: ['handleFilterColumns'],
     data() {
         return {
             selections: () => [], // 列表选中列
             dialogVisible: false,
         };
     },
-    mounted() {},
     methods: {
         // 选择切换
         selectionChange: function (selections) {

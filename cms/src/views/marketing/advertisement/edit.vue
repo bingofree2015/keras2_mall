@@ -1,191 +1,142 @@
 <template>
-    <div class="page-container">
-        <!--新增编辑界面-->
-        <el-row>
-            <el-col :span="24">
-                <bread-crumb />
-            </el-col>
-        </el-row>
-        <el-row>
-            <el-col :span="16">
-                <el-form
-                    ref="formData"
-                    :model="formData"
-                    :rules="formDataRules"
+    <div class="app-container">
+        <el-form
+            ref="formData"
+            :model="formData"
+            :rules="formDataRules"
+            :size="normalSize"
+            label-width="120px"
+        >
+            <el-divider content-position="left">
+                {{ $t('advertisement.basicInfo') }}
+            </el-divider>
+            <el-row>
+                <el-col :span="12">
+                    <el-form-item :label="$t('advertisement.name')" prop="name">
+                        <el-input
+                            v-model="formData.name"
+                            :placeholder="$t('advertisement.inputName')"
+                        />
+                    </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                    <el-form-item :label="$t('advertisement.position')" prop="positionId">
+                        <el-select
+                            v-model="formData.positionId"
+                            :placeholder="$t('advertisement.selectPosition')"
+                        >
+                            <el-option
+                                v-for="position in advertPositions"
+                                :key="position.id"
+                                :label="position.name"
+                                :value="position.id"
+                            />
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="12">
+                    <el-form-item :label="$t('advertisement.image')" prop="attachmentId">
+                        <change-image-icon
+                            :image="formData.attachment"
+                            @chosed-image="chosedImage"
+                        />
+                    </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                    <el-form-item :label="$t('advertisement.sort')" prop="sort">
+                        <el-input-number
+                            v-model="formData.sort"
+                            :min="0"
+                            :max="999"
+                            controls-position="right"
+                        />
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-divider content-position="left">
+                {{ $t('advertisement.linkInfo') }}
+            </el-divider>
+            <el-row>
+                <el-col :span="12">
+                    <el-form-item :label="$t('advertisement.linkType')" prop="type">
+                        <el-select
+                            v-model="formData.type"
+                            :placeholder="$t('advertisement.selectType')"
+                        >
+                            <el-option
+                                v-for="type in linkTypes"
+                                :key="type.key"
+                                :label="type.value"
+                                :value="type.key"
+                            />
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                    <el-form-item :label="$t('advertisement.linkValue')" prop="val">
+                        <el-input
+                            v-model="formData.val"
+                            :placeholder="$t('advertisement.inputLink')"
+                        />
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="24">
+                    <el-form-item :label="$t('advertisement.remark')" prop="memo">
+                        <el-input
+                            v-model="formData.memo"
+                            :placeholder="$t('advertisement.inputRemark')"
+                            type="textarea"
+                            :rows="3"
+                        />
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-form-item>
+                <el-button
+                    :loading="editLoading"
                     :size="normalSize"
-                    label-width="80px"
+                    round
+                    type="primary"
+                    @click="submitForm"
                 >
-                    <el-row>
-                        <el-col :span="16">
-                            <el-form-item :label="$t('advertisement.name')" prop="name">
-                                <el-input v-model="formData.name" />
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="8">
-                            <el-form-item :label="$t('advertisement.position')" prop="positionId">
-                                <el-select
-                                    v-model="formData.positionId"
-                                    :placeholder="$t('common.selectPlaceholder')"
-                                >
-                                    <el-option
-                                        v-for="advertPosition in advertPositions"
-                                        :key="advertPosition.id"
-                                        :label="advertPosition.name"
-                                        :value="advertPosition.id"
-                                    />
-                                </el-select>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col :span="16">
-                            <el-form-item :label="$t('advertisement.type')" prop="type">
-                                <el-select
-                                    v-model="formData.type"
-                                    :placeholder="$t('common.selectPlaceholder')"
-                                >
-                                    <el-option
-                                        v-for="linkType in linkTypes"
-                                        :key="linkType.key"
-                                        :label="linkType.value"
-                                        :value="linkType.key"
-                                    />
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item :label="$t('advertisement.value')" prop="val">
-                                <el-input
-                                    v-model="formData.val"
-                                    :placeholder="$t('advertisement.inputValue')"
-                                >
-                                    <template #append>
-                                        <pick-goods
-                                            v-if="formData.type === 2"
-                                            :selection-type="0"
-                                            @chosed-goods="
-                                                (goods) => {
-                                                    chosedGoods(formData, goods);
-                                                }
-                                            "
-                                        />
-                                        <pick-article
-                                            v-else-if="formData.type === 3"
-                                            :selection-type="0"
-                                            @chosed-articles="
-                                                (articles) => {
-                                                    chosedArticles(formData, 'val', articles, 'id');
-                                                }
-                                            "
-                                        />
-                                        <pick-articleType
-                                            v-else-if="formData.type === 4"
-                                            :selection-type="0"
-                                            @chosed-article-types="
-                                                (articleTypes) => {
-                                                    chosedArticleTypes(
-                                                        formData,
-                                                        'val',
-                                                        articleTypes
-                                                    );
-                                                }
-                                            "
-                                        />
-                                        <pick-form
-                                            v-else-if="formData.type === 5"
-                                            :selection-type="0"
-                                            @chosed-forms="
-                                                (forms) => {
-                                                    chosedForms(formData, forms);
-                                                }
-                                            "
-                                        />
-                                    </template>
-                                </el-input>
-                            </el-form-item>
-                            <el-form-item :label="$t('advertisement.sort')" prop="sort">
-                                <el-input-number
-                                    v-model="formData.sort"
-                                    :min="0"
-                                    controls-position="right"
-                                    label="排序"
-                                    style="width: 100px"
-                                />
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="8">
-                            <el-form-item :label="$t('advertisement.image')" prop="attachment">
-                                <change-image-icon
-                                    :img-url="formData.attachment ? formData.attachment.path : ''"
-                                    :init-style="{
-                                        height: '180px',
-                                        width: '180px',
-                                        border: '1px dashed #d9d9d9',
-                                        borderRadius: '4px',
-                                    }"
-                                    @chosed-image-icon="chosedImage"
-                                />
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col :span="24" class="footer">
-                            <el-button :size="normalSize" round @click="resetForm('formData')">
-                                {{ $t('action.cancel') }}
-                            </el-button>
-                            <el-button
-                                :loading="editLoading"
-                                :size="normalSize"
-                                round
-                                type="primary"
-                                @click="submitForm"
-                            >
-                                {{ $t('action.submit') }}
-                            </el-button>
-                        </el-col>
-                    </el-row>
-                </el-form>
-            </el-col>
-        </el-row>
+                    {{ $t('action.submit') }}
+                </el-button>
+                <el-button :size="normalSize" round @click="resetForm('formData')">
+                    {{ $t('action.reset') }}
+                </el-button>
+            </el-form-item>
+        </el-form>
     </div>
 </template>
 
 <script>
-import breadCrumb from '@/components/bread_crumb.vue';
-
-import pickGoods from '@/components/pick_goods.vue';
-import pickArticle from '@/components/pick_article.vue';
-import pickArticleType from '@/components/pick_articleType.vue';
-import pickForm from '@/components/pick_form.vue';
-import changeImageIcon from '@/components/change_image_icon.vue';
-
 export default {
-    components: {
-        breadCrumb,
-        pickGoods,
-        pickArticle,
-        pickArticleType,
-        pickForm,
-        changeImageIcon,
-    },
+    name: 'AdvertisementEdit',
+    components: {},
     data() {
         return {
-            normalSize: 'default',
-            advertPositions: [],
-            isCreating: false, // true:新增, false:编辑
+            normalSize: 'large',
             editLoading: false,
-
-            // 新增编辑界面数据
+            isCreating: false,
+            advertPositions: [],
             formData: {
-                id: 0, // 广告ID
-                positionId: '', // 广告位置id
+                id: 0,
                 name: '', // 广告名称
+                positionId: '', // 广告位置
+                attachmentId: 0, // 广告图片id
                 attachment: {
                     id: 0,
                     path: '',
-                }, // 广告图片id
+                },
                 val: '', // 链接属性值
                 sort: 0, // 从小到大 越小越靠前
                 code: '', // 广告位置编码
                 type: 1, // 类型(1 url 2 商品 3 文章)
+                memo: '', // 备注
             },
             linkTypes: [
                 { key: 1, value: 'URL链接' },
@@ -194,7 +145,12 @@ export default {
                 { key: 4, value: '文章分类' },
                 { key: 5, value: '智能表单' },
             ],
-            formDataRules: {
+        };
+    },
+    computed: {
+        // 响应式的 formDataRules 配置
+        formDataRules() {
+            return {
                 name: [
                     {
                         required: true,
@@ -202,8 +158,8 @@ export default {
                         trigger: 'blur',
                     },
                 ],
-            },
-        };
+            };
+        },
     },
     async mounted() {
         this.isCreating = this.$route.query.isCreating;

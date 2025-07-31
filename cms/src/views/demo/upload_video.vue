@@ -71,7 +71,6 @@ export default {
         };
     },
     computed: {},
-    mounted() {},
     methods: {
         handleClick() {
             this.videoDialogVisible = true;

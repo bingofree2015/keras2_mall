@@ -144,6 +144,7 @@ export default {
     data() {
         return {
             normalSize: 'default',
+            largeSize: 'large',
             filters: {
                 key: 'name',
                 value: '',
@@ -205,14 +206,6 @@ export default {
                 type: '',
                 values: '',
             },
-            formDataRules: {
-                name: [
-                    { required: true, message: this.$t('goods.inputParamName'), trigger: 'blur' },
-                ],
-                type: [
-                    { required: true, message: this.$t('goods.inputParamType'), trigger: 'change' },
-                ],
-            },
         };
     },
     computed: {
@@ -220,13 +213,20 @@ export default {
             get() {
                 let _operationWidth = 0;
                 if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
+                    _operationWidth += this.operations.length * 120;
                 }
                 return _operationWidth;
             },
         },
+        // 响应式的表单验证规则
+        formDataRules() {
+            return {
+                name: [
+                    { required: true, message: this.$t('goods.inputParamName'), trigger: 'blur' },
+                ],
+            };
+        },
     },
-    mounted() {},
     methods: {
         /**
          * 处理刷新按钮点击

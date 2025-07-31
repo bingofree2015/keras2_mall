@@ -189,6 +189,7 @@ export default {
     data() {
         return {
             normalSize: 'default',
+            largeSize: 'large',
             smallSize: 'small',
             filters: {
                 key: 'name',
@@ -315,13 +316,12 @@ export default {
             get() {
                 let _operationWidth = 0;
                 if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
+                    _operationWidth += this.operations.length * 120;
                 }
                 return _operationWidth;
             },
         },
     },
-    mounted() {},
     methods: {
         /**
          * 处理刷新按钮点击

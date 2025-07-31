@@ -86,38 +86,6 @@ export default {
                 key: 'userName',
                 value: '',
             },
-            props: [
-                { prop: 'userName', label: this.$t('system.username') },
-                { prop: 'method', label: this.$t('system.method') },
-                { prop: 'params', label: this.$t('system.parameter') },
-                { prop: 'ip', label: this.$t('system.ip') },
-                { prop: 'createBy', label: this.$t('system.creator') },
-            ],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'userName', label: this.$t('system.username'), minWidth: 100 },
-                {
-                    prop: 'method',
-                    label: this.$t('system.method'),
-                    minWidth: 180,
-                    showOverflowTooltip: true,
-                },
-                {
-                    prop: 'params',
-                    label: this.$t('system.parameter'),
-                    minWidth: 220,
-                    showOverflowTooltip: true,
-                },
-                { prop: 'ip', label: this.$t('system.ip'), minWidth: 120 },
-                { prop: 'time', label: this.$t('system.timeConsuming'), minWidth: 80 },
-                { prop: 'createBy', label: this.$t('system.creator'), minWidth: 100 },
-                {
-                    prop: 'createdAt',
-                    label: this.$t('common.createTime'),
-                    minWidth: 140,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -142,17 +110,54 @@ export default {
         };
     },
     computed: {
+        // 响应式的 props 配置
+        props() {
+            return [
+                { prop: 'userName', label: this.$t('system.username') },
+                { prop: 'method', label: this.$t('system.method') },
+                { prop: 'params', label: this.$t('system.parameter') },
+                { prop: 'ip', label: this.$t('system.ip') },
+                { prop: 'createBy', label: this.$t('system.creator') },
+            ];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                { prop: 'userName', label: this.$t('system.username'), minWidth: 100 },
+                {
+                    prop: 'method',
+                    label: this.$t('system.method'),
+                    minWidth: 180,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'params',
+                    label: this.$t('system.parameter'),
+                    minWidth: 220,
+                    showOverflowTooltip: true,
+                },
+                { prop: 'ip', label: this.$t('system.ip'), minWidth: 120 },
+                { prop: 'time', label: this.$t('system.timeConsuming'), minWidth: 80 },
+                { prop: 'createBy', label: this.$t('system.creator'), minWidth: 100 },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('common.createTime'),
+                    minWidth: 140,
+                    formatter: this.env.formatDateTime,
+                },
+            ];
+        },
         operationWidth: {
             get() {
                 let _operationWidth = 0;
                 if (Array.isArray(this.operations)) {
-                    _operationWidth += this.operations.length * 100;
+                    _operationWidth += this.operations.length * 120;
                 }
                 return _operationWidth;
             },
         },
     },
-    mounted() {},
     methods: {
         // 获取分页数据
         async queryForPaginatedList(data) {

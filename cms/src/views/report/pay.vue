@@ -10,7 +10,6 @@
                     <el-form-item>
                         <el-date-picker
                             v-model="rangeDate"
-                            :picker-options="pickerOptions"
                             align="right"
                             :end-placeholder="$t('report.endDate')"
                             :range-separator="$t('report.rangeSeparator')"
@@ -18,6 +17,7 @@
                             style="width: 240px"
                             type="daterange"
                             unlink-panels
+                            :shortcuts="dateShortcuts"
                         />
                         <el-form-item :label="$t('report.granularity')" prop="unit">
                             <el-radio-group v-model="unit">
@@ -58,7 +58,9 @@
         <!--图表区-->
         <el-row>
             <el-col :span="24">
-                <div id="payChart" style="width: 100%; height: 400px"></div>
+                <div v-loading="loading" element-loading-text="加载中..." style="width: 100%; height: 400px">
+                    <div id="payChart" style="width: 100%; height: 400px"></div>
+                </div>
             </el-col>
         </el-row>
     </div>
@@ -77,44 +79,65 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            // miniSize: 'default', // 删除 miniSize
-
-            pickerOptions: {
-                shortcuts: [
-                    {
-                        text: this.$t('report.lastWeek'),
-                        onClick(picker) {
-                            const end = new Date();
-                            const start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                            picker.$emit('pick', [start, end]);
-                        },
+            unit: 1,
+            rangeDate: [],
+            loading: false,
+            dateShortcuts: [
+                {
+                    text: '最近一周',
+                    value: () => {
+                        const end = new Date();
+                        const start = new Date();
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                        return [start, end];
                     },
-                    {
-                        text: this.$t('report.lastMonth'),
-                        onClick(picker) {
-                            const end = new Date();
-                            const start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                            picker.$emit('pick', [start, end]);
-                        },
+                },
+                {
+                    text: '最近一个月',
+                    value: () => {
+                        const end = new Date();
+                        const start = new Date();
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                        return [start, end];
                     },
-                    {
-                        text: this.$t('report.lastThreeMonths'),
-                        onClick(picker) {
-                            const end = new Date();
-                            const start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                            picker.$emit('pick', [start, end]);
-                        },
+                },
+                {
+                    text: '最近三个月',
+                    value: () => {
+                        const end = new Date();
+                        const start = new Date();
+                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                        return [start, end];
                     },
-                ],
-            },
-            rangeDate: [Date.now(), Date.now() + 3600 * 1000 * 24],
-            unit: 0,
-
-            payChart: null,
+                },
+            ],
         };
+    },
+    computed: {
+        // 响应式的图表配置
+        chartOptions() {
+            return {
+                title: {
+                    text: this.$t('report.lastWeek'),
+                },
+            };
+        },
+        // 响应式的月度图表配置
+        monthlyChartOptions() {
+            return {
+                title: {
+                    text: this.$t('report.lastMonth'),
+                },
+            };
+        },
+        // 响应式的季度图表配置
+        quarterlyChartOptions() {
+            return {
+                title: {
+                    text: this.$t('report.lastThreeMonths'),
+                },
+            };
+        },
     },
     mounted() {
         this.drawLine();
@@ -128,23 +151,92 @@ export default {
             this.reload();
         },
         async drawLine() {
-            this.payChart = echarts.init(document.getElementById('payChart'));
+            try {
+                this.loading = true;
+                
+                // 确保DOM元素存在
+                const chartElement = document.getElementById('payChart');
+                if (!chartElement) {
+                    console.error('图表容器元素不存在');
+                    return;
+                }
 
-            let _startTime = Date.now();
-            let _endTime = _startTime + 3600 * 1000 * 24;
-            if (Array.isArray(this.rangeDate) && this.rangeDate.length === 2) {
-                _startTime = this.rangeDate[0];
-                _endTime = this.rangeDate[1];
-            }
+                // 初始化图表
+                if (this.payChart) {
+                    this.payChart.dispose();
+                }
+                this.payChart = echarts.init(chartElement);
 
-            const _result = await this.$api.report.getPayData({
-                startTime: _startTime,
-                endTime: _endTime,
-                unit: this.unit,
-            });
-            if (_result.succeed === 1 && _result.code === 200) {
-                this.payChart.setOption(_result.data);
-            }
+                // 设置默认时间范围
+                let _startTime = Date.now() - 3600 * 1000 * 24 * 7; // 默认最近一周
+                let _endTime = Date.now();
+                
+                if (Array.isArray(this.rangeDate) && this.rangeDate.length === 2) {
+                    _startTime = this.rangeDate[0].getTime();
+                    _endTime = this.rangeDate[1].getTime();
+                }
+
+                console.log('请求参数:', {
+                    startTime: _startTime,
+                    endTime: _endTime,
+                    unit: this.unit,
+                });
+
+                const _result = await this.$api.report.getPayData({
+                    startTime: _startTime,
+                    endTime: _endTime,
+                    unit: this.unit,
+                });
+
+                console.log('API响应:', _result);
+
+                if (_result.succeed === 1 && _result.code === 200) {
+                    this.payChart.setOption(_result.data);
+                } else {
+                    console.error('API返回错误:', _result);
+                    // 显示错误信息
+                    this.$message.error(_result.description || '获取数据失败');
+                    
+                    // 显示空图表
+                    this.payChart.setOption({
+                        title: {
+                            text: '暂无数据',
+                            left: 'center',
+                            top: 'center',
+                            textStyle: {
+                                color: '#999',
+                                fontSize: 16,
+                            },
+                        },
+                        xAxis: { show: false },
+                        yAxis: { show: false },
+                        series: [],
+                    });
+                }
+                            } catch (error) {
+                    console.error('绘制图表失败:', error);
+                    this.$message.error('获取数据失败: ' + error.message);
+                    
+                    // 显示错误状态的图表
+                    if (this.payChart) {
+                        this.payChart.setOption({
+                            title: {
+                                text: '加载失败',
+                                left: 'center',
+                                top: 'center',
+                                textStyle: {
+                                    color: '#f56c6c',
+                                    fontSize: 16,
+                                },
+                            },
+                            xAxis: { show: false },
+                            yAxis: { show: false },
+                            series: [],
+                        });
+                    }
+                } finally {
+                    this.loading = false;
+                }
         },
     },
 };

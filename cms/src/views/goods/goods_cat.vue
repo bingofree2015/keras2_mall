@@ -40,7 +40,7 @@
         >
             <el-table-column align="center" label="ID" min-width="60" prop="id" />
             <table-tree-column
-                label="名称"
+                :label="$t('visualDesign.name')"
                 min-width="280"
                 prop="name"
                 tree-key="id"

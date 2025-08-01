@@ -10,7 +10,7 @@ export function save() {
         data: {
             succeed: 1,
             code: 200,
-            description: '成功',
+            description: this.$t('common.success'),
             data: 1,
         },
     };
@@ -23,7 +23,7 @@ export function destroy() {
         data: {
             succeed: 1,
             code: 200,
-            description: '成功',
+            description: this.$t('common.success'),
             data: 1,
         },
     };
@@ -33,7 +33,7 @@ export function list(params) {
     const listData = {
         succeed: 1,
         code: 200,
-        description: '成功',
+        description: this.$t('common.success'),
         data: {},
     };
     let pageNum = 1;
@@ -79,7 +79,7 @@ export function getMenusByRoleId(params) {
     const findRoleMenuData = {
         succeed: 1,
         code: 200,
-        description: '成功',
+        description: this.$t('common.success'),
         data: {},
     };
     return {

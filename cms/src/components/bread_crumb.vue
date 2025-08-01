@@ -19,7 +19,6 @@ export default {
     },
     mounted() {
         this.nav = this.$route.meta;
-        console.log(this.nav);
     },
     methods: {},
 };

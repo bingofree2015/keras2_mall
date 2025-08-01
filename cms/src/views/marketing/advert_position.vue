@@ -311,7 +311,11 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('permission.confirmSubmit'),
+                        this.$t('common.tip'),
+                        {}
+                    ).then(async () => {
                         this.editLoading = true;
                         const data = Object.assign({}, this.formData);
                         const _result = await this.$api.advertPosition.save(data);

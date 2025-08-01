@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('permission.pleaseEnterContent')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('permission.pleaseSelect')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,17 +39,17 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="新增" placement="top">
+                            <el-tooltip :content="$t('permission.add')" placement="top">
                                 <el-button round @click="handleAdd">
                                     <i class="el-icon-ali-add"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('permission.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('permission.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -73,7 +76,7 @@
         <!--新增编辑界面-->
         <el-dialog
             :close-on-click-modal="false"
-            :title="isCreating ? '新增' : '编辑'"
+            :title="isCreating ? $t('permission.add') : $t('permission.edit')"
             :model-value="editDialogVisible"
             width="40%"
         >
@@ -86,23 +89,23 @@
             >
                 <el-row>
                     <el-col :span="16">
-                        <el-form-item label="编号" prop="level">
+                        <el-form-item :label="$t('userGrade.level')" prop="level">
                             <el-input-number
                                 v-model="formData.level"
                                 :min="0"
                                 controls-position="right"
-                                label="编号"
+                                :label="$t('userGrade.level')"
                                 style="width: 100px"
                             />
                         </el-form-item>
-                        <el-form-item label="名称" prop="name">
+                        <el-form-item :label="$t('visualDesign.name')" prop="name">
                             <el-input v-model="formData.name" />
                         </el-form-item>
-                        <el-form-item label="默认" prop="isDef">
+                        <el-form-item :label="$t('userGrade.isDefault')" prop="isDef">
                             <el-switch
                                 v-model="formData.isDef"
-                                active-text="是"
-                                inactive-text="否"
+                                :active-text="$t('visualDesign.yes')"
+                                :inactive-text="$t('visualDesign.no')"
                             />
                         </el-form-item>
                     </el-col>
@@ -148,35 +151,7 @@ export default {
                 key: 'mobile',
                 value: '',
             },
-            props: [{ prop: 'mobile', label: '手机号' }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'mobile', label: '手机号', minWidth: 120 },
-                { prop: 'userGrade.name', label: '用户等级', minWidth: 100 },
-                {
-                    prop: 'sex',
-                    label: '性别',
-                    minWidth: 80,
-                    formatter: this.env.columnFormatter,
-                },
-                { prop: 'birthday', label: '生日', minWidth: 100 },
-                {
-                    prop: 'avatar',
-                    label: '头像',
-                    minWidth: 80,
-                    propType: 'image',
-                    align: 'center',
-                },
-                { prop: 'balance', label: '余额', minWidth: 70 },
-                { prop: 'point', label: '积分', minWidth: 70 },
-                {
-                    prop: 'state',
-                    label: '状态',
-                    minWidth: 70,
-                    formatter: this.env.formatState,
-                    align: 'center',
-                },
-            ],
+
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -201,9 +176,13 @@ export default {
                     size: this.normalSize,
                     type: 'danger',
                     func: (row) => {
-                        this.$confirm('确认删除选中记录吗？', '提示', {
-                            type: 'warning',
-                        }).then(async () => {
+                        this.$confirm(
+                            this.$t('permission.confirmDeleteSelected'),
+                            this.$t('common.tip'),
+                            {
+                                type: 'warning',
+                            }
+                        ).then(async () => {
                             await this.batchDelete([row.id]);
                         });
                     },
@@ -226,12 +205,50 @@ export default {
                 point: 0,
                 state: 1,
             },
-            formDataRules: {
-                mobile: [{ required: true, message: '请输入手机号', trigger: 'blur' }],
-            },
         };
     },
     computed: {
+        // 响应式的 props 配置
+        props() {
+            return [{ prop: 'mobile', label: this.$t('user.mobile') }];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                { prop: 'mobile', label: this.$t('user.mobile'), minWidth: 120 },
+                { prop: 'userGrade.name', label: this.$t('user.gradeName'), minWidth: 100 },
+                {
+                    prop: 'sex',
+                    label: this.$t('user.sex'),
+                    minWidth: 80,
+                    formatter: this.env.columnFormatter,
+                },
+                { prop: 'birthday', label: this.$t('user.birthday'), minWidth: 100 },
+                {
+                    prop: 'avatar',
+                    label: this.$t('user.avatar'),
+                    minWidth: 80,
+                    propType: 'image',
+                    align: 'center',
+                },
+                { prop: 'balance', label: this.$t('user.balance'), minWidth: 70 },
+                { prop: 'point', label: this.$t('user.point'), minWidth: 70 },
+                {
+                    prop: 'state',
+                    label: this.$t('user.state'),
+                    minWidth: 70,
+                    formatter: this.env.formatState,
+                    align: 'center',
+                },
+            ];
+        },
+        // 响应式的表单验证规则
+        formDataRules() {
+            return {
+                mobile: [{ required: true, message: this.$t('user.inputMobile'), trigger: 'blur' }],
+            };
+        },
         ...mapState({
             loginUser: (state) => state.loginUser,
         }),
@@ -306,14 +323,18 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('permission.confirmSubmit'),
+                        this.$t('common.tip'),
+                        {}
+                    ).then(async () => {
                         this.editLoading = true;
                         const data = Object.assign({}, this.formData);
                         const _result = await this.$api.userGrade.save(data);
                         if (_result.succeed === 1 && _result.code === 200) {
                             await this.queryForPaginatedList();
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('common.success'),
                                 message: _result.description,
                                 type: 'success',
                             });
@@ -321,7 +342,7 @@ export default {
                             this.editDialogVisible = false;
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('common.error'),
                                 message: _result.description,
                             });
                         }

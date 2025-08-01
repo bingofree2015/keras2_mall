@@ -166,7 +166,7 @@
                                         <el-radio
                                             v-for="(item, key) in param.optionalValues.split(' ')"
                                             :key="key"
-                                            :label="item"
+                                            :value="item"
                                         >
                                             {{ item }}
                                         </el-radio>
@@ -236,7 +236,7 @@
                                         <template #default="scope">
                                             <el-radio
                                                 v-model="formData.defaultProduct"
-                                                :label="scope.row.id"
+                                                :value="scope.row.id"
                                                 @change="handleSetDefault(scope.row)"
                                             >
                                                 &nbsp;

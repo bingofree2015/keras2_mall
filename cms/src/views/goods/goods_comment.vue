@@ -19,7 +19,7 @@
                                     :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
-                                        v-for="item in props"
+                                        v-for="item in searchProps"
                                         :key="item.prop"
                                         :label="item.label"
                                         :value="item.prop"
@@ -136,41 +136,11 @@ export default {
                 key: 'name',
                 value: '',
             },
-            props: [{ prop: 'content', label: '评价内容' }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'user.username', label: '用户名', minWidth: 80 },
-                {
-                    prop: 'goods.name',
-                    label: '商品名称',
-                    minWidth: 140,
-                    showOverflowTooltip: true,
-                },
-                { prop: 'score', label: '星数', minWidth: 70 },
-                { prop: 'content', label: '评价', minWidth: 180, showOverflowTooltip: true },
-                { prop: 'orderId', label: '订单号', minWidth: 100 },
-                {
-                    prop: 'display',
-                    label: '显示',
-                    minWidth: 80,
-                    propType: 'bool',
-                    clickFlag: true,
-                    func: async (id, value) => {
-                        const _data = { id, display: value };
-                        const _result = await this.$api.goodsComment.save(_data);
-                        this.$notify.info({
-                            title: '消息',
-                            message: _result.description,
-                        });
-                    },
-                    align: 'center',
-                },
-                {
-                    prop: 'createdAt',
-                    label: '评价时间',
-                    minWidth: 140,
-                    formatter: this.env.formatDateTime,
-                },
+            // 搜索属性配置
+            searchProps: [
+                { prop: 'name', label: this.$t('goodsComment.username') },
+                { prop: 'content', label: this.$t('goodsComment.comment') },
+                { prop: 'orderId', label: this.$t('goodsComment.orderNumber') },
             ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
@@ -193,6 +163,7 @@ export default {
 
             editDialogVisible: false, // 新增编辑界面是否显示
             editLoading: false,
+            isCreating: false, // 是否为创建模式
             // 编辑界面数据
             formData: {
                 id: 0,
@@ -217,10 +188,65 @@ export default {
         };
     },
     computed: {
+        // 表格列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                {
+                    prop: 'user.username',
+                    label: this.$t('goodsComment.username'),
+                    minWidth: 80,
+                },
+                {
+                    prop: 'goods.name',
+                    label: this.$t('goodsComment.productName'),
+                    minWidth: 140,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'score',
+                    label: this.$t('goodsComment.starRating'),
+                    minWidth: 70,
+                },
+                {
+                    prop: 'content',
+                    label: this.$t('goodsComment.comment'),
+                    minWidth: 180,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'orderId',
+                    label: this.$t('goodsComment.orderNumber'),
+                    minWidth: 100,
+                },
+                {
+                    prop: 'display',
+                    label: this.$t('goodsComment.display'),
+                    minWidth: 80,
+                    propType: 'bool',
+                    clickFlag: true,
+                    func: async (id, value) => {
+                        const _data = { id, display: value };
+                        const _result = await this.$api.goodsComment.save(_data);
+                        this.$notify.info({
+                            title: this.$t('common.message'),
+                            message: _result.description,
+                        });
+                    },
+                    align: 'center',
+                },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('goodsComment.commentTime'),
+                    minWidth: 140,
+                    formatter: this.env.formatDateTime,
+                },
+            ];
+        },
         // 响应式的表单验证规则
         formDataRules() {
             return {
-                content: [
+                sellerContent: [
                     {
                         required: true,
                         message: this.$t('common.inputPlaceholder'),

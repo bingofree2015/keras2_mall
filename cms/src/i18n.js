@@ -7,9 +7,12 @@ const messages = {
     en_us: enUS,
 };
 
+// 从本地存储获取语言设置，如果没有则默认为中文
+const savedLocale = localStorage.getItem('locale') || 'zh_cn';
+
 const i18n = createI18n({
     legacy: false,
-    locale: 'zh_cn',
+    locale: savedLocale,
     messages,
 });
 

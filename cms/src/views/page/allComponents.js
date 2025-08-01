@@ -4,14 +4,14 @@ const allComponents = {
             type: 'search',
             name: '搜索框',
             config: {
-                keywords: '请输入关键字搜索',
+                keywords: this.$t('visualDesign.inputSearchKeyword'),
                 style: 'round',
             },
             icon: 'el-icon-ali-sousuo',
         },
         {
             type: 'notice',
-            name: '公告组',
+            name: this.$t('visualDesign.noticeGroup'),
             config: {
                 type: 'auto',
                 list: [
@@ -26,7 +26,7 @@ const allComponents = {
         },
         {
             type: 'navBar',
-            name: '导航组',
+            name: this.$t('visualDesign.navigationGroup'),
             config: {
                 limit: 4,
                 list: [
@@ -74,22 +74,22 @@ const allComponents = {
                 list: [
                     {
                         url: 'images/empty-goods.png',
-                        name: '商品名称',
+                        name: this.$t('visualDesign.goodsName'),
                         price: '100.00',
                     },
                     {
                         url: 'images/empty-goods.png',
-                        name: '商品名称',
+                        name: this.$t('visualDesign.goodsName'),
                         price: '59.00',
                     },
                     {
                         url: 'images/empty-goods.png',
-                        name: '商品名称',
+                        name: this.$t('visualDesign.goodsName'),
                         price: '32.00',
                     },
                     {
                         url: 'images/empty-goods.png',
-                        name: '商品名称',
+                        name: this.$t('visualDesign.goodsName'),
                         price: '129.00',
                     },
                 ],
@@ -97,19 +97,19 @@ const allComponents = {
         },
         {
             type: 'groupPurchase',
-            name: '团购秒杀',
+            name: this.$t('visualDesign.groupSeckill'),
             config: {
                 title: '活动名称',
                 limit: 5,
                 list: [
                     {
                         url: 'images/empty-banner.png',
-                        name: '商品名称',
+                        name: this.$t('visualDesign.goodsName'),
                         price: '99.00',
                     },
                     {
                         url: 'images/empty-banner.png',
-                        name: '商品名称',
+                        name: this.$t('visualDesign.goodsName'),
                         price: '199.00',
                     },
                 ],
@@ -118,7 +118,7 @@ const allComponents = {
         },
         {
             type: 'coupon',
-            name: '优惠券组',
+            name: this.$t('visualDesign.couponGroup'),
             config: {
                 limit: '2',
             },
@@ -126,7 +126,7 @@ const allComponents = {
         },
         {
             type: 'record',
-            name: '购买记录',
+            name: this.$t('visualDesign.record'),
             config: {
                 style: {
                     top: 20,
@@ -139,7 +139,7 @@ const allComponents = {
     utilsComponents: [
         {
             type: 'blank',
-            name: '辅助空白',
+            name: this.$t('visualDesign.auxiliaryBlank'),
             icon: 'el-icon-ali-fuzhukongbai',
             config: {
                 height: 20,
@@ -148,7 +148,7 @@ const allComponents = {
         },
         {
             type: 'textarea',
-            name: '文本域',
+            name: this.$t('visualDesign.textArea'),
             config: '',
             icon: 'el-icon-ali-wenbenyu',
         },
@@ -156,7 +156,7 @@ const allComponents = {
     mediaComponents: [
         {
             type: 'imgSlide',
-            name: '图片轮播',
+            name: this.$t('visualDesign.imageCarousel'),
             config: {
                 duration: 2500,
                 list: [
@@ -217,7 +217,7 @@ const allComponents = {
         },
         {
             type: 'video',
-            name: '视频组',
+            name: this.$t('visualDesign.videoGroup'),
             config: {
                 autoplay: 'false',
                 url: 'images/empty-banner.png',
@@ -230,7 +230,7 @@ const allComponents = {
         },
         {
             type: 'article',
-            name: '文章组',
+            name: this.$t('visualDesign.articleGroup'),
             config: {
                 title: '',
                 url: 'images/empty-goods.png',
@@ -239,7 +239,7 @@ const allComponents = {
         },
         {
             type: 'articleClassify',
-            name: '文章分类',
+            name: this.$t('visualDesign.articleCategory'),
             config: {
                 limit: 3,
                 articleClassifyId: '',

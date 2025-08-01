@@ -79,6 +79,37 @@ export default {
             normalSize: 'default',
             unit: 1,
             rangeDate: [],
+            pickerOptions: {
+                shortcuts: [
+                    {
+                        text: this.$t('report.lastWeek'),
+                        onClick(picker) {
+                            const end = new Date();
+                            const start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                            picker.$emit('pick', [start, end]);
+                        },
+                    },
+                    {
+                        text: this.$t('report.lastMonth'),
+                        onClick(picker) {
+                            const end = new Date();
+                            const start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                            picker.$emit('pick', [start, end]);
+                        },
+                    },
+                    {
+                        text: this.$t('report.lastThreeMonths'),
+                        onClick(picker) {
+                            const end = new Date();
+                            const start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                            picker.$emit('pick', [start, end]);
+                        },
+                    },
+                ],
+            },
         };
     },
     computed: {

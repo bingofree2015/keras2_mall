@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('permission.pleaseEnterContent')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('permission.pleaseSelect')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,19 +39,19 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="新增" placement="top">
+                            <el-tooltip :content="$t('permission.add')" placement="top">
                                 <el-button round @click="handleAdd">
                                     <i class="el-icon-ali-add"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('permission.refresh')" placement="top">
                                 <el-button
                                     icon="el-icon-ali-shuaxin"
                                     round
                                     @click="handleRefresh"
                                 />
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('permission.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -78,7 +81,7 @@
             :close-on-click-modal="false"
             :model-value="reportDialogVisible"
             class="dialog-container"
-            title="报表查看"
+            :title="$t('form.reportView')"
             width="40%"
         >
             <el-form :inline="true" :size="normalSize" class="search-form">
@@ -115,7 +118,7 @@
         <el-dialog
             :close-on-click-modal="false"
             :model-value="qrCodeDialogVisible"
-            title="生成二维码"
+            :title="$t('form.qrcodeGenerate')"
             width="40%"
         >
             <el-row justify="center">
@@ -156,32 +159,55 @@ export default {
                 key: 'name',
                 value: '',
             },
-            props: [{ prop: 'name', label: '表单名称' }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: '表单名称', minWidth: 180, showOverflowTooltip: true },
-                { prop: 'desc', label: '表单描述', minWidth: 200, showOverflowTooltip: true },
-                {
-                    prop: 'type',
-                    label: '类型',
-                    minWidth: 70,
-                    formatter: this.env.columnFormatter,
+            computed: {
+                // 响应式的 props 配置
+                props() {
+                    return [{ prop: 'name', label: this.$t('form.formName') }];
                 },
-                {
-                    prop: 'isLogin',
-                    label: '需要登录',
-                    minWidth: 100,
-                    align: 'center',
-                    formatter: this.env.formatBoolean,
+                // 响应式的列配置
+                columns() {
+                    return [
+                        { prop: 'id', label: 'ID', minWidth: 60 },
+                        {
+                            prop: 'name',
+                            label: this.$t('form.formName'),
+                            minWidth: 180,
+                            showOverflowTooltip: true,
+                        },
+                        {
+                            prop: 'desc',
+                            label: this.$t('form.formDesc'),
+                            minWidth: 200,
+                            showOverflowTooltip: true,
+                        },
+                        {
+                            prop: 'type',
+                            label: this.$t('form.type'),
+                            minWidth: 70,
+                            formatter: this.env.columnFormatter,
+                        },
+                        {
+                            prop: 'isLogin',
+                            label: this.$t('form.needLogin'),
+                            minWidth: 100,
+                            align: 'center',
+                            formatter: this.env.formatBoolean,
+                        },
+                        {
+                            prop: 'sort',
+                            label: this.$t('system.sort'),
+                            minWidth: 70,
+                            align: 'center',
+                        },
+                        {
+                            prop: 'createdAt',
+                            label: this.$t('common.createTime'),
+                            minWidth: 140,
+                            formatter: this.env.formatDateTime,
+                        },
+                    ];
                 },
-                { prop: 'sort', label: '排序', minWidth: 70, align: 'center' },
-                {
-                    prop: 'createdAt',
-                    label: '创建时间',
-                    minWidth: 140,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
+            },
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],

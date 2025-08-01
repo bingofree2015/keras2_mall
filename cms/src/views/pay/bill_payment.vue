@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('permission.pleaseEnterContent')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('permission.pleaseSelect')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,12 +39,12 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('permission.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('permission.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -68,7 +71,7 @@
         <el-dialog
             :close-on-click-modal="false"
             :model-value="viewDialogVisible"
-            title="编辑"
+            :title="$t('permission.edit')"
             width="40%"
         >
             <el-form
@@ -135,12 +138,16 @@
                             style="width: 100%"
                         >
                             <el-table-column
-                                label="单号"
+                                :label="$t('pay.billId')"
                                 min-width="360"
                                 prop="sourceId"
                                 show-overflow-tooltip
                             />
-                            <el-table-column label="金额" min-width="100" prop="money" />
+                            <el-table-column
+                                :label="$t('pay.amount')"
+                                min-width="100"
+                                prop="money"
+                            />
                         </el-table>
                     </el-col>
                 </el-row>
@@ -181,28 +188,6 @@ export default {
                 key: 'paymentId',
                 value: '',
             },
-            props: [{ prop: 'paymentId', label: '支付单号' }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'paymentId', label: '支付单号', minWidth: 120 },
-                {
-                    prop: 'state',
-                    label: '状态',
-                    minWidth: 80,
-                    formatter: this.env.columnFormatter,
-                },
-                { prop: 'paymentCode', label: '支付方式', minWidth: 98 },
-                {
-                    prop: 'type',
-                    label: '单据类型',
-                    minWidth: 98,
-                    formatter: this.env.columnFormatter,
-                },
-                { prop: 'user.username', label: '用户', minWidth: 80 },
-                { prop: 'money', label: '金额', minWidth: 80 },
-                { prop: 'trade_no', label: '第三方支付单号', minWidth: 140 },
-                { prop: 'updatedAt', label: '支付时间', minWidth: 140 },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -249,6 +234,34 @@ export default {
                 }
                 return _operationWidth;
             },
+        },
+        // 响应式的 props 配置
+        props() {
+            return [{ prop: 'paymentId', label: this.$t('pay.paymentId') }];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                { prop: 'paymentId', label: this.$t('pay.paymentId'), minWidth: 120 },
+                {
+                    prop: 'state',
+                    label: this.$t('common.status'),
+                    minWidth: 80,
+                    formatter: this.env.columnFormatter,
+                },
+                { prop: 'paymentCode', label: this.$t('pay.paymentMethod'), minWidth: 98 },
+                {
+                    prop: 'type',
+                    label: this.$t('pay.billType'),
+                    minWidth: 98,
+                    formatter: this.env.columnFormatter,
+                },
+                { prop: 'user.username', label: this.$t('common.user'), minWidth: 80 },
+                { prop: 'money', label: this.$t('pay.amount'), minWidth: 80 },
+                { prop: 'trade_no', label: this.$t('pay.thirdPartyPaymentId'), minWidth: 140 },
+                { prop: 'updatedAt', label: this.$t('pay.paymentTime'), minWidth: 140 },
+            ];
         },
     },
     methods: {

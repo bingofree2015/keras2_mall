@@ -81,8 +81,8 @@ export default {
             this.$emit('onThemeChange', val);
             if (this.showSuccess) {
                 this.$notify({
-                    title: '成功',
-                    message: '换肤成功',
+                    title: this.$t('common.success'),
+                    message: this.$t('themePicker.themeChangeSuccess'),
                     type: 'success',
                 });
             } else {

@@ -188,7 +188,7 @@ export function getMenuTree() {
     const menuTreeData = {
         succeed: 1,
         code: 200,
-        description: '成功',
+        description: this.$t('common.success'),
         data: {
             list: [
                 {
@@ -250,7 +250,7 @@ export function getMenuTree() {
                                     lastUpdateBy: null,
                                     lastUpdateTime: null,
                                     parentId: 2,
-                                    name: '新增',
+                                    name: this.$t('permission.add'),
                                     url: null,
                                     perms: 'sys:user:add',
                                     type: 2,
@@ -341,7 +341,7 @@ export function getMenuTree() {
                                     lastUpdateBy: null,
                                     lastUpdateTime: null,
                                     parentId: 4,
-                                    name: '新增',
+                                    name: this.$t('permission.add'),
                                     url: null,
                                     perms: 'sys:role:add',
                                     type: 2,
@@ -432,7 +432,7 @@ export function getMenuTree() {
                                     lastUpdateBy: null,
                                     lastUpdateTime: null,
                                     parentId: 5,
-                                    name: '新增',
+                                    name: this.$t('permission.add'),
                                     url: null,
                                     perms: 'sys:menu:add',
                                     type: 2,
@@ -523,7 +523,7 @@ export function getMenuTree() {
                                     lastUpdateBy: null,
                                     lastUpdateTime: null,
                                     parentId: 7,
-                                    name: '新增',
+                                    name: this.$t('permission.add'),
                                     url: null,
                                     perms: 'sys:dict:add',
                                     type: 2,

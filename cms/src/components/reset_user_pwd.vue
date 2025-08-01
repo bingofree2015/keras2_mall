@@ -77,24 +77,6 @@ export default {
     },
     emits: ['update:visible'],
     data() {
-        const validatePass = (rule, value, callback) => {
-            if (!value) {
-                callback(new Error('请输入新密码'));
-            } else if (value.toString().length < 6 || value.toString().length > 18) {
-                callback(new Error('密码长度为6 - 18个字符'));
-            } else {
-                callback();
-            }
-        };
-        const validatePass2 = (rule, value, callback) => {
-            if (value === '') {
-                callback(new Error('请再次输入密码'));
-            } else if (value !== this.formData.newPwd) {
-                callback(new Error('两次输入密码不一致!'));
-            } else {
-                callback();
-            }
-        };
         return {
             editLoading: false,
             // 新增编辑界面数据
@@ -103,21 +85,56 @@ export default {
                 newPwd: '',
                 reNewPwd: '',
             },
-            formDataRules: {
-                pwd: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-                newPwd: [
-                    { required: true, message: '请输入新密码', trigger: 'blur' },
-                    { required: true, validator: validatePass, trigger: 'blur' },
-                ],
-                reNewPwd: [
-                    { required: true, message: '请输入确认密码', trigger: 'blur' },
-                    { required: true, validator: validatePass2, trigger: 'blur' },
-                ],
-            },
         };
     },
     computed: {
         ...mapState(['loginUser']),
+        formDataRules() {
+            const validatePass = (rule, value, callback) => {
+                if (!value) {
+                    callback(new Error(this.$t('resetPassword.pleaseEnterNewPassword')));
+                } else if (value.toString().length < 6 || value.toString().length > 18) {
+                    callback(new Error(this.$t('resetPassword.passwordLengthLimit')));
+                } else {
+                    callback();
+                }
+            };
+            const validatePass2 = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error(this.$t('resetPassword.pleaseEnterPasswordAgain')));
+                } else if (value !== this.formData.newPwd) {
+                    callback(new Error(this.$t('resetPassword.passwordMismatch')));
+                } else {
+                    callback();
+                }
+            };
+
+            return {
+                pwd: [
+                    {
+                        required: true,
+                        message: this.$t('resetPassword.pleaseEnterPassword'),
+                        trigger: 'blur',
+                    },
+                ],
+                newPwd: [
+                    {
+                        required: true,
+                        message: this.$t('resetPassword.pleaseEnterNewPassword'),
+                        trigger: 'blur',
+                    },
+                    { required: true, validator: validatePass, trigger: 'blur' },
+                ],
+                reNewPwd: [
+                    {
+                        required: true,
+                        message: this.$t('resetPassword.pleaseEnterConfirmPassword'),
+                        trigger: 'blur',
+                    },
+                    { required: true, validator: validatePass2, trigger: 'blur' },
+                ],
+            };
+        },
     },
     mounted() {
         this.formData = _.pick(this.loginUser, 'id', 'username', 'pwd');

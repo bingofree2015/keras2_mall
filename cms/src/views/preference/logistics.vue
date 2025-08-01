@@ -143,19 +143,6 @@ export default {
                 key: 'logiName',
                 value: '',
             },
-            props: [{ prop: 'logiName', label: '公司名称' }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'logiName', label: this.$t('logistics.name'), minWidth: 180 },
-                { prop: 'logiCode', label: this.$t('logistics.code'), minWidth: 100 },
-                { prop: 'sort', label: this.$t('logistics.sort'), minWidth: 70, align: 'center' },
-                {
-                    prop: 'createdAt',
-                    label: this.$t('common.createdAt'),
-                    minWidth: 140,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -204,6 +191,25 @@ export default {
         };
     },
     computed: {
+        // 响应式的 props 配置
+        props() {
+            return [{ prop: 'logiName', label: this.$t('logistics.name') }];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                { prop: 'logiName', label: this.$t('logistics.name'), minWidth: 180 },
+                { prop: 'logiCode', label: this.$t('logistics.code'), minWidth: 100 },
+                { prop: 'sort', label: this.$t('logistics.sort'), minWidth: 70, align: 'center' },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('common.createdAt'),
+                    minWidth: 140,
+                    formatter: this.env.formatDateTime,
+                },
+            ];
+        },
         // 响应式的 formDataRules 配置
         formDataRules() {
             return {
@@ -212,7 +218,6 @@ export default {
                 ],
             };
         },
-
         operationWidth: {
             get() {
                 let _operationWidth = 0;
@@ -272,7 +277,11 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('permission.confirmSubmit'),
+                        this.$t('common.tip'),
+                        {}
+                    ).then(async () => {
                         this.editLoading = true;
                         const data = Object.assign({}, this.formData);
                         const _result = await this.$api.logistics.save(data);

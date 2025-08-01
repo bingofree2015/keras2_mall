@@ -197,7 +197,10 @@ export default {
             default: null,
             required: false,
         },
-        permsBatchDelete: String,
+        permsBatchDelete: {
+            type: String,
+            default: '',
+        },
         type: {
             // 订单类型
             type: String,
@@ -267,7 +270,7 @@ export default {
         },
         // 批量删除
         handleBatchDelete() {
-            this.$confirm('确认删除选中记录吗？', '提示', {
+            this.$confirm(this.$t('permission.confirmDeleteSelected'), this.$t('common.tip'), {
                 type: 'warning',
             }).then(() => {
                 const _ids = [];

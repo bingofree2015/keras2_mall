@@ -58,7 +58,11 @@
         <!--图表区-->
         <el-row>
             <el-col :span="24">
-                <div v-loading="loading" element-loading-text="加载中..." style="width: 100%; height: 400px">
+                <div
+                    v-loading="loading"
+                    :element-loading-text="$t('action.loading')"
+                    style="width: 100%; height: 400px"
+                >
                     <div id="payChart" style="width: 100%; height: 400px"></div>
                 </div>
             </el-col>
@@ -84,7 +88,7 @@ export default {
             loading: false,
             dateShortcuts: [
                 {
-                    text: '最近一周',
+                    text: this.$t('report.lastWeek'),
                     value: () => {
                         const end = new Date();
                         const start = new Date();
@@ -93,7 +97,7 @@ export default {
                     },
                 },
                 {
-                    text: '最近一个月',
+                    text: this.$t('report.lastMonth'),
                     value: () => {
                         const end = new Date();
                         const start = new Date();
@@ -102,7 +106,7 @@ export default {
                     },
                 },
                 {
-                    text: '最近三个月',
+                    text: this.$t('report.lastThreeMonths'),
                     value: () => {
                         const end = new Date();
                         const start = new Date();
@@ -153,7 +157,7 @@ export default {
         async drawLine() {
             try {
                 this.loading = true;
-                
+
                 // 确保DOM元素存在
                 const chartElement = document.getElementById('payChart');
                 if (!chartElement) {
@@ -170,7 +174,7 @@ export default {
                 // 设置默认时间范围
                 let _startTime = Date.now() - 3600 * 1000 * 24 * 7; // 默认最近一周
                 let _endTime = Date.now();
-                
+
                 if (Array.isArray(this.rangeDate) && this.rangeDate.length === 2) {
                     _startTime = this.rangeDate[0].getTime();
                     _endTime = this.rangeDate[1].getTime();
@@ -195,12 +199,12 @@ export default {
                 } else {
                     console.error('API返回错误:', _result);
                     // 显示错误信息
-                    this.$message.error(_result.description || '获取数据失败');
-                    
+                    this.$message.error(_result.description || this.$t('report.getDataFailed'));
+
                     // 显示空图表
                     this.payChart.setOption({
                         title: {
-                            text: '暂无数据',
+                            text: this.$t('report.noData'),
                             left: 'center',
                             top: 'center',
                             textStyle: {
@@ -213,30 +217,30 @@ export default {
                         series: [],
                     });
                 }
-                            } catch (error) {
-                    console.error('绘制图表失败:', error);
-                    this.$message.error('获取数据失败: ' + error.message);
-                    
-                    // 显示错误状态的图表
-                    if (this.payChart) {
-                        this.payChart.setOption({
-                            title: {
-                                text: '加载失败',
-                                left: 'center',
-                                top: 'center',
-                                textStyle: {
-                                    color: '#f56c6c',
-                                    fontSize: 16,
-                                },
+            } catch (error) {
+                console.error('绘制图表失败:', error);
+                this.$message.error(this.$t('report.getDataFailed') + ': ' + error.message);
+
+                // 显示错误状态的图表
+                if (this.payChart) {
+                    this.payChart.setOption({
+                        title: {
+                            text: this.$t('report.loadFailed'),
+                            left: 'center',
+                            top: 'center',
+                            textStyle: {
+                                color: '#f56c6c',
+                                fontSize: 16,
                             },
-                            xAxis: { show: false },
-                            yAxis: { show: false },
-                            series: [],
-                        });
-                    }
-                } finally {
-                    this.loading = false;
+                        },
+                        xAxis: { show: false },
+                        yAxis: { show: false },
+                        series: [],
+                    });
                 }
+            } finally {
+                this.loading = false;
+            }
         },
     },
 };

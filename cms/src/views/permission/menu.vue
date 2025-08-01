@@ -9,17 +9,17 @@
                 <el-form :inline="true">
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="新增" placement="top">
+                            <el-tooltip :content="$t('permission.add')" placement="top">
                                 <el-button round @click="handleAdd">
                                     <i class="el-icon-ali-add"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('permission.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('permission.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -184,8 +184,8 @@
                         <el-col :span="8">
                             <el-switch
                                 v-model="formData.isShow"
-                                active-text="显示"
-                                inactive-text="隐藏"
+                                :active-text="$t('permission.display')"
+                                in:active-text="$t('permission.hide')"
                             />
                         </el-col>
                     </el-row>
@@ -259,7 +259,11 @@ export default {
             loading: false,
             menuTreeData: [],
             dialogVisible: false,
-            menuTypeList: ['目录', '菜单', '按钮'],
+            menuTypeList: [
+                this.$t('permission.directory'),
+                this.$t('permission.menu'),
+                this.$t('permission.button'),
+            ],
             formData: {
                 id: 0,
                 type: 1,
@@ -316,7 +320,11 @@ export default {
             this.formData = {
                 id: 0,
                 type: 1,
-                typeList: ['目录', '菜单', '按钮'],
+                typeList: [
+                    this.$t('permission.directory'),
+                    this.$t('permission.menu'),
+                    this.$t('permission.button'),
+                ],
                 name: '',
                 parentId: 0,
                 parentName: '',
@@ -332,7 +340,7 @@ export default {
             Object.assign(this.formData, row);
         },
         handleDelete(row) {
-            this.$confirm('确认删除选中记录吗？', '提示', {
+            this.$confirm(this.$t('permission.confirmDeleteSelected'), this.$t('common.tip'), {
                 type: 'warning',
             }).then(async () => {
                 const params = this.getDeleteIds([], row);
@@ -342,7 +350,7 @@ export default {
                     await loadDynamicMenuAndRoutes(this.loginUser.id);
                     this.reload();
                     this.$notify({
-                        title: '成功',
+                        title: this.$t('common.success'),
                         message: '删除成功',
                         type: 'success',
                     });
@@ -369,7 +377,11 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('permission.confirmSubmit'),
+                        this.$t('common.tip'),
+                        {}
+                    ).then(async () => {
                         this.editLoading = true;
                         const params = Object.assign({}, this.formData);
                         const _result = await this.$api.menu.save(params);
@@ -428,7 +440,7 @@ export default {
                             }
                             await loadDynamicMenuAndRoutes(this.loginUser.id);
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('common.success'),
                                 message: _result.description,
                                 type: 'success',
                             });

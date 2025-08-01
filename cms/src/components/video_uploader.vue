@@ -3,7 +3,7 @@
         :close-on-click-modal="false"
         :modal="false"
         class="video-dialog"
-        title="视频上传"
+        :title="$t('demo.videoUpload')"
         v-bind="$attrs"
         width="40%"
         v-on="$attrs"
@@ -19,7 +19,7 @@
                             type="primary"
                             @click="cancelUpload"
                         >
-                            取消
+                            {{ $t('action.cancel') }}
                         </el-button>
                         <el-button
                             v-if="uploadProgressState === 1"
@@ -29,7 +29,7 @@
                             type="primary"
                             @click="uploadVideo"
                         >
-                            上传
+                            {{ $t('action.upload') }}
                         </el-button>
                     </el-col>
                 </el-row>
@@ -44,9 +44,11 @@
                             drag
                         >
                             <i class="el-icon-upload"></i>
-                            <div class="el-upload__text">点击上传</div>
+                            <div class="el-upload__text">
+                                {{ $t('videoUploader.clickToUpload') }}
+                            </div>
                             <div class="el-upload__tip">
-                                支持绝大多数视频格式，单个视频最大支持500MB
+                                {{ $t('videoUploader.uploadTip') }}
                             </div>
                         </el-upload>
 
@@ -56,7 +58,7 @@
                             class="video-container"
                             controls="controls"
                         >
-                            您的浏览器不支持视频播放
+                            {{ $t('videoUploader.browserNotSupport') }}
                         </video>
                     </el-col>
                 </el-row>
@@ -128,7 +130,7 @@ export default {
             };
         },
     },
-    async methods: {
+    methods: {
         cancelUpload() {
             this.videoFile = null;
             this.uploadProgressState = 0;
@@ -140,8 +142,8 @@ export default {
 
             if (!_fileSize) {
                 this.$notify.error({
-                    title: '错误',
-                    message: '视频大小不能超过500MB!',
+                    title: this.$t('common.error'),
+                    message: this.$t('videoUploader.videoSizeLimit'),
                 });
                 return false;
             }
@@ -160,7 +162,9 @@ export default {
                 const _reader = new FileReader();
                 _reader.readAsDataURL(_file);
                 if (!_allowMimeTypes.includes(_file.type)) {
-                    self.$message.error(`当前文件格式为: ${_file.type}, 请上传正确的视频格式`);
+                    self.$message.error(
+                        this.$t('videoUploader.fileFormatError', { type: _file.type })
+                    );
                     return false;
                 }
                 _reader.onload = (e) => {
@@ -205,7 +209,7 @@ export default {
                             this.uploadProgressState = 3;
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('common.error'),
                                 message: result.description,
                             });
                         }

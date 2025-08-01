@@ -7,7 +7,11 @@
             <p class="demo-summery">输入与分类选择组合框组件，迅速简便地在创建文章时选择分类。</p>
             <el-row>
                 <el-col :span="18">
-                    <el-input v-model="input3" class="input-with-select" placeholder="请输入内容">
+                    <el-input
+                        v-model="input3"
+                        class="input-with-select"
+                        :placeholder="$t('permission.pleaseEnterContent')"
+                    >
                         <template #append>
                             <pick-articleType
                                 :selection-type="0"

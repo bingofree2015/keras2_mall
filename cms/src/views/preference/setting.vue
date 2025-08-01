@@ -34,7 +34,7 @@
                                 </el-col>
                                 <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i>
-                                    平台名称会显示到前台，请合理输入此名称
+                                    {{ $t('preference.platformNameTip') }}
                                 </span>
                             </el-form-item>
                             <el-form-item :label="$t('preference.platformDesc')" prop="shopDesc">
@@ -47,31 +47,34 @@
                                     />
                                 </el-col>
                             </el-form-item>
-                            <el-form-item label="备案信息" prop="shopFiling">
+                            <el-form-item :label="$t('preference.filingInfo')" prop="shopFiling">
                                 <el-col :span="20" :xs="24" :sm="20" :md="16">
                                     <el-input
                                         v-model="formData.shopFiling"
                                         :rows="2"
-                                        placeholder="请输入备案信息"
+                                        :placeholder="$t('preference.inputFilingInfo')"
                                         type="textarea"
                                     />
                                 </el-col>
                             </el-form-item>
-                            <el-form-item label="联系手机号" prop="shopMobile">
+                            <el-form-item :label="$t('preference.contactMobile')" prop="shopMobile">
                                 <el-col :span="12" :xs="24" :sm="12" :md="8">
                                     <el-input
                                         v-model="formData.shopMobile"
-                                        placeholder="请输入联系手机号"
+                                        :placeholder="$t('preference.inputContactMobile')"
                                     />
                                 </el-col>
                                 <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i>
-                                    前台下单时发送短信通知
+                                    {{ $t('preference.contactMobileTip') }}
                                 </span>
                             </el-form-item>
                             <el-row :gutter="20">
                                 <el-col :span="12" :xs="24" :sm="12" :md="8">
-                                    <el-form-item label="平台logo" prop="shopLogo">
+                                    <el-form-item
+                                        :label="$t('preference.platformLogo')"
+                                        prop="shopLogo"
+                                    >
                                         <change-image-icon
                                             :img-url="formData.shopLogo"
                                             @chosed-image-icon="chosedShopLogo"
@@ -79,7 +82,10 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="12" :xs="24" :sm="12" :md="8">
-                                    <el-form-item label="默认图" prop="shopDefaultImage">
+                                    <el-form-item
+                                        :label="$t('preference.defaultImage')"
+                                        prop="shopDefaultImage"
+                                    >
                                         <change-image-icon
                                             :img-url="formData.shopDefaultImage"
                                             @chosed-image-icon="chosedShopDefaultImage"
@@ -89,31 +95,40 @@
                             </el-row>
                             <el-row :gutter="20">
                                 <el-col :span="12" :xs="24" :sm="12" :md="8">
-                                    <el-form-item label="自提" prop="selfService">
+                                    <el-form-item
+                                        :label="$t('preference.selfService')"
+                                        prop="selfService"
+                                    >
                                         <el-switch
                                             v-model="formData.selfService"
-                                            active-text="开启"
-                                            inactive-text="关闭"
+                                            :active-text="$t('preference.enable')"
+                                            :inactive-text="$t('preference.disable')"
                                         />
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="12" :xs="24" :sm="12" :md="8">
-                                    <el-form-item label="发票" prop="invoicesNeed">
+                                    <el-form-item
+                                        :label="$t('preference.invoice')"
+                                        prop="invoicesNeed"
+                                    >
                                         <el-switch
                                             v-model="formData.invoicesNeed"
-                                            active-text="开启"
-                                            inactive-text="关闭"
+                                            :active-text="$t('preference.enable')"
+                                            :inactive-text="$t('preference.disable')"
                                         />
                                     </el-form-item>
                                 </el-col>
                             </el-row>
-                            <el-form-item label="搜索发现关键词" prop="searchKeywords">
+                            <el-form-item
+                                :label="$t('preference.searchKeywords')"
+                                prop="searchKeywords"
+                            >
                                 <el-input
                                     v-model="formData.searchKeywords"
-                                    placeholder="请输入搜索发现关键词"
+                                    :placeholder="$t('preference.inputSearchKeywords')"
                                 />
                             </el-form-item>
-                            <el-form-item label="分类样式" prop="cateStyle">
+                            <el-form-item :label="$t('preference.categoryStyle')" prop="cateStyle">
                                 <div class="style-selection-container">
                                     <el-radio-group
                                         v-model="formData.cateStyle"
@@ -125,7 +140,9 @@
                                         >
                                             <div class="style-header">
                                                 <el-radio :value="0" class="style-radio">
-                                                    <span class="style-label">一级大图</span>
+                                                    <span class="style-label">
+                                                        {{ $t('preference.levelOneBigImage') }}
+                                                    </span>
                                                 </el-radio>
                                             </div>
                                             <el-card class="card-item">
@@ -143,7 +160,11 @@
                                                         </div>
                                                     </template>
                                                 </el-image>
-                                                <div class="summary">尺寸建议：350px*150px</div>
+                                                <div class="summary">
+                                                    {{
+                                                        $t('preference.sizeSuggestion')
+                                                    }}：350px*150px
+                                                </div>
                                             </el-card>
                                         </div>
                                         <div
@@ -152,7 +173,9 @@
                                         >
                                             <div class="style-header">
                                                 <el-radio :value="1" class="style-radio">
-                                                    <span class="style-label">一级小图</span>
+                                                    <span class="style-label">
+                                                        {{ $t('preference.levelOneSmallImage') }}
+                                                    </span>
                                                 </el-radio>
                                             </div>
                                             <el-card class="card-item">
@@ -170,7 +193,11 @@
                                                         </div>
                                                     </template>
                                                 </el-image>
-                                                <div class="summary">尺寸建议：105px*105px</div>
+                                                <div class="summary">
+                                                    {{
+                                                        $t('preference.sizeSuggestion')
+                                                    }}：105px*105px
+                                                </div>
                                             </el-card>
                                         </div>
                                         <div
@@ -179,7 +206,9 @@
                                         >
                                             <div class="style-header">
                                                 <el-radio :value="2" class="style-radio">
-                                                    <span class="style-label">二级小图</span>
+                                                    <span class="style-label">
+                                                        {{ $t('preference.levelTwoSmallImage') }}
+                                                    </span>
                                                 </el-radio>
                                             </div>
                                             <el-card class="card-item">
@@ -197,13 +226,15 @@
                                                         </div>
                                                     </template>
                                                 </el-image>
-                                                <div class="summary">尺寸建议：60px*60px</div>
+                                                <div class="summary">
+                                                    {{ $t('preference.sizeSuggestion') }}：60px*60px
+                                                </div>
                                             </el-card>
                                         </div>
                                     </el-radio-group>
                                 </div>
                             </el-form-item>
-                            <el-form-item label="H5分类样式" prop="cateType">
+                            <el-form-item :label="$t('setting.h5CategoryStyle')" prop="cateType">
                                 <div class="style-selection-container">
                                     <el-radio-group
                                         v-model="formData.cateType"
@@ -215,7 +246,9 @@
                                         >
                                             <div class="style-header">
                                                 <el-radio :value="0" class="style-radio">
-                                                    <span class="style-label">类型一</span>
+                                                    <span class="style-label">
+                                                        {{ $t('setting.typeOne') }}
+                                                    </span>
                                                 </el-radio>
                                             </div>
                                             <el-card class="card-item">
@@ -233,7 +266,9 @@
                                                         </div>
                                                     </template>
                                                 </el-image>
-                                                <div class="summary">此设置只在H5端有效</div>
+                                                <div class="summary">
+                                                    {{ $t('setting.h5SettingTip') }}
+                                                </div>
                                             </el-card>
                                         </div>
                                         <div
@@ -242,7 +277,9 @@
                                         >
                                             <div class="style-header">
                                                 <el-radio :value="1" class="style-radio">
-                                                    <span class="style-label">类型二</span>
+                                                    <span class="style-label">
+                                                        {{ $t('setting.typeTwo') }}
+                                                    </span>
                                                 </el-radio>
                                             </div>
                                             <el-card class="card-item">
@@ -261,8 +298,7 @@
                                                     </template>
                                                 </el-image>
                                                 <div class="summary">
-                                                    此功能只在 "分类样式" 为 "二级小图"
-                                                    的时候生效,小程序请忽略
+                                                    {{ $t('setting.h5FunctionTip') }}
                                                 </div>
                                             </el-card>
                                         </div>
@@ -270,124 +306,142 @@
                                 </div>
                             </el-form-item>
                         </el-tab-pane>
-                        <el-tab-pane label="商品设置" name="goods">
+                        <el-tab-pane :label="$t('setting.goodsSetting')" name="goods">
                             <template #label>
                                 <span>
                                     <i class="el-icon-ali-shangpin-copy"></i>
-                                    商品设置
+                                    {{ $t('setting.goodsSetting') }}
                                 </span>
                             </template>
-                            <el-form-item label="库存警报数量" prop="goodsStocksWarn">
+                            <el-form-item
+                                :label="$t('setting.stockAlertQuantity')"
+                                prop="goodsStocksWarn"
+                            >
                                 <el-input-number
                                     v-model="formData.goodsStocksWarn"
                                     :max="10"
                                     :min="1"
                                     controls-position="right"
-                                    label="请输入库存警报数量"
+                                    :label="$t('setting.inputStockAlertQuantity')"
                                 />
                                 <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i>
-                                    商品中只要有货品库存低于报警数量，就会在后台提示
+                                    {{ $t('setting.stockAlertTip') }}
                                 </span>
                             </el-form-item>
                         </el-tab-pane>
-                        <el-tab-pane label="订单设置" name="order">
+                        <el-tab-pane :label="$t('setting.orderSetting')" name="order">
                             <template #label>
                                 <span>
                                     <i class="el-icon-ali-dd"></i>
-                                    订单设置
+                                    {{ $t('setting.orderSetting') }}
                                 </span>
                             </template>
-                            <el-form-item label="取消时间" prop="orderCancelTime">
+                            <el-form-item :label="$t('setting.cancelTime')" prop="orderCancelTime">
                                 <el-input-number
                                     v-model="formData.orderCancelTime"
                                     :max="10"
                                     :min="1"
                                     controls-position="right"
-                                    label="请输入订单取消时间"
+                                    :label="$t('setting.inputCancelTime')"
                                 />
                                 <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i>
-                                    未付款订单取消的时间间隔，单位为 天
+                                    {{ $t('setting.cancelTimeTip') }}
                                 </span>
                             </el-form-item>
-                            <el-form-item label="完成时间" prop="orderCompleteTime">
+                            <el-form-item
+                                :label="$t('setting.completeTime')"
+                                prop="orderCompleteTime"
+                            >
                                 <el-input-number
                                     v-model="formData.orderCompleteTime"
                                     :max="10"
                                     :min="1"
                                     controls-position="right"
-                                    label="请输入订单完成时间"
+                                    :label="$t('setting.inputCompleteTime')"
                                 />
                                 <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i>
-                                    已付款的订单完成的时间间隔，单位为 天
+                                    {{ $t('setting.completeTimeTip') }}
                                 </span>
                             </el-form-item>
-                            <el-form-item label="确认收货时间" prop="orderAutoSignTime">
+                            <el-form-item
+                                :label="$t('setting.confirmReceiveTime')"
+                                prop="orderAutoSignTime"
+                            >
                                 <el-input-number
                                     v-model="formData.orderAutoSignTime"
                                     :max="10"
                                     :min="1"
                                     controls-position="right"
-                                    label="请输入订单确认收货时间"
+                                    :label="$t('setting.inputConfirmReceiveTime')"
                                 />
                                 <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i>
-                                    发货后的订单自动确认收货时间,单位为 天
+                                    {{ $t('setting.confirmReceiveTimeTip') }}
                                 </span>
                             </el-form-item>
-                            <el-form-item label="自动评价时间" prop="orderAutoEvalTime">
+                            <el-form-item
+                                :label="$t('setting.autoEvalTime')"
+                                prop="orderAutoEvalTime"
+                            >
                                 <el-input-number
                                     v-model="formData.orderAutoEvalTime"
                                     :max="10"
                                     :min="1"
                                     controls-position="right"
-                                    label="请输入订单自动评价时间"
+                                    :label="$t('setting.inputAutoEvalTime')"
                                 />
                                 <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i>
-                                    确认收货后的订单自动评价时间间隔,单位为 天
+                                    {{ $t('setting.autoEvalTimeTip') }}
                                 </span>
                             </el-form-item>
-                            <el-form-item label="提醒付款时间" prop="reminderPaymentTime">
+                            <el-form-item
+                                :label="$t('setting.reminderPaymentTime')"
+                                prop="reminderPaymentTime"
+                            >
                                 <el-input-number
                                     v-model="formData.reminderPaymentTime"
                                     :max="10"
                                     :min="1"
                                     controls-position="right"
-                                    label="请输入订单提醒付款时间"
+                                    :label="$t('setting.inputReminderPaymentTime')"
                                 />
                                 <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i>
-                                    订单催付款时间,单位为 小时
+                                    {{ $t('setting.reminderPaymentTimeTip') }}
                                 </span>
                             </el-form-item>
-                            <el-form-item label="退货联系人" prop="returnContact">
+                            <el-form-item :label="$t('setting.returnContact')" prop="returnContact">
                                 <el-col :span="8">
                                     <el-input
                                         v-model="formData.returnContact"
-                                        placeholder="请输入退货联系人"
+                                        :placeholder="$t('setting.inputReturnContact')"
                                     />
                                 </el-col>
                                 <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i>
-                                    用户退货时的收货人姓名
+                                    {{ $t('setting.returnContactTip') }}
                                 </span>
                             </el-form-item>
-                            <el-form-item label="退货联系方式" prop="returnContactInformation">
+                            <el-form-item
+                                :label="$t('setting.returnContactInfo')"
+                                prop="returnContactInformation"
+                            >
                                 <el-col :span="8">
                                     <el-input
                                         v-model="formData.returnContactInformation"
-                                        placeholder="请输入退货联系方式"
+                                        :placeholder="$t('setting.inputReturnContactInfo')"
                                     />
                                 </el-col>
                                 <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i>
-                                    用户退货时的收货人联系方式
+                                    {{ $t('setting.returnContactInfoTip') }}
                                 </span>
                             </el-form-item>
-                            <el-form-item label="退货区域" prop="returnAreaId">
+                            <el-form-item :label="$t('setting.returnArea')" prop="returnAreaId">
                                 <el-cascader
                                     v-model="formData.returnAreaId"
                                     :options="areaList"
@@ -395,11 +449,11 @@
                                     :show-all-levels="false"
                                 />
                             </el-form-item>
-                            <el-form-item label="退货详细地址" prop="returnAddress">
+                            <el-form-item :label="$t('setting.returnAddress')" prop="returnAddress">
                                 <el-col :span="18">
                                     <el-input
                                         v-model="formData.returnAddress"
-                                        placeholder="请输入退货详细地址"
+                                        :placeholder="$t('setting.inputReturnAddress')"
                                     >
                                         <template #append>
                                             <el-button
@@ -411,234 +465,290 @@
                                 </el-col>
                                 <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i>
-                                    用户退货时的收货人联系方式
+                                    {{ $t('setting.returnContactInfoTip') }}
                                 </span>
                             </el-form-item>
                         </el-tab-pane>
-                        <el-tab-pane label="积分设置" name="point">
+                        <el-tab-pane :label="$t('setting.pointSetting')" name="point">
                             <template #label>
                                 <span>
                                     <i class="el-icon-ali-jifen1"></i>
-                                    积分设置
+                                    {{ $t('setting.pointSetting') }}
                                 </span>
                             </template>
-                            <el-form-item label="开启积分功能" prop="openPoint">
+                            <el-form-item
+                                :label="$t('setting.enablePointFunction')"
+                                prop="openPoint"
+                            >
                                 <el-switch
                                     v-model="formData.openPoint"
-                                    active-text="开启"
-                                    inactive-text="关闭"
+                                    :active-text="$t('setting.enable')"
+                                    :inactive-text="$t('setting.disable')"
                                 />
                             </el-form-item>
-                            <el-form-item label="订单积分折现比例" prop="pointDiscountedProportion">
+                            <el-form-item
+                                :label="$t('setting.orderPointDiscountRatio')"
+                                prop="pointDiscountedProportion"
+                            >
                                 <el-input-number
                                     v-model="formData.pointDiscountedProportion"
                                     :max="10"
                                     :min="1"
                                     controls-position="right"
-                                    label="请输入订单积分折现比例"
+                                    :label="$t('setting.inputOrderPointDiscountRatio')"
                                 />
                                 <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i>
-                                    未付款订单取消的时间间隔，单位为 天
+                                    {{ $t('setting.orderPointDiscountRatioTip') }}
                                 </span>
                             </el-form-item>
-                            <el-form-item label="订单积分使用比例" prop="orderPointProportion">
+                            <el-form-item
+                                :label="$t('setting.orderPointUseRatio')"
+                                prop="orderPointProportion"
+                            >
                                 <el-input-number
                                     v-model="formData.orderPointProportion"
                                     :max="10"
                                     :min="1"
                                     controls-position="right"
-                                    label="请输入订单积分使用比例"
+                                    :label="$t('setting.inputOrderPointUseRatio')"
                                 />
                                 <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i>
-                                    未付款订单取消的时间间隔，单位为 天
+                                    {{ $t('setting.orderPointUseRatioTip') }}
                                 </span>
                             </el-form-item>
-                            <el-form-item label="订单积分奖励比例" prop="orderRewardProportion">
+                            <el-form-item
+                                :label="$t('setting.orderPointRewardRatio')"
+                                prop="orderRewardProportion"
+                            >
                                 <el-input-number
                                     v-model="formData.orderRewardProportion"
                                     :max="10"
                                     :min="1"
                                     controls-position="right"
-                                    label="请输入订单积分奖励比例"
+                                    :label="$t('setting.inputOrderPointRewardRatio')"
                                 />
                                 <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i>
-                                    未付款订单取消的时间间隔，单位为 天
+                                    {{ $t('setting.orderPointRewardRatioTip') }}
                                 </span>
                             </el-form-item>
-                            <el-form-item label="签到奖励类型" prop="signPointType">
+                            <el-form-item
+                                :label="$t('setting.signRewardType')"
+                                prop="signPointType"
+                            >
                                 <el-radio-group v-model="formData.signPointType">
-                                    <el-radio :value="1">固定奖励</el-radio>
-                                    <el-radio :value="2">随机奖励</el-radio>
+                                    <el-radio :value="1">
+                                        {{ $t('setting.fixedReward') }}
+                                    </el-radio>
+                                    <el-radio :value="2">
+                                        {{ $t('setting.randomReward') }}
+                                    </el-radio>
                                 </el-radio-group>
                             </el-form-item>
                             <div v-if="formData.signPointType == 1">
-                                <el-form-item label="首次奖励积分" prop="firstSignPoint">
+                                <el-form-item
+                                    :label="$t('setting.firstRewardPoint')"
+                                    prop="firstSignPoint"
+                                >
                                     <el-input-number
                                         v-model="formData.firstSignPoint"
                                         :max="10"
                                         :min="1"
                                         controls-position="right"
-                                        placeholder="请输入首次奖励积分"
+                                        :placeholder="$t('setting.inputFirstRewardPoint')"
                                     />
                                     <span class="tip-info">
                                         <i class="el-icon-ali-tishi"></i>
-                                        起始签到奖励积分
+                                        {{ $t('setting.firstRewardPointTip') }}
                                     </span>
                                 </el-form-item>
-                                <el-form-item label="连续签到追加" prop="continuitySignAdditional">
+                                <el-form-item
+                                    :label="$t('setting.continuousSignAdditional')"
+                                    prop="continuitySignAdditional"
+                                >
                                     <el-input-number
                                         v-model="formData.continuitySignAdditional"
                                         :max="10"
                                         :min="1"
                                         controls-position="right"
-                                        placeholder="请输入连续签到追加"
+                                        :placeholder="$t('setting.inputContinuousSignAdditional')"
                                     />
                                     <span class="tip-info">
                                         <i class="el-icon-ali-tishi"></i>
-                                        连续签到追加积分
+                                        {{ $t('setting.continuousSignAdditionalTip') }}
                                     </span>
                                 </el-form-item>
-                                <el-form-item label="单日最大奖励" prop="dailySignMaxPoint">
+                                <el-form-item
+                                    :label="$t('setting.dailyMaxReward')"
+                                    prop="dailySignMaxPoint"
+                                >
                                     <el-input-number
                                         v-model="formData.dailySignMaxPoint"
                                         :max="10"
                                         :min="1"
                                         controls-position="right"
-                                        placeholder="请输入单日最大奖励"
+                                        :placeholder="$t('setting.inputDailyMaxReward')"
                                     />
                                     <span class="tip-info">
                                         <i class="el-icon-ali-tishi"></i>
-                                        连续签到奖励积分单日上限
+                                        {{ $t('setting.dailyMaxRewardTip') }}
                                     </span>
                                 </el-form-item>
                             </div>
                             <div v-else-if="formData.signPointType == 2">
-                                <el-form-item label="随机奖励积分最小值" prop="signMinRandomPoint">
+                                <el-form-item
+                                    :label="$t('setting.randomRewardMin')"
+                                    prop="signMinRandomPoint"
+                                >
                                     <el-input-number
                                         v-model="formData.signMinRandomPoint"
                                         :max="10"
                                         :min="1"
                                         controls-position="right"
-                                        placeholder="请输入随机奖励积分最小值"
+                                        :placeholder="$t('setting.inputRandomRewardMin')"
                                     />
                                     <span class="tip-info">
                                         <i class="el-icon-ali-tishi"></i>
-                                        签到随机最小奖励积分
+                                        {{ $t('setting.randomRewardMinTip') }}
                                     </span>
                                 </el-form-item>
-                                <el-form-item label="随机奖励积分最大值" prop="signMaxRandomPoint">
+                                <el-form-item
+                                    :label="$t('setting.randomRewardMax')"
+                                    prop="signMaxRandomPoint"
+                                >
                                     <el-input-number
                                         v-model="formData.signMaxRandomPoint"
                                         :max="10"
                                         :min="1"
                                         controls-position="right"
-                                        placeholder="请输入随机奖励积分最大值"
+                                        :placeholder="$t('setting.inputRandomRewardMax')"
                                     />
                                     <span class="tip-info">
                                         <i class="el-icon-ali-tishi"></i>
-                                        签到随机最大奖励积分
+                                        {{ $t('setting.randomRewardMaxTip') }}
                                     </span>
                                 </el-form-item>
                             </div>
                         </el-tab-pane>
-                        <el-tab-pane label="提现设置" name="cash">
+                        <el-tab-pane :label="$t('setting.cashSetting')" name="cash">
                             <template #label>
                                 <span>
                                     <i class="el-icon-ali-tixian-copy"></i>
-                                    提现设置
+                                    {{ $t('setting.cashSetting') }}
                                 </span>
                             </template>
-                            <el-form-item label="最低提现金额" prop="toCashLowMoney">
+                            <el-form-item
+                                :label="$t('setting.minCashAmount')"
+                                prop="toCashLowMoney"
+                            >
                                 <el-input-number
                                     v-model="formData.tocashLowMoney"
                                     :max="10"
                                     :min="1"
                                     controls-position="right"
-                                    label="请输入最低提现金额"
+                                    :label="$t('setting.inputMinCashAmount')"
                                 />
                                 <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i>
-                                    最低提现标准，默认0不限制
+                                    {{ $t('setting.minCashTip') }}
                                 </span>
                             </el-form-item>
-                            <el-form-item label="提现服务费率" prop="toCashRateMoney">
+                            <el-form-item
+                                :label="$t('setting.cashServiceRate')"
+                                prop="toCashRateMoney"
+                            >
                                 <el-input-number
                                     v-model="formData.tocashRateMoney"
                                     :max="10"
                                     :min="1"
                                     controls-position="right"
-                                    label="请输入提现服务费率"
+                                    :label="$t('setting.inputCashServiceRate')"
                                 />
                                 <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i>
-                                    提现费率，默认0% 没有费率
+                                    {{ $t('setting.cashServiceRateTip') }}
                                 </span>
                             </el-form-item>
                         </el-tab-pane>
-                        <el-tab-pane label="其他设置" name="other">
+                        <el-tab-pane :label="$t('setting.otherSetting')" name="other">
                             <template #label>
                                 <span>
                                     <i class="el-icon-ali-qita"></i>
-                                    其他设置
+                                    {{ $t('setting.otherSetting') }}
                                 </span>
                             </template>
-                            <el-divider content-position="left">腾讯地图</el-divider>
-                            <el-form-item label="腾讯地图key" prop="qqMapKey">
+                            <el-divider content-position="left">
+                                {{ $t('setting.tencentMap') }}
+                            </el-divider>
+                            <el-form-item :label="$t('setting.tencentMapKey')" prop="qqMapKey">
                                 <el-col :span="12">
                                     <el-input
                                         v-model="formData.qqMapKey"
-                                        placeholder="请输入腾讯地图key"
+                                        :placeholder="$t('setting.inputTencentMapKey')"
                                     />
                                 </el-col>
                                 <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i>
-                                    腾讯地图key，申请地址：https://lbs.qq.com/
+                                    {{ $t('setting.tencentMapTip') }}
                                 </span>
                             </el-form-item>
-                            <el-divider content-position="left">快递100</el-divider>
-                            <el-form-item label="公司编号" prop="kuaidi100CorpCode">
+                            <el-divider content-position="left">
+                                {{ $t('setting.express100') }}
+                            </el-divider>
+                            <el-form-item
+                                :label="$t('setting.companyCode')"
+                                prop="kuaidi100CorpCode"
+                            >
                                 <el-col :span="8">
                                     <el-input
                                         v-model="formData.kuaidi100CorpCode"
-                                        placeholder="请输入公司编号"
+                                        :placeholder="$t('setting.inputCompanyCode')"
                                     />
                                 </el-col>
                                 <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i>
-                                    快递100公司编码，申请地址：https://www.kuaidi100.com
+                                    {{ $t('setting.companyCodeTip') }}
                                 </span>
                             </el-form-item>
-                            <el-form-item label="授权key" prop="kuaidi100Key">
+                            <el-form-item :label="$t('setting.authKey')" prop="kuaidi100Key">
                                 <el-col :span="8">
                                     <el-input
                                         v-model="formData.kuaidi100Key"
-                                        placeholder="请输入授权key"
+                                        :placeholder="$t('setting.inputAuthKey')"
                                     />
                                 </el-col>
                                 <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i>
-                                    快递100授权key，申请地址：https://www.kuaidi100.com
+                                    {{ $t('setting.authKeyTip') }}
                                 </span>
                             </el-form-item>
-                            <el-divider content-position="left">图片存储</el-divider>
+                            <el-divider content-position="left">
+                                {{ $t('setting.imageStorage') }}
+                            </el-divider>
 
-                            <el-form-item label="图片存储引擎" prop="imageStorageType">
+                            <el-form-item
+                                :label="$t('setting.imageStorageEngine')"
+                                prop="imageStorageType"
+                            >
                                 <el-radio-group v-model="formData.imageStorageType">
-                                    <el-radio value="local">本地</el-radio>
-                                    <el-radio value="aliyun">阿里云OSS</el-radio>
+                                    <el-radio value="local">
+                                        {{ $t('setting.local') }}
+                                    </el-radio>
+                                    <el-radio value="aliyun">
+                                        {{ $t('setting.aliyunOSS') }}
+                                    </el-radio>
                                 </el-radio-group>
                             </el-form-item>
 
                             <div v-if="formData.imageStorageType === 'local'">
-                                <el-form-item label="绑定域名" prop="domain">
+                                <el-form-item :label="$t('setting.bindDomain')" prop="domain">
                                     <el-row>
                                         <el-col :span="8">
                                             <el-input
                                                 v-model="formData.domain"
-                                                placeholder="请输入绑定域名"
+                                                :placeholder="$t('setting.inputBindDomain')"
                                             />
                                         </el-col>
                                     </el-row>
@@ -646,19 +756,19 @@
                                         <el-col :span="24" style="text-align: left">
                                             <span class="tip-info">
                                                 <i class="el-icon-ali-tishi"></i>
-                                                图片分离时使用，使用阿里云OSS时也尽量绑定域名，例如：https://image.couponmall.com
+                                                {{ $t('setting.bindDomainTip') }}
                                             </span>
                                         </el-col>
                                     </el-row>
                                 </el-form-item>
                             </div>
                             <div v-else-if="formData.imageStorageType === 'aliyun'">
-                                <el-form-item label="绑定域名" prop="domain">
+                                <el-form-item :label="$t('setting.bindDomain')" prop="domain">
                                     <el-row>
                                         <el-col :span="8">
                                             <el-input
                                                 v-model="formData.domain"
-                                                placeholder="请输入绑定域名"
+                                                :placeholder="$t('setting.inputBindDomain')"
                                             />
                                         </el-col>
                                     </el-row>
@@ -666,7 +776,7 @@
                                         <el-col :span="24" style="text-align: left">
                                             <span class="tip-info">
                                                 <i class="el-icon-ali-tishi"></i>
-                                                图片分离时使用，使用阿里云OSS时也尽量绑定域名，例如：https://image.couponmall.com
+                                                {{ $t('setting.bindDomainTip') }}
                                             </span>
                                         </el-col>
                                     </el-row>
@@ -676,7 +786,7 @@
                                         <el-col :span="8">
                                             <el-input
                                                 v-model="formData.accessKeyId"
-                                                placeholder="请输入AccessKeyId"
+                                                :placeholder="$t('setting.inputAccessKeyId')"
                                             />
                                         </el-col>
                                     </el-row>
@@ -684,7 +794,7 @@
                                         <el-col :span="24" style="text-align: left">
                                             <span class="tip-info">
                                                 <i class="el-icon-ali-tishi"></i>
-                                                阿里云AccessKeyId，申请地址：阿里云用户AccessKey控制台地址：https://usercenter.console.aliyun.com/#/manage/ak
+                                                {{ $t('setting.accessKeyIdTip') }}
                                             </span>
                                         </el-col>
                                     </el-row>
@@ -693,51 +803,56 @@
                                     <el-col :span="8">
                                         <el-input
                                             v-model="formData.accessKeySecret"
-                                            placeholder="请输入AccessKeySecret"
+                                            :placeholder="$t('setting.inputAccessKeySecret')"
                                         />
                                     </el-col>
                                     <span class="tip-info">
                                         <i class="el-icon-ali-tishi"></i>
-                                        阿里云accessKeySecret
+                                        {{ $t('setting.accessKeySecretTip') }}
                                     </span>
                                 </el-form-item>
-                                <el-form-item label="存储节点" prop="endPoint">
+                                <el-form-item :label="$t('setting.storageNode')" prop="endPoint">
                                     <el-col :span="8">
                                         <el-input
                                             v-model="formData.endPoint"
-                                            placeholder="请输入存储节点"
+                                            :placeholder="$t('setting.inputStorageNode')"
                                         />
                                     </el-col>
                                     <span class="tip-info">
                                         <i class="el-icon-ali-tishi"></i>
-                                        阿里云OSS的 endpoint，例如：oss-cn-beijing.aliyuncs.com
+                                        {{ $t('setting.storageNodeTip') }}
                                     </span>
                                 </el-form-item>
-                                <el-form-item label="空间名称" prop="bucket">
+                                <el-form-item :label="$t('setting.spaceName')" prop="bucket">
                                     <el-col :span="8">
                                         <el-input
                                             v-model="formData.bucket"
-                                            placeholder="请输入空间名称"
+                                            :placeholder="$t('setting.inputSpaceName')"
                                         />
                                     </el-col>
                                     <span class="tip-info">
                                         <i class="el-icon-ali-tishi"></i>
-                                        阿里云OSS的 bucket，例如：coupon-mall
+                                        {{ $t('setting.spaceNameTip') }}
                                     </span>
                                 </el-form-item>
                             </div>
 
-                            <el-divider content-position="left">统计代码</el-divider>
-                            <el-form-item label="百度统计代码" prop="baiduStatisticalCode">
+                            <el-divider content-position="left">
+                                {{ $t('setting.statisticalCode') }}
+                            </el-divider>
+                            <el-form-item
+                                :label="$t('setting.baiduStatisticalCode')"
+                                prop="baiduStatisticalCode"
+                            >
                                 <el-input
                                     v-model="formData.baiduStatisticalCode"
                                     :rows="4"
-                                    placeholder="请输入百度统计代码"
+                                    :placeholder="$t('setting.inputBaiduStatisticalCode')"
                                     type="textarea"
                                 />
                                 <span class="tip-info">
                                     <i class="el-icon-ali-tishi"></i>
-                                    只需要粘贴&gt;script&lt;&gt;/script&lt;内的代码，只统计H5端。微信小程序请使用"小程序数据助手"
+                                    {{ $t('setting.baiduStatisticalTip') }}
                                 </span>
                             </el-form-item>
                         </el-tab-pane>
@@ -879,9 +994,19 @@ export default {
                 wxAppAppId: '', // 微信APP支付appid
             },
             formDataRules: {
-                shopName: [{ required: true, message: '请输入平台名称', trigger: 'blur' }],
+                shopName: [
+                    {
+                        required: true,
+                        message: this.$t('setting.inputMyPlatform'),
+                        trigger: 'blur',
+                    },
+                ],
                 goodsStocksWarn: [
-                    { required: true, message: '请输入库存警报数量', trigger: 'blur' },
+                    {
+                        required: true,
+                        message: this.$t('setting.inputStockAlertQuantity'),
+                        trigger: 'blur',
+                    },
                     { validator: checkPrice, trigger: 'blur' },
                 ],
             },
@@ -920,7 +1045,11 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('permission.confirmSubmit'),
+                        this.$t('common.tip'),
+                        {}
+                    ).then(async () => {
                         this.editLoading = true;
                         const data = Object.assign({}, this.formData);
 
@@ -931,13 +1060,13 @@ export default {
                         if (_result.succeed === 1 && _result.code === 200) {
                             this.setGlobalVariables(_result.data);
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('common.success'),
                                 message: _result.description,
                                 type: 'success',
                             });
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('common.error'),
                                 message: _result.description,
                             });
                         }

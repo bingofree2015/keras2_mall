@@ -41,15 +41,15 @@
         >
             <el-table-column label="ID" min-width="80" prop="id" />
             <table-tree-column
-                :label="$t('areaName')"
+                :label="$t('area.name')"
                 min-width="310"
                 prop="name"
                 tree-key="id"
                 @send-tree-data="getTreeData"
             />
-            <el-table-column :label="$t('areaLevel')" min-width="80" prop="depth" />
-            <el-table-column :label="$t('areaParentName')" min-width="120" prop="parentName" />
-            <el-table-column :label="$t('areaSort')" min-width="80" prop="sort" />
+            <el-table-column :label="$t('area.level')" min-width="80" prop="depth" />
+            <el-table-column :label="$t('area.parentName')" min-width="120" prop="parentName" />
+            <el-table-column :label="$t('area.sort')" min-width="80" prop="sort" />
             <el-table-column :label="$t('action.operation')" fixed="right" min-width="200">
                 <template #default="scope">
                     <ext-button
@@ -273,7 +273,11 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('permission.confirmSubmit'),
+                        this.$t('common.tip'),
+                        {}
+                    ).then(async () => {
                         this.editLoading = true;
                         try {
                             const params = Object.assign({}, this.formData);

@@ -365,7 +365,7 @@ export default {
             const _isLt5M = file.size / 1024 / 1024 < 5;
             if (!_isLt5M) {
                 this.$notify.error({
-                    title: '错误',
+                    title: this.$t('common.error'),
                     message: '上传文件大小不能超过 5MB!',
                 });
                 return false;
@@ -418,13 +418,13 @@ export default {
                             // const _newFileData = { ...result.data, url: this.env.getImgUrl(result.data.path) }
                             //           file = Object.assign(file, _newFileData)
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('common.success'),
                                 message: result.description,
                                 type: 'success',
                             });
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('common.error'),
                                 message: result.description,
                             });
                         }

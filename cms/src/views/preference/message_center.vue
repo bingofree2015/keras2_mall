@@ -30,7 +30,22 @@ export default {
         return {
             normalSize: 'default',
             smallSize: 'small',
-            columns: [
+            paginated: {
+                attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
+                list: [],
+            },
+            formData: {
+                id: 0,
+                sms: true,
+                message: true,
+                wxTplMessage: true,
+            },
+        };
+    },
+    computed: {
+        // 响应式的列配置
+        columns() {
+            return [
                 { prop: 'id', label: 'ID', minWidth: 60 },
                 { prop: 'code', label: this.$t('messageCenter.code'), minWidth: 200 },
                 {
@@ -75,18 +90,8 @@ export default {
                     },
                     align: 'center',
                 },
-            ],
-            paginated: {
-                attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
-                list: [],
-            },
-            formData: {
-                id: 0,
-                sms: true,
-                message: true,
-                wxTplMessage: true,
-            },
-        };
+            ];
+        },
     },
     methods: {
         // 获取分页数据

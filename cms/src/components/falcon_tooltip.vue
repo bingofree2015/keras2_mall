@@ -2,16 +2,18 @@
     <el-tooltip class="tooltip" effect="light" placement="top">
         <template #content>
             <div>
-                <p>推荐使用 Font Aweson 图标</p>
-                <p>使用步骤：</p>
+                <p>{{ $t('component.falconTooltip.recommendFontAwesome') }}</p>
+                <p>{{ $t('component.falconTooltip.usageSteps') }}</p>
                 <p>
-                    1.进入
-                    <a href="http://www.fontawesome.com.cn/faicons/" target="_blank">Font Aweson</a>
-                    页面
+                    {{ $t('component.falconTooltip.step1') }}
+                    <a href="http://www.fontawesome.com.cn/faicons/" target="_blank">
+                        Font Awesome
+                    </a>
+                    {{ $t('component.falconTooltip.step2') }}
                 </p>
-                <p>2.查找到需要的图标,点击查看。</p>
-                <p>3.复制图片样式到此处。</p>
-                <p>示例：el-icon-ali-shouye</p>
+                <p>{{ $t('component.falconTooltip.step3') }}</p>
+                <p>{{ $t('component.falconTooltip.step4') }}</p>
+                <p>{{ $t('component.falconTooltip.example') }}</p>
             </div>
         </template>
         <span><i class="el-icon-warning"></i></span>

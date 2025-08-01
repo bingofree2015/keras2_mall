@@ -1,16 +1,18 @@
 <template>
     <el-container>
         <el-header>
-            <h2 class="demo-title">视频上传</h2>
+            <h2 class="demo-title">
+                {{ $t('demo.videoUpload') }}
+            </h2>
         </el-header>
         <el-main>
             <p class="demo-summery">
-                通过弹出对话框选择本地视频文件上传至服务器，支持拖拽迅速简便。
+                {{ $t('demo.videoUploadDesc') }}
             </p>
             <el-row>
                 <el-col :span="18">
                     <el-button :size="miniSize" round type="primary" @click="handleClick">
-                        上传视频
+                        {{ $t('demo.uploadVideo') }}
                     </el-button>
                 </el-col>
             </el-row>

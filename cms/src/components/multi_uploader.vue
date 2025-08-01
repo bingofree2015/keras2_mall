@@ -380,7 +380,7 @@ export default {
                 Object.assign(this.editGroupItem, { id: 0, name: '', remark: '' });
             } else {
                 this.$notify.error({
-                    title: '错误',
+                    title: this.$t('common.error'),
                     message: _result.description,
                 });
             }
@@ -472,7 +472,7 @@ export default {
                                 this.cropDialogVisible = false;
                             } else {
                                 this.$notify.error({
-                                    title: '错误',
+                                    title: this.$t('common.error'),
                                     message: _result.description,
                                 });
                             }
@@ -513,7 +513,7 @@ export default {
                     });
                 } else {
                     this.$notify.error({
-                        title: '错误',
+                        title: this.$t('common.error'),
                         message: _result.description,
                     });
                 }
@@ -543,7 +543,7 @@ export default {
                 this.activeName = 'local';
             } else {
                 this.$notify.error({
-                    title: '错误',
+                    title: this.$t('common.error'),
                     message: _result.description,
                 });
             }

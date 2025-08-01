@@ -122,11 +122,9 @@
                     <el-col :span="14" class="top-bar">
                         <el-form-item :label="$t('store.coordinate')" prop="coordinate">
                             <el-input v-model="formData.coordinate" readonly>
-                                <el-button
-                                    #append
-                                    icon="el-icon-ali-dakai"
-                                    @click="changePosition"
-                                />
+                                <template #append>
+                                    <el-button icon="el-icon-ali-dakai" @click="changePosition" />
+                                </template>
                             </el-input>
                         </el-form-item>
                     </el-col>

@@ -2,7 +2,7 @@ const pageConfig = [
     // 团购秒杀
     {
         type: 'groupPurchase',
-        name: '团购秒杀',
+        name: this.$t('visualDesign.groupSeckill'),
         config: {
             title: '活动名称',
             limit: '5',
@@ -24,7 +24,7 @@ const pageConfig = [
     // 优惠券组
     {
         type: 'coupon',
-        name: '优惠券组',
+        name: this.$t('visualDesign.couponGroup'),
         config: {
             limit: '2',
         },
@@ -33,7 +33,7 @@ const pageConfig = [
     // 购买记录
     {
         type: 'record',
-        name: '购买记录',
+        name: this.$t('visualDesign.record'),
         config: {
             style: {
                 top: 0,
@@ -78,7 +78,7 @@ const pageConfig = [
     // 辅助空白
     {
         type: 'blank',
-        name: '辅助空白',
+        name: this.$t('visualDesign.auxiliaryBlank'),
         config: {
             height: 20,
             backgroundColor: '#FFFFFF',
@@ -88,14 +88,14 @@ const pageConfig = [
     // 文本域
     {
         type: 'textarea',
-        name: '文本域',
+        name: this.$t('visualDesign.textArea'),
         config: '',
         key: 'textarea_0',
     },
     // 视频组
     {
         type: 'video',
-        name: '视频组',
+        name: this.$t('visualDesign.videoGroup'),
         config: {
             autoplay: 'false',
             url: 'images/empty-banner.png',
@@ -109,7 +109,7 @@ const pageConfig = [
     // 文章组
     {
         type: 'article',
-        name: '文章组',
+        name: this.$t('visualDesign.articleGroup'),
         config: {
             title: '',
             url: 'images/empty-goods.png',
@@ -119,7 +119,7 @@ const pageConfig = [
     // 文章分类
     {
         type: 'articleClassify',
-        name: '文章分类',
+        name: this.$t('visualDesign.articleCategory'),
         config: {
             limit: 3,
             articleClassifyId: '',
@@ -131,7 +131,7 @@ const pageConfig = [
         type: 'search',
         name: '搜索框',
         config: {
-            keywords: '请输入关键字搜索',
+            keywords: this.$t('visualDesign.inputSearchKeyword'),
             style: 'round',
         },
         key: 'search_0',
@@ -139,7 +139,7 @@ const pageConfig = [
     // 图片轮播
     {
         type: 'imgSlide',
-        name: '图片轮播',
+        name: this.$t('visualDesign.imageCarousel'),
         config: {
             duration: 2500,
             list: [
@@ -160,7 +160,7 @@ const pageConfig = [
     // 公告组
     {
         type: 'notice',
-        name: '公告组',
+        name: this.$t('visualDesign.noticeGroup'),
         config: {
             type: 'auto',
             list: [
@@ -176,7 +176,7 @@ const pageConfig = [
     // 导航组
     {
         type: 'navBar',
-        name: '导航组',
+        name: this.$t('visualDesign.navigationGroup'),
         config: {
             limit: 4,
             list: [

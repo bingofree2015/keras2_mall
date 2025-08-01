@@ -1,17 +1,21 @@
 <template>
     <el-container>
         <el-header>
-            <h2 class="demo-title">区域选择</h2>
+            <h2 class="demo-title">
+                {{ $t('demo.areaSelection') }}
+            </h2>
         </el-header>
         <el-main>
-            <p class="demo-summery">通过基础的 24 分栏，迅速简便地创建布局。</p>
+            <p class="demo-summery">
+                {{ $t('demo.areaSelectionDesc') }}
+            </p>
             <el-row>
                 <el-col :span="18">
                     <pick-area :selection-type="0" @chosed-areas="chosedAreas" />
                 </el-col>
             </el-row>
             <h5 class="demo-sub-title">
-                <i>执行结果</i>
+                <i>{{ $t('demo.executionResult') }}</i>
             </h5>
             <el-row>
                 <el-col :span="18">
@@ -19,7 +23,7 @@
                 </el-col>
             </el-row>
             <h5 class="demo-sub-title">
-                <i>演示代码</i>
+                <i>{{ $t('demo.demoCode') }}</i>
             </h5>
             <el-row>
                 <el-col :span="18" class="demo-code">

@@ -88,30 +88,6 @@ export default {
                 key: 'name',
                 value: '',
             }, // 默认查询字段与查询内容
-            props: [
-                { prop: 'name', label: this.$t('task.name') },
-                { prop: 'type', label: this.$t('task.type') },
-                { prop: 'status', label: this.$t('task.status') },
-            ], // 查询字段列表
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: this.$t('task.name'), minWidth: 160 },
-                { prop: 'type', label: this.$t('task.type'), minWidth: 80 },
-                {
-                    prop: 'fileName',
-                    label: this.$t('task.fileName'),
-                    minWidth: 160,
-                    showOverflowTooltip: true,
-                },
-                { prop: 'status', label: this.$t('task.status'), minWidth: 80 },
-                { prop: 'fileSize', label: this.$t('task.fileSize'), minWidth: 90 },
-                {
-                    prop: 'createdAt',
-                    label: this.$t('common.createdAt'),
-                    minWidth: 140,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -150,6 +126,36 @@ export default {
         };
     },
     computed: {
+        // 响应式的 props 配置
+        props() {
+            return [
+                { prop: 'name', label: this.$t('task.name') },
+                { prop: 'type', label: this.$t('task.type') },
+                { prop: 'status', label: this.$t('task.status') },
+            ];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                { prop: 'name', label: this.$t('task.name'), minWidth: 160 },
+                { prop: 'type', label: this.$t('task.type'), minWidth: 80 },
+                {
+                    prop: 'fileName',
+                    label: this.$t('task.fileName'),
+                    minWidth: 160,
+                    showOverflowTooltip: true,
+                },
+                { prop: 'status', label: this.$t('task.status'), minWidth: 80 },
+                { prop: 'fileSize', label: this.$t('task.fileSize'), minWidth: 90 },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('common.createdAt'),
+                    minWidth: 140,
+                    formatter: this.env.formatDateTime,
+                },
+            ];
+        },
         operationWidth: {
             get() {
                 let _operationWidth = 0;

@@ -195,40 +195,40 @@ export default {
                 key: 'name',
                 value: '',
             },
-            props: [{ prop: 'name', label: '消息名称' }],
+            props: [{ prop: 'name', label: this.$t('wechat.message.name') }],
             columns: [
                 { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: '消息名称', minWidth: 220 },
+                { prop: 'name', label: this.$t('wechat.message.name'), minWidth: 220 },
                 {
                     prop: 'type',
-                    label: '消息类型',
+                    label: this.$t('wechat.message.type'),
                     minWidth: 92,
                     formatter: this.env.columnFormatter,
                 },
                 {
                     prop: 'isAttention',
-                    label: '关注回复',
+                    label: this.$t('wechat.message.attentionReply'),
                     minWidth: 92,
                     align: 'center',
                     formatter: this.env.columnFormatter,
                 },
                 {
                     prop: 'isDefault',
-                    label: '默认回复',
+                    label: this.$t('wechat.message.defaultReply'),
                     minWidth: 92,
                     align: 'center',
                     formatter: this.env.columnFormatter,
                 },
                 {
                     prop: 'enable',
-                    label: '禁用',
+                    label: this.$t('common.disable'),
                     minWidth: 70,
                     align: 'center',
                     formatter: this.env.columnFormatter,
                 },
                 {
                     prop: 'updatedAt',
-                    label: '更新时间',
+                    label: this.$t('common.updatedAt'),
                     minWidth: 132,
                     formatter: this.env.formatDateTime,
                 },
@@ -252,8 +252,8 @@ export default {
                             });
                         } else {
                             this.$notify({
-                                title: '成功',
-                                message: '消息类型是为非图文格式',
+                                title: this.$t('common.success'),
+                                message: this.$t('wechat.message.nonImageTextTip'),
                                 type: 'info',
                             });
                         }
@@ -281,9 +281,13 @@ export default {
                     size: this.size,
                     type: 'danger',
                     func: (row) => {
-                        this.$confirm('确认删除选中记录吗？', '提示', {
-                            type: 'warning',
-                        }).then(async () => {
+                        this.$confirm(
+                            this.$t('permission.confirmDeleteSelected'),
+                            this.$t('common.tip'),
+                            {
+                                type: 'warning',
+                            }
+                        ).then(async () => {
                             await this.batchDelete([row.id]);
                         });
                     },
@@ -384,7 +388,11 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('permission.confirmSubmit'),
+                        this.$t('common.tip'),
+                        {}
+                    ).then(async () => {
                         this.editLoading = true;
                         const data = Object.assign({}, this.formData);
                         const _result = await this.$api.weixinMessage.save(data);
@@ -398,13 +406,13 @@ export default {
                                 Object.assign(_weiXinMessage, _result.data);
                             }
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('common.success'),
                                 message: _result.description,
                                 type: 'success',
                             });
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('common.error'),
                                 message: _result.description,
                             });
                         }

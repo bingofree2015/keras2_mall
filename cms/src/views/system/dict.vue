@@ -97,7 +97,7 @@
                         v-model="formData.sort"
                         :min="0"
                         controls-position="right"
-                        label="排序"
+                        :label="$t('system.sort')"
                         style="max-width: 100px"
                     />
                 </el-form-item>

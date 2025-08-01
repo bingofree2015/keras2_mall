@@ -17,10 +17,18 @@
                     :size="normalSize"
                     label-width="200px"
                 >
-                    <el-form-item label="request合法域名">http://localhost:8085</el-form-item>
-                    <el-form-item label="socket合法域名">http://localhost:8085</el-form-item>
-                    <el-form-item label="uploadFile合法域名">http://localhost:8085</el-form-item>
-                    <el-form-item label="downloadFile合法域名">http://localhost:8085</el-form-item>
+                    <el-form-item :label="$t('wechat.miniprogram.requestDomain')">
+                        http://localhost:8085
+                    </el-form-item>
+                    <el-form-item :label="$t('wechat.miniprogram.socketDomain')">
+                        http://localhost:8085
+                    </el-form-item>
+                    <el-form-item :label="$t('wechat.miniprogram.uploadFileDomain')">
+                        http://localhost:8085
+                    </el-form-item>
+                    <el-form-item :label="$t('wechat.miniprogram.downloadFileDomain')">
+                        http://localhost:8085
+                    </el-form-item>
                     <el-form-item :label="$t('wechat.miniprogram.name')" prop="wx_nick_name">
                         <el-col :span="12">
                             <el-input
@@ -212,9 +220,44 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.page-container {
+    padding: 20px;
+}
+
+.edit-dialog-container {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+
 .tip-info {
     margin-left: 10px;
     font-size: 12px;
     color: #909399;
+    display: flex;
+    align-items: center;
+
+    i {
+        margin-right: 4px;
+    }
+}
+
+.footer {
+    margin-top: 20px;
+    text-align: right;
+    padding-top: 20px;
+    border-top: 1px solid #e4e7ed;
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+    .page-container {
+        padding: 15px;
+    }
+
+    .edit-dialog-container {
+        padding: 15px;
+    }
 }
 </style>

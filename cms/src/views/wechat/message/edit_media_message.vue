@@ -7,12 +7,12 @@
             </el-col>
             <el-col class="top-bar flex-grow" />
         </el-row>
-        <el-row :gutter="20">
-            <el-col :span="8">
-                <el-table :data="mediaMessageItems" :size="miniSize" stripe style="width: 100%">
+        <el-row :gutter="20" class="media-message-container">
+            <el-col :xs="24" :sm="24" :md="10" :lg="8" :xl="8">
+                <el-table :data="mediaMessageItems" :size="miniSize" stripe class="media-table">
                     <el-table-column min-width="180" prop="title">
                         <template #header>
-                            图文列表
+                            {{ $t('wechat.mediaMessage.imageTextList') }}
                             <el-button
                                 round
                                 :size="miniSize"
@@ -20,7 +20,7 @@
                                 type="primary"
                                 @click="handleCreate()"
                             >
-                                新增
+                                {{ $t('wechat.mediaMessage.add') }}
                             </el-button>
                         </template>
                         <template #default="scope">
@@ -41,9 +41,9 @@
                     </el-table-column>
                 </el-table>
             </el-col>
-            <el-col :span="12">
+            <el-col :xs="24" :sm="24" :md="14" :lg="12" :xl="12">
                 <el-container v-if="formData" class="edit-dialog-container">
-                    <el-header>编辑图文消息</el-header>
+                    <el-header>{{ $t('wechat.mediaMessage.editImageTextMessage') }}</el-header>
                     <el-main>
                         <!-- 编辑图文消息界面 -->
                         <el-form
@@ -55,15 +55,24 @@
                         >
                             <el-row>
                                 <el-col :span="16">
-                                    <el-form-item label="标题" prop="title">
+                                    <el-form-item
+                                        :label="$t('wechat.mediaMessage.title')"
+                                        prop="title"
+                                    >
                                         <el-input v-model="formData.title" />
                                     </el-form-item>
-                                    <el-form-item label="作者" prop="author">
+                                    <el-form-item
+                                        :label="$t('wechat.mediaMessage.author')"
+                                        prop="author"
+                                    >
                                         <el-input v-model="formData.author" />
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="8">
-                                    <el-form-item label="封面" prop="attachment">
+                                    <el-form-item
+                                        :label="$t('wechat.mediaMessage.cover')"
+                                        prop="attachment"
+                                    >
                                         <change-image-icon
                                             :img-url="
                                                 formData.attachment ? formData.attachment.path : ''
@@ -73,18 +82,24 @@
                                     </el-form-item>
                                 </el-col>
                             </el-row>
-                            <el-form-item label="摘要" prop="brief">
+                            <el-form-item :label="$t('wechat.mediaMessage.summary')" prop="brief">
                                 <el-input
                                     v-model="formData.brief"
                                     :autosize="{ minRows: 2, maxRows: 4 }"
-                                    placeholder="请输入内容"
+                                    :placeholder="$t('permission.pleaseEnterContent')"
                                     type="textarea"
                                 />
                             </el-form-item>
-                            <el-form-item label="详细内容" prop="content">
+                            <el-form-item
+                                :label="$t('wechat.mediaMessage.detailedContent')"
+                                prop="content"
+                            >
                                 <tinyEditor v-model:content="formData.content" />
                             </el-form-item>
-                            <el-form-item label="原文链接" prop="url">
+                            <el-form-item
+                                :label="$t('wechat.mediaMessage.originalLink')"
+                                prop="url"
+                            >
                                 <el-input v-model="formData.url" />
                             </el-form-item>
                         </el-form>
@@ -176,20 +191,20 @@ export default {
                     });
                     if (_result.succeed === 1 && _result.code === 200) {
                         this.$notify({
-                            title: '成功',
+                            title: this.$t('common.success'),
                             message: _result.description,
                             type: 'success',
                         });
                     } else {
                         this.$notify.error({
-                            title: '错误',
+                            title: this.$t('common.error'),
                             message: _result.description,
                         });
                     }
                 }
             } else {
                 this.$notify.error({
-                    title: '错误',
+                    title: this.$t('common.error'),
                     message: `参数错误 idx:${idx}`,
                 });
             }
@@ -205,7 +220,11 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('permission.confirmSubmit'),
+                        this.$t('common.tip'),
+                        {}
+                    ).then(async () => {
                         this.editLoading = true;
                         let data = Object.assign({}, this.formData);
                         let _result = await this.$api.weixinMediaMessage.save(data);
@@ -233,20 +252,20 @@ export default {
                                 });
                                 if (_result.succeed == 1 && _result.code == 200) {
                                     this.$notify({
-                                        title: '成功',
+                                        title: this.$t('common.success'),
                                         message: _result.description,
                                         type: 'success',
                                     });
                                 } else {
                                     this.$notify.error({
-                                        title: '错误',
+                                        title: this.$t('common.error'),
                                         message: _result.description,
                                     });
                                 }
                             }
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('common.error'),
                                 message: _result.description,
                             });
                         }
@@ -273,4 +292,58 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.media-message-container {
+    margin-top: 20px;
+}
+
+.media-table {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+.edit-dialog-container {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+
+    .el-header {
+        background-color: #f5f7fa;
+        border-bottom: 1px solid #e4e7ed;
+        font-weight: 600;
+        text-align: center;
+        line-height: 60px;
+    }
+
+    .el-main {
+        padding: 20px;
+    }
+
+    .el-footer {
+        padding: 15px 20px;
+        border-top: 1px solid #e4e7ed;
+        background-color: #fafafa;
+        text-align: right;
+    }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+    .media-message-container {
+        .el-col {
+            margin-bottom: 20px;
+        }
+    }
+
+    .edit-dialog-container {
+        .el-main {
+            padding: 15px;
+        }
+
+        .el-footer {
+            padding: 10px 15px;
+        }
+    }
+}
+</style>

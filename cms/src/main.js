@@ -15,13 +15,6 @@ import '@vuemap/vue-amap/dist/style.css';
 import ExtButton from '@/components/core/ext_button.vue';
 import ExtTable from '@/components/core/ext_table.vue';
 
-initAMapApiLoader({
-    key: '9a592976bd79ff285350f616bfe43c8f', // 高德地图API密钥
-    // 你可以根据需要添加其他配置项
-    version: '2.0',
-    plugins: ['AMap.Geocoder', 'AMap.PlaceSearch', 'AMap.ToolBar', 'AMap.Scale'],
-});
-
 // 添加全局错误处理
 window.AMapErrorHandler = {
     handleError: function (error) {
@@ -36,12 +29,29 @@ window.AMapErrorHandler = {
     },
 };
 
+// 初始化高德地图API，添加错误处理和防重复初始化
+if (!window.AMapInitialized) {
+    try {
+        initAMapApiLoader({
+            key: '9a592976bd79ff285350f616bfe43c8f', // 高德地图API密钥
+            version: '2.0',
+            plugins: ['AMap.Geocoder', 'AMap.PlaceSearch', 'AMap.ToolBar', 'AMap.Scale'],
+        });
+        window.AMapInitialized = true;
+    } catch (error) {
+        console.warn('高德地图API初始化失败:', error);
+    }
+}
+
 window.AMapKey = '9a592976bd79ff285350f616bfe43c8f';
 
 const app = createApp(App);
 
+// 从本地存储获取语言设置，如果没有则默认为中文
+const savedLocale = localStorage.getItem('locale') || 'zh_cn';
+
 // Element Plus 语言配置
-const elementPlusLocale = zhCn;
+const elementPlusLocale = savedLocale === 'en_us' ? en : zhCn;
 
 app.use(ElementPlus, {
     locale: elementPlusLocale,

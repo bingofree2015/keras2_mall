@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('permission.pleaseEnterContent')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('permission.pleaseSelect')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,12 +39,12 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('permission.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('permission.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -69,72 +72,73 @@
             :close-on-click-modal="false"
             :model-value="editDialogVisible"
             class="edit-dialog"
-            title="编辑"
+            :title="$t('permission.edit')"
             width="50%"
         >
             <el-form ref="formData" :model="formData" :size="normalSize" label-width="100px">
-                <el-form-item label="支付方式:" prop="name">
+                <el-form-item :label="$t('pay.paymentMethod') + ':'" prop="name">
                     {{ formData.name }}
                 </el-form-item>
-                <el-form-item label="类型:" prop="isOnline">
+                <el-form-item :label="$t('pay.type') + ':'" prop="isOnline">
                     {{ formData.isOnline }}
                 </el-form-item>
-                <el-form-item label="描述:" prop="memo">
+                <el-form-item :label="$t('pay.description') + ':'" prop="memo">
                     {{ formData.memo }}
                 </el-form-item>
                 <template v-if="formData.code === 'wechatpay'">
-                    <el-form-item label="appId:" prop="appId">
+                    <el-form-item :label="$t('pay.appId') + ':'" prop="appId">
                         <div class="item-info">
-                            1、微信公众号内支付:取微信公众号appId
-                            <br />
-                            2、小程序支付:取小程序的appId
-                            <br />
-                            3、h5端微信支付:不开启微信公众号和微信小程序，取上面两个中任意一个appId
+                            {{ $t('pay.wechatAppIdTip') }}
                         </div>
                     </el-form-item>
-                    <el-form-item label="mchId:" prop="params.mchId">
-                        <el-input v-model="formData.params.mchId" placeholder="请输入mchId" />
+                    <el-form-item :label="$t('pay.mchId') + ':'" prop="params.mchId">
+                        <el-input
+                            v-model="formData.params.mchId"
+                            :placeholder="$t('pay.inputMchId')"
+                        />
                     </el-form-item>
-                    <el-form-item label="key:" prop="params.key">
-                        <el-input v-model="formData.params.key" placeholder="请输入key" />
+                    <el-form-item :label="$t('pay.key') + ':'" prop="params.key">
+                        <el-input v-model="formData.params.key" :placeholder="$t('pay.inputKey')" />
                     </el-form-item>
-                    <el-form-item label="证书:">
+                    <el-form-item :label="$t('pay.certificate') + ':'">
                         <div class="item-info">
-                            在线退款:需要手动上传cert、key证书
-                            <br />
-                            不在线退款:则不需要上传cert、key证书
-                            <br />
-                            cert证书请手动上传到 cert证书请手动上传到 cert证书请手动上传到
-                            /cert/payment/wechatpay/apiclient_cert.pem
-                            <br />
-                            key证书请手动上传到 /cert/payment/wechatpay/apiclient_key.pem
+                            {{ $t('pay.certificateTip') }}
                         </div>
                     </el-form-item>
                 </template>
                 <template v-else-if="formData.code === 'alipay'">
-                    <el-form-item label="appId:" prop="params.appId">
-                        <el-input v-model="formData.params.appId" placeholder="请输入appId" />
+                    <el-form-item :label="$t('pay.appId') + ':'" prop="params.appId">
+                        <el-input
+                            v-model="formData.params.appId"
+                            :placeholder="$t('pay.inputAppId')"
+                        />
                     </el-form-item>
-                    <el-form-item label="RSA私钥:" prop="params.rsaPrivateKey">
+                    <el-form-item
+                        :label="$t('pay.rsaPrivateKey') + ':'"
+                        prop="params.rsaPrivateKey"
+                    >
                         <el-input
                             v-model="formData.params.rsaPrivateKey"
                             :rows="2"
-                            placeholder="请输入rsaPrivateKey"
+                            :placeholder="$t('pay.inputRsaPrivateKey')"
                             type="textarea"
                         />
                     </el-form-item>
-                    <el-form-item label="支付宝公钥:" prop="params.alipayPublicKey">
+                    <el-form-item
+                        :label="$t('pay.alipayPublicKey') + ':'"
+                        prop="params.alipayPublicKey"
+                    >
                         <el-input
                             v-model="formData.params.alipayPublicKey"
                             :rows="2"
-                            placeholder="请输入支付宝公钥"
+                            :placeholder="$t('pay.inputAlipayPublicKey')"
                             type="textarea"
                         />
                     </el-form-item>
                 </template>
                 <el-row>
                     <el-col :span="9">
-                        <el-form-item label="排序:" prop="sort">
+                        <el-form-item :label="$t('pay.sort') + ':'" prop="sort">
                             <el-input-number
                                 v-model="formData.sort"
                                 :max="10"
@@ -144,11 +148,11 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="9">
-                        <el-form-item label="状态:" prop="status">
+                        <el-form-item :label="$t('pay.status') + ':'" prop="status">
                             <el-switch
                                 v-model="formData.status"
-                                active-text="开启"
-                                inactive-text="锁定"
+                                :active-text="$t('pay.enable')"
+                                :inactive-text="$t('pay.lock')"
                             />
                         </el-form-item>
                     </el-col>
@@ -193,26 +197,6 @@ export default {
                 key: 'name',
                 value: '',
             },
-            props: [{ prop: 'name', label: '支付方式名称' }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: '支付方式名称', minWidth: 150 },
-                { prop: 'code', label: '支付类型编码', minWidth: 140 },
-                {
-                    prop: 'isOnline',
-                    label: '类型',
-                    minWidth: 80,
-                    formatter: this.env.columnFormatter,
-                },
-                { prop: 'sort', label: '排序', minWidth: 80 },
-                {
-                    prop: 'state',
-                    label: '启用状态',
-                    minWidth: 80,
-                    align: 'center',
-                    formatter: this.env.formatState,
-                },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -256,6 +240,32 @@ export default {
                 return _operationWidth;
             },
         },
+        // 响应式的 props 配置
+        props() {
+            return [{ prop: 'name', label: this.$t('pay.paymentMethodName') }];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                { prop: 'name', label: this.$t('pay.paymentMethodName'), minWidth: 150 },
+                { prop: 'code', label: this.$t('pay.paymentTypeCode'), minWidth: 140 },
+                {
+                    prop: 'isOnline',
+                    label: this.$t('pay.type'),
+                    minWidth: 80,
+                    formatter: this.env.columnFormatter,
+                },
+                { prop: 'sort', label: this.$t('pay.sort'), minWidth: 80 },
+                {
+                    prop: 'state',
+                    label: this.$t('pay.enableStatus'),
+                    minWidth: 80,
+                    align: 'center',
+                    formatter: this.env.formatState,
+                },
+            ];
+        },
     },
     methods: {
         /**
@@ -285,7 +295,11 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('permission.confirmSubmit'),
+                        this.$t('common.tip'),
+                        {}
+                    ).then(async () => {
                         this.editLoading = true;
                         const data = Object.assign({}, this.formData);
                         const _result = await this.$api.pay.save(data);
@@ -297,13 +311,13 @@ export default {
                                 Object.assign(_pay, _result.data);
                             }
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('common.success'),
                                 message: _result.description,
                                 type: 'success',
                             });
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('common.error'),
                                 message: _result.description,
                             });
                         }

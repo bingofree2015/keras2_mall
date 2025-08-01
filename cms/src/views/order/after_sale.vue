@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('permission.pleaseEnterContent')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('permission.pleaseSelect')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,12 +39,12 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('permission.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('permission.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -67,7 +70,7 @@
         <el-dialog
             :close-on-click-modal="false"
             :model-value="viewDialogVisible"
-            title="售后单查看"
+            :title="$t('afterSale.viewTitle')"
             width="40%"
         >
             <el-form
@@ -79,50 +82,50 @@
             >
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="售后单号:" prop="afterSaleId">
+                        <el-form-item :label="$t('afterSale.afterSaleId') + ':'" prop="afterSaleId">
                             {{ formData.afterSaleId }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="订单号:" prop="orderId">
+                        <el-form-item :label="$t('afterSale.orderId') + ':'" prop="orderId">
                             {{ formData.orderId }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="用户名:" prop="user">
+                        <el-form-item :label="$t('afterSale.username') + ':'" prop="user">
                             {{ formData.user.username }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="退款金额:" prop="refund">
+                        <el-form-item :label="$t('afterSale.refundAmount') + ':'" prop="refund">
                             {{ formData.refund }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="售后类型:" prop="type">
+                        <el-form-item :label="$t('afterSale.afterSaleType') + ':'" prop="type">
                             {{ formData.type }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="退款状态:" prop="status">
+                        <el-form-item :label="$t('afterSale.refundStatus') + ':'" prop="status">
                             {{ formData.status }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="24">
-                        <el-form-item label="原因:" prop="reason">
+                        <el-form-item :label="$t('afterSale.reason') + ':'" prop="reason">
                             {{ formData.reason }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="24">
-                        <el-form-item label="备注:" prop="mark">
+                        <el-form-item :label="$t('afterSale.remark') + ':'" prop="mark">
                             {{ formData.mark }}
                         </el-form-item>
                     </el-col>
@@ -177,27 +180,11 @@ export default {
         return {
             normalSize: 'default',
             smallSize: 'small',
+            miniSize: 'small',
             filters: {
                 key: 'afterSaleId',
                 value: '',
             },
-            props: [{ prop: 'afterSaleId', label: '售后单号' }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'afterSaleId', label: '售后单号', minWidth: 120 },
-                { prop: 'orderId', label: '订单号', minWidth: 120 },
-                { prop: 'status', label: '状态', minWidth: 90 },
-                { prop: 'type', label: '售后类型', minWidth: 90 },
-                { prop: 'user.username', label: '用户', minWidth: 110 },
-                { prop: 'refund', label: '退款金额', minWidth: 100 },
-                { prop: 'reason', label: '原因', minWidth: 180, showOverflowTooltip: true },
-                {
-                    prop: 'createdAt',
-                    label: '申请时间',
-                    minWidth: 130,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -207,7 +194,7 @@ export default {
                     label: 'action.view', // 按钮上显示的文字
                     icon: 'el-icon-ali-bianji', // 按钮文字前面的图标
                     perms: 'order:after_sale:view', // 权限标识
-                    size: this.size, // 按钮大小
+                    size: 'small', // 按钮大小
                     // type: 'primary',            // 按钮类型
                     func: (row) => {
                         this.viewDialogVisible = true;
@@ -246,6 +233,57 @@ export default {
                 }
                 return _operationWidth;
             },
+        },
+        props() {
+            return [
+                { prop: 'afterSaleId', label: this.$t('afterSale.afterSaleId') },
+                { prop: 'orderId', label: this.$t('afterSale.orderId') },
+                { prop: 'user.username', label: this.$t('afterSale.username') },
+                { prop: 'refund', label: this.$t('afterSale.refundAmount') },
+                { prop: 'type', label: this.$t('afterSale.afterSaleType') },
+                { prop: 'status', label: this.$t('afterSale.refundStatus') },
+                { prop: 'createdAt', label: this.$t('afterSale.applicationTime') },
+            ];
+        },
+        columns() {
+            return [
+                {
+                    prop: 'afterSaleId',
+                    label: this.$t('afterSale.afterSaleId'),
+                    minWidth: 120,
+                },
+                {
+                    prop: 'orderId',
+                    label: this.$t('afterSale.orderId'),
+                    minWidth: 120,
+                },
+                {
+                    prop: 'user.username',
+                    label: this.$t('afterSale.username'),
+                    minWidth: 100,
+                },
+                {
+                    prop: 'refund',
+                    label: this.$t('afterSale.refundAmount'),
+                    minWidth: 100,
+                },
+                {
+                    prop: 'type',
+                    label: this.$t('afterSale.afterSaleType'),
+                    minWidth: 100,
+                },
+                {
+                    prop: 'status',
+                    label: this.$t('afterSale.refundStatus'),
+                    minWidth: 100,
+                },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('afterSale.applicationTime'),
+                    minWidth: 130,
+                    formatter: this.env.formatDateTime,
+                },
+            ];
         },
     },
     methods: {

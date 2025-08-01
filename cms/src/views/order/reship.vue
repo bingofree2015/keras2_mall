@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('permission.pleaseEnterContent')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('permission.pleaseSelect')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,12 +39,12 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('permission.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('permission.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -67,7 +70,7 @@
         <el-dialog
             :close-on-click-modal="false"
             :model-value="viewDialogVisible"
-            title="退货单查看"
+            :title="$t('reship.viewTitle')"
             width="40%"
         >
             <el-form
@@ -79,36 +82,39 @@
             >
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="退货单号:" prop="reshipId">
+                        <el-form-item :label="$t('reship.reshipId') + ':'" prop="reshipId">
                             {{ formData.reshipId }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="订单号:" prop="orderId">
+                        <el-form-item :label="$t('reship.orderId') + ':'" prop="orderId">
                             {{ formData.orderId }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="用户名:" prop="user.username">
+                        <el-form-item :label="$t('reship.username') + ':'" prop="user.username">
                             {{ formData.user.username }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="状态:" prop="refund">
+                        <el-form-item :label="$t('reship.status') + ':'" prop="refund">
                             {{ formData.refund }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="快递公司:" prop="logistics">
+                        <el-form-item :label="$t('reship.expressCompany') + ':'" prop="logistics">
                             {{ formData.logistics ? formData.logistics.logiName : '' }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="快递单号:" prop="logiNo">
+                        <el-form-item
+                            :label="$t('reship.expressTrackingNumber') + ':'"
+                            prop="logiNo"
+                        >
                             {{ formData.logiNo }}
                         </el-form-item>
                     </el-col>
@@ -122,12 +128,16 @@
                             style="width: 100%"
                         >
                             <el-table-column
-                                label="货品名称"
+                                :label="$t('reship.goodsName')"
                                 min-width="360"
                                 prop="name"
                                 show-overflow-tooltip
                             />
-                            <el-table-column label="发货数量" min-width="100" prop="num" />
+                            <el-table-column
+                                :label="$t('reship.shippingQuantity')"
+                                min-width="100"
+                                prop="num"
+                            />
                         </el-table>
                     </el-col>
                 </el-row>
@@ -168,22 +178,6 @@ export default {
                 key: 'reshipId',
                 value: '',
             },
-            props: [{ prop: 'reshipId', label: '退货单号' }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'reshipId', label: '退货单号', minWidth: 120 },
-                { prop: 'orderId', label: '订单号', minWidth: 120 },
-                { prop: 'user.username', label: '用户', minWidth: 120 },
-                { prop: 'status', label: '状态', minWidth: 100 },
-                { prop: 'logistics.logiName', label: '快递公司', minWidth: 100 },
-                { prop: 'logiNo', label: '快递单号', minWidth: 120 },
-                {
-                    prop: 'createdAt',
-                    label: '创建时间',
-                    minWidth: 140,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -223,6 +217,32 @@ export default {
         };
     },
     computed: {
+        // 响应式的 props 配置
+        props() {
+            return [{ prop: 'reshipId', label: this.$t('reship.reshipId') }];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                { prop: 'reshipId', label: this.$t('reship.reshipId'), minWidth: 120 },
+                { prop: 'orderId', label: this.$t('reship.orderId'), minWidth: 120 },
+                { prop: 'user.username', label: this.$t('reship.user'), minWidth: 120 },
+                { prop: 'status', label: this.$t('reship.status'), minWidth: 100 },
+                {
+                    prop: 'logistics.logiName',
+                    label: this.$t('reship.expressCompany'),
+                    minWidth: 100,
+                },
+                { prop: 'logiNo', label: this.$t('reship.expressTrackingNumber'), minWidth: 120 },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('common.createTime'),
+                    minWidth: 140,
+                    formatter: this.env.formatDateTime,
+                },
+            ];
+        },
         operationWidth: {
             get() {
                 let _operationWidth = 0;

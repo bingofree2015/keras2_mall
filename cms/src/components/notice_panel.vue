@@ -4,16 +4,16 @@
             {{ $t('notice.header', { count: data.length }) }}
         </div>
         <div class="notice-content">
-            <div v-for="item in data" :key="item.key" class="notice-item">
+            <div v-for="item in data" :key="item.key" class="notice-item" @click="handleClick">
                 <span class="notice-icon">
-                    <li :class="item.icon"></li>
+                    <i :class="item.icon"></i>
                 </span>
-                <span class="notice-cotent">
-                    {{ item.content }}
+                <span class="notice-content">
+                    {{ $t(item.content) }}
                 </span>
             </div>
         </div>
-        <div class="notice-footer">
+        <div class="notice-footer" @click="handleClick">
             {{ $t('notice.footer') }}
         </div>
     </div>
@@ -29,22 +29,22 @@ export default {
                 {
                     key: '1',
                     icon: 'fa fa-envelope-o',
-                    content: this.$t ? this.$t('notice.content1') : '你修改了用户密码',
+                    content: 'notice.content1',
                 },
                 {
                     key: '2',
                     icon: 'fa fa-music',
-                    content: this.$t ? this.$t('notice.content2') : '你修改了用户头像',
+                    content: 'notice.content2',
                 },
                 {
                     key: '3',
                     icon: 'el-icon-ali-bianji',
-                    content: this.$t ? this.$t('notice.content3') : '今日25名新成员加入',
+                    content: 'notice.content3',
                 },
                 {
                     key: '4',
                     icon: 'el-icon-ali-bianji',
-                    content: this.$t ? this.$t('notice.content4') : '您发表了一篇新随笔',
+                    content: 'notice.content4',
                 },
             ],
         },

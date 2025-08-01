@@ -201,64 +201,7 @@ export default {
                 key: 'mobile',
                 value: '',
             },
-            props: [
-                {
-                    prop: 'mobile',
-                    label: '手机号',
-                },
-            ],
-            columns: [
-                {
-                    prop: 'id',
-                    label: 'ID',
-                    minWidth: 60,
-                },
-                {
-                    prop: 'mobile',
-                    label: '手机号',
-                    minWidth: 120,
-                },
-                {
-                    prop: 'userGrade.name',
-                    label: '用户等级',
-                    minWidth: 100,
-                },
-                {
-                    prop: 'sex',
-                    label: '性别',
-                    minWidth: 80,
-                    formatter: this.env.columnFormatter,
-                },
-                {
-                    prop: 'birthday',
-                    label: '生日',
-                    minWidth: 100,
-                },
-                {
-                    prop: 'avatar',
-                    label: '头像',
-                    minWidth: 80,
-                    propType: 'image',
-                    align: 'center',
-                },
-                {
-                    prop: 'balance',
-                    label: '余额',
-                    minWidth: 70,
-                },
-                {
-                    prop: 'point',
-                    label: '积分',
-                    minWidth: 70,
-                },
-                {
-                    prop: 'state',
-                    label: '状态',
-                    minWidth: 70,
-                    formatter: this.env.formatState,
-                    align: 'center',
-                },
-            ],
+
             paginated: {
                 attrs: {
                     searchKey: {},
@@ -317,6 +260,70 @@ export default {
         };
     },
     computed: {
+        // 响应式的 props 配置
+        props() {
+            return [
+                {
+                    prop: 'mobile',
+                    label: this.$t('user.mobile'),
+                },
+            ];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                {
+                    prop: 'id',
+                    label: 'ID',
+                    minWidth: 60,
+                },
+                {
+                    prop: 'mobile',
+                    label: this.$t('user.mobile'),
+                    minWidth: 120,
+                },
+                {
+                    prop: 'userGrade.name',
+                    label: this.$t('user.gradeName'),
+                    minWidth: 100,
+                },
+                {
+                    prop: 'sex',
+                    label: this.$t('user.sex'),
+                    minWidth: 80,
+                    formatter: this.env.columnFormatter,
+                },
+                {
+                    prop: 'birthday',
+                    label: this.$t('user.birthday'),
+                    minWidth: 100,
+                },
+                {
+                    prop: 'avatar',
+                    label: this.$t('user.avatar'),
+                    minWidth: 80,
+                    propType: 'image',
+                    align: 'center',
+                },
+                {
+                    prop: 'balance',
+                    label: this.$t('user.balance'),
+                    minWidth: 70,
+                },
+                {
+                    prop: 'point',
+                    label: this.$t('user.point'),
+                    minWidth: 70,
+                },
+                {
+                    prop: 'state',
+                    label: this.$t('user.state'),
+                    minWidth: 70,
+                    formatter: this.env.formatState,
+                    align: 'center',
+                },
+            ];
+        },
         // 响应式的 formDataRules 配置
         formDataRules() {
             return {

@@ -112,7 +112,7 @@ export default {
                 this.articleTypeData = _result.data.list;
             } else {
                 this.$notify.error({
-                    title: '错误',
+                    title: this.$t('common.error'),
                     message: _result.description,
                 });
             }

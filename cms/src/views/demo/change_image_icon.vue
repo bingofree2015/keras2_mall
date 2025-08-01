@@ -83,7 +83,7 @@ export default {
     methods: {
         chosedLogo(logo) {
             this.$notify({
-                title: '成功',
+                title: this.$t('common.success'),
                 message: logo,
                 type: 'success',
             });

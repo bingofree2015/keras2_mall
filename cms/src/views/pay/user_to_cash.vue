@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('permission.pleaseEnterContent')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('permission.pleaseSelect')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,12 +39,12 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('permission.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('permission.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -86,23 +89,6 @@ export default {
                 key: 'name',
                 value: '',
             },
-            props: [{ prop: 'name', label: '支付方式名称' }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'user.username', label: '用户', minWidth: 98 },
-                { prop: 'money', label: '金额', minWidth: 80 },
-                { prop: 'withdrawals', label: '手续费', minWidth: 90 },
-                { prop: 'accountBank', label: '开户行', minWidth: 100 },
-                { prop: 'accountName', label: '账户名', minWidth: 90 },
-                { prop: 'cardNumber', label: '卡号', minWidth: 120 },
-                {
-                    prop: 'type',
-                    label: '类型',
-                    minWidth: 90,
-                    formatter: this.env.columnFormatter,
-                },
-                { prop: 'createdAt', label: '创建时间', minWidth: 140 },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -115,10 +101,12 @@ export default {
                     size: this.size, // 按钮大小
                     // type: 'primary',            // 按钮类型
                     func: (row) => {
-                        this.$confirm('确认通过吗？', '提示', {}).then(async () => {
-                            const data = { id: row.id, type: 2 };
-                            this.updateUserToCash(data);
-                        });
+                        this.$confirm(this.$t('pay.confirmPass'), this.$t('common.tip'), {}).then(
+                            async () => {
+                                const data = { id: row.id, type: 2 };
+                                this.updateUserToCash(data);
+                            }
+                        );
                     },
                 },
                 {
@@ -128,10 +116,12 @@ export default {
                     size: this.size, // 按钮大小
                     // type: 'primary',            // 按钮类型
                     func: (row) => {
-                        this.$confirm('确认驳回吗？', '提示', {}).then(async () => {
-                            const data = { id: row.id, type: 3 };
-                            this.updateUserToCash(data);
-                        });
+                        this.$confirm(this.$t('pay.confirmReject'), this.$t('common.tip'), {}).then(
+                            async () => {
+                                const data = { id: row.id, type: 3 };
+                                this.updateUserToCash(data);
+                            }
+                        );
                     },
                 },
             ],
@@ -146,6 +136,29 @@ export default {
                 }
                 return _operationWidth;
             },
+        },
+        // 响应式的 props 配置
+        props() {
+            return [{ prop: 'name', label: this.$t('pay.paymentMethodName') }];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                { prop: 'user.username', label: this.$t('common.user'), minWidth: 98 },
+                { prop: 'money', label: this.$t('pay.amount'), minWidth: 80 },
+                { prop: 'withdrawals', label: this.$t('pay.serviceFee'), minWidth: 90 },
+                { prop: 'accountBank', label: this.$t('pay.bankName'), minWidth: 100 },
+                { prop: 'accountName', label: this.$t('pay.accountName'), minWidth: 90 },
+                { prop: 'cardNumber', label: this.$t('pay.cardNumber'), minWidth: 120 },
+                {
+                    prop: 'type',
+                    label: this.$t('common.type'),
+                    minWidth: 90,
+                    formatter: this.env.columnFormatter,
+                },
+                { prop: 'createdAt', label: this.$t('common.createTime'), minWidth: 140 },
+            ];
         },
     },
     methods: {
@@ -175,13 +188,13 @@ export default {
                     Object.assign(_userToCash, _result.data);
                 }
                 this.$notify({
-                    title: '成功',
+                    title: this.$t('common.success'),
                     message: _result.description,
                     type: 'success',
                 });
             } else {
                 this.$notify.error({
-                    title: '错误',
+                    title: this.$t('common.error'),
                     message: _result.description,
                 });
             }

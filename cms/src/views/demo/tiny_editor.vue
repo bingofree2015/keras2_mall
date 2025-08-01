@@ -1,11 +1,13 @@
 <template>
     <el-container>
         <el-header>
-            <h2 class="demo-title">富文本框</h2>
+            <h2 class="demo-title">
+                {{ $t('demo.richTextEditor') }}
+            </h2>
         </el-header>
         <el-main>
             <p class="demo-summery">
-                基于tinymce,除了tinymce的基本功能，添加了图片与视频上传的功能。
+                {{ $t('demo.richTextEditorDesc') }}
             </p>
             <el-row>
                 <el-col :span="18">
@@ -59,7 +61,7 @@ export default {
         };
     },
     computed: {},
-    };
+};
 </script>
 <style scoped lang="scss">
 .demo-title {

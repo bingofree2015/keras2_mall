@@ -149,19 +149,6 @@ export default {
                 key: 'name',
                 value: '',
             },
-            props: [{ prop: 'name', label: '参数名称' }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: '参数名称', minWidth: 100 },
-                { prop: 'type', label: '类型', minWidth: 60 },
-                { prop: 'values', label: '参数值', minWidth: 240, showOverflowTooltip: true },
-                {
-                    prop: 'createdAt',
-                    label: '创建时间',
-                    minWidth: 140,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -209,6 +196,30 @@ export default {
         };
     },
     computed: {
+        // 响应式的搜索选项
+        props() {
+            return [{ prop: 'name', label: this.$t('goods.paramName') }];
+        },
+        // 响应式的表格列定义
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                { prop: 'name', label: this.$t('goods.paramName'), minWidth: 100 },
+                { prop: 'type', label: this.$t('goods.paramType'), minWidth: 60 },
+                {
+                    prop: 'values',
+                    label: this.$t('goods.paramOption'),
+                    minWidth: 240,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('common.createTime'),
+                    minWidth: 140,
+                    formatter: this.env.formatDateTime,
+                },
+            ];
+        },
         operationWidth: {
             get() {
                 let _operationWidth = 0;

@@ -142,7 +142,7 @@ export default {
                 { key: 1, value: 'URL链接' },
                 { key: 2, value: '商品' },
                 { key: 3, value: '文章' },
-                { key: 4, value: '文章分类' },
+                { key: 4, value: this.$t('visualDesign.articleCategory') },
                 { key: 5, value: '智能表单' },
             ],
         };
@@ -198,7 +198,11 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('permission.confirmSubmit'),
+                        this.$t('common.tip'),
+                        {}
+                    ).then(async () => {
                         this.editLoading = true;
                         const data = Object.assign({}, this.formData);
                         if (Array.isArray(data.positionId) && data.positionId.length > 0) {

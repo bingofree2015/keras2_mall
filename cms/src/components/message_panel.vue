@@ -1,8 +1,10 @@
 <template>
     <div class="message-panel">
-        <div class="message-header">您有 {{ data.length }} 条消息</div>
+        <div class="message-header">
+            {{ $t('component.messagePanel.youHaveMessages', { count: messageData.length }) }}
+        </div>
         <div class="message-content">
-            <div v-for="item in data" :key="item.key" class="message-item">
+            <div v-for="item in messageData" :key="item.key" class="message-item">
                 <div class="message-avatar">
                     <img class="avatar" :src="require('@/assets/user.png')" />
                 </div>
@@ -18,7 +20,9 @@
                 </div>
             </div>
         </div>
-        <div class="message-footer">查看所有消息</div>
+        <div class="message-footer">
+            {{ $t('component.messagePanel.viewAllMessages') }}
+        </div>
     </div>
 </template>
 
@@ -28,53 +32,55 @@ export default {
     props: {
         data: {
             type: Array,
-            default: () => [
-                {
-                    key: '1',
-                    avatar: '@/assets/user.png',
-                    content: '你修改了用户密码',
-                    sender: '诸葛亮',
-                    time: '5分钟前',
-                },
-                {
-                    key: '2',
-                    avatar: '@/assets/user.png',
-                    content: '你修改了用户头像',
-                    sender: '武则天',
-                    time: '2小时前',
-                },
-                {
-                    key: '3',
-                    avatar: '@/assets/user.png',
-                    content: '今日25名新成员加入',
-                    sender: '王语嫣',
-                    time: '昨天',
-                },
-                {
-                    key: '4',
-                    avatar: '@/assets/user.png',
-                    content: '您发表了一篇新随笔',
-                    sender: '苍井空',
-                    time: '昨天',
-                },
-                {
-                    key: '5',
-                    avatar: '@/assets/user.png',
-                    content: '您发表了一篇新随笔',
-                    sender: '上官婉儿',
-                    time: '前天',
-                },
-            ],
+            default: () => [],
         },
     },
     emits: ['click'],
     data() {
         return {};
     },
-    methods: {
-        handleClick: function () {
-            // 按钮操作处理函数
-            this.$emit('click', {});
+    computed: {
+        messageData() {
+            return this.data.length > 0 ? this.data : this.defaultData;
+        },
+        defaultData() {
+            return [
+                {
+                    key: '1',
+                    avatar: '@/assets/user.png',
+                    content: this.$t('component.messagePanel.passwordChanged'),
+                    sender: this.$t('component.messagePanel.zhugeLiang'),
+                    time: this.$t('component.messagePanel.fiveMinutesAgo'),
+                },
+                {
+                    key: '2',
+                    avatar: '@/assets/user.png',
+                    content: this.$t('component.messagePanel.avatarChanged'),
+                    sender: this.$t('component.messagePanel.wuZeTian'),
+                    time: this.$t('component.messagePanel.twoHoursAgo'),
+                },
+                {
+                    key: '3',
+                    avatar: '@/assets/user.png',
+                    content: this.$t('component.messagePanel.newMembersJoined'),
+                    sender: this.$t('component.messagePanel.wangYuYan'),
+                    time: this.$t('component.messagePanel.yesterday'),
+                },
+                {
+                    key: '4',
+                    avatar: '@/assets/user.png',
+                    content: this.$t('component.messagePanel.newEssayPublished'),
+                    sender: this.$t('component.messagePanel.cangJingKong'),
+                    time: this.$t('component.messagePanel.yesterday'),
+                },
+                {
+                    key: '5',
+                    avatar: '@/assets/user.png',
+                    content: this.$t('component.messagePanel.newEssayPublished'),
+                    sender: this.$t('component.messagePanel.shangGuanWanEr'),
+                    time: this.$t('component.messagePanel.dayBeforeYesterday'),
+                },
+            ];
         },
     },
 };

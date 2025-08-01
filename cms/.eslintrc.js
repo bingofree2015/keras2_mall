@@ -5,6 +5,9 @@ module.exports = {
         browser: true,
         es2021: true,
     },
+    globals: {
+        AMap: 'readonly',
+    },
     extends: ['eslint:recommended', 'plugin:vue/vue3-recommended', 'plugin:prettier/recommended'],
     plugins: ['vue', 'prettier'],
     rules: {
@@ -24,28 +27,10 @@ module.exports = {
             },
         ],
         'vue/multi-word-component-names': 'off',
-        'vue/html-indent': ['error', 4],
-        'vue/max-attributes-per-line': [
-            'error',
-            {
-                singleline: 4,
-                multiline: 1,
-            },
-        ],
-        'vue/first-attribute-linebreak': [
-            'error',
-            {
-                singleline: 'beside',
-                multiline: 'below',
-            },
-        ],
-        'vue/html-closing-bracket-newline': [
-            'error',
-            {
-                singleline: 'never',
-                multiline: 'always',
-            },
-        ],
+        'vue/html-indent': 'off',
+        'vue/max-attributes-per-line': 'off',
+        'vue/first-attribute-linebreak': 'off',
+        'vue/html-closing-bracket-newline': 'off',
         'vue/html-closing-bracket-spacing': [
             'error',
             {

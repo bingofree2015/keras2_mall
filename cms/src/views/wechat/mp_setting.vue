@@ -17,71 +17,80 @@
         >
             <el-row>
                 <el-col :span="16">
-                    <el-form-item label="接口地址">http://localhost:8085/wechat</el-form-item>
-                    <el-form-item label="公众号名称" prop="wx_official_name">
+                    <el-form-item :label="$t('wechat.interfaceAddress')">
+                        http://localhost:8085/wechat
+                    </el-form-item>
+                    <el-form-item :label="$t('wechat.officialAccountName')" prop="wx_official_name">
                         <el-col :span="12">
                             <el-input
                                 v-model="formData.wx_official_name"
-                                placeholder="请输入公众号名称"
+                                :placeholder="$t('wechat.inputOfficialName')"
                             />
                         </el-col>
                     </el-form-item>
-                    <el-form-item label="微信号" prop="wx_official_id">
+                    <el-form-item :label="$t('wechat.wechatId')" prop="wx_official_id">
                         <el-col :span="12">
                             <el-input
                                 v-model="formData.wx_official_id"
-                                placeholder="请输入微信号"
+                                :placeholder="$t('wechat.inputWechatId')"
                             />
                         </el-col>
                     </el-form-item>
-                    <el-form-item label="AppId" prop="wx_official_appid">
+                    <el-form-item :label="$t('wechat.appId')" prop="wx_official_appid">
                         <el-col :span="12">
                             <el-input
                                 v-model="formData.wx_official_appid"
-                                placeholder="请输入AppId"
+                                :placeholder="$t('wechat.inputAppId')"
                             />
                         </el-col>
                     </el-form-item>
-                    <el-form-item label="AppSecret" prop="wx_official_app_secret">
+                    <el-form-item :label="$t('wechat.appSecret')" prop="wx_official_app_secret">
                         <el-col :span="12">
                             <el-input
                                 v-model="formData.wx_official_app_secret"
-                                placeholder="请输入AppSecret"
+                                :placeholder="$t('wechat.inputAppSecret')"
                             />
                         </el-col>
                     </el-form-item>
-                    <el-form-item label="公众号原始ID" prop="wx_official_source_id">
+                    <el-form-item :label="$t('wechat.originalId')" prop="wx_official_source_id">
                         <el-col :span="12">
                             <el-input
                                 v-model="formData.wx_official_source_id"
-                                placeholder="请输入公众号原始ID"
+                                :placeholder="$t('wechat.inputOriginalId')"
                             />
                         </el-col>
                     </el-form-item>
-                    <el-form-item label="微信验证TOKEN" prop="wx_official_token">
+                    <el-form-item :label="$t('wechat.verifyToken')" prop="wx_official_token">
                         <el-col :span="12">
                             <el-input
                                 v-model="formData.wx_official_token"
-                                placeholder="请输入微信验证TOKEN"
+                                :placeholder="$t('wechat.inputVerifyToken')"
                             />
                         </el-col>
                     </el-form-item>
-                    <el-form-item label="EncodingAESKey" prop="wx_official_encodeaeskey">
+                    <el-form-item
+                        :label="$t('wechat.encodingAesKey')"
+                        prop="wx_official_encodeaeskey"
+                    >
                         <el-col :span="10">
                             <el-input
                                 v-model="formData.wx_official_encodeaeskey"
-                                placeholder="请输入EncodingAESKey"
+                                :placeholder="$t('wechat.inputEncodingAesKey')"
                             />
                         </el-col>
                         <span class="tip-info">
                             <i class="el-icon-ali-tishi"></i>
-                            如公众号中消息加解密方式为安全模式，此项必填
+                            {{ $t('wechat.encodingAesKeyTip') }}
                         </span>
                     </el-form-item>
-                    <el-form-item label="公众号类型" prop="wx_official_type">
+                    <el-form-item :label="$t('wechat.officialType')" prop="wx_official_type">
                         <el-radio-group v-model="formData.wx_official_type">
-                            <el-radio value="service">服务号</el-radio>
-                            <el-radio value="subscribe">订阅号</el-radio>
+                            <el-radio value="service">
+                                {{ $t('wechat.serviceAccount') }}
+                            </el-radio>
+                            <el-radio value="subscribe">
+                                {{ $t('wechat.subscriptionAccount') }}
+                            </el-radio>
                         </el-radio-group>
                     </el-form-item>
                 </el-col>
@@ -130,7 +139,11 @@ export default {
             },
             formDataRules: {
                 wx_official_name: [
-                    { required: true, message: '请输入公众号名称', trigger: 'blur' },
+                    {
+                        required: true,
+                        message: this.$t('wechat.inputOfficialName'),
+                        trigger: 'blur',
+                    },
                 ],
             },
         };
@@ -143,7 +156,11 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('permission.confirmSubmit'),
+                        this.$t('common.tip'),
+                        {}
+                    ).then(async () => {
                         this.editLoading = true;
                         const data = Object.assign({}, this.formData);
 
@@ -153,13 +170,13 @@ export default {
                         });
                         if (_result.succeed === 1 && _result.code === 200) {
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('common.success'),
                                 message: _result.description,
                                 type: 'success',
                             });
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('common.error'),
                                 message: _result.description,
                             });
                         }
@@ -184,9 +201,44 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.page-container {
+    padding: 20px;
+}
+
+.edit-dialog-container {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+
 .tip-info {
     margin-left: 10px;
     font-size: 12px;
     color: #909399;
+    display: flex;
+    align-items: center;
+
+    i {
+        margin-right: 4px;
+    }
+}
+
+.footer {
+    margin-top: 20px;
+    text-align: right;
+    padding-top: 20px;
+    border-top: 1px solid #e4e7ed;
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+    .page-container {
+        padding: 15px;
+    }
+
+    .edit-dialog-container {
+        padding: 15px;
+    }
 }
 </style>

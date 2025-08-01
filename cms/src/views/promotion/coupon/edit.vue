@@ -16,17 +16,11 @@
                     label-width="100px"
                 >
                     <el-divider content-position="left">
-                        基本信息
-                    </el-divider>
-                    <el-form-item
-                        label="优惠券名称"
-                        prop="name"
-                    >
+基本信息
+</el-divider>
+                    <el-form-item label="优惠券名称" prop="name">
                         <el-col :span="14">
-                            <el-input
-                                v-model="formData.name"
-                                placeholder="请输入活动名称"
-                            />
+                            <el-input v-model="formData.name" placeholder="请输入活动名称" />
                             />
                             <span class="tip-info">
                                 <i class="el-icon-ali-tishi"></i>
@@ -36,58 +30,36 @@
                     </el-form-item>
                     <el-row>
                         <el-col :span="8">
-                            <el-form-item
-                                label="启用状态"
-                                prop="state"
-                            >
-                                prop="state"
-                                >
-                                v-model="formData.state"
-                                active-text="启用"
-                                inactive-text="禁用"
-                                />
+                            <el-form-item label="启用状态" prop="state">
+                                prop="state" > v-model="formData.state" active-text="启用"
+                                inactive-text="禁用" />
                             </el-form-item>
                         </el-col>
                         <el-col :span="16">
-                            <el-form-item
-                                label="权重"
-                                prop="sort"
-                            >
-                                prop="sort"
-                                >
-                                <el-input-number
-                                    v-model="formData.sort"
-                                    :max="10"
-                                    :min="1"
-                                />
+                            <el-form-item label="权重" prop="sort">
+                                prop="sort" >
+                                <el-input-number v-model="formData.sort" :max="10" :min="1" />
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 数字越小，权重越大
+                                    <i class="el-icon-ali-tishi"></i>
+                                    数字越小，权重越大
                                 </span>
                             </el-form-item>
                         </el-col>
                     </el-row>
                     <el-row>
                         <el-col :span="8">
-                            <el-form-item
-                                label="用户领取"
-                                prop="autoReceive"
-                            >
-                                prop="autoReceive"
-                                >
-                                v-model="formData.autoReceive"
-                                active-text="是"
-                                inactive-text="否"
-                                />
+                            <el-form-item label="用户领取" prop="autoReceive">
+                                prop="autoReceive" > v-model="formData.autoReceive"
+                                :active-text="$t('visualDesign.yes')"
+                                in:active-text="$t('visualDesign.no')" />
                                 <span class="tip-info">
-                                    <i class="el-icon-ali-tishi"></i> 启用后，用户可在前台直接领取
+                                    <i class="el-icon-ali-tishi"></i>
+                                    启用后，用户可在前台直接领取
                                 </span>
                             </el-form-item>
                         </el-col>
                         <el-col :span="16">
-                            <el-form-item
-                                label="起止时间"
-                                prop="rangeTime"
-                            >
+                            <el-form-item label="起止时间" prop="rangeTime">
                                 <el-date-picker
                                     v-model="formData.rangeTime"
                                     end-placeholder="结束日期"
@@ -99,15 +71,14 @@
                             </el-form-item>
                         </el-col>
                     </el-row>
-
                     <el-divider content-position="left">
-                        选择满足条件的商品
-                    </el-divider>
+选择满足条件的商品
+</el-divider>
                     <div style="text-align: right; width: 100%">
                         <el-select
                             v-model="formData.spTarget.code"
                             :size="miniSize"
-                            placeholder="请选择"
+                            :placeholder="$t('permission.pleaseSelect')"
                             style="float: right"
                             @change="changeTargetType"
                         >
@@ -127,8 +98,8 @@
                             <div v-if="formData.spTarget.code === 'GOODS_ALL'">
                                 <!--所有商品满足条件-->
                                 <el-form-item label="条件">
-                                    无需设置任何条件
-                                </el-form-item>
+无需设置任何条件
+</el-form-item>
                             </div>
                             <div v-else-if="formData.spTarget.code === 'GOODS_IDS'">
                                 <!--指定某些商品满足条件  {"goods":[{id:0,name}],"nums":"1"}-->
@@ -147,7 +118,7 @@
                                     style="width: 100%"
                                 >
                                     <el-table-column
-                                        label="商品名称"
+                                        :label="$t('visualDesign.goodsName')"
                                         min-width="280"
                                         prop="name"
                                     />
@@ -176,22 +147,19 @@
                                         controls-position="right"
                                     />
                                     <span class="tip-info">
-                                        <i class="el-icon-ali-tishi"></i> 大于等于此商品数量才满足条件
+                                        <i class="el-icon-ali-tishi"></i>
+                                        大于等于此商品数量才满足条件
                                     </span>
                                 </el-form-item>
                             </div>
                             <div v-else-if="formData.spTarget.code === 'GOODS_CATS'">
                                 <!--指定商品分类满足条件-->
-                                <el-form-item
-                                    label="商品分类"
-                                    prop="id"
-                                >
-                                    prop="id"
-                                    >
-                                    v-model="formData.spTarget.pattern.id"
-                                    :options="goodsCatList"
-                                    :props="cascaderProps"
-                                    :show-all-levels="false"
+                                <el-form-item label="商品分类" prop="id">
+                                    <el-cascader
+                                        v-model="formData.spTarget.pattern.id"
+                                        :options="goodsCatList"
+                                        :props="cascaderProps"
+                                        :show-all-levels="false"
                                     />
                                 </el-form-item>
                                 <el-form-item label="商品数量">
@@ -202,27 +170,24 @@
                                         controls-position="right"
                                     />
                                     <span class="tip-info">
-                                        <i class="el-icon-ali-tishi"></i> 大于等于此商品数量才满足条件
+                                        <i class="el-icon-ali-tishi"></i>
+                                        大于等于此商品数量才满足条件
                                     </span>
                                 </el-form-item>
                             </div>
                             <div v-else-if="formData.spTarget.code === 'GOODS_BRANDS'">
                                 <!--指定商品品牌满足条件-->
-                                <el-form-item
-                                    label="商品品牌"
-                                    prop="id"
-                                >
-                                    prop="id"
+                                <el-form-item label="商品品牌" prop="id">
+                                    <el-select
+                                        v-model="formData.spTarget.pattern.id"
+                                        placeholder="请选择品牌"
                                     >
-                                    v-model="formData.spTarget.pattern.id"
-                                    placeholder="请选择品牌"
-                                    >
-                                    <el-option
-                                        v-for="item in brandList"
-                                        :key="item.id"
-                                        :label="item.name"
-                                        :value="item.id"
-                                    />
+                                        <el-option
+                                            v-for="item in brandList"
+                                            :key="item.id"
+                                            :label="item.name"
+                                            :value="item.id"
+                                        />
                                     </el-select>
                                 </el-form-item>
                                 <el-form-item label="商品数量">
@@ -233,7 +198,8 @@
                                         controls-position="right"
                                     />
                                     <span class="tip-info">
-                                        <i class="el-icon-ali-tishi"></i> 大于等于此商品数量才满足条件
+                                        <i class="el-icon-ali-tishi"></i>
+                                        大于等于此商品数量才满足条件
                                     </span>
                                 </el-form-item>
                             </div>
@@ -245,17 +211,13 @@
                                         :max="10"
                                         :min="1"
                                         controls-position="right"
-                                    />订单金额满多少的时候，优惠
+                                    />
+                                    订单金额满多少的时候，优惠
                                 </el-form-item>
                             </div>
                             <div v-else-if="formData.spTarget.code === 'USER_GRADE'">
                                 <!--用户符合指定等级-->
-                                <el-form-item
-                                    label="请选择"
-                                    prop="id"
-                                >
-                                    prop="id"
-                                    >
+                                <el-form-item :label="$t('permission.pleaseSelect')" prop="id">
                                     <el-checkbox-group
                                         v-model="formData.spTarget.pattern.id"
                                         @change="chosedUerGrade"
@@ -283,23 +245,14 @@
                             </el-form-item>
                         </el-col>
                     </div>
-
                     <el-table
                         :data="formData.spTargets"
                         :size="miniSize"
                         stripe
                         style="width: 100%"
                     >
-                        <el-table-column
-                            label="条件代码"
-                            min-width="180"
-                            prop="code"
-                        />
-                        <el-table-column
-                            label="条件名称"
-                            min-width="180"
-                            prop="name"
-                        />
+                        <el-table-column label="条件代码" min-width="180" prop="code" />
+                        <el-table-column label="条件名称" min-width="180" prop="name" />
                         <el-table-column
                             label="参数"
                             min-width="280"
@@ -310,12 +263,7 @@
                                 <span>{{ scope.row.pattern }}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column
-                            fixed="right"
-                            label="操作"
-                            min-width="88"
-                            prop="operation"
-                        >
+                        <el-table-column fixed="right" label="操作" min-width="88" prop="operation">
                             <template #default="scope">
                                 <ext-button
                                     :label="$t('action.delete')"
@@ -327,15 +275,14 @@
                             </template>
                         </el-table-column>
                     </el-table>
-
                     <el-divider content-position="left">
-                        选择促销规则
-                    </el-divider>
+选择促销规则
+</el-divider>
                     <div style="text-align: right; width: 100%">
                         <el-select
                             v-model="formData.spRule.code"
                             :size="miniSize"
-                            placeholder="请选择"
+                            :placeholder="$t('permission.pleaseSelect')"
                             @change="changeRuleType"
                         >
                             <el-option
@@ -354,8 +301,8 @@
                             <div v-if="formData.spRule.code === 'GOODS_REDUCE'">
                                 <!--指定商品减固定金额-->
                                 <el-form-item label="条件">
-                                    无需设置任何条件
-                                </el-form-item>
+无需设置任何条件
+</el-form-item>
                                 <el-form-item label="金额">
                                     <el-input-number
                                         v-model="formData.spRule.pattern.money"
@@ -364,7 +311,8 @@
                                         controls-position="right"
                                     />
                                     <span class="tip-info">
-                                        <i class="el-icon-ali-tishi"></i> 商品优惠的金额
+                                        <i class="el-icon-ali-tishi"></i>
+                                        商品优惠的金额
                                     </span>
                                 </el-form-item>
                             </div>
@@ -378,7 +326,8 @@
                                         controls-position="right"
                                     />
                                     <span class="tip-info">
-                                        <i class="el-icon-ali-tishi"></i> 大于0小于10的数字
+                                        <i class="el-icon-ali-tishi"></i>
+                                        大于0小于10的数字
                                     </span>
                                 </el-form-item>
                             </div>
@@ -392,7 +341,8 @@
                                         controls-position="right"
                                     />
                                     <span class="tip-info">
-                                        <i class="el-icon-ali-tishi"></i> 商品的固定价格
+                                        <i class="el-icon-ali-tishi"></i>
+                                        商品的固定价格
                                     </span>
                                 </el-form-item>
                             </div>
@@ -406,7 +356,8 @@
                                         controls-position="right"
                                     />
                                     <span class="tip-info">
-                                        <i class="el-icon-ali-tishi"></i> 订单总价减XX钱
+                                        <i class="el-icon-ali-tishi"></i>
+                                        订单总价减XX钱
                                     </span>
                                 </el-form-item>
                             </div>
@@ -420,7 +371,8 @@
                                         controls-position="right"
                                     />
                                     <span class="tip-info">
-                                        <i class="el-icon-ali-tishi"></i> 大于0小于10的数字
+                                        <i class="el-icon-ali-tishi"></i>
+                                        大于0小于10的数字
                                     </span>
                                 </el-form-item>
                             </div>
@@ -434,7 +386,8 @@
                                         controls-position="right"
                                     />
                                     <span class="tip-info">
-                                        <i class="el-icon-ali-tishi"></i> 每第几件商品
+                                        <i class="el-icon-ali-tishi"></i>
+                                        每第几件商品
                                     </span>
                                 </el-form-item>
                                 <el-form-item label="优惠金额">
@@ -445,7 +398,8 @@
                                         controls-position="right"
                                     />
                                     <span class="tip-info">
-                                        <i class="el-icon-ali-tishi"></i> 减去的固定价格
+                                        <i class="el-icon-ali-tishi"></i>
+                                        减去的固定价格
                                     </span>
                                 </el-form-item>
                             </div>
@@ -462,38 +416,15 @@
                             </el-form-item>
                         </el-col>
                     </div>
-
-                    <el-table
-                        :data="formData.spRules"
-                        :size="miniSize"
-                        stripe
-                        style="width: 100%"
-                    >
-                        <el-table-column
-                            label="结果代码"
-                            min-width="180"
-                            prop="code"
-                        />
-                        <el-table-column
-                            label="结果名称"
-                            min-width="180"
-                            prop="name"
-                        />
-                        <el-table-column
-                            label="参数"
-                            min-width="280"
-                            prop="pattern"
-                        >
+                    <el-table :data="formData.spRules" :size="miniSize" stripe style="width: 100%">
+                        <el-table-column label="结果代码" min-width="180" prop="code" />
+                        <el-table-column label="结果名称" min-width="180" prop="name" />
+                        <el-table-column label="参数" min-width="280" prop="pattern">
                             <template #default="scope">
                                 <span>{{ scope.row.pattern }}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column
-                            fixed="right"
-                            label="操作"
-                            min-width="88"
-                            prop="operation"
-                        >
+                        <el-table-column fixed="right" label="操作" min-width="88" prop="operation">
                             <template #default="scope">
                                 <ext-button
                                     :label="$t('action.delete')"
@@ -509,15 +440,8 @@
             </el-col>
         </el-row>
         <el-row>
-            <el-col
-                :span="16"
-                class="footer"
-            >
-                <el-button
-                    :size="miniSize"
-                    round
-                    @click="resetForm('formData')"
-                >
+            <el-col :span="16" class="footer">
+                <el-button :size="miniSize" round @click="resetForm('formData')">
                     {{ $t('action.cancel') }}
                 </el-button>
                 <el-button
@@ -553,7 +477,6 @@ export default {
             editLoading: false,
             targetTypes: {}, // 条件过滤
             ruleTypes: {}, // 规则
-
             goodsCatList: [],
             brandList: [],
             userGradeList: [], // 用户等级列表
@@ -567,14 +490,12 @@ export default {
                 sort: 0, // 排序
                 params: null, // 其它参数
                 rangeTime: [null, null], // 开始时间  -  结束时间
-
                 spTarget: {
                     code: '',
                     name: '',
                     pattern: {}, //
                 },
                 spTargets: [],
-
                 spRule: {
                     code: '',
                     name: '',
@@ -583,9 +504,7 @@ export default {
                 spRules: [],
             },
             formDataRules: {
-                name: [{ required: true,
-                         message: '请输入活动名称',
-                         trigger: 'blur' }],
+                name: [{ required: true, message: '请输入活动名称', trigger: 'blur' }],
             },
             cascaderProps: {
                 label: 'name',
@@ -613,10 +532,8 @@ export default {
                 };
             }
         }
-
         await this.getRuleTypes();
         await this.getTargetTypes();
-
         await this.getGoodsCatList();
         await this.getBrandList();
         await this.getUserGradeList();
@@ -654,8 +571,7 @@ export default {
                 default:
                     break;
             }
-            Object.assign(this.formData.spTarget, { name: '',
-                                                    pattern: _pattern });
+            Object.assign(this.formData.spTarget, { name: '', pattern: _pattern });
         },
         addTarget() {
             let _target = _.cloneDeep(this.formData.spTarget);
@@ -670,7 +586,6 @@ export default {
         deleteTarget(idx) {
             this.formData.spTargets.splice(idx, 1);
         },
-
         async getRuleTypes() {
             const _result = await this.$api.spRule.getRuleTypes();
             if (_result.succeed === 1 && _result.code === 200) {
@@ -678,8 +593,7 @@ export default {
             }
         },
         changeRuleType(ruleType) {
-            Object.assign(this.formData.spRule, { name: '',
-                                                  pattern: {} });
+            Object.assign(this.formData.spRule, { name: '', pattern: {} });
         },
         addRule() {
             let _rule = _.cloneDeep(this.formData.spRule);
@@ -694,7 +608,6 @@ export default {
         deleteRule(idx) {
             this.formData.spRules.splice(idx, 1);
         },
-
         // 获取商品分类
         async getGoodsCatList() {
             const _result = await this.$api.goodsCat.getTree();
@@ -720,10 +633,13 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('permission.confirmSubmit'),
+                        this.$t('common.tip'),
+                        {}
+                    ).then(async () => {
                         this.editLoading = true;
                         const data = Object.assign({}, this.formData);
-
                         if (Array.isArray(data.rangeTime) && data.rangeTime.length == 2) {
                             data['startTime'] = data.rangeTime[0];
                             data['endTime'] = data.rangeTime[1];
@@ -731,17 +647,16 @@ export default {
                         }
                         delete data.spTarget;
                         delete data.spRule;
-
                         const _result = await this.$api.promotion.save(data);
                         if (_result.succeed === 1 && _result.code === 200) {
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('common.success'),
                                 message: _result.description,
                                 type: 'success',
                             });
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('common.error'),
                                 message: _result.description,
                             });
                         }

@@ -15,7 +15,9 @@
                     :size="normalSize"
                     label-width="100px"
                 >
-                    <el-divider content-position="left">基本信息</el-divider>
+                    <el-divider content-position="left">
+基本信息
+</el-divider>
                     <el-form-item label="活动名称" prop="name">
                         <el-col :span="14">
                             <el-input v-model="formData.name" placeholder="请输入活动名称" />
@@ -49,8 +51,12 @@
                         <el-col :span="8">
                             <el-form-item label="类型" prop="type">
                                 <el-radio-group v-model="formData.type">
-                                    <el-radio :value="3">团购</el-radio>
-                                    <el-radio :value="4">秒杀</el-radio>
+                                    <el-radio :value="3">
+团购
+</el-radio>
+                                    <el-radio :value="4">
+秒杀
+</el-radio>
                                 </el-radio-group>
                             </el-form-item>
                         </el-col>
@@ -74,22 +80,23 @@
                                 :size="miniSize"
                                 readonly
                             >
-                                <pick-goods
-                                    #append
-                                    :selection-type="0"
-                                    @chosed-goods="
-                                        (goods) => {
-                                            chosedGoods(goods, formData.spTarget);
-                                        }
-                                    "
-                                />
+                                <template #append>
+                                    <pick-goods
+                                        :selection-type="0"
+                                        @chosed-goods="
+                                            (goods) => {
+                                                chosedGoods(goods, formData.spTarget);
+                                            }
+                                        "
+                                    />
+                                </template>
                             </el-input>
                         </el-col>
                     </el-form-item>
                     <el-form-item label="选择促销条件" prop="rule">
                         <el-select
                             v-model="formData.spRule.code"
-                            placeholder="请选择"
+                            :placeholder="$t('permission.pleaseSelect')"
                             @change="changeRuleType"
                         >
                             <el-option
@@ -107,7 +114,9 @@
                     >
                         <div v-if="formData.spRule.code === 'GOODS_REDUCE'">
                             <!--指定商品减固定金额-->
-                            <el-form-item label="条件">无需设置任何条件</el-form-item>
+                            <el-form-item label="条件">
+无需设置任何条件
+</el-form-item>
                             <el-form-item label="金额">
                                 <el-input-number
                                     v-model="formData.spRule.pattern.money"
@@ -289,14 +298,12 @@ export default {
                 sort: 0, // 排序
                 params: null, // 其它参数
                 rangeTime: [null, null], // 开始时间  -  结束时间
-
                 spTarget: {
                     code: '',
                     name: '',
                     pattern: {}, // {"goods_id":"7","nums":"1"}
                 },
                 spTargets: [],
-
                 spRule: {
                     code: '',
                     name: '',
@@ -334,7 +341,6 @@ export default {
             spTarget['code'] = 'GOODS_IDS';
             spTarget['name'] = '指定某些商品满足条件';
             spTarget['pattern'] = { id: goods.id, name: goods.name };
-
             let _target = _.cloneDeep(this.formData.spTarget);
             let _findTarget = this.formData.spTargets.find((v) => v.code === _target.code);
             if (_findTarget) {
@@ -369,10 +375,13 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('permission.confirmSubmit'),
+                        this.$t('common.tip'),
+                        {}
+                    ).then(async () => {
                         this.editLoading = true;
                         const data = Object.assign({}, this.formData);
-
                         if (Array.isArray(data.rangeTime) && data.rangeTime.length == 2) {
                             data['startTime'] = data.rangeTime[0];
                             data['endTime'] = data.rangeTime[1];
@@ -380,17 +389,16 @@ export default {
                         }
                         delete data.spTarget;
                         delete data.spRule;
-
                         const _result = await this.$api.promotion.save(data);
                         if (_result.succeed === 1 && _result.code === 200) {
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('common.success'),
                                 message: _result.description,
                                 type: 'success',
                             });
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('common.error'),
                                 message: _result.description,
                             });
                         }

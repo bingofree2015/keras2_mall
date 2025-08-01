@@ -175,7 +175,7 @@
                         style="width: 100%"
                     >
                         <el-table-column
-                            label="{{ this.$t('ship.areaList') }}"
+                            :label="$t('ship.areaList')"
                             min-width="280"
                             prop="areas"
                             show-overflow-tooltip
@@ -184,11 +184,7 @@
                                 {{ scope.row.areas.map((v) => v.name).join(',') }}
                             </template>
                         </el-table-column>
-                        <el-table-column
-                            label="{{ this.$t('ship.select') }}"
-                            min-width="130"
-                            prop="areas"
-                        >
+                        <el-table-column :label="$t('ship.select')" min-width="130" prop="areas">
                             <template #default="scope">
                                 <pick-area
                                     :area-ids="scope.row.areas.map((v) => v.id)"
@@ -201,7 +197,7 @@
                             </template>
                         </el-table-column>
                         <el-table-column
-                            label="{{ this.$t('ship.firstWeightFee') }}"
+                            :label="$t('ship.firstWeightFee')"
                             min-width="130"
                             prop="firstUnitAreaPrice"
                         >
@@ -214,7 +210,7 @@
                             </template>
                         </el-table-column>
                         <el-table-column
-                            label="{{ this.$t('ship.continueWeightFee') }}"
+                            :label="$t('ship.continueWeightFee')"
                             min-width="130"
                             prop="continueUnitAreaPrice"
                         >

@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('permission.pleaseEnterContent')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('permission.pleaseSelect')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,17 +39,17 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="新增" placement="top">
+                            <el-tooltip :content="$t('permission.add')" placement="top">
                                 <el-button round @click="handleAdd">
                                     <i class="el-icon-ali-add"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('permission.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('permission.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -92,48 +95,10 @@ export default {
                 key: 'name',
                 value: '',
             },
-            props: [{ prop: 'name', label: '促销名称' }],
             paginated: {
                 attrs: { searchKey: { type: 1 }, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
             },
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: '促销名称', minWidth: 120, showOverflowTooltip: true },
-                { prop: 'sort', label: '权重', minWidth: 70 },
-                {
-                    prop: 'type',
-                    label: '类型',
-                    minWidth: 80,
-                    formatter: this.env.columnFormatter,
-                },
-                {
-                    prop: 'state',
-                    label: '状态',
-                    minWidth: 100,
-                    align: 'center',
-                    formatter: this.env.columnFormatter,
-                },
-                {
-                    prop: 'exclusive',
-                    label: '排他',
-                    minWidth: 100,
-                    align: 'center',
-                    formatter: this.env.columnFormatter,
-                },
-                {
-                    prop: 'startTime',
-                    label: '开始时间',
-                    minWidth: 130,
-                    formatter: this.env.formatDateTime,
-                },
-                {
-                    prop: 'endTime',
-                    label: '结束时间',
-                    minWidth: 130,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
             operations: [
                 {
                     label: 'action.edit', // 按钮上显示的文字
@@ -155,9 +120,13 @@ export default {
                     size: this.size,
                     type: 'danger',
                     func: (row) => {
-                        this.$confirm('确认删除选中记录吗？', '提示', {
-                            type: 'warning',
-                        }).then(async () => {
+                        this.$confirm(
+                            this.$t('permission.confirmDeleteSelected'),
+                            this.$t('common.tip'),
+                            {
+                                type: 'warning',
+                            }
+                        ).then(async () => {
                             await this.batchDelete([row.id]);
                         });
                     },
@@ -175,6 +144,55 @@ export default {
                 }
                 return _operationWidth;
             },
+        },
+        // 响应式的 props 配置
+        props() {
+            return [{ prop: 'name', label: this.$t('promotion.activityName') }];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                {
+                    prop: 'name',
+                    label: this.$t('promotion.activityName'),
+                    minWidth: 120,
+                    showOverflowTooltip: true,
+                },
+                { prop: 'sort', label: this.$t('promotion.weight'), minWidth: 70 },
+                {
+                    prop: 'type',
+                    label: this.$t('promotion.type'),
+                    minWidth: 80,
+                    formatter: this.env.columnFormatter,
+                },
+                {
+                    prop: 'state',
+                    label: this.$t('promotion.state'),
+                    minWidth: 100,
+                    align: 'center',
+                    formatter: this.env.columnFormatter,
+                },
+                {
+                    prop: 'exclusive',
+                    label: this.$t('promotion.exclusive'),
+                    minWidth: 100,
+                    align: 'center',
+                    formatter: this.env.columnFormatter,
+                },
+                {
+                    prop: 'startTime',
+                    label: this.$t('promotion.startTime'),
+                    minWidth: 130,
+                    formatter: this.env.formatDateTime,
+                },
+                {
+                    prop: 'endTime',
+                    label: this.$t('promotion.endTime'),
+                    minWidth: 130,
+                    formatter: this.env.formatDateTime,
+                },
+            ];
         },
     },
     methods: {

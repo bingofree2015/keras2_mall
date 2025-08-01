@@ -220,9 +220,13 @@ export default {
                     size: this.size,
                     type: 'danger',
                     func: (row) => {
-                        this.$confirm('确认删除选中记录吗？', '提示', {
-                            type: 'warning',
-                        }).then(async () => {
+                        this.$confirm(
+                            this.$t('permission.confirmDeleteSelected'),
+                            this.$t('common.tip'),
+                            {
+                                type: 'warning',
+                            }
+                        ).then(async () => {
                             await this.batchDelete([row.id]);
                         });
                     },
@@ -321,7 +325,11 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('permission.confirmSubmit'),
+                        this.$t('common.tip'),
+                        {}
+                    ).then(async () => {
                         this.editLoading = true;
                         const data = Object.assign(
                             {},

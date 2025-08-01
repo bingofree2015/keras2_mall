@@ -3,7 +3,7 @@
         <el-popover ref="popover" :placement="placement" trigger="click">
             <template #reference>
                 <el-input
-                    :placeholder="placeholder"
+                    :placeholder="placeholderText"
                     :readonly="true"
                     style="cursor: pointer"
                     :model-value="modelValue"
@@ -49,7 +49,7 @@ export default {
         },
         placeholder: {
             type: String,
-            default: '点击选择内容',
+            default: '',
         },
         placement: {
             type: String,
@@ -62,6 +62,11 @@ export default {
         currentChangeHandle: {
             type: Function,
             default: null,
+        },
+    },
+    computed: {
+        placeholderText() {
+            return this.placeholder || this.$t('popupTreeInput.clickToSelect');
         },
     },
     methods: {

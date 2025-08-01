@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('permission.pleaseEnterContent')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('permission.pleaseSelect')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,12 +39,12 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('permission.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('permission.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -68,50 +71,53 @@
         <el-dialog
             :close-on-click-modal="false"
             :model-value="checkDialogVisible"
-            title="退款单审核"
+            :title="$t('pay.refundAudit')"
             width="40%"
         >
             <el-form ref="formData" :model="formData" :size="miniSize" label-width="80px">
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="退款单号:" prop="refundId">
+                        <el-form-item :label="$t('pay.refundId') + ':'" prop="refundId">
                             {{ formData.refundId }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="订单单号:" prop="sourceId">
+                        <el-form-item :label="$t('pay.orderId') + ':'" prop="sourceId">
                             {{ formData.sourceId }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="用户:" prop="user.username">
+                        <el-form-item :label="$t('common.user') + ':'" prop="user.username">
                             {{ formData.user.username }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="状态:" prop="state">
+                        <el-form-item :label="$t('common.status') + ':'" prop="state">
                             {{ formData.state }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="单据类型:" prop="type">
+                        <el-form-item :label="$t('pay.billType') + ':'" prop="type">
                             {{ formData.type }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="退款金额:" prop="money">
+                        <el-form-item :label="$t('pay.refundAmount') + ':'" prop="money">
                             {{ formData.money }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="退款方式:" prop="paymentCode">
-                            <el-select v-model="formData.paymentCode" placeholder="请选择">
+                        <el-form-item :label="$t('pay.refundMethod') + ':'" prop="paymentCode">
+                            <el-select
+                                v-model="formData.paymentCode"
+                                :placeholder="$t('permission.pleaseSelect')"
+                            >
                                 <el-option
                                     v-for="item in paymentOpts"
                                     :key="item.code"
@@ -122,10 +128,14 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="审核结果:" prop="state">
+                        <el-form-item :label="$t('pay.auditResult') + ':'" prop="state">
                             <el-radio-group v-model="formData.state">
-                                <el-radio :value="2">通过</el-radio>
-                                <el-radio :value="4">拒绝</el-radio>
+                                <el-radio :value="2">
+                                    {{ $t('action.pass') }}
+                                </el-radio>
+                                <el-radio :value="4">
+                                    {{ $t('action.reject') }}
+                                </el-radio>
                             </el-radio-group>
                         </el-form-item>
                     </el-col>
@@ -154,7 +164,7 @@
             :close-on-click-modal="false"
             :model-value="viewDialogVisible"
             class="edit-dialog"
-            title="退款单查看"
+            :title="$t('pay.refundView')"
             width="40%"
         >
             <el-form
@@ -166,43 +176,43 @@
             >
                 <el-row>
                     <el-col :span="24">
-                        <el-form-item label="退款单号:" prop="refundId">
+                        <el-form-item :label="$t('pay.refundId') + ':'" prop="refundId">
                             {{ formData.refundId }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="用户:" prop="user.username">
+                        <el-form-item :label="$t('common.user') + ':'" prop="user.username">
                             {{ formData.user.username }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="状态:" prop="state">
+                        <el-form-item :label="$t('common.status') + ':'" prop="state">
                             {{ env.columnFormatter(formData.state, 'bill_refund', 'state') }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="退款金额:" prop="money">
+                        <el-form-item :label="$t('pay.refundAmount') + ':'" prop="money">
                             {{ formData.money }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="退款方式:" prop="paymentCode">
+                        <el-form-item :label="$t('pay.refundMethod') + ':'" prop="paymentCode">
                             {{ formData.paymentCode }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="单据类型:" prop="type">
+                        <el-form-item :label="$t('pay.billType') + ':'" prop="type">
                             {{ env.columnFormatter(formData.type, 'bill_refund', 'type') }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="订单单号:" prop="sourceId">
+                        <el-form-item :label="$t('pay.orderId') + ':'" prop="sourceId">
                             {{ formData.sourceId }}
                         </el-form-item>
                     </el-col>
@@ -244,30 +254,6 @@ export default {
                 key: 'name',
                 value: '',
             },
-            props: [{ prop: 'name', label: '支付方式名称' }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'refundId', label: '退款单号', minWidth: 130 },
-                { prop: 'money', label: '金额', minWidth: 90 },
-                { prop: 'paymentCode', label: '退款方式', minWidth: 98 },
-                {
-                    prop: 'state',
-                    label: '状态',
-                    minWidth: 80,
-                    align: 'center',
-                    formatter: this.env.columnFormatter,
-                },
-                {
-                    prop: 'type',
-                    label: '类型',
-                    minWidth: 80,
-                    align: 'center',
-                    formatter: this.env.columnFormatter,
-                },
-                { prop: 'sourceId', label: '单号', minWidth: 130 },
-                { prop: 'user.username', label: '用户', minWidth: 90 },
-                { prop: 'createdAt', label: '创建时间', minWidth: 140 },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -328,6 +314,36 @@ export default {
                 return _operationWidth;
             },
         },
+        // 响应式的 props 配置
+        props() {
+            return [{ prop: 'name', label: this.$t('pay.paymentMethodName') }];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                { prop: 'refundId', label: this.$t('pay.refundId'), minWidth: 130 },
+                { prop: 'money', label: this.$t('pay.amount'), minWidth: 90 },
+                { prop: 'paymentCode', label: this.$t('pay.refundMethod'), minWidth: 98 },
+                {
+                    prop: 'state',
+                    label: this.$t('common.status'),
+                    minWidth: 80,
+                    align: 'center',
+                    formatter: this.env.columnFormatter,
+                },
+                {
+                    prop: 'type',
+                    label: this.$t('common.type'),
+                    minWidth: 80,
+                    align: 'center',
+                    formatter: this.env.columnFormatter,
+                },
+                { prop: 'sourceId', label: this.$t('pay.billId'), minWidth: 130 },
+                { prop: 'user.username', label: this.$t('common.user'), minWidth: 90 },
+                { prop: 'createdAt', label: this.$t('common.createTime'), minWidth: 140 },
+            ];
+        },
     },
     async mounted() {
         await this.getPaymentOpts();
@@ -366,7 +382,11 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('permission.confirmSubmit'),
+                        this.$t('common.tip'),
+                        {}
+                    ).then(async () => {
                         this.loading = true;
                         const data = _.pick(this.formData, ['id', 'state', 'paymentCode']);
                         const _result = await this.$api.billRefund.save(data);
@@ -380,13 +400,13 @@ export default {
                                 this.paginated.list.unshift(_result.data);
                             }
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('common.success'),
                                 message: _result.description,
                                 type: 'success',
                             });
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('common.error'),
                                 message: _result.description,
                             });
                         }

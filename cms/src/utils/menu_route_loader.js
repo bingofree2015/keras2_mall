@@ -13,9 +13,15 @@ function mountDynamicRoutes(dynamicRoutes) {
             //v.component = Generator}
         }
     });
+    // 获取根路由的引用
     let _rootRoute = router.options.routes;
     if (_rootRoute.length > 0) {
-        _rootRoute[0].children = _rootRoute[0].children.concat(dynamicRoutes);
+        // 先备份原有的静态子路由
+        const originalChildren = [..._rootRoute[0].children];
+        // 将动态路由添加到根路由的children中
+        _rootRoute[0].children = originalChildren.concat(dynamicRoutes);
+        // 重新注册根路由，包含所有子路由
+        // 由于我们保留了原有的静态路由，所以不会被覆盖
         router.addRoute(_rootRoute[0]);
     }
 }

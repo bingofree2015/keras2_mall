@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('permission.pleaseEnterContent')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('permission.pleaseSelect')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -35,17 +38,17 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="新增" placement="top">
+                            <el-tooltip :content="$t('permission.add')" placement="top">
                                 <el-button round @click="handleAdd">
                                     <i class="el-icon-ali-add"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('permission.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('permission.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -76,14 +79,14 @@
         <!--角色菜单，表格树内容栏-->
         <el-container class="role-menu-container">
             <el-header class="role-menu-header">
-                <span>角色授权</span>
+                <span>{{ $t('permission.roleAuthorization') }}</span>
                 <div class="role-menu-header-right">
                     <el-checkbox
                         v-model="checkAll"
                         :disabled="selectRole.id === null || disableIds.includes(selectRole.id)"
                         @change="handleCheckAll"
                     >
-                        <b>全选</b>
+                        <b>{{ $t('permission.selectAll') }}</b>
                     </el-checkbox>
                     <ext-button
                         :disabled="selectRole.id === null || disableIds.includes(selectRole.id)"
@@ -128,7 +131,7 @@
         <!--新增编辑界面-->
         <el-dialog
             :close-on-click-modal="false"
-            :title="isCreating ? '新增' : '编辑'"
+            :title="isCreating ? $t('permission.add') : $t('permission.edit')"
             :model-value="editDialogVisible"
             width="40%"
         >
@@ -177,22 +180,6 @@ export default {
                 key: 'name',
                 value: '',
             },
-            props: [
-                { prop: 'name', label: '角色名' },
-                { prop: 'remark', label: '备注' },
-                { prop: 'createBy', label: '创建人' },
-            ],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: '角色名', minWidth: 80 },
-                { prop: 'remark', label: '备注', minWidth: 200 },
-                {
-                    prop: 'createdAt',
-                    label: '创建时间',
-                    minWidth: 140,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -215,9 +202,13 @@ export default {
                     perms: 'permission:role:delete',
                     type: 'danger',
                     func: (row) => {
-                        this.$confirm('确认删除选中记录吗？', '提示', {
-                            type: 'warning',
-                        }).then(async () => {
+                        this.$confirm(
+                            this.$t('permission.confirmDeleteSelected'),
+                            this.$t('common.tip'),
+                            {
+                                type: 'warning',
+                            }
+                        ).then(async () => {
                             await this.batchDelete([row.id]);
                         });
                     },
@@ -235,7 +226,13 @@ export default {
                 remark: '',
             },
             formDataRules: {
-                name: [{ required: true, message: '请输入角色名', trigger: 'blur' }],
+                name: [
+                    {
+                        required: true,
+                        message: this.$t('permission.roleName') + this.$t('common.required'),
+                        trigger: 'blur',
+                    },
+                ],
             },
             selectRole: {},
             menuData: [],
@@ -262,6 +259,28 @@ export default {
                 }
                 return _operationWidth;
             },
+        },
+        // 响应式的 props 配置
+        props() {
+            return [
+                { prop: 'name', label: this.$t('permission.roleName') },
+                { prop: 'remark', label: this.$t('permission.remark') },
+                { prop: 'createBy', label: this.$t('system.creator') },
+            ];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                { prop: 'name', label: this.$t('permission.roleName'), minWidth: 80 },
+                { prop: 'remark', label: this.$t('permission.remark'), minWidth: 200 },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('common.createTime'),
+                    minWidth: 140,
+                    formatter: this.env.formatDateTime,
+                },
+            ];
         },
     },
     mounted() {
@@ -315,7 +334,11 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('permission.confirmSubmit'),
+                        this.$t('common.tip'),
+                        {}
+                    ).then(async () => {
                         this.editLoading = true;
                         const data = Object.assign({}, this.formData);
                         const _result = await this.$api.role.save(data);
@@ -323,7 +346,7 @@ export default {
                         this.editLoading = false;
                         if (_result.succeed === 1 && _result.code === 200) {
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('common.success'),
                                 message: _result.description,
                                 type: 'success',
                             });
@@ -331,7 +354,7 @@ export default {
                             this.$refs.formData.resetFields();
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('common.error'),
                                 message: _result.description,
                             });
                         }
@@ -416,13 +439,13 @@ export default {
                         await loadDynamicMenuAndRoutes(this.loginUser.id);
                     }
                     this.$notify({
-                        title: '成功',
+                        title: this.$t('common.success'),
                         message: result.description,
                         type: 'success',
                     });
                 } else {
                     this.$notify.error({
-                        title: '错误',
+                        title: this.$t('common.error'),
                         message: result.description,
                     });
                 }

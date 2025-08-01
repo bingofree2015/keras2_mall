@@ -359,7 +359,10 @@ export default {
     },
     methods: {
         drawLine() {
-            this.chartColumn = echarts.init(document.getElementById('chartColumn'));
+            this.chartColumn = echarts.init(document.getElementById('chartColumn'), null, {
+                renderer: 'canvas',
+                useDirtyRect: true,
+            });
 
             this.chartColumn.setOption({
                 title: { text: 'Column Chart' },
@@ -380,7 +383,10 @@ export default {
             });
         },
         drawLine2() {
-            this.chartColumn2 = echarts.init(document.getElementById('chartColumn2'));
+            this.chartColumn2 = echarts.init(document.getElementById('chartColumn2'), null, {
+                renderer: 'canvas',
+                useDirtyRect: true,
+            });
 
             this.chartColumn2.setOption({
                 baseOption: {

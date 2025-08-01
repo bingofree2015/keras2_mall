@@ -2,7 +2,7 @@
     <el-dialog
         :close-on-click-modal="false"
         :modal="false"
-        title="订单编辑"
+        :title="$t('orderEdit.dialogTitle')"
         v-bind="$attrs"
         width="50%"
         @open="openDialog"
@@ -12,13 +12,16 @@
             <template v-if="formData.store">
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="订单号" prop="orderId">
+                        <el-form-item :label="$t('orderEdit.orderNumber')" prop="orderId">
                             {{ formData.orderId }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="收货门店" prop="storeId">
-                            <el-select v-model="formData.storeId" placeholder="请选择">
+                        <el-form-item :label="$t('orderEdit.receiveStore')" prop="storeId">
+                            <el-select
+                                v-model="formData.storeId"
+                                :placeholder="$t('permission.pleaseSelect')"
+                            >
                                 <el-option
                                     v-for="item in stores"
                                     :key="item.id"
@@ -31,15 +34,18 @@
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="收货人姓名" prop="shipName">
-                            <el-input v-model="formData.shipName" placeholder="请输入收货人姓名" />
+                        <el-form-item :label="$t('orderEdit.receiverName')" prop="shipName">
+                            <el-input
+                                v-model="formData.shipName"
+                                :placeholder="$t('orderEdit.inputReceiverName')"
+                            />
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="提货人电话" prop="shipMobile">
+                        <el-form-item :label="$t('orderEdit.pickupPhone')" prop="shipMobile">
                             <el-input
                                 v-model="formData.shipMobile"
-                                placeholder="请输入提货人电话"
+                                :placeholder="$t('orderEdit.inputPickupPhone')"
                             />
                         </el-form-item>
                     </el-col>
@@ -48,12 +54,12 @@
             <template v-else>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="订单号" prop="orderId">
+                        <el-form-item :label="$t('orderEdit.orderNumber')" prop="orderId">
                             {{ formData.orderId }}
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="收货区域" prop="shipAreaId">
+                        <el-form-item :label="$t('orderEdit.receiveArea')" prop="shipAreaId">
                             <el-cascader
                                 v-model="formData.shipAreaId"
                                 :options="areas"
@@ -65,25 +71,37 @@
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="收货人姓名" prop="shipName">
-                            <el-input v-model="formData.shipName" placeholder="请输入提货人电话" />
+                        <el-form-item :label="$t('orderEdit.receiverName')" prop="shipName">
+                            <el-input
+                                v-model="formData.shipName"
+                                :placeholder="$t('orderEdit.inputReceiverName')"
+                            />
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="收货地址" prop="shipAddress">
-                            <el-input v-model="formData.shipAddress" placeholder="请输入收货地址" />
+                        <el-form-item :label="$t('orderEdit.receiveAddress')" prop="shipAddress">
+                            <el-input
+                                v-model="formData.shipAddress"
+                                :placeholder="$t('orderEdit.inputReceiveAddress')"
+                            />
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :span="12">
-                        <el-form-item label="收货人电话" prop="shipMobile">
-                            <el-input v-model="formData.shipMobile" placeholder="请输入收货地址" />
+                        <el-form-item :label="$t('orderEdit.receiverPhone')" prop="shipMobile">
+                            <el-input
+                                v-model="formData.shipMobile"
+                                :placeholder="$t('orderEdit.inputReceiverPhone')"
+                            />
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="订单总金额" prop="orderAmount">
-                            <el-input v-model="formData.orderAmount" placeholder="请输入收货地址" />
+                        <el-form-item :label="$t('orderEdit.orderTotalAmount')" prop="orderAmount">
+                            <el-input
+                                v-model="formData.orderAmount"
+                                :placeholder="$t('orderEdit.inputOrderAmount')"
+                            />
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -149,12 +167,18 @@ export default {
                 orderAmount: '', // 订单总金额
             },
             formDataRules: {
-                shipName: [{ required: true, message: '请输入收货人姓名', trigger: 'blur' }],
+                shipName: [
+                    {
+                        required: true,
+                        message: this.$t('orderEdit.inputReceiverName'),
+                        trigger: 'blur',
+                    },
+                ],
             },
         };
     },
     computed: {},
-    async methods: {
+    methods: {
         openDialog() {
             this.$nextTick(async () => {
                 // 基于 orderId  向服务器请求 订单明细数据
@@ -190,14 +214,18 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('permission.confirmSubmit'),
+                        this.$t('common.tip'),
+                        {}
+                    ).then(async () => {
                         this.loading = true;
                         const data = Object.assign({}, this.formData);
                         const _result = await this.$api.order.save(data);
                         this.loading = false;
                         if (_result.succeed === 1 && _result.code === 200) {
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('common.success'),
                                 message: _result.description,
                                 type: 'success',
                             });
@@ -205,7 +233,7 @@ export default {
                             this.$emit('update:visible', false);
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('common.error'),
                                 message: _result.description,
                             });
                         }

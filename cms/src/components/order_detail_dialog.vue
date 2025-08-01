@@ -2,179 +2,183 @@
     <el-dialog
         :close-on-click-modal="false"
         :modal="false"
-        title="订单详情"
+        :title="$t('orderDetail.dialogTitle')"
         v-bind="$attrs"
         width="60%"
         @open="openDialog"
         v-on="$attrs"
     >
         <el-tabs v-model="activeName">
-            <el-tab-pane label="基本信息" name="basicInfo">
+            <el-tab-pane :label="$t('orderDetail.basicInfo')" name="basicInfo">
                 <el-form :size="miniSize" class="dialog-container" label-width="100px">
                     <div class="group-container">
-                        <el-divider content-position="left">订单信息</el-divider>
+                        <el-divider content-position="left">
+                            {{ $t('orderDetail.orderInfo') }}
+                        </el-divider>
                         <el-row>
                             <el-col :span="8">
-                                <el-form-item label="订单号:">
+                                <el-form-item :label="$t('orderDetail.orderId') + ':'">
                                     {{ viewData.orderId }}
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item label="总金额:">
+                                <el-form-item :label="$t('orderDetail.totalAmount') + ':'">
                                     {{ viewData.orderAmount }}
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item label="支付状态:">
+                                <el-form-item :label="$t('orderDetail.payState') + ':'">
                                     {{ mapAlias.order.pay_state[viewData.payState] }}
                                 </el-form-item>
                             </el-col>
                         </el-row>
                         <el-row>
                             <el-col :span="8">
-                                <el-form-item label="发货状态:">
+                                <el-form-item :label="$t('orderDetail.shipState') + ':'">
                                     {{ mapAlias.order.ship_state[viewData.shipState] }}
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item label="订单状态:">
+                                <el-form-item :label="$t('orderDetail.orderState') + ':'">
                                     {{ mapAlias.order.state[viewData.state] }}
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item label="已支付金额:">
+                                <el-form-item :label="$t('orderDetail.payedAmount') + ':'">
                                     {{ viewData.payed }}
                                 </el-form-item>
                             </el-col>
                         </el-row>
                         <el-row>
                             <el-col :span="8">
-                                <el-form-item label="支付方式:">
+                                <el-form-item :label="$t('orderDetail.paymentMethod') + ':'">
                                     {{ mapAlias.payment_type[viewData.paymentCode] }}
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item label="配送方式:">
+                                <el-form-item :label="$t('orderDetail.deliveryMethod') + ':'">
                                     {{ viewData.logiName }}
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item label="发票类型:">
+                                <el-form-item :label="$t('orderDetail.invoiceType') + ':'">
                                     {{ mapAlias.order.tax_type[viewData.taxType] }}
                                 </el-form-item>
                             </el-col>
                         </el-row>
                         <el-row>
                             <el-col :span="8">
-                                <el-form-item label="发票内容:">
+                                <el-form-item :label="$t('orderDetail.invoiceContent') + ':'">
                                     {{ viewData.taxContent }}
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item label="税号:">
+                                <el-form-item :label="$t('orderDetail.taxCode') + ':'">
                                     {{ viewData.taxCode }}
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item label="发票抬头:">
+                                <el-form-item :label="$t('orderDetail.invoiceTitle') + ':'">
                                     {{ viewData.taxTitle }}
                                 </el-form-item>
                             </el-col>
                         </el-row>
                         <el-row>
                             <el-col :span="8">
-                                <el-form-item label="订单优惠金额:">
+                                <el-form-item :label="$t('orderDetail.orderDiscount') + ':'">
                                     {{ viewData.orderPmt }}
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item label="商品优惠金额:">
+                                <el-form-item :label="$t('orderDetail.goodsDiscount') + ':'">
                                     {{ viewData.goodsPmt }}
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item label="优惠券优惠:">
+                                <el-form-item :label="$t('orderDetail.couponDiscount') + ':'">
                                     {{ viewData.couponPmt }}
                                 </el-form-item>
                             </el-col>
                         </el-row>
                         <el-row>
                             <el-col :span="8">
-                                <el-form-item label="积分优惠:">
+                                <el-form-item :label="$t('orderDetail.pointDiscount') + ':'">
                                     {{ viewData.pointMoney }}
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item label="商品总重量:">
+                                <el-form-item :label="$t('orderDetail.totalWeight') + ':'">
                                     {{ viewData.weight }}
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item label="商品总价:">
+                                <el-form-item :label="$t('orderDetail.totalPrice') + ':'">
                                     {{ viewData.goodsAmount }}
                                 </el-form-item>
                             </el-col>
                         </el-row>
                         <el-row>
                             <el-col :span="8">
-                                <el-form-item label="下单来源:">
+                                <el-form-item :label="$t('orderDetail.orderSource') + ':'">
                                     {{ mapAlias.order.source[viewData.source] }}
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item label="时间:">
+                                <el-form-item :label="$t('orderDetail.orderTime') + ':'">
                                     {{ viewData.createdAt }}
                                 </el-form-item>
                             </el-col>
                             <el-col :span="8">
-                                <el-form-item label="配送费用:">
+                                <el-form-item :label="$t('orderDetail.deliveryCost') + ':'">
                                     {{ viewData.costFreight }}
                                 </el-form-item>
                             </el-col>
                         </el-row>
                         <el-row>
                             <el-col :span="24">
-                                <el-form-item label="收货状态:">
+                                <el-form-item :label="$t('orderDetail.confirmStatus') + ':'">
                                     {{ mapAlias.order.confirm[viewData.confirm] }}
                                 </el-form-item>
                             </el-col>
                         </el-row>
                     </div>
                     <div class="group-container">
-                        <el-divider content-position="left">收货人信息</el-divider>
+                        <el-divider content-position="left">
+                            {{ $t('orderDetail.receiverInfo') }}
+                        </el-divider>
                         <template v-if="viewData.store">
                             <el-row>
                                 <el-col :span="12">
-                                    <el-form-item label="自提店铺名:">
+                                    <el-form-item :label="$t('orderDetail.pickupStoreName') + ':'">
                                         {{ viewData.store.storeName }}
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="12">
-                                    <el-form-item label="联系人:">
+                                    <el-form-item :label="$t('orderDetail.linkman') + ':'">
                                         {{ viewData.store.linkman }}
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-row>
                                 <el-col :span="24">
-                                    <el-form-item label="店铺地址:">
+                                    <el-form-item :label="$t('orderDetail.storeAddress') + ':'">
                                         {{ viewData.store.allAddress }}
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-row>
                                 <el-col :span="8">
-                                    <el-form-item label="店铺联系电话:">
+                                    <el-form-item :label="$t('orderDetail.storePhone') + ':'">
                                         {{ viewData.store.mobile }}
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="8">
-                                    <el-form-item label="提货人姓名:">
+                                    <el-form-item :label="$t('orderDetail.pickupName') + ':'">
                                         {{ viewData.store.shipName }}
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="8">
-                                    <el-form-item label="提货人电话:">
+                                    <el-form-item :label="$t('orderDetail.pickupPhone') + ':'">
                                         {{ viewData.store.shipMobile }}
                                     </el-form-item>
                                 </el-col>
@@ -183,24 +187,24 @@
                         <template v-else>
                             <el-row>
                                 <el-col :span="8">
-                                    <el-form-item label="收货时间:">
+                                    <el-form-item :label="$t('orderDetail.receiveTime') + ':'">
                                         {{ viewData.confirmTime }}
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="8">
-                                    <el-form-item label="收货人姓名:">
+                                    <el-form-item :label="$t('orderDetail.receiverName') + ':'">
                                         {{ viewData.shipName }}
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="8">
-                                    <el-form-item label="收货人电话:">
+                                    <el-form-item :label="$t('orderDetail.receiverPhone') + ':'">
                                         {{ viewData.shipMobile }}
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-row>
                                 <el-col :span="24">
-                                    <el-form-item label="收货地址:">
+                                    <el-form-item :label="$t('orderDetail.receiveAddress') + ':'">
                                         {{ viewData.shipAddress }}
                                     </el-form-item>
                                 </el-col>
@@ -208,10 +212,12 @@
                         </template>
                     </div>
                     <div class="group-container">
-                        <el-divider content-position="left">买家备注</el-divider>
+                        <el-divider content-position="left">
+                            {{ $t('orderDetail.buyerRemark') }}
+                        </el-divider>
                         <el-row>
                             <el-col :span="24">
-                                <el-form-item label="买家备注:">
+                                <el-form-item :label="$t('orderDetail.buyerRemarkContent') + ':'">
                                     {{ viewData.memo }}
                                 </el-form-item>
                             </el-col>
@@ -219,39 +225,81 @@
                     </div>
                 </el-form>
             </el-tab-pane>
-            <el-tab-pane label="商品信息" name="goodsInfo">
+            <el-tab-pane :label="$t('orderDetail.goodsInfo')" name="goodsInfo">
                 <el-table :data="viewData.orderItems" :size="miniSize" stripe style="width: 100%">
                     <el-table-column
-                        label="商品名称"
+                        :label="$t('visualDesign.goodsName')"
                         min-width="180"
                         prop="name"
                         show-overflow-tooltip
                     />
-                    <el-table-column label="单价" min-width="80" prop="price" />
-                    <el-table-column label="数量" min-width="80" prop="num" />
-                    <el-table-column label="总价" min-width="80" prop="amount" />
-                    <el-table-column label="货品编码" min-width="130" prop="sn" />
-                    <el-table-column label="商品编码" min-width="110" prop="bn" />
-                    <el-table-column label="总重量" min-width="80" prop="weight" />
-                    <el-table-column label="发货量" min-width="80" prop="sendNum" />
+                    <el-table-column
+                        :label="$t('orderDetail.unitPrice')"
+                        min-width="80"
+                        prop="price"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.quantity')"
+                        min-width="80"
+                        prop="num"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.totalPrice')"
+                        min-width="80"
+                        prop="amount"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.productCode')"
+                        min-width="130"
+                        prop="sn"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.goodsCode')"
+                        min-width="110"
+                        prop="bn"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.totalWeight')"
+                        min-width="80"
+                        prop="weight"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.shippedQuantity')"
+                        min-width="80"
+                        prop="sendNum"
+                    />
                 </el-table>
             </el-tab-pane>
-            <el-tab-pane label="支付单/退款单" name="payRefundItem">
-                <el-divider content-position="left">支付单</el-divider>
+            <el-tab-pane :label="$t('orderDetail.paymentRefundItem')" name="payRefundItem">
+                <el-divider content-position="left">
+                    {{ $t('orderDetail.paymentBill') }}
+                </el-divider>
                 <el-table :data="viewData.billPayments" :size="miniSize" stripe style="width: 100%">
-                    <el-table-column label="支付单号" min-width="90" prop="paymentId" />
+                    <el-table-column
+                        :label="$t('orderDetail.paymentId')"
+                        min-width="90"
+                        prop="paymentId"
+                    />
                     <el-table-column
                         :formatter="
                             (row, column) => {
                                 return env.columnFormatter(row[column.property], 'payment_type');
                             }
                         "
-                        label="支付方式"
+                        :label="$t('orderDetail.paymentMethod')"
                         min-width="80"
                         prop="paymentCode"
                     />
-                    <el-table-column label="第三方支付单号" min-width="80" prop="tradeNo" />
-                    <el-table-column label="支付金额" min-width="80" prop="money" />
+                    <el-table-column
+                        :label="$t('orderDetail.thirdPartyPaymentId')"
+                        min-width="80"
+                        prop="tradeNo"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.paymentAmount')"
+                        min-width="80"
+                        prop="money"
+                    />
                     <el-table-column
                         :formatter="
                             (row, column) => {
@@ -263,27 +311,45 @@
                             }
                         "
                         align="center"
-                        label="支付状态"
+                        :label="$t('orderDetail.paymentStatus')"
                         min-width="80"
                         prop="state"
                     />
-                    <el-table-column label="支付时间" min-width="120" prop="createdAt" />
+                    <el-table-column
+                        :label="$t('orderDetail.paymentTime')"
+                        min-width="120"
+                        prop="createdAt"
+                    />
                 </el-table>
-                <el-divider content-position="left">退款单</el-divider>
+                <el-divider content-position="left">
+                    {{ $t('orderDetail.refundBill') }}
+                </el-divider>
                 <el-table :data="viewData.billRefunds" :size="miniSize" stripe style="width: 100%">
-                    <el-table-column label="退款单号" min-width="90" prop="refundId" />
+                    <el-table-column
+                        :label="$t('orderDetail.refundId')"
+                        min-width="90"
+                        prop="refundId"
+                    />
                     <el-table-column
                         :formatter="
                             (row, column) => {
                                 return env.columnFormatter(row[column.property], 'payment_type');
                             }
                         "
-                        label="退款方式"
+                        :label="$t('orderDetail.refundMethod')"
                         min-width="80"
                         prop="paymentCode"
                     />
-                    <el-table-column label="第三方支付单号" min-width="100" prop="tradeNo" />
-                    <el-table-column label="退款金额" min-width="80" prop="money" />
+                    <el-table-column
+                        :label="$t('orderDetail.thirdPartyPaymentId')"
+                        min-width="100"
+                        prop="tradeNo"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.refundAmount')"
+                        min-width="80"
+                        prop="money"
+                    />
                     <el-table-column
                         :formatter="
                             (row, column) => {
@@ -294,50 +360,132 @@
                                 );
                             }
                         "
-                        label="退款状态"
+                        :label="$t('orderDetail.refundStatus')"
                         min-width="80"
                         prop="state"
                     />
-                    <el-table-column label="申请时间" min-width="120" prop="createdAt" />
+                    <el-table-column
+                        :label="$t('orderDetail.applyTime')"
+                        min-width="120"
+                        prop="createdAt"
+                    />
                 </el-table>
             </el-tab-pane>
-            <el-tab-pane label="发货单/退货单" name="deliveryRefundItem">
-                <el-divider content-position="left">发货单</el-divider>
+            <el-tab-pane :label="$t('orderDetail.deliveryRefundItem')" name="deliveryRefundItem">
+                <el-divider content-position="left">
+                    {{ $t('orderDetail.deliveryBill') }}
+                </el-divider>
                 <el-table
                     :data="viewData.billDeliveries"
                     :size="miniSize"
                     stripe
                     style="width: 100%"
                 >
-                    <el-table-column label="发货单号" min-width="90" prop="deliveryId" />
-                    <el-table-column label="快递公司" min-width="80" prop="logiCodeName" />
-                    <el-table-column label="快递单号" min-width="90" prop="logiNo" />
-                    <el-table-column label="收货人名" min-width="80" prop="shipName" />
-                    <el-table-column label="收货电话" min-width="80" prop="shipMobile" />
-                    <el-table-column label="收货地址" min-width="180" prop="shipAddress" />
+                    <el-table-column
+                        :label="$t('orderDetail.deliveryId')"
+                        min-width="90"
+                        prop="deliveryId"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.logisticsCompany')"
+                        min-width="80"
+                        prop="logiCodeName"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.logisticsNo')"
+                        min-width="90"
+                        prop="logiNo"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.receiverName')"
+                        min-width="80"
+                        prop="shipName"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.receiverPhone')"
+                        min-width="80"
+                        prop="shipMobile"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.receiverAddress')"
+                        min-width="180"
+                        prop="shipAddress"
+                    />
                 </el-table>
-                <el-divider content-position="left">提货单</el-divider>
+                <el-divider content-position="left">
+                    {{ $t('orderDetail.pickupBill') }}
+                </el-divider>
                 <el-table :data="viewData.billLadings" :size="miniSize" stripe style="width: 100%">
-                    <el-table-column label="提货单号" min-width="90" prop="id" />
-                    <el-table-column label="提货门店" min-width="120" prop="storeIdName" />
-                    <el-table-column label="提货人姓名" min-width="100" prop="name" />
-                    <el-table-column label="提货电话" min-width="100" prop="mobile" />
-                    <el-table-column label="提货状态" min-width="80" prop="state" />
-                    <el-table-column label="提货时间" min-width="120" prop="updatedAt" />
-                    <el-table-column label="接待店员" min-width="100" prop="clerkIdName" />
+                    <el-table-column :label="$t('orderDetail.pickupId')" min-width="90" prop="id" />
+                    <el-table-column
+                        :label="$t('orderDetail.pickupStore')"
+                        min-width="120"
+                        prop="storeIdName"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.pickupName')"
+                        min-width="100"
+                        prop="name"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.pickupPhone')"
+                        min-width="100"
+                        prop="mobile"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.pickupStatus')"
+                        min-width="80"
+                        prop="state"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.pickupTime')"
+                        min-width="120"
+                        prop="updatedAt"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.clerk')"
+                        min-width="100"
+                        prop="clerkIdName"
+                    />
                 </el-table>
-                <el-divider content-position="left">退货单</el-divider>
+                <el-divider content-position="left">
+                    {{ $t('orderDetail.returnBill') }}
+                </el-divider>
                 <el-table :data="viewData.billReships" :size="miniSize" stripe style="width: 100%">
-                    <el-table-column label="退货单号" min-width="90" prop="reshipId" />
-                    <el-table-column label="快递公司" min-width="110" prop="logiCodeName" />
-                    <el-table-column label="快递单号" min-width="90" prop="logiNo" />
-                    <el-table-column label="退货状态" min-width="80" prop="state" />
-                    <el-table-column label="退货时间" min-width="120" prop="updatedAt" />
+                    <el-table-column
+                        :label="$t('orderDetail.returnId')"
+                        min-width="90"
+                        prop="reshipId"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.logisticsCompany')"
+                        min-width="110"
+                        prop="logiCodeName"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.logisticsNo')"
+                        min-width="90"
+                        prop="logiNo"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.returnStatus')"
+                        min-width="80"
+                        prop="state"
+                    />
+                    <el-table-column
+                        :label="$t('orderDetail.returnTime')"
+                        min-width="120"
+                        prop="updatedAt"
+                    />
                 </el-table>
             </el-tab-pane>
-            <el-tab-pane label="订单记录" name="orderRecord">
+            <el-tab-pane :label="$t('orderDetail.orderRecord')" name="orderRecord">
                 <el-table :data="viewData.orderLogs" :size="miniSize" stripe style="width: 100%">
-                    <el-table-column label="订单号" min-width="90" prop="orderId" />
+                    <el-table-column
+                        :label="$t('orderDetail.orderId')"
+                        min-width="90"
+                        prop="orderId"
+                    />
                     <el-table-column
                         :formatter="
                             (row, column) => {
@@ -348,24 +496,28 @@
                                 );
                             }
                         "
-                        label="操作类型"
+                        :label="$t('orderDetail.operationType')"
                         min-width="80"
                         prop="type"
                     />
-                    <el-table-column label="描述" min-width="280" prop="msg" />
+                    <el-table-column
+                        :label="$t('orderDetail.description')"
+                        min-width="280"
+                        prop="msg"
+                    />
                     <el-table-column
                         :formatter="
                             (row, column) => {
                                 return env.formatDateTime(row[column.property]);
                             }
                         "
-                        label="时间"
+                        :label="$t('orderDetail.time')"
                         min-width="110"
                         prop="createdAt"
                     />
                 </el-table>
             </el-tab-pane>
-            <el-tab-pane label="订单备注" name="orderRemark">
+            <el-tab-pane :label="$t('orderDetail.orderRemark')" name="orderRemark">
                 <el-form
                     ref="formData"
                     :model="formData"
@@ -373,12 +525,12 @@
                     :size="normalSize"
                     label-width="80px"
                 >
-                    <el-form-item label="备注内容" prop="mark">
+                    <el-form-item :label="$t('orderDetail.remarkContent')" prop="mark">
                         <el-input
                             v-model="formData.mark"
                             :autosize="{ minRows: 8, maxRows: 16 }"
                             :rows="8"
-                            placeholder="请输入内容"
+                            :placeholder="$t('permission.pleaseEnterContent')"
                             type="textarea"
                         />
                     </el-form-item>
@@ -482,7 +634,13 @@ export default {
                 mark: '', // 备注内容
             },
             formDataRules: {
-                mark: [{ required: true, message: '请输入备注内容', trigger: 'blur' }],
+                mark: [
+                    {
+                        required: true,
+                        message: this.$t('orderDetail.pleaseEnterRemark'),
+                        trigger: 'blur',
+                    },
+                ],
             },
         };
     },
@@ -509,14 +667,18 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('permission.confirmSubmit'),
+                        this.$t('common.tip'),
+                        {}
+                    ).then(async () => {
                         this.loading = true;
                         const data = Object.assign({}, this.formData);
                         const _result = await this.$api.order.save(data);
                         this.loading = false;
                         if (_result.succeed === 1 && _result.code === 200) {
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('common.success'),
                                 message: _result.description,
                                 type: 'success',
                             });
@@ -524,7 +686,7 @@ export default {
                             this.$emit('update:visible', false);
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('common.error'),
                                 message: _result.description,
                             });
                         }

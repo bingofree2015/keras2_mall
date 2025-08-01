@@ -51,6 +51,9 @@ export default {
                 Object.assign(this.$elementPlusLocale, newLocale);
             }
 
+            // 保存语言设置到本地存储
+            localStorage.setItem('locale', _lang);
+
             this.visible = false;
         },
     },

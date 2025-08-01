@@ -63,7 +63,6 @@
                                         @click.stop="handleDeleteWidget(index)"
                                     ></i>
                                 </div>
-
                                 <div v-else class="widget-item" @click="handleSelectWidget(index)">
                                     <!--<div>index:{{index}} editWidget.idx:{{editWidget?editWidget.idx:0}}</div>-->
                                     <el-button-group
@@ -432,7 +431,7 @@
                                                     <div class="coupon-middle">
                                                         <b>
                                                             {{ $t('visualDesign.orderReduce144') }}
-                                                            减100元
+                                                            {{ $t('visualDesign.reduce100Yuan') }}
                                                         </b>
                                                         <p>
                                                             {{
@@ -572,7 +571,6 @@
                                 />
                             </el-form-item>
                         </template>
-
                         <!-- 优惠券组 -->
                         <template v-if="editWidget.type == 'coupon'">
                             <el-form-item label="显示数量">
@@ -584,7 +582,6 @@
                                 />
                             </el-form-item>
                         </template>
-
                         <!-- 购买记录 -->
                         <template v-if="editWidget.type == 'record'">
                             <el-form-item label="位置">
@@ -606,12 +603,10 @@
                                 <span>{{ editWidget.config.style.top }}%</span>
                             </el-form-item>
                         </template>
-
                         <!-- 文本域 -->
                         <template v-if="editWidget.type == 'textarea'">
                             <tinyEditor v-model:content="editWidget.config" />
                         </template>
-
                         <!-- 图片橱窗 -->
                         <template v-if="editWidget.type == 'imgWindow'">
                             <el-form-item label="布局方式">
@@ -777,7 +772,6 @@
                                 </draggable>
                             </el-form-item>
                         </template>
-
                         <!-- 视频组 -->
                         <template v-if="editWidget.type == 'video'">
                             <el-form-item label="自动播放">
@@ -808,7 +802,6 @@
                                 <pick-video v-model="editWidget.config.videoUrl" />
                             </el-form-item>
                         </template>
-
                         <!-- 文章组 -->
                         <template v-if="editWidget.type == 'article'">
                             <el-form-item label="添加文章">
@@ -816,44 +809,45 @@
                                     v-model="editWidget.config.title"
                                     :placeholder="$t('visualDesign.selectAdArticle')"
                                 >
-                                    <pick-article
-                                        #append
-                                        :selection-type="0"
-                                        @chosed-articles="
-                                            (articles) => {
-                                                chosedArticles(
-                                                    editWidget.config,
-                                                    'title',
-                                                    articles,
-                                                    'title'
-                                                );
-                                            }
-                                        "
-                                    />
+                                    <template #append>
+                                        <pick-article
+                                            :selection-type="0"
+                                            @chosed-articles="
+                                                (articles) => {
+                                                    chosedArticles(
+                                                        editWidget.config,
+                                                        'title',
+                                                        articles,
+                                                        'title'
+                                                    );
+                                                }
+                                            "
+                                        />
+                                    </template>
                                 </el-input>
                             </el-form-item>
                         </template>
-
                         <!-- 文章分类 -->
                         <template v-if="editWidget.type == 'articleClassify'">
-                            <el-form-item label="文章分类">
+                            <el-form-item :label="$t('visualDesign.articleCategory')">
                                 <el-input
                                     v-model="editWidget.config.articleClassifyId"
                                     :placeholder="$t('visualDesign.selectArticleClassify')"
                                 >
-                                    <pick-articleType
-                                        #append
-                                        :selection-type="0"
-                                        @chosed-article-types="
-                                            (articleTypes) => {
-                                                chosedArticleTypes(
-                                                    editWidget.config,
-                                                    'articleClassifyId',
-                                                    articleTypes
-                                                );
-                                            }
-                                        "
-                                    />
+                                    <template #append>
+                                        <pick-articleType
+                                            :selection-type="0"
+                                            @chosed-article-types="
+                                                (articleTypes) => {
+                                                    chosedArticleTypes(
+                                                        editWidget.config,
+                                                        'articleClassifyId',
+                                                        articleTypes
+                                                    );
+                                                }
+                                            "
+                                        />
+                                    </template>
                                 </el-input>
                             </el-form-item>
                             <el-form-item label="显示数量">
@@ -865,7 +859,6 @@
                                 />
                             </el-form-item>
                         </template>
-
                         <!-- 搜索框 -->
                         <template v-if="editWidget.type == 'search'">
                             <el-form-item label="提示内容">
@@ -885,7 +878,6 @@
                                 </el-radio-group>
                             </el-form-item>
                         </template>
-
                         <!-- 轮播图 -->
                         <template v-if="editWidget.type == 'imgSlide'">
                             <el-form-item label="切换时间">
@@ -896,7 +888,6 @@
                                     controls-position="right"
                                 />
                             </el-form-item>
-
                             <draggable
                                 :list="editWidget.config.list"
                                 :options="{
@@ -1025,7 +1016,6 @@
                                 </template>
                             </draggable>
                         </template>
-
                         <!-- 公告 -->
                         <template v-if="editWidget.type == 'notice'">
                             <el-form-item label="获取">
@@ -1081,7 +1071,6 @@
                                 </draggable>
                             </div>
                         </template>
-
                         <!-- 导航组-->
                         <template v-if="editWidget.type == 'navBar'">
                             <el-form-item label="数量">
@@ -1226,7 +1215,6 @@
                                 </template>
                             </draggable>
                         </template>
-
                         <!-- 商品组 -->
                         <template v-if="editWidget.type == 'goods'">
                             <el-form-item label="来源">
@@ -1357,7 +1345,6 @@
                                 </el-radio-group>
                             </el-form-item>
                         </template>
-
                         <!-- 单图组 -->
                         <template v-if="editWidget.type == 'imgSingle'">
                             <change-image-icon
@@ -1441,7 +1428,6 @@
                                 </el-input>
                             </el-form-item>
                         </template>
-
                         <!-- 辅助空白 -->
                         <template v-if="editWidget.type == 'blank'">
                             <el-form-item label="背景颜色">
@@ -1524,7 +1510,6 @@ export default {
             storeComponents: allComponents.storeComponents,
             utilsComponents: allComponents.utilsComponents,
             mediaComponents: allComponents.mediaComponents,
-
             pageWidgets: pageWidgets,
             editWidget: null,
             imgWindowStyle: [
@@ -1537,7 +1522,7 @@ export default {
                 { key: 1, value: 'URL链接' },
                 { key: 2, value: '商品' },
                 { key: 3, value: '文章' },
-                { key: 4, value: '文章分类' },
+                { key: 4, value: this.$t('visualDesign.articleCategory') },
                 { key: 5, value: '智能表单' },
             ],
             cascaderProps: {
@@ -1585,7 +1570,6 @@ export default {
     mounted() {
         this.getGoodsCatList();
         this.getBrandList();
-
         const _textArea = document.getElementById('textarea-container');
         if (_textArea) {
             const _img = _textArea.getElementsByTagName('img');
@@ -1644,7 +1628,7 @@ export default {
             if (widgetType === 'navBar') {
                 _item = {
                     url: 'images/empty-banner.png',
-                    text: '按钮',
+                    text: this.$t('permission.button'),
                     type: '',
                     value: '',
                 };
@@ -1671,7 +1655,6 @@ export default {
             const _newIdx = evt.newIndex;
             const _cloneWidget = _.cloneDeep(this.pageWidgets[_newIdx]);
             this.$set(this.pageWidgets, _newIdx, _cloneWidget);
-
             console.log('_newIdx:', _newIdx);
             this.handleSelectWidget(_newIdx);
         },
@@ -1881,7 +1864,6 @@ export default {
         font-size: 12px;
         text-align: left;
     }
-
     .goods-item-title {
         text-align: center;
         font-weight: 400;

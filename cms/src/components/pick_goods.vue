@@ -152,7 +152,7 @@ export default {
             this.selectGoods = [row]; // 保持为数组
         },
         handlePickGoods() {
-            console.log('点击了选择商品');
+            console.log(this.$t('pickGoods.clickedSelectGoods'));
             this.dialogVisible = true;
         },
         chosedGoods() {

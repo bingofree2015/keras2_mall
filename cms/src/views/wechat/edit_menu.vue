@@ -7,14 +7,14 @@
             </el-col>
             <el-col class="top-bar flex-grow" />
         </el-row>
-        <el-row :gutter="20">
-            <el-col :span="9">
+        <el-row :gutter="20" class="menu-container">
+            <el-col :xs="24" :sm="24" :md="12" :lg="9" :xl="9">
                 <!-- 菜单预览界面 -->
-                <el-container>
-                    <el-header>{{ weixinTitle }}</el-header>
+                <el-container class="menu-preview">
+                    <el-header>{{ $t('wechat.menu.title') }}</el-header>
                     <el-main />
                     <el-footer>
-                        <el-menu :default-active="activeIndex" mode="horizontal">
+                        <el-menu :default-active="activeIndex" mode="horizontal" class="menu-list">
                             <el-sub-menu
                                 v-for="(btn, idx) in menuConfig.button"
                                 :key="idx"
@@ -58,7 +58,7 @@
                                         icon="el-icon-ali-zengjia"
                                         @click.stop="addSubMenu(idx)"
                                     >
-                                        添加子菜单
+                                        {{ $t('wechat.menu.addSubMenu') }}
                                     </el-link>
                                 </el-menu-item>
                             </el-sub-menu>
@@ -68,16 +68,16 @@
                                     icon="el-icon-ali-zengjia"
                                     @click.stop="addMenu()"
                                 >
-                                    添加主菜单
+                                    {{ $t('wechat.menu.addMainMenu') }}
                                 </el-link>
                             </el-menu-item>
                         </el-menu>
                     </el-footer>
                 </el-container>
             </el-col>
-            <el-col :span="8">
+            <el-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
                 <el-container v-if="editingMenuItem" class="edit-dialog-container">
-                    <el-header>菜单编辑界面</el-header>
+                    <el-header>{{ $t('wechat.menu.menuEditInterface') }}</el-header>
                     <el-main>
                         <!-- 菜单编辑界面 -->
                         <el-form
@@ -87,13 +87,13 @@
                             :size="largeSize"
                             label-width="80px"
                         >
-                            <el-form-item label="菜单名称" prop="name">
+                            <el-form-item :label="$t('wechat.menu.menuName')" prop="name">
                                 <el-input v-model="editingMenuItem.name" />
                             </el-form-item>
-                            <el-form-item label="动作类型" prop="type">
+                            <el-form-item :label="$t('wechat.menu.actionType')" prop="type">
                                 <el-select
                                     v-model="editingMenuItem.type"
-                                    placeholder="请选择动作类型"
+                                    :placeholder="$t('wechat.menu.selectActionType')"
                                 >
                                     <el-option
                                         v-for="item in menuTypes"
@@ -103,7 +103,7 @@
                                     />
                                 </el-select>
                             </el-form-item>
-                            <el-form-item label="关键字" prop="keyword">
+                            <el-form-item :label="$t('wechat.menu.keyword')" prop="keyword">
                                 <el-input v-model="editingMenuItem[editingMenuItem.type]" />
                             </el-form-item>
                         </el-form>
@@ -136,7 +136,7 @@ export default {
             normalSize: 'default',
             largeSize: 'large',
             miniSize: 'default',
-            weixinTitle: '公众号菜单设置',
+            weixinTitle: this.$t('wechat.menu.title'),
             activeIndex: '1',
             // 菜单对象
             menuConfig: {
@@ -163,7 +163,7 @@ export default {
                 name: [
                     {
                         required: true,
-                        message: '请输入菜单名称',
+                        message: this.$t('wechat.menu.inputMenuName'),
                         trigger: 'blur',
                     },
                 ],
@@ -200,7 +200,7 @@ export default {
         addMenu() {
             let menuItems = this.menuConfig.button;
             menuItems.push({
-                name: `菜单名称 ${menuItems.length}`,
+                name: this.$t('wechat.menu.menuNameTemplate', { index: menuItems.length }),
                 sub_button: [],
             });
         },
@@ -209,7 +209,7 @@ export default {
             // 添加子菜单
             let _subMenuItems = this.menuConfig.button[idx].sub_button;
             _subMenuItems.push({
-                name: `子菜单名称 ${_subMenuItems.length}`,
+                name: this.$t('wechat.menu.subMenuNameTemplate', { index: _subMenuItems.length }),
             });
         },
         // 删除菜单
@@ -232,7 +232,11 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('permission.confirmSubmit'),
+                        this.$t('common.tip'),
+                        {}
+                    ).then(async () => {
                         this.editLoading = true;
                         const data = Object.assign({}, this.menuConfig);
 
@@ -242,13 +246,13 @@ export default {
                         });
                         if (_result.succeed === 1 && _result.code === 200) {
                             this.$notify({
-                                title: '成功',
+                                title: this.$t('common.success'),
                                 message: _result.description,
                                 type: 'success',
                             });
                         } else {
                             this.$notify.error({
-                                title: '错误',
+                                title: this.$t('common.error'),
                                 message: _result.description,
                             });
                         }
@@ -273,22 +277,53 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.menu-container {
+    margin-top: 20px;
+}
+
+.menu-preview {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+    min-width: 320px;
+    min-height: 540px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
 .el-container {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
     min-width: 320px;
     min-height: 540px;
+    border-radius: 8px;
+    overflow: hidden;
 }
+
 .el-header {
     text-align: center;
     line-height: 60px;
+    background-color: #f5f7fa;
+    border-bottom: 1px solid #e4e7ed;
+    font-weight: 600;
 }
+
+.menu-list {
+    border: none;
+    background-color: transparent;
+}
+
 .sub-menu :deep(.el-submenu__title) {
     padding: 0 8px;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: #f0f9ff;
+    }
+
     .el-tag {
         border-width: 0px;
         padding: 0px;
         background-color: #fff;
         font-size: 14px;
+        margin-left: 8px;
     }
 }
 
@@ -297,5 +332,28 @@ export default {
     padding: 0px;
     background-color: #fff;
     font-size: 14px;
+}
+
+.sub-menu-item {
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: #f0f9ff;
+    }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+    .menu-container {
+        .el-col {
+            margin-bottom: 20px;
+        }
+    }
+
+    .menu-preview,
+    .el-container {
+        min-width: 100%;
+        min-height: 400px;
+    }
 }
 </style>

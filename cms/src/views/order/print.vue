@@ -418,7 +418,7 @@ export default {
             // 进入立即执行一次
         },
     },
-    async methods: {
+    methods: {
         async getOrderDetail() {
             const _result = await this.$api.order.get({ orderId: this.orderId });
             if (_result.succeed === 1 && _result.code === 200) {

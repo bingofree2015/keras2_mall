@@ -69,10 +69,10 @@
                 <el-col :span="12">
                     <el-form-item :label="$t('article.status')" prop="isPub">
                         <el-radio-group v-model="formData.isPub">
-                            <el-radio :label="1">
+                            <el-radio :value="1">
                                 {{ $t('article.published') }}
                             </el-radio>
-                            <el-radio :label="0">
+                            <el-radio :value="0">
                                 {{ $t('article.unpublished') }}
                             </el-radio>
                         </el-radio-group>
@@ -153,7 +153,11 @@ export default {
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(async () => {
+                    this.$confirm(
+                        this.$t('permission.confirmSubmit'),
+                        this.$t('common.tip'),
+                        {}
+                    ).then(async () => {
                         this.editLoading = true;
                         const data = Object.assign({}, this.formData);
 

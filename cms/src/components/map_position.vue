@@ -199,11 +199,18 @@ export default {
                                 }
                             } else {
                                 // 处理API错误，包括每日查询限制
-                                console.warn('高德地图API错误:', result.info || '未知错误');
+                                console.warn(
+                                    this.$t('mapPosition.amapApiError'),
+                                    result.info || this.$t('mapPosition.unknownError')
+                                );
                                 if (result && result.info === 'USER_DAILY_QUERY_OVER_LIMIT') {
-                                    self.position.address = 'API查询次数已达上限，请稍后再试';
+                                    self.position.address = this.$t(
+                                        'mapPosition.apiQueryLimitReached'
+                                    );
                                 } else {
-                                    self.position.address = '地址解析失败';
+                                    self.position.address = this.$t(
+                                        'mapPosition.addressParseFailed'
+                                    );
                                 }
                             }
                         });

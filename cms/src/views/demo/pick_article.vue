@@ -1,10 +1,14 @@
 <template>
     <el-container>
         <el-header>
-            <h2 class="demo-title">文章选择</h2>
+            <h2 class="demo-title">
+                {{ $t('demo.articleSelection') }}
+            </h2>
         </el-header>
         <el-main>
-            <p class="demo-summery">通过弹出文章列表对话框，选择文章(支持单选)。</p>
+            <p class="demo-summery">
+                {{ $t('demo.articleSelectionDesc') }}
+            </p>
             <el-row>
                 <el-col :span="18">
                     <pick-article :selection-type="0" @chosed-articles="chosedArticles" />

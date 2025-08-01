@@ -83,7 +83,7 @@ export default {
     name: 'PickNotice',
     components: {},
     props: {
-        NoticeIds: {
+        noticeIds: {
             type: Array,
             default: () => {
                 return [];
@@ -125,7 +125,7 @@ export default {
                 this.paginated.attrs.count = _result.data.count;
             } else {
                 this.$notify.error({
-                    title: '错误',
+                    title: this.$t('common.error'),
                     message: _result.description,
                 });
             }

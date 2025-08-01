@@ -7,7 +7,7 @@ export function findPage(params) {
     const findPageData = {
         succeed: 1,
         code: 200,
-        description: '成功',
+        description: this.$t('common.success'),
         data: {},
     };
     let pageNum = 1;

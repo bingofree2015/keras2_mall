@@ -8,12 +8,15 @@
             <el-col class="top-bar flex-grow">
                 <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
-                        <el-input v-model="filters.value" placeholder="请输入内容">
+                        <el-input
+                            v-model="filters.value"
+                            :placeholder="$t('permission.pleaseEnterContent')"
+                        >
                             <template #prepend>
                                 <el-select
                                     v-model="filters.key"
                                     class="search-prepend"
-                                    placeholder="请选择"
+                                    :placeholder="$t('permission.pleaseSelect')"
                                 >
                                     <el-option
                                         v-for="item in props"
@@ -36,12 +39,12 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button-group>
-                            <el-tooltip content="刷新" placement="top">
+                            <el-tooltip :content="$t('permission.refresh')" placement="top">
                                 <el-button round @click="handleRefresh">
                                     <i class="el-icon-ali-shuaxin"></i>
                                 </el-button>
                             </el-tooltip>
-                            <el-tooltip content="导出" placement="top">
+                            <el-tooltip :content="$t('permission.export')" placement="top">
                                 <el-button round>
                                     <i class="el-icon-ali-daochu"></i>
                                 </el-button>
@@ -84,26 +87,39 @@ export default {
                 key: 'user.username',
                 value: '',
             },
-            props: [{ prop: 'user.username', label: '用户' }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'user.username', label: '用户', minWidth: 120 },
-                {
-                    prop: 'type',
-                    label: '类型',
-                    minWidth: 100,
-                    formatter: this.env.columnFormatter,
-                },
-                { prop: 'money', label: '金额', minWidth: 120 },
-                { prop: 'balance', label: '余额', minWidth: 120 },
-                { prop: 'memo', label: '描述', minWidth: 150 },
-                { prop: 'createdAt', label: '时间', minWidth: 130, align: 'center' },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
             },
         };
+    },
+    computed: {
+        // 响应式的 props 配置
+        props() {
+            return [{ prop: 'user.username', label: this.$t('common.user') }];
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60 },
+                { prop: 'user.username', label: this.$t('common.user'), minWidth: 120 },
+                {
+                    prop: 'type',
+                    label: this.$t('common.type'),
+                    minWidth: 100,
+                    formatter: this.env.columnFormatter,
+                },
+                { prop: 'money', label: this.$t('pay.amount'), minWidth: 120 },
+                { prop: 'balance', label: this.$t('pay.balance'), minWidth: 120 },
+                { prop: 'memo', label: this.$t('common.desc'), minWidth: 150 },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('common.time'),
+                    minWidth: 130,
+                    align: 'center',
+                },
+            ];
+        },
     },
     methods: {
         /**

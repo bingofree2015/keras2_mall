@@ -62,8 +62,7 @@ export default {
                 menubar: false,
                 fontsize_formats: '12px 13px 14px 15px 16px 18px 20px 24px',
                 external_plugins: {},
-                plugins:
-                    'code hr link advlist lists paste table image imagetools media preview autoresize',
+                plugins: 'code hr link advlist lists paste table image media preview autoresize',
                 contextmenu: 'selectall copy paste inserttable',
                 toolbar1:
                     'link unlink bold italic forecolor backcolor table alignleft aligncenter alignright alignjustify removeformat imageUpload videoUpload',
@@ -87,7 +86,6 @@ export default {
                 autoresize_bottom_margin: 20,
                 autoresize_max_height: 380,
                 autoresize_min_height: 250,
-                autoresize_on_init: true,
                 autoresize_overflow_padding: 10,
             },
         };
@@ -197,7 +195,7 @@ export default {
                             editor.getLang('Insert/edit link') === 'Insert/edit link'
                         ) {
                             // 语言包加载失败，回退到英文
-                            console.warn('TinyMCE 中文语言包加载失败，使用英文界面');
+                            console.warn(this.$t('tinyEditor.languagePackLoadFailed'));
                             delete this.defaultConfig.language;
                             delete this.defaultConfig.language_url;
                             // 重新初始化编辑器

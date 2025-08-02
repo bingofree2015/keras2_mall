@@ -4,16 +4,16 @@ const { translateCommitMessage } = require('./translate-commit-msg.js');
 
 // 测试用例
 const testCases = [
-    "fix: resolve authentication error in login component",
-    "feat: add new user management functionality",
-    "refactor: optimize database query performance",
-    "update: improve error handling in API calls",
-    "remove: delete unused configuration files",
-    "clean: remove duplicate code in utils",
-    "fix bug in navigation component",
-    "add missing documentation for API endpoints",
-    "resolve merge conflicts in main branch",
-    "implement new feature for user authentication"
+    'fix: resolve authentication error in login component',
+    'feat: add new user management functionality',
+    'refactor: optimize database query performance',
+    'update: improve error handling in API calls',
+    'remove: delete unused configuration files',
+    'clean: remove duplicate code in utils',
+    'fix bug in navigation component',
+    'add missing documentation for API endpoints',
+    'resolve merge conflicts in main branch',
+    'implement new feature for user authentication',
 ];
 
 console.log('🧪 测试 Commit Message 翻译功能\n');

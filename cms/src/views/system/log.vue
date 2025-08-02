@@ -138,7 +138,7 @@ export default {
                 {
                     prop: 'method',
                     label: this.$t('system.method'),
-                    minWidth: 180,
+                    minWidth: 80,
                     showOverflowTooltip: true,
                 },
                 {
@@ -156,7 +156,7 @@ export default {
                 {
                     prop: 'time',
                     label: this.$t('system.timeConsuming'),
-                    minWidth: 80,
+                    minWidth: 180,
                     showOverflowTooltip: true,
                 },
                 {

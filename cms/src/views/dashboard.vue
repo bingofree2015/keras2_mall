@@ -249,6 +249,7 @@ export default {
     components: {},
     data() {
         return {
+            normalSize: 'normal',
             loginLogData: [],
             operateLogData: [],
             chartColumn: null,

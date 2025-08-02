@@ -58,8 +58,11 @@ export function registerIFrameRoute(name, icon, url) {
         };
 
         const _url = buildIFrameFullUrl(url);
-        const _iFrameUrl = { path: _path, url: _url };
-        store.commit('addIFrameUrl', _iFrameUrl);
+        const _iFrameUrl = {
+            path: _path,
+            url: _url,
+        };
+        store.commit('addIFrameUrls', _iFrameUrl);
 
         let _rootRoute = router.options.routes;
         if (_rootRoute.length > 0) {

@@ -55,8 +55,10 @@ router.beforeEach(async (to, from, next) => {
             next();
         }
     } else {
-        if (_loginUser && _loginUser.id) {
-            handleIFrameUrl(to.path);
+        // 如果用户已登录，并且路由表中存在此路由
+        const _route = router.getRoutes().find((route) => route.path === to.path);
+        if (_loginUser && _loginUser.id && _route) {
+            handleActiveIFrameUrl(to.path);
             next();
         } else {
             next({ path: '/login' });
@@ -64,11 +66,13 @@ router.beforeEach(async (to, from, next) => {
     }
 });
 
-function handleIFrameUrl(path) {
+function handleActiveIFrameUrl(path) {
     if (path) {
-        let _currIFrameUrl = store.state.iframe.iframeUrls.find((item) => path.endsWith(item.path));
+        const _currIFrameUrl = store.state.iframe.iframeUrls.find((item) =>
+            path.endsWith(item.path)
+        );
         if (_currIFrameUrl && _currIFrameUrl.url) {
-            store.commit('setIFrameUrl', _currIFrameUrl.url);
+            store.commit('setActiveIFrameUrl', _currIFrameUrl.url);
         }
     }
 }

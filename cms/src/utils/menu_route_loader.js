@@ -32,16 +32,16 @@ function mountDynamicRoutes(dynamicRoutes) {
  * @param {*} routes 递归创建的动态(菜单)路由
  */
 function generateDynamicRoutes(menus) {
-    const _routers = [];
+    const _routes = [];
 
-    const menu2Router = (menu, nav = [], routers = []) => {
+    const menu2Router = (menu, nav = [], routes = []) => {
         nav[menu.level - 1] = {
             path: menu.url ? '/' + menu.url : '',
             name: menu.name,
         };
         nav = nav.slice(0, menu.level);
         const _nav = [...nav];
-        const _router = {
+        const _route = {
             path: menu.url ? menu.url : '/',
             name: menu.name,
             component: null,
@@ -55,32 +55,32 @@ function generateDynamicRoutes(menus) {
         const _path = parseIFrameRoutePath(menu.url);
         if (_path) {
             // 外链
-            _router.path = _path;
-            _router.component = () => import(`../views/layout/iframe_container.vue`);
+            _route.path = _path;
+            _route.component = () => import(`../views/layout/iframe_container.vue`);
             // 添加到 state.iframeUrls 变量中
             const _url = buildIFrameFullUrl(menu.url);
             const _iFrameUrl = {
                 path: _path,
                 url: _url,
             };
-            store.commit('addIFrameUrl', _iFrameUrl);
+            store.commit('addIFrameUrls', _iFrameUrl);
         } else if (menu.url) {
             // 内置组件
-            _router.component = () => import(`../views/${menu.url}`);
+            _route.component = () => import(`../views/${menu.url}`);
         }
 
         if (menu.children && menu.children.length > 0) {
             for (const _subMenu of menu.children) {
-                menu2Router(_subMenu, nav, routers);
+                menu2Router(_subMenu, nav, routes);
             }
         }
-        routers.push(_router);
+        routes.push(_route);
     };
 
     for (const _menu of menus) {
-        menu2Router(_menu, [], _routers);
+        menu2Router(_menu, [], _routes);
     }
-    return _routers;
+    return _routes;
 }
 
 /**
@@ -88,6 +88,8 @@ function generateDynamicRoutes(menus) {
  */
 export async function loadDynamicMenuAndRoutes(sysUserId) {
     try {
+        console.log('loadDynamicMenuAndRoutes', sysUserId);
+
         let _result = await api.menu.getRouteTree({ sysUserId });
         if (_result.succeed === 1 && _result.code === 200) {
             const _routeMenu = _result.data.list;

@@ -21,19 +21,19 @@ export default {
     },
     computed: {
         ...mapState({
-            iframeUrl: (state) => state.iframe.iframeUrl,
+            activeIFrameUrl: (state) => state.iframe.activeIFrameUrl,
         }),
     },
     watch: {
         $route: {
             handler: function (val, oldVal) {
                 // 如果是跳转到嵌套页面，切换iframe的url
-                this.resetSrc(this.iframeUrl);
+                this.resetSrc(this.activeIFrameUrl);
             },
         },
     },
     mounted() {
-        this.resetSrc(this.iframeUrl);
+        this.resetSrc(this.activeIFrameUrl);
     },
     methods: {
         // 获取路径

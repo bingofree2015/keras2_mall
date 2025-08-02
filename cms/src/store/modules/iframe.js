@@ -1,25 +1,25 @@
 export default {
     state: {
-        iframeUrl: '', // 当前嵌套页面路由路径
+        activeIFrameUrl: '', // 当前嵌套页面路由路径
         iframeUrls: [], // 所有嵌套页面路由路径访问URL
     },
     getters: {},
     mutations: {
-        setIFrameUrl(state, iframeUrl) {
+        setActiveIFrameUrl(state, activeIFrameUrl) {
             // 设置iframeUrl
-            state.iframeUrl = iframeUrl;
+            state.activeIFrameUrl = activeIFrameUrl;
         },
-        addIFrameUrl(state, iframeUrl) {
+        addIFrameUrls(state, iframeUrl) {
             // iframeUrls
             state.iframeUrls.push(iframeUrl);
         },
     },
     actions: {
-        setIFrameUrl({ commit }, iframeUrl) {
-            commit('setIFrameUrl', iframeUrl);
+        setActiveIFrameUrl({ commit }, activeIFrameUrl) {
+            commit('setActiveIFrameUrl', activeIFrameUrl);
         },
-        addIFrameUrl({ commit }, iframeUrl) {
-            commit('addIFrameUrl', iframeUrl);
+        addIFrameUrls({ commit }, iframeUrl) {
+            commit('addIFrameUrls', iframeUrl);
         },
     },
 };

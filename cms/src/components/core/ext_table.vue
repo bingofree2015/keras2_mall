@@ -301,4 +301,10 @@ export default {
 .el-main {
     padding: 0px;
 }
+.el-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px;
+}
 </style>

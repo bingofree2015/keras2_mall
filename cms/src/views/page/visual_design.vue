@@ -73,7 +73,7 @@
                                         "
                                     >
                                         <el-button
-                                            :size="miniSize"
+                                            :size="normalSize"
                                             round
                                             type="primary"
                                             @click="handleCloneWidget(index)"
@@ -81,7 +81,7 @@
                                             <i class="el-icon-ali-fuzhi2"></i>
                                         </el-button>
                                         <el-button
-                                            :size="miniSize"
+                                            :size="normalSize"
                                             round
                                             type="danger"
                                             @click="handleDeleteWidget(index)"
@@ -513,7 +513,12 @@
                         </div>
                     </template>
                     <!-- 属性设置 -->
-                    <el-form ref="form" :size="miniSize" label-position="right" label-width="80px">
+                    <el-form
+                        ref="form"
+                        :size="normalSize"
+                        label-position="right"
+                        label-width="80px"
+                    >
                         <!-- 团购秒杀 -->
                         <template v-if="editWidget.type == 'groupPurchase'">
                             <draggable
@@ -614,7 +619,7 @@
                                     <el-col :span="24">
                                         <el-radio-group
                                             v-model="editWidget.config.style"
-                                            :size="miniSize"
+                                            :size="normalSize"
                                             class="img-window-list"
                                             fill="#fff"
                                             text-color="#000"
@@ -754,7 +759,7 @@
                                     <template #footer>
                                         <div class="drag-footer">
                                             <el-button
-                                                :size="miniSize"
+                                                :size="normalSize"
                                                 round
                                                 type="primary"
                                                 @click="
@@ -999,7 +1004,7 @@
                                 <template #footer>
                                     <div class="drag-footer">
                                         <el-button
-                                            :size="miniSize"
+                                            :size="normalSize"
                                             round
                                             type="primary"
                                             @click="
@@ -1198,7 +1203,7 @@
                                 <template #footer>
                                     <div class="drag-footer">
                                         <el-button
-                                            :size="miniSize"
+                                            :size="normalSize"
                                             round
                                             type="primary"
                                             @click="
@@ -1503,8 +1508,7 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            smallSize: 'small',
-            miniSize: 'small',
+
             activeNames: ['1'],
             isDragging: false,
             storeComponents: allComponents.storeComponents,

@@ -326,8 +326,6 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            smallSize: 'small',
-
             loading: false,
 
             // 全局变量

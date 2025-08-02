@@ -66,8 +66,6 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            smallSize: 'small',
-
             videoUrl: 'http://www.baidu.com/',
         };
     },

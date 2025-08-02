@@ -74,7 +74,7 @@
             :title="$t('pay.refundAudit')"
             width="40%"
         >
-            <el-form ref="formData" :model="formData" :size="miniSize" label-width="80px">
+            <el-form ref="formData" :model="formData" :size="normalSize" label-width="80px">
                 <el-row>
                     <el-col :span="12">
                         <el-form-item :label="$t('pay.refundId') + ':'" prop="refundId">
@@ -143,12 +143,12 @@
             </el-form>
             <template #footer>
                 <div class="dialog-footer">
-                    <el-button :size="miniSize" round @click="checkDialogVisible = false">
+                    <el-button :size="normalSize" round @click="checkDialogVisible = false">
                         {{ $t('action.cancel') }}
                     </el-button>
                     <el-button
                         :loading="loading"
-                        :size="miniSize"
+                        :size="normalSize"
                         round
                         type="primary"
                         @click="submitForm"
@@ -170,7 +170,7 @@
             <el-form
                 ref="formData"
                 :model="formData"
-                :size="miniSize"
+                :size="normalSize"
                 class="dialog-container"
                 label-width="80px"
             >
@@ -221,7 +221,7 @@
             <template #footer>
                 <div class="dialog-footer">
                     <el-button
-                        :size="miniSize"
+                        :size="normalSize"
                         round
                         type="primary"
                         @click="viewDialogVisible = false"
@@ -249,7 +249,7 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            miniSize: 'default',
+
             filters: {
                 key: 'name',
                 value: '',
@@ -263,7 +263,7 @@ export default {
                     label: 'action.refund', // 按钮上显示的文字
                     icon: 'el-icon-ali-tuikuan', // 按钮文字前面的图标
                     perms: 'pay:bill_refund:edit', // 权限标识
-                    size: this.size, // 按钮大小
+                    size: this.normalSize, // 按钮大小
                     // type: 'primary',                // 按钮类型
                     func: (row) => {
                         this.checkDialogVisible = true;
@@ -274,7 +274,7 @@ export default {
                     label: 'action.detail', // 按钮上显示的文字
                     icon: 'el-icon-ali-mingxi', // 按钮文字前面的图标
                     perms: 'pay:bill_refund:view', // 权限标识
-                    size: this.size, // 按钮大小
+                    size: this.normalSize, // 按钮大小
                     // type: 'primary',                // 按钮类型
                     func: (row) => {
                         this.viewDialogVisible = true;

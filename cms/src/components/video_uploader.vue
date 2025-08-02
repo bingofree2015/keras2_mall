@@ -14,7 +14,7 @@
                     <el-col :span="24" class="toolbar">
                         <el-button
                             v-if="uploadProgressState === 1 || uploadProgressState === 3"
-                            :size="miniSize"
+                            :size="normalSize"
                             round
                             type="primary"
                             @click="cancelUpload"
@@ -24,7 +24,7 @@
                         <el-button
                             v-if="uploadProgressState === 1"
                             :loading="uploadLoading"
-                            :size="miniSize"
+                            :size="normalSize"
                             round
                             type="primary"
                             @click="uploadVideo"
@@ -74,12 +74,12 @@
         </el-container>
         <template #footer>
             <div class="dialog-footer">
-                <el-button :size="miniSize" round @click="$emit('update:visible', false)">
+                <el-button :size="normalSize" round @click="$emit('update:visible', false)">
                     {{ $t('action.close') }}
                 </el-button>
                 <el-button
                     :disabled="!videoUrl"
-                    :size="miniSize"
+                    :size="normalSize"
                     round
                     type="primary"
                     @click="chosedVideo"
@@ -107,8 +107,7 @@ export default {
     data() {
         const token = Cookies.get('token');
         return {
-            normalSize: 'large',
-            miniSize: 'default',
+            normalSize: 'default',
 
             extData: {
                 // 上传视频时需要传递的参数

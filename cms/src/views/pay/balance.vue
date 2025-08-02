@@ -82,7 +82,7 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            miniSize: 'default',
+
             filters: {
                 key: 'user.username',
                 value: '',

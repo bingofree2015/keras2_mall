@@ -6,7 +6,7 @@
                 <bread-crumb />
             </el-col>
             <el-col class="top-bar flex-grow">
-                <el-form :inline="true" :model="filters" :size="largeSize" class="search-form">
+                <el-form :inline="true" :model="filters" :size="normalSize" class="search-form">
                     <el-form-item>
                         <el-input
                             v-model="filters.value"
@@ -80,8 +80,6 @@ export default {
     inject: ['reload'],
     data() {
         return {
-            largeSize: 'large',
-            miniSize: 'default',
             filters: {
                 key: 'username',
                 value: '',

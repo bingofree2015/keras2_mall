@@ -43,7 +43,7 @@
                             <span v-else style="margin-left: 10px">
                                 {{ scope.row.name }}
                                 <el-button
-                                    :size="miniSize"
+                                    :size="normalSize"
                                     circle
                                     style="float: right"
                                     type="danger"
@@ -269,7 +269,7 @@ export default {
         const token = Cookies.get('token');
         return {
             normalSize: 'default',
-            miniSize: 'small',
+
             chosen: {
                 id: 0,
                 path: '',

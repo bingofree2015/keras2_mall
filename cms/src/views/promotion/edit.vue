@@ -79,7 +79,7 @@
                     <div style="text-align: right; width: 100%">
                         <el-select
                             v-model="formData.spTarget.code"
-                            :size="miniSize"
+                            :size="normalSize"
                             :placeholder="$t('permission.pleaseSelect')"
                             style="float: right"
                             @change="changeTargetType"
@@ -115,7 +115,7 @@
                                 />
                                 <el-table
                                     :data="formData.spTarget.pattern.goods"
-                                    :size="miniSize"
+                                    :size="normalSize"
                                     stripe
                                     style="width: 100%"
                                 >
@@ -133,7 +133,7 @@
                                         <template #default="scope">
                                             <ext-button
                                                 :label="$t('action.delete')"
-                                                :size="miniSize"
+                                                :size="normalSize"
                                                 icon="el-icon-ali-shanchu"
                                                 type="danger"
                                                 @click="deleteGoods(scope.$index)"
@@ -236,7 +236,7 @@
                             </div>
                             <el-form-item>
                                 <el-button
-                                    :size="miniSize"
+                                    :size="normalSize"
                                     round
                                     style="float: right"
                                     type="primary"
@@ -249,7 +249,7 @@
                     </div>
                     <el-table
                         :data="formData.spTargets"
-                        :size="miniSize"
+                        :size="normalSize"
                         stripe
                         style="width: 100%"
                     >
@@ -269,7 +269,7 @@
                             <template #default="scope">
                                 <ext-button
                                     :label="$t('action.delete')"
-                                    :size="miniSize"
+                                    :size="normalSize"
                                     icon="el-icon-ali-shanchu"
                                     type="danger"
                                     @click="deleteTarget(scope.$index)"
@@ -283,7 +283,7 @@
                     <div style="text-align: right; width: 100%">
                         <el-select
                             v-model="formData.spRule.code"
-                            :size="miniSize"
+                            :size="normalSize"
                             :placeholder="$t('permission.pleaseSelect')"
                             @change="changeRuleType"
                         >
@@ -407,7 +407,7 @@
                             </div>
                             <el-form-item>
                                 <el-button
-                                    :size="miniSize"
+                                    :size="normalSize"
                                     round
                                     style="float: right"
                                     type="primary"
@@ -418,7 +418,7 @@
                             </el-form-item>
                         </el-col>
                     </div>
-                    <el-table :data="formData.spRules" :size="miniSize" stripe style="width: 100%">
+                    <el-table :data="formData.spRules" :size="normalSize" stripe style="width: 100%">
                         <el-table-column label="结果代码" min-width="180" prop="code" />
                         <el-table-column label="结果名称" min-width="180" prop="name" />
                         <el-table-column label="参数" min-width="280" prop="pattern">
@@ -430,7 +430,7 @@
                             <template #default="scope">
                                 <ext-button
                                     :label="$t('action.delete')"
-                                    :size="miniSize"
+                                    :size="normalSize"
                                     icon="el-icon-ali-shanchu"
                                     type="danger"
                                     @click="deleteRule(scope.$index)"
@@ -443,12 +443,12 @@
         </el-row>
         <el-row>
             <el-col :span="16" class="footer">
-                <el-button :size="miniSize" round @click="resetForm('formData')">
+                <el-button :size="normalSize" round @click="resetForm('formData')">
                     {{ $t('action.cancel') }}
                 </el-button>
                 <el-button
                     :loading="editLoading"
-                    :size="miniSize"
+                    :size="normalSize"
                     round
                     type="primary"
                     @click="submitForm"
@@ -474,7 +474,6 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            smallSize: 'small',
             isCreating: false, // true:新增, false:编辑
             editLoading: false,
             targetTypes: {}, // 条件过滤

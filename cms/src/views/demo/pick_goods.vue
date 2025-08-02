@@ -69,8 +69,6 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            smallSize: 'small',
-
             goods: [],
         };
     },

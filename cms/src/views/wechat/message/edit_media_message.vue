@@ -9,13 +9,13 @@
         </el-row>
         <el-row :gutter="20" class="media-message-container">
             <el-col :xs="24" :sm="24" :md="10" :lg="8" :xl="8">
-                <el-table :data="mediaMessageItems" :size="miniSize" stripe class="media-table">
+                <el-table :data="mediaMessageItems" :size="normalSize" stripe class="media-table">
                     <el-table-column min-width="180" prop="title">
                         <template #header>
                             {{ $t('wechat.mediaMessage.imageTextList') }}
                             <el-button
                                 round
-                                :size="miniSize"
+                                :size="normalSize"
                                 style="float: right"
                                 type="primary"
                                 @click="handleCreate()"
@@ -50,7 +50,7 @@
                             ref="formData"
                             :model="formData"
                             :rules="formDataRules"
-                            :size="miniSize"
+                            :size="normalSize"
                             label-width="80px"
                         >
                             <el-row>
@@ -107,7 +107,7 @@
                     <el-footer class="footer">
                         <el-button
                             :loading="editLoading"
-                            :size="miniSize"
+                            :size="normalSize"
                             round
                             type="primary"
                             @click="submitForm()"
@@ -135,7 +135,7 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            miniSize: 'default',
+
 
             messageId: 0,
             mediaMessageItems: [],

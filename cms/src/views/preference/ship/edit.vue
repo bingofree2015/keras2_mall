@@ -204,7 +204,7 @@
                             <template #default="scope">
                                 <el-input
                                     v-model="scope.row.firstUnitAreaPrice"
-                                    :size="largeSize"
+                                    :size="normalSize"
                                     placeholder="请输入首重费用"
                                 />
                             </template>
@@ -217,7 +217,7 @@
                             <template #default="scope">
                                 <el-input
                                     v-model="scope.row.continueUnitAreaPrice"
-                                    :size="largeSize"
+                                    :size="normalSize"
                                     placeholder="请输入续重费用"
                                 />
                             </template>
@@ -281,9 +281,6 @@ export default {
         breadCrumb,
         pickArea,
     },
-    computed: {
-        ...mapState(['mapAlias']),
-    },
     data() {
         const checkPrice = (rule, value, callback) => {
             var reg = /^-?\d{1,5}(?:\.\d{1,3})?$/;
@@ -295,8 +292,6 @@ export default {
         };
         return {
             normalSize: 'default',
-            largeSize: 'large',
-            miniSize: 'default',
             isCreating: false, // true:新增, false:编辑
             editLoading: false,
             logistics: [],
@@ -327,6 +322,9 @@ export default {
                 ],
             },
         };
+    },
+    computed: {
+        ...mapState(['mapAlias']),
     },
     async mounted() {
         this.isCreating = this.$route.query.isCreating;

@@ -304,7 +304,6 @@ export default {
             loading: false,
 
             normalSize: 'default',
-            smallSize: 'small',
             imageItems: [
                 { id: 0, path: 'attachment/image/156691643755464.jpg' },
                 { id: 1, path: 'attachment/image/156691644208066.png' },

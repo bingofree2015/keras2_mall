@@ -1,7 +1,7 @@
 <template>
     <div>
         <ext-button
-            :size="miniSize"
+            :size="normalSize"
             :label="$t('pickArea.button')"
             type="primary"
             @click="handlePickArea()"
@@ -20,17 +20,17 @@
                 ref="areaTree"
                 :default-checked-keys="areaIds"
                 :load="loadNode"
-                :props="props"
+                :props="treeProps"
                 lazy
                 node-key="id"
                 show-checkbox
             />
             <template #footer>
                 <span class="dialog-footer">
-                    <el-button :size="miniSize" round @click="dialogVisible = false">
+                    <el-button :size="normalSize" round @click="dialogVisible = false">
                         {{ $t('action.cancel') }}
                     </el-button>
-                    <el-button :size="miniSize" round type="primary" @click="chosedAreas">
+                    <el-button :size="normalSize" round type="primary" @click="chosedAreas">
                         {{ $t('action.comfirm') }}
                     </el-button>
                 </span>
@@ -53,11 +53,10 @@ export default {
     emits: ['chosedAreas'],
     data() {
         return {
-            miniSize: 'default',
             normalSize: 'default',
             loading: false,
             dialogVisible: false,
-            props: {
+            treeProps: {
                 id: 'id',
                 label: 'name',
                 children: 'children',

@@ -76,7 +76,7 @@
             <el-form
                 ref="formData"
                 :model="formData"
-                :size="smallSize"
+                :size="normalSize"
                 label-width="80px"
                 class="dialog-container"
             >
@@ -123,7 +123,7 @@
                     <el-col :span="24">
                         <el-table
                             :data="formData.billReshipItems"
-                            :size="smallSize"
+                            :size="normalSize"
                             stripe
                             style="width: 100%"
                         >
@@ -145,7 +145,7 @@
             <template #footer>
                 <div class="dialog-footer">
                     <el-button
-                        :size="smallSize"
+                        :size="normalSize"
                         round
                         type="primary"
                         @click="viewDialogVisible = false"
@@ -173,7 +173,7 @@ export default {
         const self = this;
         return {
             normalSize: 'default',
-            smallSize: 'small',
+
             filters: {
                 key: 'reshipId',
                 value: '',
@@ -187,7 +187,7 @@ export default {
                     label: 'action.view', // 按钮上显示的文字
                     icon: 'el-icon-ali-bianji', // 按钮文字前面的图标
                     perms: 'order:reship:view', // 权限标识
-                    size: this.size, // 按钮大小
+                    size: this.normalSize, // 按钮大小
                     func: (row) => {
                         self.viewDialogVisible = true;
                         self.formData = Object.assign(self.formData, row);

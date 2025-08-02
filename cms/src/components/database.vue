@@ -32,7 +32,7 @@
             <el-table-column :label="$t('action.operation')" fixed="right" min-width="140">
                 <template #default="scope">
                     <el-button
-                        :size="miniSize"
+                        :size="normalSize"
                         round
                         type="primary"
                         @click="handleRestore(scope.row)"
@@ -40,7 +40,7 @@
                         {{ $t('common.restore') }}
                     </el-button>
                     <el-button
-                        :size="miniSize"
+                        :size="normalSize"
                         round
                         type="danger"
                         @click="handleDelete(scope.row)"
@@ -54,7 +54,7 @@
         <div style="padding: 10px">
             <el-button
                 :disabled="selections.length === 0"
-                :size="miniSize"
+                :size="normalSize"
                 round
                 style="float: left"
                 type="danger"
@@ -90,8 +90,8 @@ export default {
     emits: ['update:visible'],
     data() {
         return {
-            normalSize: 'large',
-            miniSize: 'default',
+            normalSize: 'default',
+
             paginatedAttr: { searchKey: {}, currPage: 1, offset: 0, limit: 9 },
             paginatedData: { list: [], count: 0 },
             pageSize: 5,

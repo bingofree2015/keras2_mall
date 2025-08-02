@@ -99,12 +99,12 @@
             </el-form>
             <template #footer>
                 <div class="dialog-footer">
-                    <el-button :size="miniSize" round @click="editDialogVisible = false">
+                    <el-button :size="normalSize" round @click="editDialogVisible = false">
                         {{ $t('action.cancel') }}
                     </el-button>
                     <el-button
                         :loading="editLoading"
-                        :size="miniSize"
+                        :size="normalSize"
                         round
                         type="primary"
                         @click="submitForm"
@@ -132,7 +132,6 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            smallSize: 'small',
             filters: {
                 key: 'name',
                 value: '',
@@ -172,7 +171,7 @@ export default {
                     label: 'action.coupon', // 按钮上显示的文字
                     icon: 'el-icon-ali-youhuiquanliebiao', // 按钮文字前面的图标
                     perms: 'promotion:coupon:view', // 权限标识
-                    size: this.size, // 按钮大小
+                    size: this.normalSize, // 按钮大小
                     // type: 'primary',            // 按钮类型
                     func: (row) => {
                         this.$router.push({
@@ -185,7 +184,7 @@ export default {
                     label: 'action.edit', // 按钮上显示的文字
                     icon: 'el-icon-ali-bianji', // 按钮文字前面的图标
                     perms: 'promotion:coupon:edit', // 权限标识
-                    size: this.size, // 按钮大小
+                    size: this.normalSize, // 按钮大小
                     // type: 'primary',            // 按钮类型
                     func: (row) => {
                         this.$router.push({
@@ -198,7 +197,7 @@ export default {
                     label: 'action.build', // 按钮上显示的文字
                     icon: 'el-icon-ali-shengcheng', // 按钮文字前面的图标
                     perms: 'promotion:coupon:edit', // 权限标识
-                    size: this.size, // 按钮大小
+                    size: this.normalSize, // 按钮大小
                     // type: 'primary',            // 按钮类型
                     func: (row) => {
                         this.editDialogVisible = true;
@@ -209,7 +208,7 @@ export default {
                     label: 'action.delete',
                     icon: 'el-icon-ali-shanchu',
                     perms: 'promotion:coupon:delete',
-                    size: this.size,
+                    size: this.normalSize,
                     type: 'danger',
                     func: (row) => {
                         this.$confirm(

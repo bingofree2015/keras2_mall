@@ -5,7 +5,7 @@
             ref="formData"
             :model="formData"
             :rules="formDataRules"
-            :size="largeSize"
+            :size="normalSize"
             class="edit-dialog-container"
             label-width="80px"
         >
@@ -77,7 +77,7 @@
                                 <el-col :span="8">
                                     <el-input
                                         v-model="formData.headTypeVideo"
-                                        :size="largeSize"
+                                        :size="normalSize"
                                         :placeholder="$t('formEdit.uploadVideo')"
                                         readonly
                                     >
@@ -129,7 +129,7 @@
                     <el-form-item :label="$t('formEdit.fields')" prop="formItems">
                         <el-table
                             :data="formData.formItems"
-                            :size="largeSize"
+                            :size="normalSize"
                             stripe
                             style="width: 100%"
                         >
@@ -141,7 +141,7 @@
                                 <template #default="scope">
                                     <el-input
                                         v-model="scope.row.name"
-                                        :size="largeSize"
+                                        :size="normalSize"
                                         :placeholder="$t('formEdit.namePlaceholder')"
                                     />
                                 </template>
@@ -154,7 +154,7 @@
                                 <template #default="scope">
                                     <el-select
                                         v-model="scope.row.type"
-                                        :size="largeSize"
+                                        :size="normalSize"
                                         :placeholder="$t('formEdit.typePlaceholder')"
                                         @change="
                                             (val) => {
@@ -180,7 +180,7 @@
                                     <el-input
                                         v-if="scope.row.type == 'goods'"
                                         v-model="scope.row.value"
-                                        :size="largeSize"
+                                        :size="normalSize"
                                         readonly
                                     >
                                         <template #append>
@@ -197,7 +197,7 @@
                                     <el-input
                                         v-else
                                         v-model="scope.row.value"
-                                        :size="largeSize"
+                                        :size="normalSize"
                                         :placeholder="$t('formEdit.valuePlaceholder')"
                                     />
                                 </template>
@@ -210,7 +210,7 @@
                                 <template #default="scope">
                                     <el-input
                                         v-model="scope.row.defaultValue"
-                                        :size="largeSize"
+                                        :size="normalSize"
                                         :placeholder="$t('formEdit.defaultValuePlaceholder')"
                                     />
                                 </template>
@@ -223,7 +223,7 @@
                                 <template #default="scope">
                                     <el-select
                                         v-model="scope.row.validationType"
-                                        :size="largeSize"
+                                        :size="normalSize"
                                         :placeholder="$t('formEdit.typePlaceholder')"
                                     >
                                         <el-option
@@ -241,7 +241,7 @@
                                 prop="required"
                             >
                                 <template #default="scope">
-                                    <el-switch v-model="scope.row.required" :size="largeSize" />
+                                    <el-switch v-model="scope.row.required" :size="normalSize" />
                                 </template>
                             </el-table-column>
                             <el-table-column
@@ -252,7 +252,7 @@
                                 <template #default="scope">
                                     <el-input-number
                                         v-model="scope.row.sort"
-                                        :size="largeSize"
+                                        :size="normalSize"
                                         controls-position="right"
                                         style="width: 80px"
                                     />
@@ -276,7 +276,7 @@
                                 <template #default="scope">
                                     <ext-button
                                         :circle="true"
-                                        :size="largeSize"
+                                        :size="normalSize"
                                         icon="el-icon-ali-delete1"
                                         perms="form:delete"
                                         type="danger"
@@ -347,12 +347,12 @@
             </el-row>
             <el-row>
                 <el-col :span="20" class="footer">
-                    <el-button :size="largeSize" round @click="resetForm('formData')">
+                    <el-button :size="normalSize" round @click="resetForm('formData')">
                         {{ $t('action.cancel') }}
                     </el-button>
                     <el-button
                         :loading="editLoading"
-                        :size="largeSize"
+                        :size="normalSize"
                         round
                         type="primary"
                         @click="submitForm"
@@ -398,7 +398,7 @@ export default {
             imageDialogImageUrl: '',
             imageDialogVisible: false,
 
-            largeSize: 'large',
+
             editLoading: false,
             // 新增编辑界面数据
             formData: {

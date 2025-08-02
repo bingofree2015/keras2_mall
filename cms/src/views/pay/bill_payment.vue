@@ -77,7 +77,7 @@
             <el-form
                 ref="formData"
                 :model="formData"
-                :size="miniSize"
+                :size="normalSize"
                 class="dialog-container"
                 label-width="80px"
             >
@@ -133,7 +133,7 @@
                     <el-col :span="24">
                         <el-table
                             :data="formData.billPaymentItems"
-                            :size="miniSize"
+                            :size="normalSize"
                             stripe
                             style="width: 100%"
                         >
@@ -155,7 +155,7 @@
             <template #footer>
                 <div class="dialog-footer">
                     <el-button
-                        :size="miniSize"
+                        :size="normalSize"
                         round
                         type="primary"
                         @click="viewDialogVisible = false"
@@ -182,8 +182,8 @@ export default {
 
     data() {
         return {
-            normalSize: 'large',
-            miniSize: 'default',
+            normalSize: 'default',
+
             filters: {
                 key: 'paymentId',
                 value: '',
@@ -197,7 +197,7 @@ export default {
                     label: 'action.view', // 按钮上显示的文字
                     icon: 'el-icon-ali-chakan1', // 按钮文字前面的图标
                     perms: 'pay:bill_payment:view', // 权限标识
-                    size: this.size, // 按钮大小
+                    size: this.normalSize, // 按钮大小
                     // type: 'primary',                // 按钮类型
                     func: (row) => {
                         this.viewDialogVisible = true;

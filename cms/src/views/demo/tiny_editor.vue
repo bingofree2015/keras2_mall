@@ -56,7 +56,6 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            smallSize: 'small',
             content: '邮箱:nzb@yeah.net',
         };
     },

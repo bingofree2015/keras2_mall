@@ -6,7 +6,7 @@
                 <bread-crumb />
             </el-col>
             <el-col class="top-bar flex-grow">
-                <el-form :inline="true" :size="miniSize" class="search-form">
+                <el-form :inline="true" :size="normalSize" class="search-form">
                     <el-form-item>
                         <el-button-group>
                             <el-tooltip :content="$t('action.add')" placement="top">
@@ -35,7 +35,7 @@
             v-loading="loading"
             :data="areaTreeData"
             element-loading-text="$t('action.loading')"
-            :size="miniSize"
+            :size="normalSize"
             stripe
             style="width: 100%"
         >
@@ -80,7 +80,7 @@
                 ref="formData"
                 :model="formData"
                 :rules="dataRule"
-                :size="largeSize"
+                :size="normalSize"
                 label-width="80px"
                 @keyup.enter="submitForm()"
             >
@@ -117,10 +117,10 @@
             </el-form>
             <template #footer>
                 <span class="dialog-footer">
-                    <el-button :size="miniSize" round @click="dialogVisible = false">
+                    <el-button :size="normalSize" round @click="dialogVisible = false">
                         {{ $t('action.cancel') }}
                     </el-button>
-                    <el-button :size="miniSize" round type="primary" @click="submitForm()">
+                    <el-button :size="normalSize" round type="primary" @click="submitForm()">
                         {{ $t('action.submit') }}
                     </el-button>
                 </span>
@@ -145,8 +145,7 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            largeSize: 'large',
-            miniSize: 'default',
+
             loading: false,
             editLoading: false,
             areaTreeData: [],

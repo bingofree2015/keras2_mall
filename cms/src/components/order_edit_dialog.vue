@@ -109,12 +109,12 @@
         </el-form>
         <template #footer>
             <div class="dialog-footer">
-                <el-button :size="miniSize" round @click="$emit('update:visible', false)">
+                <el-button :size="normalSize" round @click="$emit('update:visible', false)">
                     {{ $t('action.cancel') }}
                 </el-button>
                 <el-button
                     :loading="loading"
-                    :size="miniSize"
+                    :size="normalSize"
                     round
                     type="primary"
                     @click="submitForm"
@@ -140,7 +140,6 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            miniSize: 'default',
 
             loading: false,
 

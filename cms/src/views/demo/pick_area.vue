@@ -71,9 +71,7 @@ export default {
     },
     data() {
         return {
-            normalSize: 'large',
-            smallSize: 'small',
-
+            normalSize: 'default',
             areas: [],
         };
     },

@@ -10,7 +10,7 @@
                 :element-loading-text="$t('action.loading')"
                 :highlight-current-row="highlightCurrentRow"
                 :max-height="maxHeight"
-                :size="miniSize"
+                :size="normalSize"
                 :stripe="stripe"
                 style="width: 100%"
                 @current-change="handleCurrentRowChange"
@@ -122,7 +122,7 @@
                 :disabled="selections.length === 0"
                 :label="$t('action.batchDelete')"
                 :perms="permsBatchDelete"
-                :size="miniSize"
+                :size="normalSize"
                 style="float: left"
                 type="danger"
                 @click="handleBatchDelete()"
@@ -147,17 +147,15 @@ export default {
         extButton,
     },
     props: {
-        orderData: Array, // 表格分页数据
+        orderData: {
+            type: Array,
+            default: () => [],
+        }, // 表格分页数据
         operationWidth: {
             type: Number,
             default: 0,
         }, // 列宽
         normalSize: {
-            type: String,
-            default: 'small',
-        },
-        miniSize: {
-            // 尺寸样式
             type: String,
             default: 'small',
         },

@@ -339,7 +339,7 @@ export default {
                 {
                     content: this.$t('dashboard.supportIcon'),
                     timestamp: '2019-04-12 20:46',
-                    size: 'large',
+                    size: this.normalSize,
                     type: 'primary',
                     icon: 'el-icon-more',
                 },

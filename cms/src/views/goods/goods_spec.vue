@@ -84,7 +84,7 @@
                 ref="formData"
                 :model="formData"
                 :rules="formDataRules"
-                :size="largeSize"
+                :size="normalSize"
                 label-width="80px"
             >
                 <el-form-item v-if="false" label="ID" prop="id">
@@ -170,7 +170,6 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            largeSize: 'large',
             filters: {
                 key: 'name',
                 value: '',

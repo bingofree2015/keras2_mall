@@ -84,7 +84,7 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            miniSize: 'default',
+
             filters: {
                 key: 'name',
                 value: '',
@@ -98,7 +98,7 @@ export default {
                     label: 'action.pass', // 按钮上显示的文字
                     icon: 'el-icon-ali-tongguo', // 按钮文字前面的图标
                     perms: 'pay:user_to_cash:edit', // 权限标识
-                    size: this.size, // 按钮大小
+                    size: this.normalSize, // 按钮大小
                     // type: 'primary',            // 按钮类型
                     func: (row) => {
                         this.$confirm(this.$t('pay.confirmPass'), this.$t('common.tip'), {}).then(
@@ -113,7 +113,7 @@ export default {
                     label: 'action.reject', // 按钮上显示的文字
                     icon: 'el-icon-ali-yibohui', // 按钮文字前面的图标
                     perms: 'pay:user_to_cash:edit', // 权限标识
-                    size: this.size, // 按钮大小
+                    size: this.normalSize, // 按钮大小
                     // type: 'primary',            // 按钮类型
                     func: (row) => {
                         this.$confirm(this.$t('pay.confirmReject'), this.$t('common.tip'), {}).then(

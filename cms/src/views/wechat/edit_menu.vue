@@ -84,7 +84,7 @@
                             ref="formData"
                             :model="editingMenuItem"
                             :rules="formDataRules"
-                            :size="largeSize"
+                            :size="normalSize"
                             label-width="80px"
                         >
                             <el-form-item :label="$t('wechat.menu.menuName')" prop="name">
@@ -111,7 +111,7 @@
                     <el-footer class="footer">
                         <el-button
                             :loading="editLoading"
-                            :size="miniSize"
+                            :size="normalSize"
                             round
                             type="primary"
                             @click="submitForm()"
@@ -134,8 +134,8 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            largeSize: 'large',
-            miniSize: 'default',
+
+
             weixinTitle: this.$t('wechat.menu.title'),
             activeIndex: '1',
             // 菜单对象

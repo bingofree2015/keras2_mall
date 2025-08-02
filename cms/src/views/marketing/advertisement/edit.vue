@@ -119,7 +119,7 @@ export default {
     components: {},
     data() {
         return {
-            normalSize: 'large',
+            normalSize: 'default',
             editLoading: false,
             isCreating: false,
             advertPositions: [],

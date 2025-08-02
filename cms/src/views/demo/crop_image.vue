@@ -247,7 +247,7 @@ export default {
         </el-main>
         <!-- vueCropper 剪裁图片实现-->
         <el-dialog :model-value="cropDialogVisible" append-to-body title="图片剪裁">
-            <el-form :inline="true" :size="miniSize">
+            <el-form :inline="true" :size="normalSize">
                 <el-container>
                     <el-main class="cropper-container">
                         <VueCropper
@@ -332,8 +332,6 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            smallSize: 'small',
-
             attachGroupId: 1,
             attachId: 100,
             loading: false,

@@ -10,7 +10,7 @@
     >
         <el-tabs v-model="activeName">
             <el-tab-pane :label="$t('orderDetail.basicInfo')" name="basicInfo">
-                <el-form :size="miniSize" class="dialog-container" label-width="100px">
+                <el-form :size="normalSize" class="dialog-container" label-width="100px">
                     <div class="group-container">
                         <el-divider content-position="left">
                             {{ $t('orderDetail.orderInfo') }}
@@ -226,7 +226,7 @@
                 </el-form>
             </el-tab-pane>
             <el-tab-pane :label="$t('orderDetail.goodsInfo')" name="goodsInfo">
-                <el-table :data="viewData.orderItems" :size="miniSize" stripe style="width: 100%">
+                <el-table :data="viewData.orderItems" :size="normalSize" stripe style="width: 100%">
                     <el-table-column
                         :label="$t('visualDesign.goodsName')"
                         min-width="180"
@@ -274,7 +274,12 @@
                 <el-divider content-position="left">
                     {{ $t('orderDetail.paymentBill') }}
                 </el-divider>
-                <el-table :data="viewData.billPayments" :size="miniSize" stripe style="width: 100%">
+                <el-table
+                    :data="viewData.billPayments"
+                    :size="normalSize"
+                    stripe
+                    style="width: 100%"
+                >
                     <el-table-column
                         :label="$t('orderDetail.paymentId')"
                         min-width="90"
@@ -324,7 +329,12 @@
                 <el-divider content-position="left">
                     {{ $t('orderDetail.refundBill') }}
                 </el-divider>
-                <el-table :data="viewData.billRefunds" :size="miniSize" stripe style="width: 100%">
+                <el-table
+                    :data="viewData.billRefunds"
+                    :size="normalSize"
+                    stripe
+                    style="width: 100%"
+                >
                     <el-table-column
                         :label="$t('orderDetail.refundId')"
                         min-width="90"
@@ -377,7 +387,7 @@
                 </el-divider>
                 <el-table
                     :data="viewData.billDeliveries"
-                    :size="miniSize"
+                    :size="normalSize"
                     stripe
                     style="width: 100%"
                 >
@@ -415,7 +425,12 @@
                 <el-divider content-position="left">
                     {{ $t('orderDetail.pickupBill') }}
                 </el-divider>
-                <el-table :data="viewData.billLadings" :size="miniSize" stripe style="width: 100%">
+                <el-table
+                    :data="viewData.billLadings"
+                    :size="normalSize"
+                    stripe
+                    style="width: 100%"
+                >
                     <el-table-column :label="$t('orderDetail.pickupId')" min-width="90" prop="id" />
                     <el-table-column
                         :label="$t('orderDetail.pickupStore')"
@@ -451,7 +466,12 @@
                 <el-divider content-position="left">
                     {{ $t('orderDetail.returnBill') }}
                 </el-divider>
-                <el-table :data="viewData.billReships" :size="miniSize" stripe style="width: 100%">
+                <el-table
+                    :data="viewData.billReships"
+                    :size="normalSize"
+                    stripe
+                    style="width: 100%"
+                >
                     <el-table-column
                         :label="$t('orderDetail.returnId')"
                         min-width="90"
@@ -480,7 +500,7 @@
                 </el-table>
             </el-tab-pane>
             <el-tab-pane :label="$t('orderDetail.orderRecord')" name="orderRecord">
-                <el-table :data="viewData.orderLogs" :size="miniSize" stripe style="width: 100%">
+                <el-table :data="viewData.orderLogs" :size="normalSize" stripe style="width: 100%">
                     <el-table-column
                         :label="$t('orderDetail.orderId')"
                         min-width="90"
@@ -536,12 +556,12 @@
                     </el-form-item>
                 </el-form>
                 <div class="dialog-footer">
-                    <el-button :size="miniSize" round @click="$emit('update:visible', false)">
+                    <el-button :size="normalSize" round @click="$emit('update:visible', false)">
                         {{ $t('action.cancel') }}
                     </el-button>
                     <el-button
                         :loading="loading"
-                        :size="miniSize"
+                        :size="normalSize"
                         round
                         type="primary"
                         @click="submitForm"
@@ -573,8 +593,7 @@ export default {
     },
     data() {
         return {
-            normalSize: 'large',
-            miniSize: 'default',
+            normalSize: 'default',
 
             loading: false,
 

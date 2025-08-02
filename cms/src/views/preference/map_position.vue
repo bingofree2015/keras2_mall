@@ -28,7 +28,7 @@
                     <span v-else>正在定位(可手动输入定位)</span>
                 </el-col>
                 <el-col :span="6">
-                    <el-button :size="miniSize" type="primary" @click="sendLocation">
+                    <el-button :size="normalSize" type="primary" @click="sendLocation">
                         提交该地址
                     </el-button>
                 </el-col>
@@ -54,7 +54,7 @@ export default {
         const self = this;
         return {
             normalSize: 'default',
-            miniSize: 'default',
+
             position: {
                 lng: 0,
                 lat: 0,

@@ -87,7 +87,6 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            smallSize: 'small',
             filters: {
                 key: 'name',
                 value: '',
@@ -127,7 +126,7 @@ export default {
                     label: 'action.delete',
                     icon: 'el-icon-ali-shanchu',
                     perms: 'promotion:coupon:delete',
-                    size: this.size,
+                    size: this.normalSize,
                     type: 'danger',
                     func: (row) => {
                         this.$confirm(

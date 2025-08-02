@@ -104,7 +104,7 @@
             <template #footer>
                 <div class="dialog-footer">
                     <el-button
-                        :size="largeSize"
+                        :size="normalSize"
                         round
                         type="primary"
                         @click="reportDialogVisible = false"
@@ -154,7 +154,7 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            largeSize: 'large',
+
             filters: {
                 key: 'name',
                 value: '',
@@ -217,7 +217,7 @@ export default {
                     label: 'action.qrcode',
                     icon: 'el-icon-ali-qrcode',
                     perms: 'form:delete',
-                    size: this.largeSize,
+                    size: this.normalSize,
                     func: (row) => {
                         // 生成二维码窗口
                         this.qrCodeDialogVisible = true;
@@ -239,7 +239,7 @@ export default {
                     label: 'action.report',
                     icon: 'el-icon-ali-baobiaotongji',
                     perms: 'form:view',
-                    size: this.largeSize,
+                    size: this.normalSize,
                     func: (row) => {
                         this.reportDialogVisible = true;
                         this.totalCount = row.totalCount;

@@ -1,7 +1,7 @@
 <template>
     <div>
         <ext-button
-            :size="miniSize"
+            :size="normalSize"
             :label="$t('pickArticleType.button')"
             type="primary"
             @click="handlePickArticleType()"
@@ -19,7 +19,7 @@
             <el-table
                 v-loading="loading"
                 :data="articleTypeData"
-                :size="miniSize"
+                :size="normalSize"
                 element-loading-text="$t('action.loading')"
                 stripe
                 @selection-change="multipleChoiceChange"
@@ -56,10 +56,10 @@
             </el-table>
             <template #footer>
                 <span class="dialog-footer">
-                    <el-button :size="miniSize" round @click="dialogVisible = false">
+                    <el-button :size="normalSize" round @click="dialogVisible = false">
                         {{ $t('common.cancel') }}
                     </el-button>
-                    <el-button :size="miniSize" round type="primary" @click="chosedArticleTypes">
+                    <el-button :size="normalSize" round type="primary" @click="chosedArticleTypes">
                         {{ $t('common.confirm') }}
                     </el-button>
                 </span>
@@ -89,7 +89,6 @@ export default {
     emits: ['chosedArticleTypes'],
     data() {
         return {
-            miniSize: 'default',
             normalSize: 'default',
             loading: false,
             dialogVisible: false,

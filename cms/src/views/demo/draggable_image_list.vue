@@ -49,7 +49,6 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            smallSize: 'small',
 
             imageItems: [
                 { id: 0, path: &quot;attachment/image/156691643755464.jpg&quot; },
@@ -91,7 +90,6 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            smallSize: 'small',
 
             imageItems: [
                 { id: 0, path: 'attachment/image/156691643755464.jpg' },

@@ -234,7 +234,7 @@ export default {
     inject: ['reload'],
     data() {
         return {
-            normalSize: 'large',
+            normalSize: 'default',
             filters: {
                 key: 'name',
                 value: '',

@@ -1,7 +1,7 @@
 <template>
     <div>
         <ext-button
-            :size="miniSize"
+            :size="normalSize"
             :label="$t('pickGoods.button')"
             type="primary"
             @click="handlePickGoods"
@@ -12,14 +12,14 @@
             v-model:visible="dialogVisible"
             :modal-append-to-body="false"
             :close-on-click-modal="false"
-            :size="miniSize"
+            :size="normalSize"
             :title="$t('pickGoods.dialogTitle')"
             width="50%"
         >
             <el-table
                 v-loading="loading"
                 :data="paginated.list"
-                :size="miniSize"
+                :size="normalSize"
                 element-loading-text="$t('action.loading')"
                 stripe
                 @selection-change="multipleChoiceChange"
@@ -67,10 +67,10 @@
             </div>
             <template #footer>
                 <span class="dialog-footer">
-                    <el-button :size="miniSize" round @click="dialogVisible = false">
+                    <el-button :size="normalSize" round @click="dialogVisible = false">
                         {{ $t('action.cancel') }}
                     </el-button>
-                    <el-button :size="miniSize" round type="primary" @click="chosedGoods">
+                    <el-button :size="normalSize" round type="primary" @click="chosedGoods">
                         {{ $t('action.comfirm') }}
                     </el-button>
                 </span>
@@ -100,7 +100,7 @@ export default {
     emits: ['chosedGoods'],
     data() {
         return {
-            miniSize: 'default',
+
             normalSize: 'default',
             loading: false,
             dialogVisible: false,

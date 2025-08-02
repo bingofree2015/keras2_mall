@@ -12,7 +12,7 @@
             <el-divider content-position="left">
                 {{ $t('orderDelivery.receiverInfo') }}
             </el-divider>
-            <el-form :size="miniSize" class="dialog-container" label-width="100px">
+            <el-form :size="normalSize" class="dialog-container" label-width="100px">
                 <el-row>
                     <el-col :span="8">
                         <el-form-item :label="$t('orderDelivery.orderNumber') + ':'">
@@ -71,7 +71,7 @@
         <el-divider content-position="left">
             {{ $t('orderDelivery.goodsDetail') }}
         </el-divider>
-        <el-table :data="viewData.orderItems" :size="miniSize" stripe style="width: 100%">
+                        <el-table :data="viewData.orderItems" :size="normalSize" stripe style="width: 100%">
             <el-table-column
                 :label="$t('orderDelivery.goodsName')"
                 min-width="180"
@@ -140,12 +140,12 @@
         </el-form>
         <template #footer>
             <div class="dialog-footer">
-                <el-button :size="miniSize" round @click="$emit('update:visible', false)">
+                <el-button :size="normalSize" round @click="$emit('update:visible', false)">
                     {{ $t('action.cancel') }}
                 </el-button>
                 <el-button
                     :loading="loading"
-                    :size="miniSize"
+                    :size="normalSize"
                     round
                     type="primary"
                     @click="submitForm"
@@ -171,8 +171,8 @@ export default {
     emits: ['update:visible'],
     data() {
         return {
-            normalSize: 'large',
-            miniSize: 'default',
+            normalSize: 'default',
+
             loading: false,
             // 订单发货数据
             logistics: [],

@@ -34,7 +34,7 @@
             v-loading="loading"
             :data="articleTypeTreeData"
             element-loading-text="$t('action.loading')"
-            :size="miniSize"
+            :size="normalSize"
             stripe
             style="width: 100%"
         >
@@ -81,7 +81,7 @@
                 ref="formData"
                 :model="formData"
                 :rules="dataRule"
-                :size="largeSize"
+                :size="normalSize"
                 label-width="80px"
                 @keyup.enter="submitForm()"
             >
@@ -130,12 +130,12 @@
             </el-form>
             <template #footer>
                 <div class="dialog-footer">
-                    <el-button :size="miniSize" round @click="dialogVisible = false">
+                    <el-button :size="normalSize" round @click="dialogVisible = false">
                         {{ $t('action.cancel') }}
                     </el-button>
                     <el-button
                         :loading="submitLoading"
-                        :size="miniSize"
+                        :size="normalSize"
                         round
                         type="primary"
                         @click="submitForm()"
@@ -171,8 +171,7 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            largeSize: 'large',
-            miniSize: 'default',
+
             loading: false,
             articleTypeTreeData: [],
             dialogVisible: false,

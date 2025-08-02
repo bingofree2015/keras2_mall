@@ -95,7 +95,7 @@ export default {
                     label: 'action.delete',
                     icon: 'el-icon-ali-shanchu',
                     perms: 'system:log:delete',
-                    size: this.size,
+                    size: this.normalSize,
                     type: 'danger',
                     func: (row) => {
                         this.$confirm(this.$t('common.confirmDelete'), this.$t('common.tip'), {

@@ -11,7 +11,7 @@
             </p>
             <el-row>
                 <el-col :span="18">
-                    <el-button :size="miniSize" round type="primary" @click="handleClick">
+                    <el-button :size="normalSize" round type="primary" @click="handleClick">
                         {{ $t('demo.uploadVideo') }}
                     </el-button>
                 </el-col>
@@ -67,8 +67,6 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            smallSize: 'small',
-
             videoDialogVisible: false,
         };
     },

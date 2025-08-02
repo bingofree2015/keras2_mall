@@ -77,7 +77,7 @@
                         <el-col :span="16">
                             <el-input
                                 v-model="formData.spTarget.pattern.name"
-                                :size="miniSize"
+                                :size="normalSize"
                                 readonly
                             >
                                 <template #append>
@@ -219,7 +219,7 @@
                         </div>
                         <el-form-item>
                             <el-button
-                                :size="miniSize"
+                                :size="normalSize"
                                 round
                                 style="float: right"
                                 type="primary"
@@ -229,7 +229,7 @@
                             </el-button>
                         </el-form-item>
                     </el-col>
-                    <el-table :data="formData.spRules" :size="miniSize" stripe style="width: 100%">
+                    <el-table :data="formData.spRules" :size="normalSize" stripe style="width: 100%">
                         <el-table-column label="结果代码" min-width="180" prop="code" />
                         <el-table-column label="结果名称" min-width="180" prop="name" />
                         <el-table-column label="参数" min-width="280" prop="pattern">
@@ -241,7 +241,7 @@
                             <template #default="scope">
                                 <ext-button
                                     :label="$t('action.delete')"
-                                    :size="miniSize"
+                                    :size="normalSize"
                                     icon="el-icon-ali-shanchu"
                                     type="danger"
                                     @click="deleteRule(scope.$index)"
@@ -254,12 +254,12 @@
         </el-row>
         <el-row>
             <el-col :span="16" class="footer">
-                <el-button :size="miniSize" round @click="resetForm('formData')">
+                <el-button :size="normalSize" round @click="resetForm('formData')">
                     {{ $t('action.cancel') }}
                 </el-button>
                 <el-button
                     :loading="editLoading"
-                    :size="miniSize"
+                    :size="normalSize"
                     round
                     type="primary"
                     @click="submitForm"
@@ -285,7 +285,6 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            smallSize: 'small',
             isCreating: false, // true:新增, false:编辑
             editLoading: false,
             ruleTypes: {}, // 结果类型

@@ -29,7 +29,6 @@ export default {
     data() {
         return {
             normalSize: 'default',
-            smallSize: 'small',
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],

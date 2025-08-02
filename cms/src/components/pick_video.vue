@@ -33,7 +33,6 @@ export default {
     emits: ['input'],
     data() {
         return {
-            smallSize: 'small',
             normalSize: 'default',
             videoDialogVisible: false,
         };

@@ -19,7 +19,7 @@
                                     :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
-                                        v-for="item in props"
+                                        v-for="item in searchFields"
                                         :key="item.prop"
                                         :label="item.label"
                                         :value="item.prop"

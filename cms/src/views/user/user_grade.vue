@@ -19,7 +19,7 @@
                                     :placeholder="$t('permission.pleaseSelect')"
                                 >
                                     <el-option
-                                        v-for="item in props"
+                                        v-for="item in searchFields"
                                         :key="item.prop"
                                         :label="item.label"
                                         :value="item.prop"
@@ -208,8 +208,8 @@ export default {
         };
     },
     computed: {
-        // 响应式的 props 配置
-        props() {
+        // 响应式的搜索字段配置
+        searchFields() {
             return [{ prop: 'mobile', label: this.$t('user.mobile') }];
         },
         // 响应式的列配置

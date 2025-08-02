@@ -19,7 +19,7 @@
                                     :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
-                                        v-for="item in props"
+                                        v-for="item in searchFields"
                                         :key="item.prop"
                                         :label="item.label"
                                         :value="item.prop"
@@ -197,7 +197,7 @@ export default {
     },
     computed: {
         // 响应式的搜索选项
-        props() {
+        searchFields() {
             return [{ prop: 'name', label: this.$t('goods.paramName') }];
         },
         // 响应式的表格列定义

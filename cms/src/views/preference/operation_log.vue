@@ -19,7 +19,7 @@
                                     :placeholder="$t('common.selectPlaceholder')"
                                 >
                                     <el-option
-                                        v-for="item in props"
+                                        v-for="item in searchFields"
                                         :key="item.prop"
                                         :label="item.label"
                                         :value="item.prop"
@@ -94,7 +94,7 @@ export default {
         };
     },
     computed: {
-        props() {
+        searchFields() {
             return [
                 { prop: 'username', label: this.$t('operationLog.admin') },
                 { prop: 'method', label: this.$t('operationLog.method') },

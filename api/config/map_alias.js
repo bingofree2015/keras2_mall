@@ -402,4 +402,4 @@ const mapAlias = {
     },
 };
 
-export default mapAlias;
+module.exports = mapAlias;

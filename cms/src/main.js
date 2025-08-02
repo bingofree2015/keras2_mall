@@ -6,8 +6,6 @@ import i18n from '@/i18n';
 import store from '@/store';
 import * as env from '@/env';
 import ElementPlus from 'element-plus';
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
-import en from 'element-plus/dist/locale/en.mjs';
 import 'element-plus/dist/index.css';
 import '@/assets/styles/common.scss';
 import VueAMap, { initAMapApiLoader } from '@vuemap/vue-amap';
@@ -47,19 +45,7 @@ window.AMapKey = '9a592976bd79ff285350f616bfe43c8f';
 
 const app = createApp(App);
 
-// 从本地存储获取语言设置，如果没有则默认为中文
-const savedLocale = localStorage.getItem('locale') || 'zh_cn';
-
-// Element Plus 语言配置
-const elementPlusLocale = savedLocale === 'en_us' ? en : zhCn;
-
-app.use(ElementPlus, {
-    locale: elementPlusLocale,
-});
-
-// 将语言配置挂载到全局，以便动态切换
-app.config.globalProperties.$elementPlusLocale = elementPlusLocale;
-app.config.globalProperties.$elementPlusLocales = { zh_cn: zhCn, en_us: en };
+app.use(ElementPlus);
 app.use(vueApi);
 app.use(router);
 app.use(store);

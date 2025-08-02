@@ -93,13 +93,6 @@ export default {
             const _lang = lang === '' ? 'zh_cn' : lang;
             this.$i18n.locale = _lang;
 
-            // 同时切换 Element Plus 的语言
-            const newLocale = this.$elementPlusLocales[_lang];
-            if (newLocale) {
-                // 更新 Element Plus 的语言配置
-                Object.assign(this.$elementPlusLocale, newLocale);
-            }
-
             // 保存语言设置到本地存储
             localStorage.setItem('locale', _lang);
 

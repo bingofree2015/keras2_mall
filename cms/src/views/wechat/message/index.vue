@@ -195,43 +195,6 @@ export default {
                 value: '',
             },
             props: [{ prop: 'name', label: this.$t('wechat.message.name') }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: this.$t('wechat.message.name'), minWidth: 220 },
-                {
-                    prop: 'type',
-                    label: this.$t('wechat.message.type'),
-                    minWidth: 92,
-                    formatter: this.env.columnFormatter,
-                },
-                {
-                    prop: 'isAttention',
-                    label: this.$t('wechat.message.attentionReply'),
-                    minWidth: 92,
-                    align: 'center',
-                    formatter: this.env.columnFormatter,
-                },
-                {
-                    prop: 'isDefault',
-                    label: this.$t('wechat.message.defaultReply'),
-                    minWidth: 92,
-                    align: 'center',
-                    formatter: this.env.columnFormatter,
-                },
-                {
-                    prop: 'enable',
-                    label: this.$t('common.disable'),
-                    minWidth: 70,
-                    align: 'center',
-                    formatter: this.env.columnFormatter,
-                },
-                {
-                    prop: 'updatedAt',
-                    label: this.$t('common.updatedAt'),
-                    minWidth: 132,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -323,6 +286,61 @@ export default {
                 }
                 return _operationWidth;
             },
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                {
+                    prop: 'id',
+                    label: 'ID',
+                    minWidth: 60,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'name',
+                    label: this.$t('wechat.message.name'),
+                    minWidth: 220,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'type',
+                    label: this.$t('wechat.message.type'),
+                    minWidth: 92,
+                    formatter: this.env.columnFormatter,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'isAttention',
+                    label: this.$t('wechat.message.attentionReply'),
+                    minWidth: 92,
+                    align: 'center',
+                    formatter: this.env.columnFormatter,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'isDefault',
+                    label: this.$t('wechat.message.defaultReply'),
+                    minWidth: 92,
+                    align: 'center',
+                    formatter: this.env.columnFormatter,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'enable',
+                    label: this.$t('common.disable'),
+                    minWidth: 70,
+                    align: 'center',
+                    formatter: this.env.columnFormatter,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'updatedAt',
+                    label: this.$t('common.updatedAt'),
+                    minWidth: 132,
+                    formatter: this.env.formatDateTime,
+                    showOverflowTooltip: true,
+                },
+            ];
         },
     },
     methods: {

@@ -216,26 +216,44 @@ export default {
         // 响应式的列配置
         columns() {
             return [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: this.$t('advertPosition.name'), minWidth: 200 },
-                { prop: 'code', label: this.$t('advertPosition.code'), minWidth: 150 },
+                {
+                    prop: 'id',
+                    label: 'ID',
+                    minWidth: 60,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'name',
+                    label: this.$t('advertPosition.name'),
+                    minWidth: 200,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'code',
+                    label: this.$t('advertPosition.code'),
+                    minWidth: 150,
+                    showOverflowTooltip: true,
+                },
                 {
                     prop: 'sort',
                     label: this.$t('advertPosition.sort'),
                     minWidth: 70,
                     align: 'center',
+                    showOverflowTooltip: true,
                 },
                 {
                     prop: 'updatedAt',
                     label: this.$t('common.updatedAt'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
+                    showOverflowTooltip: true,
                 },
                 {
                     prop: 'createdAt',
                     label: this.$t('common.createdAt'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
+                    showOverflowTooltip: true,
                 },
             ];
         },

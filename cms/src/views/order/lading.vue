@@ -181,21 +181,6 @@ export default {
                 value: '',
             },
             props: [{ prop: 'name', label: '提货人姓名' }],
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'ladingId', label: this.$t('order.ladingId'), minWidth: 120 },
-                { prop: 'orderId', label: this.$t('order.orderId'), minWidth: 120 },
-                { prop: 'store.storeName', label: this.$t('order.store'), minWidth: 150 },
-                { prop: 'name', label: this.$t('order.ladingName'), minWidth: 100 },
-                { prop: 'mobile', label: this.$t('order.mobile'), minWidth: 120 },
-                { prop: 'status', label: this.$t('order.status'), minWidth: 70, align: 'center' },
-                {
-                    prop: 'createdAt',
-                    label: this.$t('order.createdAt'),
-                    minWidth: 140,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -276,6 +261,25 @@ export default {
                 }
                 return _operationWidth;
             },
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60, showOverflowTooltip: true },
+                { prop: 'ladingId', label: this.$t('order.ladingId'), minWidth: 120, showOverflowTooltip: true },
+                { prop: 'orderId', label: this.$t('order.orderId'), minWidth: 120, showOverflowTooltip: true },
+                { prop: 'store.storeName', label: this.$t('order.store'), minWidth: 150, showOverflowTooltip: true },
+                { prop: 'name', label: this.$t('order.ladingName'), minWidth: 100, showOverflowTooltip: true },
+                { prop: 'mobile', label: this.$t('order.mobile'), minWidth: 120, showOverflowTooltip: true },
+                { prop: 'status', label: this.$t('order.status'), minWidth: 70, align: 'center', showOverflowTooltip: true },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('order.createdAt'),
+                    minWidth: 140,
+                    formatter: this.env.formatDateTime,
+                    showOverflowTooltip: true,
+                },
+            ];
         },
     },
     async mounted() {

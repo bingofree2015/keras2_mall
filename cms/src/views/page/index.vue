@@ -177,7 +177,7 @@ export default {
                 value: '',
             },
             props: [],
-            columns: [],
+
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -252,6 +252,62 @@ export default {
                 }
                 return _operationWidth;
             },
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                {
+                    prop: 'id',
+                    label: 'ID',
+                    minWidth: 60,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'name',
+                    label: this.$t('common.name'),
+                    minWidth: 120,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'code',
+                    label: this.$t('common.code'),
+                    minWidth: 120,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'desc',
+                    label: this.$t('common.desc'),
+                    minWidth: 200,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'layout',
+                    label: this.$t('common.layout'),
+                    minWidth: 100,
+                    align: 'center',
+                    formatter: (value) => {
+                        return value === 1 ? this.$t('page.mobile') : this.$t('page.pc');
+                    },
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'type',
+                    label: this.$t('common.type'),
+                    minWidth: 100,
+                    align: 'center',
+                    formatter: (value) => {
+                        return value === 1 ? this.$t('page.mobile') : this.$t('page.pc');
+                    },
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('common.createTime'),
+                    minWidth: 140,
+                    formatter: this.env.formatDateTime,
+                    showOverflowTooltip: true,
+                },
+            ];
         },
     },
     methods: {

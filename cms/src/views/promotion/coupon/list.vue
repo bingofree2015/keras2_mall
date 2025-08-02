@@ -97,30 +97,7 @@ export default {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
             },
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                {
-                    prop: 'promotion.name',
-                    label: '优惠券名称',
-                    minWidth: 150,
-                    showOverflowTooltip: true,
-                },
-                { prop: 'couponCode', label: '优惠券号码', minWidth: 140 },
-                { prop: 'recipients.username', label: '领取者', minWidth: 70 },
-                {
-                    prop: 'isUsed',
-                    label: '是否使用',
-                    minWidth: 70,
-                    formatter: this.env.columnFormatter,
-                },
-                { prop: 'user.username', label: '使用者', minWidth: 100 },
-                {
-                    prop: 'createdAt',
-                    label: '生成时间',
-                    minWidth: 130,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
+
             operations: [
                 {
                     label: 'action.delete',
@@ -153,6 +130,35 @@ export default {
                 }
                 return _operationWidth;
             },
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                { prop: 'id', label: 'ID', minWidth: 60, showOverflowTooltip: true },
+                {
+                    prop: 'promotion.name',
+                    label: '优惠券名称',
+                    minWidth: 150,
+                    showOverflowTooltip: true,
+                },
+                { prop: 'couponCode', label: '优惠券号码', minWidth: 140, showOverflowTooltip: true },
+                { prop: 'recipients.username', label: '领取者', minWidth: 70, showOverflowTooltip: true },
+                {
+                    prop: 'isUsed',
+                    label: '是否使用',
+                    minWidth: 70,
+                    formatter: this.env.columnFormatter,
+                    showOverflowTooltip: true,
+                },
+                { prop: 'user.username', label: '使用者', minWidth: 100, showOverflowTooltip: true },
+                {
+                    prop: 'createdAt',
+                    label: '生成时间',
+                    minWidth: 130,
+                    formatter: this.env.formatDateTime,
+                    showOverflowTooltip: true,
+                },
+            ];
         },
     },
     created() {

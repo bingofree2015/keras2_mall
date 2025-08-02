@@ -135,9 +135,24 @@ export default {
         // 响应式的列配置
         columns() {
             return [
-                { prop: 'count', label: this.$t('report.collectionCount'), minWidth: 80 },
-                { prop: 'goodsName', label: this.$t('report.goodsName'), minWidth: 200 },
-                { prop: 'image', label: this.$t('report.image'), minWidth: 100 },
+                {
+                    prop: 'count',
+                    label: this.$t('report.collectionCount'),
+                    minWidth: 80,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'goodsName',
+                    label: this.$t('report.goodsName'),
+                    minWidth: 200,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'image',
+                    label: this.$t('report.image'),
+                    minWidth: 100,
+                    showOverflowTooltip: true,
+                },
             ];
         },
     },

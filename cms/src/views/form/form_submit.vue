@@ -243,15 +243,6 @@ export default {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
             },
-            columns: [
-                { prop: 'formName', label: this.$t('form.formName') },
-                { prop: 'user.username', label: this.$t('formSubmit.user') },
-                { prop: 'payState', label: this.$t('formSubmit.payState') },
-                { prop: 'money', label: this.$t('formSubmit.money') },
-                { prop: 'state', label: this.$t('formSubmit.state') },
-                { prop: 'createdAt', label: this.$t('formSubmit.createdAt') },
-                { prop: 'updatedAt', label: this.$t('formSubmit.updatedAt') },
-            ],
             operations: [
                 // 明细  formSubmitDetail
                 {
@@ -322,6 +313,46 @@ export default {
         };
     },
     computed: {
+        // 响应式的列配置
+        columns() {
+            return [
+                {
+                    prop: 'formName',
+                    label: this.$t('form.formName'),
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'user.username',
+                    label: this.$t('formSubmit.user'),
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'payState',
+                    label: this.$t('formSubmit.payState'),
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'money',
+                    label: this.$t('formSubmit.money'),
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'state',
+                    label: this.$t('formSubmit.state'),
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('formSubmit.createdAt'),
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'updatedAt',
+                    label: this.$t('formSubmit.updatedAt'),
+                    showOverflowTooltip: true,
+                },
+            ];
+        },
         // 响应式的搜索字段配置
         searchFields() {
             return [{ prop: 'name', label: this.$t('form.formName') }];

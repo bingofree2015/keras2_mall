@@ -123,8 +123,18 @@ export default {
         // 响应式的列配置
         columns() {
             return [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'userName', label: this.$t('system.username'), minWidth: 100 },
+                {
+                    prop: 'id',
+                    label: 'ID',
+                    minWidth: 60,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'userName',
+                    label: this.$t('system.username'),
+                    minWidth: 100,
+                    showOverflowTooltip: true,
+                },
                 {
                     prop: 'method',
                     label: this.$t('system.method'),
@@ -137,14 +147,30 @@ export default {
                     minWidth: 220,
                     showOverflowTooltip: true,
                 },
-                { prop: 'ip', label: this.$t('system.ip'), minWidth: 120 },
-                { prop: 'time', label: this.$t('system.timeConsuming'), minWidth: 80 },
-                { prop: 'createBy', label: this.$t('system.creator'), minWidth: 100 },
+                {
+                    prop: 'ip',
+                    label: this.$t('system.ip'),
+                    minWidth: 120,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'time',
+                    label: this.$t('system.timeConsuming'),
+                    minWidth: 80,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'createBy',
+                    label: this.$t('system.creator'),
+                    minWidth: 100,
+                    showOverflowTooltip: true,
+                },
                 {
                     prop: 'createdAt',
                     label: this.$t('common.createTime'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
+                    showOverflowTooltip: true,
                 },
             ];
         },

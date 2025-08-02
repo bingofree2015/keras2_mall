@@ -251,18 +251,78 @@ export default {
         // 响应式的列配置
         columns() {
             return [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'goodsName', label: this.$t('goods.goodsName'), minWidth: 200 },
-                { prop: 'price', label: this.$t('goods.price'), minWidth: 100 },
-                { prop: 'costPrice', label: this.$t('goods.costPrice'), minWidth: 100 },
-                { prop: 'marketPrice', label: this.$t('goods.marketPrice'), minWidth: 100 },
-                { prop: 'defaultImage', label: this.$t('goods.defaultImage'), minWidth: 80 },
-                { prop: 'category', label: this.$t('goods.category'), minWidth: 100 },
-                { prop: 'type', label: this.$t('goods.type'), minWidth: 100 },
-                { prop: 'brand', label: this.$t('goods.brand'), minWidth: 100 },
-                { prop: 'onSale', label: this.$t('goods.onSale'), minWidth: 80 },
-                { prop: 'tag', label: this.$t('goods.tag'), minWidth: 100 },
-                { prop: 'createTime', label: this.$t('common.createTime'), minWidth: 140 },
+                {
+                    prop: 'id',
+                    label: 'ID',
+                    minWidth: 60,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'goodsName',
+                    label: this.$t('goods.goodsName'),
+                    minWidth: 200,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'price',
+                    label: this.$t('goods.price'),
+                    minWidth: 100,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'costPrice',
+                    label: this.$t('goods.costPrice'),
+                    minWidth: 100,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'marketPrice',
+                    label: this.$t('goods.marketPrice'),
+                    minWidth: 100,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'defaultImage',
+                    label: this.$t('goods.defaultImage'),
+                    minWidth: 80,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'category',
+                    label: this.$t('goods.category'),
+                    minWidth: 100,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'type',
+                    label: this.$t('goods.type'),
+                    minWidth: 100,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'brand',
+                    label: this.$t('goods.brand'),
+                    minWidth: 100,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'onSale',
+                    label: this.$t('goods.onSale'),
+                    minWidth: 80,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'tag',
+                    label: this.$t('goods.tag'),
+                    minWidth: 100,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'createTime',
+                    label: this.$t('common.createTime'),
+                    minWidth: 140,
+                    showOverflowTooltip: true,
+                },
             ];
         },
         operationWidth: {

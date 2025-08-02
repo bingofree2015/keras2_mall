@@ -178,7 +178,7 @@ export default {
                 value: '',
             },
             props: [],
-            columns: [],
+
             paginated: {
                 attrs: { searchKey: {}, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
@@ -257,6 +257,60 @@ export default {
                 }
                 return _operationWidth;
             },
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                {
+                    prop: 'id',
+                    label: 'ID',
+                    minWidth: 60,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'storeName',
+                    label: this.$t('store.name'),
+                    minWidth: 120,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'mobile',
+                    label: this.$t('store.mobile'),
+                    minWidth: 120,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'linkman',
+                    label: this.$t('store.linkman'),
+                    minWidth: 100,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'areaName',
+                    label: this.$t('store.area'),
+                    minWidth: 120,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'coordinate',
+                    label: this.$t('store.coordinate'),
+                    minWidth: 120,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'address',
+                    label: this.$t('store.address'),
+                    minWidth: 200,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'createdAt',
+                    label: this.$t('common.createTime'),
+                    minWidth: 140,
+                    formatter: this.env.formatDateTime,
+                    showOverflowTooltip: true,
+                },
+            ];
         },
     },
     mounted() {

@@ -207,7 +207,12 @@ export default {
         // 响应式的列配置
         columns() {
             return [
-                { prop: 'id', label: 'ID', minWidth: 60 },
+                {
+                    prop: 'id',
+                    label: 'ID',
+                    minWidth: 60,
+                    showOverflowTooltip: true,
+                },
                 {
                     prop: 'title',
                     label: this.$t('notice.title'),
@@ -220,13 +225,25 @@ export default {
                     minWidth: 240,
                     showOverflowTooltip: true,
                 },
-                { prop: 'type', label: this.$t('notice.type'), minWidth: 90 },
-                { prop: 'sort', label: this.$t('notice.sort'), minWidth: 70, align: 'center' },
+                {
+                    prop: 'type',
+                    label: this.$t('notice.type'),
+                    minWidth: 90,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'sort',
+                    label: this.$t('notice.sort'),
+                    minWidth: 70,
+                    align: 'center',
+                    showOverflowTooltip: true,
+                },
                 {
                     prop: 'createdAt',
                     label: this.$t('common.createdAt'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
+                    showOverflowTooltip: true,
                 },
             ];
         },

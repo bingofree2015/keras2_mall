@@ -141,31 +141,6 @@ export default {
                 attrs: { searchKey: { type: 2 }, currPage: 1, offset: 0, limit: 9, count: 0 },
                 list: [],
             },
-            columns: [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: '优惠券名称', minWidth: 120, showOverflowTooltip: true },
-                { prop: 'sort', label: '权重', minWidth: 70 },
-                {
-                    prop: 'state',
-                    label: '状态',
-                    minWidth: 100,
-                    align: 'center',
-                    formatter: this.env.columnFormatter,
-                },
-
-                {
-                    prop: 'startTime',
-                    label: '开始时间',
-                    minWidth: 130,
-                    formatter: this.env.formatDateTime,
-                },
-                {
-                    prop: 'endTime',
-                    label: '结束时间',
-                    minWidth: 130,
-                    formatter: this.env.formatDateTime,
-                },
-            ],
             operations: [
                 {
                     label: 'action.coupon', // 按钮上显示的文字
@@ -246,6 +221,51 @@ export default {
                 }
                 return _operationWidth;
             },
+        },
+        // 响应式的列配置
+        columns() {
+            return [
+                {
+                    prop: 'id',
+                    label: 'ID',
+                    minWidth: 60,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'name',
+                    label: '优惠券名称',
+                    minWidth: 120,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'sort',
+                    label: '权重',
+                    minWidth: 70,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'state',
+                    label: '状态',
+                    minWidth: 100,
+                    align: 'center',
+                    formatter: this.env.columnFormatter,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'startTime',
+                    label: '开始时间',
+                    minWidth: 130,
+                    formatter: this.env.formatDateTime,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'endTime',
+                    label: '结束时间',
+                    minWidth: 130,
+                    formatter: this.env.formatDateTime,
+                    showOverflowTooltip: true,
+                },
+            ];
         },
     },
     methods: {

@@ -394,6 +394,7 @@ export default {
         }
         */
         return {
+            normalSize: 'default',
             focusing: false,
             imageDialogImageUrl: '',
             imageDialogVisible: false,

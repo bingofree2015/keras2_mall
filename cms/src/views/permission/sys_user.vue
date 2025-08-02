@@ -310,6 +310,7 @@ export default {
                     prop: 'id',
                     label: 'ID',
                     minWidth: 60,
+                    showOverflowTooltip: true,
                 },
                 {
                     prop: 'username',
@@ -323,6 +324,7 @@ export default {
                     minWidth: 80,
                     propType: 'image',
                     align: 'center',
+                    showOverflowTooltip: true,
                 },
                 {
                     prop: 'roleNames',
@@ -352,6 +354,7 @@ export default {
                             : this.$t('permission.disabled');
                     },
                     align: 'center',
+                    showOverflowTooltip: true,
                 },
             ];
         },

@@ -80,6 +80,7 @@ export default {
     inject: ['reload'],
     data() {
         return {
+            normalSize: 'default',
             filters: {
                 key: 'username',
                 value: '',

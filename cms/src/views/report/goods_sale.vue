@@ -112,10 +112,30 @@ export default {
         // 响应式的列配置
         columns() {
             return [
-                { prop: 'num', label: this.$t('report.salesVolume'), minWidth: 100 },
-                { prop: 'amount', label: this.$t('report.salesAmount'), minWidth: 100 },
-                { prop: 'specs', label: this.$t('report.specification'), minWidth: 100 },
-                { prop: 'sn', label: this.$t('report.goodsCode'), minWidth: 100 },
+                {
+                    prop: 'num',
+                    label: this.$t('report.salesVolume'),
+                    minWidth: 100,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'amount',
+                    label: this.$t('report.salesAmount'),
+                    minWidth: 100,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'specs',
+                    label: this.$t('report.specification'),
+                    minWidth: 100,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'sn',
+                    label: this.$t('report.goodsCode'),
+                    minWidth: 100,
+                    showOverflowTooltip: true,
+                },
                 {
                     prop: 'name',
                     label: this.$t('visualDesign.goodsName'),
@@ -128,6 +148,7 @@ export default {
                     minWidth: 80,
                     propType: 'image',
                     align: 'center',
+                    showOverflowTooltip: true,
                 },
             ];
         },

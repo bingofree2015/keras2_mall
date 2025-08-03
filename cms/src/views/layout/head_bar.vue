@@ -124,6 +124,19 @@ i {
     margin: 0 20px;
     font-size: 24px;
     cursor: pointer;
+
+    // 移除图标的焦点样式
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    i {
+        &:focus {
+            outline: none;
+            box-shadow: none;
+        }
+    }
 }
 .headbar-right {
     display: flex;

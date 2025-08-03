@@ -235,6 +235,22 @@ export default {
 
         .el-dropdown {
             cursor: pointer;
+
+            // 移除下拉菜单图标的焦点样式
+            :deep(.el-dropdown__caret-button) {
+                &:focus {
+                    outline: none;
+                    box-shadow: none;
+                }
+            }
+
+            // 移除图标本身的焦点样式
+            i {
+                &:focus {
+                    outline: none;
+                    box-shadow: none;
+                }
+            }
         }
     }
     .main-content {

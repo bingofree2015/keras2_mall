@@ -8,6 +8,7 @@ import * as env from '@/env';
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
 import '@/assets/styles/common.scss';
+import '@/assets/styles/icon-focus-fix.css';
 import VueAMap, { initAMapApiLoader } from '@vuemap/vue-amap';
 import '@vuemap/vue-amap/dist/style.css';
 import ExtButton from '@/components/core/ext_button.vue';

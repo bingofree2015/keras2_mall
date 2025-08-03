@@ -1,0 +1,59 @@
+/* 图标焦点样式修复 */
+
+/* 移除所有图标的默认焦点样式 */
+.el-icon,
+i[class*="el-icon-ali-"],
+i[class*="el-icon-"] {
+    &:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+}
+
+/* 移除下拉菜单按钮的焦点样式 */
+.el-dropdown {
+    .el-dropdown__caret-button {
+        &:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    }
+}
+
+/* 移除弹出框触发器的焦点样式 */
+.el-popover__reference {
+    &:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+}
+
+/* 移除按钮图标的焦点样式 */
+.el-button {
+    i {
+        &:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    }
+}
+
+/* 移除标签页图标的焦点样式 */
+.el-tabs__item {
+    i {
+        &:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    }
+}
+
+/* 移除工具栏图标的焦点样式 */
+.el-toolbar {
+    i {
+        &:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    }
+}

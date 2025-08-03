@@ -380,7 +380,8 @@ export default {
 
 .login-illustration {
     flex: 1;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    //background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #f8f9fa;
     position: relative;
     display: flex;
     align-items: center;
@@ -494,16 +495,18 @@ export default {
 }
 
 .control-btn {
-    background: rgba(255, 255, 255, 0.2) !important;
-    border: none !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    border: 2px solid rgba(255, 255, 255, 0.8) !important;
     color: white !important;
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 
     &:hover {
-        background: rgba(255, 255, 255, 0.3) !important;
+        background: rgba(0, 0, 0, 1) !important;
         transform: scale(1.1);
         color: white !important;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
     }
 
     &:active {
@@ -524,17 +527,23 @@ export default {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.6);
     cursor: pointer;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 
     &:hover {
-        background: rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.7);
+        border-color: rgba(255, 255, 255, 0.9);
+        transform: scale(1.1);
     }
 
     &.active {
-        background: rgba(255, 255, 255, 0.8);
+        background: rgba(0, 0, 0, 0.9);
+        border-color: rgba(255, 255, 255, 1);
         transform: scale(1.2);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
     }
 }
 

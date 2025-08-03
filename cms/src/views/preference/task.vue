@@ -137,22 +137,23 @@ export default {
         // 响应式的列配置
         columns() {
             return [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: this.$t('task.name'), minWidth: 160 },
-                { prop: 'type', label: this.$t('task.type'), minWidth: 80 },
+                { prop: 'id', label: 'ID', minWidth: 60, showOverflowTooltip: true },
+                { prop: 'name', label: this.$t('task.name'), minWidth: 160, showOverflowTooltip: true },
+                { prop: 'type', label: this.$t('task.type'), minWidth: 80, showOverflowTooltip: true },
                 {
                     prop: 'fileName',
                     label: this.$t('task.fileName'),
                     minWidth: 160,
                     showOverflowTooltip: true,
                 },
-                { prop: 'status', label: this.$t('task.status'), minWidth: 80 },
-                { prop: 'fileSize', label: this.$t('task.fileSize'), minWidth: 90 },
+                { prop: 'status', label: this.$t('task.status'), minWidth: 80, showOverflowTooltip: true },
+                { prop: 'fileSize', label: this.$t('task.fileSize'), minWidth: 90, showOverflowTooltip: true },
                 {
                     prop: 'createdAt',
                     label: this.$t('common.createdAt'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
+                    showOverflowTooltip: true,
                 },
             ];
         },

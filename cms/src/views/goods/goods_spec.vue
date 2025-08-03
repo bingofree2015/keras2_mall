@@ -237,20 +237,21 @@ export default {
         // 响应式的列配置
         columns() {
             return [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: this.$t('goodsSpec.attributeName'), minWidth: 100 },
+                { prop: 'id', label: 'ID', minWidth: 60, showOverflowTooltip: true },
+                { prop: 'name', label: this.$t('goodsSpec.attributeName'), minWidth: 100, showOverflowTooltip: true },
                 {
                     prop: 'values',
                     label: this.$t('goodsSpec.attributeValue'),
                     minWidth: 200,
                     showOverflowTooltip: true,
                 },
-                { prop: 'sort', label: this.$t('system.sort'), minWidth: 70, align: 'center' },
+                { prop: 'sort', label: this.$t('system.sort'), minWidth: 70, align: 'center', showOverflowTooltip: true },
                 {
                     prop: 'createdAt',
                     label: this.$t('common.createTime'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
+                    showOverflowTooltip: true,
                 },
             ];
         },

@@ -200,7 +200,7 @@
                                             :span="6"
                                             style="margin-right: 10px"
                                         >
-                                            <el-form-item prop="value">
+                                            <el-form-item prop="value" style="margin-bottom: 10px;">
                                                 <el-input
                                                     v-model="item.value"
                                                     :placeholder="$t('common.inputPlaceholder')"

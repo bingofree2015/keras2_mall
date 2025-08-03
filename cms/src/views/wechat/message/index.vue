@@ -278,6 +278,13 @@ export default {
         };
     },
     computed: {
+        // 响应式的搜索字段配置
+        searchFields() {
+            return [
+                { prop: 'name', label: this.$t('wechat.message.name') },
+                { prop: 'type', label: this.$t('wechat.message.type') },
+            ];
+        },
         operationWidth: {
             get() {
                 let _operationWidth = 0;

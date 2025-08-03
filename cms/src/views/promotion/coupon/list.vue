@@ -122,6 +122,15 @@ export default {
         };
     },
     computed: {
+        // 响应式的搜索字段配置
+        searchFields() {
+            return [
+                { prop: 'promotion.name', label: '优惠券名称' },
+                { prop: 'couponCode', label: '优惠券号码' },
+                { prop: 'recipients.username', label: '领取者' },
+                { prop: 'user.username', label: '使用者' },
+            ];
+        },
         operationWidth: {
             get() {
                 let _operationWidth = 0;

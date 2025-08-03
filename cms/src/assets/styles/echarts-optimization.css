@@ -1,0 +1,269 @@
+/* ECharts 性能优化样式 */
+
+/* 优化图表容器 */
+.echarts-container {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+    will-change: auto;
+
+    /* 优化滚动性能 */
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: auto;
+}
+
+/* 优化 canvas 元素 */
+.echarts-container canvas {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+
+    /* 优化触摸事件 */
+    touch-action: manipulation;
+
+    /* 减少重绘 */
+    contain: layout style paint;
+}
+
+/* 减少不必要的动画 */
+.echarts-container * {
+    transition: none !important;
+    animation: none !important;
+}
+
+/* 优化图表交互 */
+.echarts-container .echarts-tooltip {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+
+    /* 优化字体渲染 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeSpeed;
+}
+
+/* 优化图表缩放和拖拽 */
+.echarts-container .echarts-graphic {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+
+    /* 优化触摸事件 */
+    touch-action: pan-x pan-y;
+}
+
+/* 减少内存使用 */
+.echarts-container .echarts-axis {
+    contain: layout style paint;
+}
+
+/* 优化图表动画性能 */
+.echarts-container .echarts-series {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+
+    /* 减少重绘 */
+    will-change: auto;
+}
+
+/* 优化图表网格 */
+.echarts-container .echarts-grid {
+    /* 减少重绘 */
+    contain: layout style paint;
+}
+
+/* 优化图表图例 */
+.echarts-container .echarts-legend {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+
+    /* 优化字体渲染 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* 优化图表标题 */
+.echarts-container .echarts-title {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+
+    /* 优化字体渲染 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeSpeed;
+}
+
+/* 优化图表数据标签 */
+.echarts-container .echarts-label {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+
+    /* 优化字体渲染 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* 优化图表标记点 */
+.echarts-container .echarts-mark-point {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表标记线 */
+.echarts-container .echarts-mark-line {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表区域 */
+.echarts-container .echarts-area {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表线条 */
+.echarts-container .echarts-line {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表柱状图 */
+.echarts-container .echarts-bar {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表饼图 */
+.echarts-container .echarts-pie {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表散点图 */
+.echarts-container .echarts-scatter {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表热力图 */
+.echarts-container .echarts-heatmap {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表树图 */
+.echarts-container .echarts-tree {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表桑基图 */
+.echarts-container .echarts-sankey {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表漏斗图 */
+.echarts-container .echarts-funnel {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表雷达图 */
+.echarts-container .echarts-radar {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表地图 */
+.echarts-container .echarts-map {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表仪表盘 */
+.echarts-container .echarts-gauge {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表箱线图 */
+.echarts-container .echarts-boxplot {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表蜡烛图 */
+.echarts-container .echarts-candlestick {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表平行坐标系 */
+.echarts-container .echarts-parallel {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表关系图 */
+.echarts-container .echarts-graph {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表桑基图 */
+.echarts-container .echarts-sankey {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表词云 */
+.echarts-container .echarts-wordcloud {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表树图 */
+.echarts-container .echarts-treemap {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表旭日图 */
+.echarts-container .echarts-sunburst {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表矩形树图 */
+.echarts-container .echarts-treemap {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表河流图 */
+.echarts-container .echarts-river {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表玉珏图 */
+.echarts-container .echarts-jade {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表象形柱图 */
+.echarts-container .echarts-pictorial {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表主题河流图 */
+.echarts-container .echarts-theme-river {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 优化图表自定义系列 */
+.echarts-container .echarts-custom {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}

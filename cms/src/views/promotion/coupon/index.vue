@@ -213,6 +213,13 @@ export default {
         };
     },
     computed: {
+        // 响应式的搜索字段配置
+        searchFields() {
+            return [
+                { prop: 'name', label: '优惠券名称' },
+                { prop: 'state', label: '状态' },
+            ];
+        },
         operationWidth: {
             get() {
                 let _operationWidth = 0;

@@ -320,7 +320,7 @@ export default {
             for (const item of this.paginated[type].list) {
                 const _actions = Array.isArray(item.operatings) ? item.operatings.length : 0;
                 if (_actions * 90 > this.operationWidth) {
-                    this.operationWidth = _actions * 90;
+                    this.operationWidth = _actions * 100;
                 }
             }
         },

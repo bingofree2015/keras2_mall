@@ -224,22 +224,24 @@ export default {
         // 响应式的列配置
         columns() {
             return [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'reshipId', label: this.$t('reship.reshipId'), minWidth: 120 },
-                { prop: 'orderId', label: this.$t('reship.orderId'), minWidth: 120 },
-                { prop: 'user.username', label: this.$t('reship.user'), minWidth: 120 },
-                { prop: 'status', label: this.$t('reship.status'), minWidth: 100 },
+                { prop: 'id', label: 'ID', minWidth: 60, showOverflowTooltip: true },
+                { prop: 'reshipId', label: this.$t('reship.reshipId'), minWidth: 120, showOverflowTooltip: true },
+                { prop: 'orderId', label: this.$t('reship.orderId'), minWidth: 120, showOverflowTooltip: true },
+                { prop: 'user.username', label: this.$t('reship.user'), minWidth: 120, showOverflowTooltip: true },
+                { prop: 'status', label: this.$t('reship.status'), minWidth: 100, showOverflowTooltip: true },
                 {
                     prop: 'logistics.logiName',
                     label: this.$t('reship.expressCompany'),
                     minWidth: 100,
+                    showOverflowTooltip: true,
                 },
-                { prop: 'logiNo', label: this.$t('reship.expressTrackingNumber'), minWidth: 120 },
+                { prop: 'logiNo', label: this.$t('reship.expressTrackingNumber'), minWidth: 120, showOverflowTooltip: true },
                 {
                     prop: 'createdAt',
                     label: this.$t('common.createTime'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
+                    showOverflowTooltip: true,
                 },
             ];
         },

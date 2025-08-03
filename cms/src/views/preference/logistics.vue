@@ -197,15 +197,32 @@ export default {
         // 响应式的列配置
         columns() {
             return [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'logiName', label: this.$t('logistics.name'), minWidth: 180 },
-                { prop: 'logiCode', label: this.$t('logistics.code'), minWidth: 100 },
-                { prop: 'sort', label: this.$t('logistics.sort'), minWidth: 70, align: 'center' },
+                { prop: 'id', label: 'ID', minWidth: 60, showOverflowTooltip: true },
+                {
+                    prop: 'logiName',
+                    label: this.$t('logistics.name'),
+                    minWidth: 180,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'logiCode',
+                    label: this.$t('logistics.code'),
+                    minWidth: 100,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'sort',
+                    label: this.$t('logistics.sort'),
+                    minWidth: 70,
+                    align: 'center',
+                    showOverflowTooltip: true,
+                },
                 {
                     prop: 'createdAt',
                     label: this.$t('common.createdAt'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
+                    showOverflowTooltip: true,
                 },
             ];
         },

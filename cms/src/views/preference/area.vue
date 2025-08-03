@@ -39,17 +39,33 @@
             stripe
             style="width: 100%"
         >
-            <el-table-column label="ID" min-width="80" prop="id" />
+            <el-table-column label="ID" min-width="80" prop="id" show-overflow-tooltip />
             <table-tree-column
                 :label="$t('area.name')"
                 min-width="310"
                 prop="name"
                 tree-key="id"
+                show-overflow-tooltip
                 @send-tree-data="getTreeData"
             />
-            <el-table-column :label="$t('area.level')" min-width="80" prop="depth" />
-            <el-table-column :label="$t('area.parentName')" min-width="120" prop="parentName" />
-            <el-table-column :label="$t('area.sort')" min-width="80" prop="sort" />
+            <el-table-column
+                :label="$t('area.level')"
+                min-width="80"
+                prop="depth"
+                show-overflow-tooltip
+            />
+            <el-table-column
+                :label="$t('area.parentName')"
+                min-width="120"
+                prop="parentName"
+                show-overflow-tooltip
+            />
+            <el-table-column
+                :label="$t('area.sort')"
+                min-width="80"
+                prop="sort"
+                show-overflow-tooltip
+            />
             <el-table-column :label="$t('action.operation')" fixed="right" min-width="200">
                 <template #default="scope">
                     <ext-button

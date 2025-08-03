@@ -137,14 +137,20 @@ export default {
         // 响应式的列配置
         columns() {
             return [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: this.$t('ship.name'), minWidth: 120 },
+                { prop: 'id', label: 'ID', minWidth: 60, showOverflowTooltip: true },
+                {
+                    prop: 'name',
+                    label: this.$t('ship.name'),
+                    minWidth: 120,
+                    showOverflowTooltip: true,
+                },
                 {
                     prop: 'hasCod',
                     label: this.$t('ship.hasCod'),
                     minWidth: 100,
                     align: 'center',
                     formatter: this.env.formatBoolean,
+                    showOverflowTooltip: true,
                 },
                 {
                     prop: 'freePostage',
@@ -152,15 +158,27 @@ export default {
                     minWidth: 80,
                     align: 'center',
                     formatter: this.env.formatBoolean,
+                    showOverflowTooltip: true,
                 },
-                { prop: 'logistics.logiName', label: this.$t('ship.logisticsName'), minWidth: 160 },
-                { prop: 'logistics.logiCode', label: this.$t('ship.logisticsCode'), minWidth: 160 },
+                {
+                    prop: 'logistics.logiName',
+                    label: this.$t('ship.logisticsName'),
+                    minWidth: 160,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'logistics.logiCode',
+                    label: this.$t('ship.logisticsCode'),
+                    minWidth: 160,
+                    showOverflowTooltip: true,
+                },
                 {
                     prop: 'isDef',
                     label: this.$t('ship.isDef'),
                     minWidth: 70,
                     align: 'center',
                     formatter: this.env.formatBoolean,
+                    showOverflowTooltip: true,
                 },
                 {
                     prop: 'state',
@@ -168,8 +186,14 @@ export default {
                     minWidth: 70,
                     align: 'center',
                     formatter: this.env.formatState,
+                    showOverflowTooltip: true,
                 },
-                { prop: 'sort', label: this.$t('ship.sort'), minWidth: 70 },
+                {
+                    prop: 'sort',
+                    label: this.$t('ship.sort'),
+                    minWidth: 70,
+                    showOverflowTooltip: true,
+                },
             ];
         },
         operationWidth: {

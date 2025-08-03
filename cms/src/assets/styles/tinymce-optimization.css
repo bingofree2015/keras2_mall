@@ -1,0 +1,89 @@
+/* TinyMCE 性能优化样式 */
+
+/* 减少不必要的动画和过渡效果 */
+.tox-tinymce * {
+    transition: none !important;
+    animation: none !important;
+}
+
+/* 优化滚动性能 */
+.tox-tinymce {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: auto;
+}
+
+/* 减少重绘和重排 */
+.tox-tinymce .tox-edit-area {
+    will-change: auto;
+    transform: translateZ(0);
+}
+
+/* 优化触摸事件 */
+.tox-tinymce .tox-edit-area__iframe {
+    touch-action: manipulation;
+}
+
+/* 减少内存使用 */
+.tox-tinymce .tox-toolbar {
+    contain: layout style paint;
+}
+
+/* 优化字体渲染 */
+.tox-tinymce {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeSpeed;
+}
+
+/* 禁用一些可能导致性能问题的样式 */
+.tox-tinymce .tox-toolbar__group {
+    backdrop-filter: none;
+    filter: none;
+}
+
+/* 优化选择器性能 */
+.tox-tinymce .tox-edit-area__iframe {
+    contain: layout style paint;
+}
+
+/* 禁用所有可能导致性能问题的动画 */
+.tox-tinymce *,
+.tox-tinymce *::before,
+.tox-tinymce *::after {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+}
+
+/* 优化触摸事件处理 */
+.tox-tinymce {
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* 允许编辑器内容区域的选择 */
+.tox-tinymce .tox-edit-area {
+    -webkit-user-select: text;
+    -khtml-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+/* 减少重绘 */
+.tox-tinymce .tox-toolbar__group {
+    contain: layout style paint;
+    will-change: auto;
+}
+
+/* 优化滚动容器 */
+.tox-tinymce .tox-edit-area__iframe {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: auto;
+}

@@ -243,6 +243,15 @@ export default {
         };
     },
     computed: {
+        // 响应式的搜索字段配置
+        searchFields() {
+            return [
+                { prop: 'storeName', label: this.$t('store.name') },
+                { prop: 'mobile', label: this.$t('store.mobile') },
+                { prop: 'linkman', label: this.$t('store.linkman') },
+                { prop: 'areaName', label: this.$t('store.area') },
+            ];
+        },
         // 响应式的表单验证规则
         formDataRules() {
             return {
@@ -276,7 +285,7 @@ export default {
                 {
                     prop: 'mobile',
                     label: this.$t('store.mobile'),
-                    minWidth: 120,
+                    minWidth: 140,
                     showOverflowTooltip: true,
                 },
                 {

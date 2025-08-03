@@ -45,8 +45,8 @@ export default {
         // 响应式的列配置
         columns() {
             return [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'code', label: this.$t('messageCenter.code'), minWidth: 200 },
+                { prop: 'id', label: 'ID', minWidth: 60, showOverflowTooltip: true },
+                { prop: 'code', label: this.$t('messageCenter.code'), minWidth: 200, showOverflowTooltip: true },
                 {
                     prop: 'sms',
                     label: this.$t('messageCenter.sms'),
@@ -60,6 +60,7 @@ export default {
                         await this.save(this.formData);
                     },
                     align: 'center',
+                    showOverflowTooltip: true,
                 },
                 {
                     prop: 'message',
@@ -74,6 +75,7 @@ export default {
                         await this.save(this.formData);
                     },
                     align: 'center',
+                    showOverflowTooltip: true,
                 },
                 {
                     prop: 'wxTplMessage',
@@ -88,6 +90,7 @@ export default {
                         await this.save(this.formData);
                     },
                     align: 'center',
+                    showOverflowTooltip: true,
                 },
             ];
         },

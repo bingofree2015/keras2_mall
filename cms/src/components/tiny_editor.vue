@@ -8,6 +8,7 @@
 <script>
 import tinymce from 'tinymce';
 import 'tinymce/icons/default';
+import '@/assets/styles/tinymce-optimization.css';
 import videoUploader from '@/components/video_uploader.vue';
 import multiUploader from '@/components/multi_uploader.vue';
 
@@ -66,8 +67,65 @@ export default {
                 contextmenu: 'selectall copy paste inserttable',
                 toolbar1:
                     'link unlink bold italic forecolor backcolor table alignleft aligncenter alignright alignjustify removeformat imageUpload videoUpload',
+                // 性能优化配置
+                auto_focus: false,
+                cache_suffix: '?v=' + Date.now(),
+                // 禁用一些可能导致性能问题的功能
+                paste_data_images: false,
+                paste_as_text: false,
+                paste_enable_default_filters: true,
+                // 减少内存使用
+                object_resizing: false,
+                elementpath: false,
+                // 优化渲染性能
+                verify_html: false,
+                cleanup: false,
+                // 减少不必要的功能
+                browser_spellcheck: false,
+                // 禁用可能导致 document.write() 的功能
+                inline: false,
+                fixed_toolbar_container: false,
+                // 优化渲染
+                entity_encoding: 'raw',
+                encoding: 'html',
+                // 优化事件处理
                 setup: (editor) => {
                     const self = this;
+
+                    // 添加 passive 事件监听器
+                    const addPassiveEventListener = (element, event, handler) => {
+                        if (element && element.addEventListener) {
+                            element.addEventListener(event, handler, { passive: true });
+                        }
+                    };
+
+                    // 为编辑器容器添加 passive 事件监听器
+                    editor.on('init', () => {
+                        const editorContainer = editor.getContainer();
+                        if (editorContainer) {
+                            // 为触摸事件添加 passive 监听器
+                            addPassiveEventListener(editorContainer, 'touchstart', () => {});
+                            addPassiveEventListener(editorContainer, 'touchmove', () => {});
+                            addPassiveEventListener(editorContainer, 'touchend', () => {});
+
+                            // 为编辑器内部元素添加 passive 监听器
+                            const editorBody = editor.getBody();
+                            if (editorBody) {
+                                addPassiveEventListener(editorBody, 'touchstart', () => {});
+                                addPassiveEventListener(editorBody, 'touchmove', () => {});
+                                addPassiveEventListener(editorBody, 'touchend', () => {});
+                            }
+
+                            // 为工具栏添加 passive 监听器
+                            const toolbar = editorContainer.querySelector('.tox-toolbar');
+                            if (toolbar) {
+                                addPassiveEventListener(toolbar, 'touchstart', () => {});
+                                addPassiveEventListener(toolbar, 'touchmove', () => {});
+                                addPassiveEventListener(toolbar, 'touchend', () => {});
+                            }
+                        }
+                    });
+
                     editor.ui.registry.addButton('imageUpload', {
                         tooltip: this.$t('tinyEditor.insertImage'),
                         icon: 'image',
@@ -139,10 +197,18 @@ export default {
     },
     beforeUnmount() {
         this.destroy();
+        // 清理全局 observer
+        if (this.globalObserver) {
+            this.globalObserver.disconnect();
+            this.globalObserver = null;
+        }
     },
     created() {
         // 从指定url加载tinymce依赖文件
         tinymce.EditorManager.baseURL = this.url;
+
+        // 全局优化：为所有 TinyMCE 相关元素添加 passive 事件监听器
+        this.addGlobalPassiveListeners();
     },
     mounted() {
         this.$nextTick(function () {
@@ -186,6 +252,14 @@ export default {
             if (refEditor) {
                 this.destroy();
                 this.defaultConfig.target = refEditor;
+
+                // 添加性能优化配置
+                this.defaultConfig.auto_focus = false;
+                this.defaultConfig.cache_suffix = '?v=' + Date.now();
+                this.defaultConfig.paste_data_images = false;
+                this.defaultConfig.paste_as_text = false;
+                this.defaultConfig.paste_enable_default_filters = true;
+
                 this.defaultConfig.init_instance_callback = (editor) => {
                     if (this && this.$refs.editor) {
                         // 检查语言包是否加载成功
@@ -261,6 +335,48 @@ export default {
                     this.$emit('content-change', content);
                 }
             });
+        },
+
+        // 全局添加 passive 事件监听器
+        addGlobalPassiveListeners() {
+            // 使用 MutationObserver 监听 DOM 变化，为新增的 TinyMCE 元素添加 passive 监听器
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === 'childList') {
+                        mutation.addedNodes.forEach((node) => {
+                            if (node.nodeType === Node.ELEMENT_NODE) {
+                                this.addPassiveListenersToElement(node);
+                            }
+                        });
+                    }
+                });
+            });
+
+            // 开始观察
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true,
+            });
+
+            // 保存 observer 引用以便后续清理
+            this.globalObserver = observer;
+        },
+
+        // 为元素添加 passive 事件监听器
+        addPassiveListenersToElement(element) {
+            if (element.classList && element.classList.contains('tox-tinymce')) {
+                const events = ['touchstart', 'touchmove', 'touchend'];
+                events.forEach((event) => {
+                    element.addEventListener(event, () => {}, { passive: true });
+                });
+            }
+
+            // 递归处理子元素
+            if (element.children) {
+                Array.from(element.children).forEach((child) => {
+                    this.addPassiveListenersToElement(child);
+                });
+            }
         },
     },
 };

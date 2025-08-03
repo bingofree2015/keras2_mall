@@ -38,15 +38,27 @@
             stripe
             style="width: 100%"
         >
-            <el-table-column align="center" label="ID" min-width="60" prop="id" />
+            <el-table-column
+                align="center"
+                label="ID"
+                min-width="60"
+                prop="id"
+                show-overflow-tooltip
+            />
             <table-tree-column
                 :label="$t('visualDesign.name')"
                 min-width="280"
                 prop="name"
                 tree-key="id"
+                show-overflow-tooltip
                 @send-tree-data="getTreeData"
             />
-            <el-table-column align="center" :label="$t('goods.icon')" min-width="80">
+            <el-table-column
+                align="center"
+                :label="$t('goods.icon')"
+                min-width="80"
+                show-overflow-tooltip
+            >
                 <template #default="scope">
                     <el-avatar
                         v-if="scope.row.attachment && scope.row.attachment.path"
@@ -55,13 +67,25 @@
                     />
                 </template>
             </el-table-column>
-            <el-table-column :label="$t('goods.categoryType')" min-width="90" prop="type.name" />
+            <el-table-column
+                :label="$t('goods.categoryType')"
+                min-width="90"
+                prop="type.name"
+                show-overflow-tooltip
+            />
             <el-table-column
                 :label="$t('goods.parentCategory')"
                 min-width="160"
                 prop="parentName"
+                show-overflow-tooltip
             />
-            <el-table-column align="center" :label="$t('system.sort')" min-width="60" prop="sort" />
+            <el-table-column
+                align="center"
+                :label="$t('system.sort')"
+                min-width="60"
+                prop="sort"
+                show-overflow-tooltip
+            />
             <el-table-column :label="$t('action.operation')" fixed="right" min-width="200">
                 <template #default="scope">
                     <ext-button

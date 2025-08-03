@@ -238,6 +238,14 @@ export default {
         };
     },
     computed: {
+        // 响应式的搜索字段配置
+        searchFields() {
+            return [
+                { prop: 'name', label: this.$t('common.name') },
+                { prop: 'code', label: this.$t('common.code') },
+                { prop: 'desc', label: this.$t('common.desc') },
+            ];
+        },
         // 响应式的表单验证规则
         formDataRules() {
             return {

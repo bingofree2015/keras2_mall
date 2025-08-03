@@ -35,7 +35,10 @@
         "deleteSuccess": "Delete Success",
         "deleteFailed": "Delete Failed",
         "saveSuccess": "Save Success",
-        "saveFailed": "Save Failed"
+        "saveFailed": "Save Failed",
+        "requestFailed": "Request Failed",
+        "operationSuccess": "Operation Success",
+        "operationFailed": "Operation Failed"
     },
     "action": {
         "operation": "Operation",
@@ -497,11 +500,13 @@
         "selectParentCategory": "Please select parent category"
     },
     "store": {
+        "name": "Store Name",
         "storeName": "Store Name",
         "mobile": "Store Phone/Mobile",
         "linkman": "Store Contact",
         "logo": "Store Logo",
         "areaId": "Store Area ID",
+        "area": "Store Area",
         "address": "Store Address",
         "coordinate": "Store Coordinate",
         "latitude": "Latitude",
@@ -720,6 +725,7 @@
         "paramName": "Parameter Name",
         "paramType": "Parameter Type",
         "paramOption": "Parameter Option",
+        "inputParamName": "Please enter parameter name",
         "spaceSeparated": "Space Separated",
         "textbox": "Text Box",
         "radio": "Radio",

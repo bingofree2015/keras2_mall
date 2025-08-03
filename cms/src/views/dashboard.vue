@@ -156,7 +156,7 @@
                         </div>
                     </template>
                     <div class="body">
-                        <div id="chartColumn" style="width: 100%; height: 400px"></div>
+                        <div id="chartColumn" class="echarts-container" style="width: 100%; height: 400px"></div>
                     </div>
                 </el-card>
             </el-col>
@@ -169,7 +169,7 @@
                         </div>
                     </template>
                     <div class="body">
-                        <div id="chartColumn2" style="width: 100%; height: 400px"></div>
+                        <div id="chartColumn2" class="echarts-container" style="width: 100%; height: 400px"></div>
                     </div>
                 </el-card>
             </el-col>
@@ -245,6 +245,7 @@
 
 <script>
 import * as echarts from 'echarts';
+import '@/assets/styles/echarts-optimization.css';
 export default {
     components: {},
     data() {
@@ -355,15 +356,36 @@ export default {
 
     created() {},
     mounted() {
-        this.drawLine();
-        this.drawLine2();
+        this.$nextTick(() => {
+            this.drawLine();
+            this.drawLine2();
+        });
+    },
+    beforeUnmount() {
+        // 销毁图表实例
+        if (this.chartColumn) {
+            this.chartColumn.dispose();
+            this.chartColumn = null;
+        }
+        if (this.chartColumn2) {
+            this.chartColumn2.dispose();
+            this.chartColumn2 = null;
+        }
     },
     methods: {
         drawLine() {
             this.chartColumn = echarts.init(document.getElementById('chartColumn'), null, {
                 renderer: 'canvas',
                 useDirtyRect: true,
+                // 性能优化配置
+                throttle: 70,
+                // 禁用一些可能导致性能问题的功能
+                progressive: 400,
+                progressiveThreshold: 3000,
             });
+
+            // 为图表容器添加 passive 事件监听器
+            this.addPassiveListenersToChart(this.chartColumn);
 
             this.chartColumn.setOption({
                 title: { text: 'Column Chart' },
@@ -387,7 +409,15 @@ export default {
             this.chartColumn2 = echarts.init(document.getElementById('chartColumn2'), null, {
                 renderer: 'canvas',
                 useDirtyRect: true,
+                // 性能优化配置
+                throttle: 70,
+                // 禁用一些可能导致性能问题的功能
+                progressive: 400,
+                progressiveThreshold: 3000,
             });
+
+            // 为图表容器添加 passive 事件监听器
+            this.addPassiveListenersToChart(this.chartColumn2);
 
             this.chartColumn2.setOption({
                 baseOption: {
@@ -484,6 +514,28 @@ export default {
                 ],
             });
         },
+
+        // 为 ECharts 图表添加 passive 事件监听器
+        addPassiveListenersToChart(chart) {
+            if (chart && chart.getDom) {
+                const chartDom = chart.getDom();
+                if (chartDom) {
+                    // 为图表容器添加 passive 事件监听器
+                    const events = ['mousewheel', 'wheel', 'touchstart', 'touchmove', 'touchend'];
+                    events.forEach(event => {
+                        chartDom.addEventListener(event, () => {}, { passive: true });
+                    });
+
+                    // 为图表内部的 canvas 元素添加 passive 监听器
+                    const canvas = chartDom.querySelector('canvas');
+                    if (canvas) {
+                        events.forEach(event => {
+                            canvas.addEventListener(event, () => {}, { passive: true });
+                        });
+                    }
+                }
+            }
+        },
     },
 };
 </script>
@@ -496,6 +548,7 @@ export default {
     border: 1px solid #ccc;
 }
 .page-container :deep(.box-card) {
+    height: 100%;
     .el-card__header {
         text-align: left;
         height: 42px;

@@ -36,7 +36,10 @@
         "deleteSuccess": "删除成功",
         "deleteFailed": "删除失败",
         "saveSuccess": "保存成功",
-        "saveFailed": "保存失败"
+        "saveFailed": "保存失败",
+        "requestFailed": "请求失败",
+        "operationSuccess": "操作成功",
+        "operationFailed": "操作失败"
     },
     "action": {
         "operation": "操作",
@@ -438,11 +441,13 @@
         "selectParentCategory": "请选择上级分类"
     },
     "store": {
+        "name": "门店名称",
         "storeName": "门店名称",
         "mobile": "门店电话/手机号",
         "linkman": "门店联系人",
         "logo": "门店logo",
         "areaId": "门店地区id",
+        "area": "门店地区",
         "address": "门店详细地址",
         "coordinate": "门店坐标",
         "latitude": "纬度",
@@ -851,6 +856,7 @@
         "paramName": "参数名称",
         "paramType": "参数类型",
         "paramOption": "参数选项",
+        "inputParamName": "请输入参数名称",
         "spaceSeparated": "空格分隔",
         "textbox": "文本框",
         "radio": "单选",

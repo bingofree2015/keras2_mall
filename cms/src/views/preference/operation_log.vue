@@ -103,9 +103,9 @@ export default {
         },
         columns() {
             return [
-                { prop: 'id', label: this.$t('operationLog.id'), minWidth: 60 },
-                { prop: 'sysUser.username', label: this.$t('operationLog.admin'), minWidth: 100 },
-                { prop: 'method', label: this.$t('operationLog.method'), minWidth: 80 },
+                { prop: 'id', label: this.$t('operationLog.id'), minWidth: 60, showOverflowTooltip: true },
+                { prop: 'sysUser.username', label: this.$t('operationLog.admin'), minWidth: 100, showOverflowTooltip: true },
+                { prop: 'method', label: this.$t('operationLog.method'), minWidth: 80, showOverflowTooltip: true },
                 {
                     prop: 'desc',
                     label: this.$t('operationLog.desc'),
@@ -118,12 +118,13 @@ export default {
                     minWidth: 220,
                     showOverflowTooltip: true,
                 },
-                { prop: 'ip', label: this.$t('operationLog.ip'), minWidth: 100 },
+                { prop: 'ip', label: this.$t('operationLog.ip'), minWidth: 100, showOverflowTooltip: true },
                 {
                     prop: 'createdAt',
                     label: this.$t('common.createdAt'),
                     minWidth: 130,
                     formatter: this.env.formatDateTime,
+                    showOverflowTooltip: true,
                 },
             ];
         },

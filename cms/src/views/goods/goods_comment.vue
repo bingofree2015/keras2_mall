@@ -190,11 +190,12 @@ export default {
         // 表格列配置
         columns() {
             return [
-                { prop: 'id', label: 'ID', minWidth: 60 },
+                { prop: 'id', label: 'ID', minWidth: 60, showOverflowTooltip: true },
                 {
                     prop: 'user.username',
                     label: this.$t('goodsComment.username'),
                     minWidth: 80,
+                    showOverflowTooltip: true,
                 },
                 {
                     prop: 'goods.name',
@@ -206,6 +207,7 @@ export default {
                     prop: 'score',
                     label: this.$t('goodsComment.starRating'),
                     minWidth: 70,
+                    showOverflowTooltip: true,
                 },
                 {
                     prop: 'content',
@@ -216,7 +218,8 @@ export default {
                 {
                     prop: 'orderId',
                     label: this.$t('goodsComment.orderNumber'),
-                    minWidth: 100,
+                    minWidth: 140,
+                    showOverflowTooltip: true,
                 },
                 {
                     prop: 'display',
@@ -233,12 +236,14 @@ export default {
                         });
                     },
                     align: 'center',
+                    showOverflowTooltip: true,
                 },
                 {
                     prop: 'createdAt',
                     label: this.$t('goodsComment.commentTime'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
+                    showOverflowTooltip: true,
                 },
             ];
         },

@@ -202,9 +202,19 @@ export default {
         // 响应式的表格列定义
         columns() {
             return [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'name', label: this.$t('goods.paramName'), minWidth: 100 },
-                { prop: 'type', label: this.$t('goods.paramType'), minWidth: 60 },
+                { prop: 'id', label: 'ID', minWidth: 60, showOverflowTooltip: true },
+                {
+                    prop: 'name',
+                    label: this.$t('goods.paramName'),
+                    minWidth: 100,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'type',
+                    label: this.$t('goods.paramType'),
+                    minWidth: 60,
+                    showOverflowTooltip: true,
+                },
                 {
                     prop: 'values',
                     label: this.$t('goods.paramOption'),
@@ -216,6 +226,7 @@ export default {
                     label: this.$t('common.createTime'),
                     minWidth: 140,
                     formatter: this.env.formatDateTime,
+                    showOverflowTooltip: true,
                 },
             ];
         },

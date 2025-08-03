@@ -240,6 +240,15 @@ export default {
         };
     },
     computed: {
+        // 响应式的搜索字段配置
+        searchFields() {
+            return [
+                { prop: 'ladingId', label: this.$t('order.ladingId') },
+                { prop: 'orderId', label: this.$t('order.orderId') },
+                { prop: 'name', label: this.$t('order.ladingName') },
+                { prop: 'mobile', label: this.$t('order.mobile') },
+            ];
+        },
         // 响应式的 formDataRules 配置
         formDataRules() {
             return {
@@ -266,12 +275,43 @@ export default {
         columns() {
             return [
                 { prop: 'id', label: 'ID', minWidth: 60, showOverflowTooltip: true },
-                { prop: 'ladingId', label: this.$t('order.ladingId'), minWidth: 120, showOverflowTooltip: true },
-                { prop: 'orderId', label: this.$t('order.orderId'), minWidth: 120, showOverflowTooltip: true },
-                { prop: 'store.storeName', label: this.$t('order.store'), minWidth: 150, showOverflowTooltip: true },
-                { prop: 'name', label: this.$t('order.ladingName'), minWidth: 100, showOverflowTooltip: true },
-                { prop: 'mobile', label: this.$t('order.mobile'), minWidth: 120, showOverflowTooltip: true },
-                { prop: 'status', label: this.$t('order.status'), minWidth: 70, align: 'center', showOverflowTooltip: true },
+                {
+                    prop: 'ladingId',
+                    label: this.$t('order.ladingId'),
+                    minWidth: 120,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'orderId',
+                    label: this.$t('order.orderId'),
+                    minWidth: 120,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'store.storeName',
+                    label: this.$t('order.store'),
+                    minWidth: 150,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'name',
+                    label: this.$t('order.ladingName'),
+                    minWidth: 100,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'mobile',
+                    label: this.$t('order.mobile'),
+                    minWidth: 120,
+                    showOverflowTooltip: true,
+                },
+                {
+                    prop: 'status',
+                    label: this.$t('order.status'),
+                    minWidth: 70,
+                    align: 'center',
+                    showOverflowTooltip: true,
+                },
                 {
                     prop: 'createdAt',
                     label: this.$t('order.createdAt'),

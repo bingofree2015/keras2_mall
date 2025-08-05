@@ -8,7 +8,7 @@
                 </el-button>
             </template>
         </el-input>
-        <video-uploader v-model:visible="videoDialogVisible" @chosed-video="chosedVideo" />
+        <video-uploader v-model="videoDialogVisible" @chosed-video="chosedVideo" />
     </div>
 </template>
 <script>

@@ -42,7 +42,7 @@
                 </div>
             </draggable>
         </transition-group>
-        <multi-uploader v-model:visible="imageDialogVisible" @chosed-image="chosedImage" />
+        <multi-uploader v-model="imageDialogVisible" @chosed-image="chosedImage" />
     </div>
 </template>
 

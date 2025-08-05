@@ -162,6 +162,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { markRaw } from 'vue';
 import Cookies from 'js-cookie';
 import themePicker from '@/components/theme_picker.vue';
 import { ArrowLeft, ArrowRight } from '@element-plus/icons-vue';
@@ -186,8 +187,8 @@ export default {
             autoRotateInterval: null,
             showModal: false, // 控制图片模态框的显示
             // Element Plus 图标
-            ArrowLeft,
-            ArrowRight,
+            ArrowLeft: markRaw(ArrowLeft),
+            ArrowRight: markRaw(ArrowRight),
         };
     },
     computed: {
@@ -559,7 +560,7 @@ export default {
     .login-form-section-header {
         background: #f8f9fa;
         width: 100%;
-        height: 300px;
+        height: 200px;
         display: flex;
         align-items: center;
         justify-content: center;

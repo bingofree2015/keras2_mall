@@ -73,7 +73,7 @@
         </div>
         <template #footer>
             <span class="dialog-footer">
-                <el-button round @click="$emit('update:visible', false)">
+                <el-button round @click="$emit('update:modelValue', false)">
                     {{ $t('action.cancel') }}
                 </el-button>
                 <el-button round type="primary" @click="handleBackup">
@@ -87,7 +87,13 @@
 <script>
 export default {
     components: {},
-    emits: ['update:visible'],
+    props: {
+        modelValue: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    emits: ['update:modelValue'],
     data() {
         return {
             normalSize: 'default',

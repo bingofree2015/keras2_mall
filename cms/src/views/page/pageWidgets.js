@@ -2,10 +2,10 @@ const pageConfig = [
     // 团购秒杀
     {
         type: 'groupPurchase',
-        name: this.$t('visualDesign.groupSeckill'),
+        name: '团购秒杀',
         config: {
             title: '活动名称',
-            limit: '5',
+            limit: 5,
             list: [
                 {
                     url: 'images/empty-banner.png',
@@ -24,16 +24,16 @@ const pageConfig = [
     // 优惠券组
     {
         type: 'coupon',
-        name: this.$t('visualDesign.couponGroup'),
+        name: '优惠券组',
         config: {
-            limit: '2',
+            limit: 2,
         },
         key: 'coupon_0',
     },
     // 购买记录
     {
         type: 'record',
-        name: this.$t('visualDesign.record'),
+        name: '购买记录',
         config: {
             style: {
                 top: 0,
@@ -78,7 +78,7 @@ const pageConfig = [
     // 辅助空白
     {
         type: 'blank',
-        name: this.$t('visualDesign.auxiliaryBlank'),
+        name: '辅助空白',
         config: {
             height: 20,
             backgroundColor: '#FFFFFF',
@@ -88,16 +88,16 @@ const pageConfig = [
     // 文本域
     {
         type: 'textarea',
-        name: this.$t('visualDesign.textArea'),
+        name: '文本域',
         config: '',
         key: 'textarea_0',
     },
     // 视频组
     {
         type: 'video',
-        name: this.$t('visualDesign.videoGroup'),
+        name: '视频组',
         config: {
-            autoplay: 'false',
+            autoplay: false,
             url: 'images/empty-banner.png',
             videoUrl:
                 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400',
@@ -109,7 +109,7 @@ const pageConfig = [
     // 文章组
     {
         type: 'article',
-        name: this.$t('visualDesign.articleGroup'),
+        name: '文章组',
         config: {
             title: '',
             url: 'images/empty-goods.png',
@@ -119,7 +119,7 @@ const pageConfig = [
     // 文章分类
     {
         type: 'articleClassify',
-        name: this.$t('visualDesign.articleCategory'),
+        name: '文章分类',
         config: {
             limit: 3,
             articleClassifyId: '',
@@ -131,7 +131,7 @@ const pageConfig = [
         type: 'search',
         name: '搜索框',
         config: {
-            keywords: this.$t('visualDesign.inputSearchKeyword'),
+            keywords: '请输入关键字搜索',
             style: 'round',
         },
         key: 'search_0',
@@ -139,7 +139,7 @@ const pageConfig = [
     // 图片轮播
     {
         type: 'imgSlide',
-        name: this.$t('visualDesign.imageCarousel'),
+        name: '图片轮播',
         config: {
             duration: 2500,
             list: [
@@ -160,7 +160,7 @@ const pageConfig = [
     // 公告组
     {
         type: 'notice',
-        name: this.$t('visualDesign.noticeGroup'),
+        name: '公告组',
         config: {
             type: 'auto',
             list: [
@@ -176,7 +176,7 @@ const pageConfig = [
     // 导航组
     {
         type: 'navBar',
-        name: this.$t('visualDesign.navigationGroup'),
+        name: '导航组',
         config: {
             limit: 4,
             list: [
@@ -214,7 +214,7 @@ const pageConfig = [
         name: '商品组',
         config: {
             title: '热门商品',
-            more: 'true',
+            more: true,
             type: 'auto',
             classifyId: '',
             brandId: '',

@@ -8,34 +8,36 @@
         >
             <i class="el-icon-ali-Newxuanzeshangpinxuanzhong"></i>
         </ext-button>
-        <el-dialog
-            v-model:visible="dialogVisible"
-            :close-on-click-modal="false"
-            :modal-append-to-body="false"
-            :size="normalSize"
-            :title="$t('pickArea.dialogTitle')"
-            width="40%"
-        >
-            <el-tree
-                ref="areaTree"
-                :default-checked-keys="areaIds"
-                :load="loadNode"
-                :props="treeProps"
-                lazy
-                node-key="id"
-                show-checkbox
-            />
-            <template #footer>
-                <span class="dialog-footer">
-                    <el-button :size="normalSize" round @click="dialogVisible = false">
-                        {{ $t('action.cancel') }}
-                    </el-button>
-                    <el-button :size="normalSize" round type="primary" @click="chosedAreas">
-                        {{ $t('action.comfirm') }}
-                    </el-button>
-                </span>
-            </template>
-        </el-dialog>
+        <Teleport to="body">
+            <el-dialog
+                v-model="dialogVisible"
+                :close-on-click-modal="false"
+                :modal-append-to-body="true"
+                :size="normalSize"
+                :title="$t('pickArea.dialogTitle')"
+                width="40%"
+            >
+                <el-tree
+                    ref="areaTree"
+                    :default-checked-keys="areaIds"
+                    :load="loadNode"
+                    :props="treeProps"
+                    lazy
+                    node-key="id"
+                    show-checkbox
+                />
+                <template #footer>
+                    <span class="dialog-footer">
+                        <el-button :size="normalSize" round @click="dialogVisible = false">
+                            {{ $t('action.cancel') }}
+                        </el-button>
+                        <el-button :size="normalSize" round type="primary" @click="chosedAreas">
+                            {{ $t('action.comfirm') }}
+                        </el-button>
+                    </span>
+                </template>
+            </el-dialog>
+        </Teleport>
     </div>
 </template>
 <script>

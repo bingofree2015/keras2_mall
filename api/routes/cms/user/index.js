@@ -2,6 +2,7 @@
  * 管理员权限管理 */
 
 const Router = require('@koa/router');
+const { omit } = require('lodash');
 
 const {
     create, batchDelete, update, get, list,
@@ -24,7 +25,7 @@ router.post('/save', async (ctx) => {
     let _result = {};
     if (_user.id) {
         const _id = _user.id;
-        _user = _.omit(_user, 'id');
+        _user = omit(_user, 'id');
         _result = await update(_id, _user);
     } else {
         _result = await create(_user);

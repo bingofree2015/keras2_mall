@@ -69,55 +69,45 @@
                                     {{ $t('preference.contactMobileTip') }}
                                 </span>
                             </el-form-item>
-                            <el-row :gutter="20">
-                                <el-col :span="12" :xs="24" :sm="12" :md="8">
-                                    <el-form-item
-                                        :label="$t('preference.platformLogo')"
-                                        prop="shopLogo"
-                                    >
-                                        <change-image-icon
-                                            :img-url="formData.shopLogo"
-                                            @chosed-image-icon="chosedShopLogo"
-                                        />
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :span="12" :xs="24" :sm="12" :md="8">
-                                    <el-form-item
-                                        :label="$t('preference.defaultImage')"
-                                        prop="shopDefaultImage"
-                                    >
-                                        <change-image-icon
-                                            :img-url="formData.shopDefaultImage"
-                                            @chosed-image-icon="chosedShopDefaultImage"
-                                        />
-                                    </el-form-item>
-                                </el-col>
+                            <el-row :gutter="20" class="item-inline-container">
+                                <el-form-item
+                                    :label="$t('preference.platformLogo')"
+                                    prop="shopLogo"
+                                >
+                                    <change-image-icon
+                                        :img-url="formData.shopLogo"
+                                        @chosed-image-icon="chosedShopLogo"
+                                    />
+                                </el-form-item>
+
+                                <el-form-item
+                                    :label="$t('preference.defaultImage')"
+                                    prop="shopDefaultImage"
+                                >
+                                    <change-image-icon
+                                        :img-url="formData.shopDefaultImage"
+                                        @chosed-image-icon="chosedShopDefaultImage"
+                                    />
+                                </el-form-item>
                             </el-row>
-                            <el-row :gutter="20">
-                                <el-col :span="12" :xs="24" :sm="12" :md="8">
-                                    <el-form-item
-                                        :label="$t('preference.selfService')"
-                                        prop="selfService"
-                                    >
-                                        <el-switch
-                                            v-model="formData.selfService"
-                                            :active-text="$t('preference.enable')"
-                                            :inactive-text="$t('preference.disable')"
-                                        />
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :span="12" :xs="24" :sm="12" :md="8">
-                                    <el-form-item
-                                        :label="$t('preference.invoice')"
-                                        prop="invoicesNeed"
-                                    >
-                                        <el-switch
-                                            v-model="formData.invoicesNeed"
-                                            :active-text="$t('preference.enable')"
-                                            :inactive-text="$t('preference.disable')"
-                                        />
-                                    </el-form-item>
-                                </el-col>
+                            <el-row :gutter="20" class="item-inline-container">
+                                <el-form-item
+                                    :label="$t('preference.selfService')"
+                                    prop="selfService"
+                                >
+                                    <el-switch
+                                        v-model="formData.selfService"
+                                        :active-text="$t('preference.enable')"
+                                        :inactive-text="$t('preference.disable')"
+                                    />
+                                </el-form-item>
+                                <el-form-item :label="$t('preference.invoice')" prop="invoicesNeed">
+                                    <el-switch
+                                        v-model="formData.invoicesNeed"
+                                        :active-text="$t('preference.enable')"
+                                        :inactive-text="$t('preference.disable')"
+                                    />
+                                </el-form-item>
                             </el-row>
                             <el-form-item
                                 :label="$t('preference.searchKeywords')"
@@ -925,32 +915,32 @@ export default {
                 selfService: '2', // 开启门店自提
                 cateStyle: 3, // 分类样式
                 cateType: 1, // H5分类样式
-                orderCancelTime: 1, // 订单取消时间
-                orderCompleteTime: 30, // 订单完成时间
-                orderAutoSignTime: 20, // 订单确认收货时间
-                orderAutoEvalTime: 30, // 订单自动评价时间
-                reminderPaymentTime: 1, // 订单提醒付款时间
-                goodsStocksWarn: 10, // 库存警报数量
+                orderCancelTime: null, // 订单取消时间
+                orderCompleteTime: null, // 订单完成时间
+                orderAutoSignTime: null, // 订单确认收货时间
+                orderAutoEvalTime: null, // 订单自动评价时间
+                reminderPaymentTime: null, // 订单提醒付款时间
+                goodsStocksWarn: null, // 库存警报数量
                 returnContact: '', // 退货联系人
                 returnContactInformation: '', // 退货联系方式
-                returnAreaId: '', // 退货区域
+                returnAreaId: null, // 退货区域
                 returnAddress: '', // 退货详细地址
-                signPointType: 2, // 签到奖励类型
-                signMinRandomPoint: 1, // 随机奖励积分最小值
-                signMaxRandomPoint: 10, // 随机奖励积分最大值
-                firstSignPoint: 1, // 首次奖励积分
-                continuitySignAdditional: 1, // 连续签到追加
-                dailySignMaxPoint: 10, // 单日最大奖励
-                openPoint: 1, // 开启积分功能
-                pointDiscountedProportion: 100, // 订单积分折现比例
-                orderPointProportion: 10, // 订单积分使用比例
-                orderRewardProportion: 1, // 订单积分奖励比例
+                signPointType: null, // 签到奖励类型
+                signMinRandomPoint: null, // 随机奖励积分最小值
+                signMaxRandomPoint: null, // 随机奖励积分最大值
+                firstSignPoint: null, // 首次奖励积分
+                continuitySignAdditional: null, // 连续签到追加
+                dailySignMaxPoint: null, // 单日最大奖励
+                openPoint: null, // 开启积分功能
+                pointDiscountedProportion: null, // 订单积分折现比例
+                orderPointProportion: null, // 订单积分使用比例
+                orderRewardProportion: null, // 订单积分奖励比例
 
                 signAppointDateState: false, // 指定特殊日期状态
                 signAppointDate: [], // 指定特殊日期
-                signAppointDateType: 1, // 指定日期奖励类型
-                signAppointDateRate: 2, // 指定日期倍率
-                signAppointDateAdditional: 10, // 指定日期追加
+                signAppointDateType: null, // 指定日期奖励类型
+                signAppointDateRate: null, // 指定日期倍率
+                signAppointDateAdditional: null, // 指定日期追加
                 wxNickName: 'KerasMall', // 小程序名称
 
                 // 小程序设置
@@ -971,8 +961,8 @@ export default {
                 wxOfficialType: 'service', // 公众号类型
 
                 // 提现设置
-                toCashLowMoney: 0, // 最低提现金额
-                toCashRateMoney: 0, // 提现服务费率
+                toCashLowMoney: null, // 最低提现金额
+                toCashRateMoney: null, // 提现服务费率
 
                 // 其他设置
                 qqMapKey: '', // 腾讯地图key
@@ -1192,7 +1182,9 @@ export default {
         border-top: 1px solid #e6e6e6;
     }
 }
-
+.item-inline-container {
+    display: flex;
+}
 .image-placeholder {
     display: flex;
     align-items: center;

@@ -71,7 +71,7 @@
                 </el-col>
                 <el-col :span="6">
                     <el-button @click="dialogVisible = true">弹窗测试</el-button>
-                    <el-dialog v-model:visible="dialogVisible" title="测试弹窗">
+                    <el-dialog v-model="dialogVisible" title="测试弹窗">
                         <div>弹窗内容</div>
                     </el-dialog>
                 </el-col>
@@ -249,10 +249,7 @@
                 </div>
             </template>
         </el-dialog>
-        <video-uploader
-            :visible="videoDialogVisible"
-            @update:visible="videoDialogVisible = $event"
-        />
+        <video-uploader v-model="videoDialogVisible" />
     </el-container>
 </template>
 <script>

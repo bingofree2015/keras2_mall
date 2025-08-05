@@ -173,6 +173,7 @@ export default {
             normalSize: 'default',
 
             loading: false,
+            submitLoading: false,
             articleTypeTreeData: [],
             dialogVisible: false,
             formData: {
@@ -180,8 +181,14 @@ export default {
                 typeName: '',
                 pid: 0,
                 parentName: '',
+                sort: null,
             },
             popupTreeProps: {},
+            popupTreeData: [],
+            defaultProps: {
+                children: 'children',
+                label: 'typeName',
+            },
         };
     },
     computed: {
@@ -226,6 +233,7 @@ export default {
             const _result = await this.$api.articleType.getTree();
             if (_result.succeed === 1 && _result.code === 200) {
                 this.articleTypeTreeData = _result.data.list;
+                this.popupTreeData = _result.data.list;
                 this.loading = false;
             }
         },
@@ -237,6 +245,7 @@ export default {
                 typeName: '',
                 pid: 0,
                 parentName: '',
+                sort: null,
             };
         },
         // 显示编辑界面
@@ -288,11 +297,11 @@ export default {
                         this.$t('common.tip'),
                         {}
                     ).then(async () => {
-                        this.editLoading = true;
+                        this.submitLoading = true;
                         const params = Object.assign({}, this.formData);
                         const _result = await this.$api.articleType.save(params);
 
-                        this.editLoading = false;
+                        this.submitLoading = false;
                         if (_result.succeed === 1 && _result.code === 200) {
                             const _parentId = _result.data.pid;
                             const _parentTreeItem = this.getTreeItemById(

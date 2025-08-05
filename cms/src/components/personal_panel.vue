@@ -44,9 +44,9 @@
             {{ $t('common.logout') }}
         </div>
         <!--备份还原界面-->
-        <database v-model:visible="databaseDialogVisible" @after-restore="afterRestore" />
-        <edit-user-info v-model:visible="editUserInfoDialogVisible" />
-        <reset-user-pwd v-model:visible="resetUserPwdDialogVisible" />
+        <database v-model="databaseDialogVisible" @after-restore="afterRestore" />
+        <edit-user-info v-model="editUserInfoDialogVisible" />
+        <reset-user-pwd v-model="resetUserPwdDialogVisible" />
     </div>
 </template>
 

@@ -91,7 +91,7 @@
                     <el-input v-model="formData.id" :disabled="true" />
                 </el-form-item>
                 <el-form-item :label="$t('goods.specName')" prop="name">
-                    <el-input v-model="formData.name" />
+                    <el-input v-model="formData.name" style="width: 200px" />
                 </el-form-item>
                 <el-form-item :label="$t('goods.sort')" prop="sort">
                     <el-input-number
@@ -103,7 +103,7 @@
                     />
                     <el-button
                         round
-                        style="float: right"
+                        style="float: right; margin-left: 10px"
                         type="primary"
                         @click.prevent="addSpecValue()"
                     >
@@ -120,18 +120,17 @@
                         message: $t('goods.inputSpecValue'),
                         trigger: 'blur',
                     }"
+                    class="spec-item"
                 >
-                    <el-row>
+                    <el-row :gutter="10">
                         <el-col :span="16">
                             <el-input v-model="specValue.value" />
                         </el-col>
                         <el-col :span="8">
-                            <el-button
-                                circle
-                                icon="el-icon-delete"
-                                type="danger"
+                            <i
+                                class="el-icon-ali-shanchu2 delete-icon"
                                 @click.prevent="removeSpecValue(specValue)"
-                            />
+                            ></i>
                         </el-col>
                     </el-row>
                 </el-form-item>
@@ -238,14 +237,25 @@ export default {
         columns() {
             return [
                 { prop: 'id', label: 'ID', minWidth: 60, showOverflowTooltip: true },
-                { prop: 'name', label: this.$t('goodsSpec.attributeName'), minWidth: 100, showOverflowTooltip: true },
+                {
+                    prop: 'name',
+                    label: this.$t('goodsSpec.attributeName'),
+                    minWidth: 100,
+                    showOverflowTooltip: true,
+                },
                 {
                     prop: 'values',
                     label: this.$t('goodsSpec.attributeValue'),
                     minWidth: 200,
                     showOverflowTooltip: true,
                 },
-                { prop: 'sort', label: this.$t('system.sort'), minWidth: 70, align: 'center', showOverflowTooltip: true },
+                {
+                    prop: 'sort',
+                    label: this.$t('system.sort'),
+                    minWidth: 70,
+                    align: 'center',
+                    showOverflowTooltip: true,
+                },
                 {
                     prop: 'createdAt',
                     label: this.$t('common.createTime'),
@@ -368,4 +378,30 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.spec-item {
+    position: relative;
+
+    .delete-icon {
+        font-size: 2em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        opacity: 0;
+        visibility: hidden;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
+    }
+
+    &:hover .delete-icon,
+    &:focus-within .delete-icon {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+</style>

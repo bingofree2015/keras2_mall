@@ -6,6 +6,7 @@
             :rules="formDataRules"
             :size="normalSize"
             label-width="120px"
+            style="width: 80%"
         >
             <el-divider content-position="left">
                 {{ $t('article.basicInfo') }}
@@ -18,39 +19,45 @@
                             :placeholder="$t('article.inputTitle')"
                         />
                     </el-form-item>
+                    <el-row>
+                        <el-col :span="12">
+                            <el-form-item :label="$t('article.type')" prop="typeId">
+                                <el-select
+                                    v-model="formData.typeId"
+                                    :placeholder="$t('article.selectType')"
+                                >
+                                    <el-option
+                                        v-for="type in articleTypeOpts"
+                                        :key="type.id"
+                                        :label="type.typeName"
+                                        :value="type.id"
+                                    />
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+
+                        <el-col :span="12">
+                            <el-form-item :label="$t('article.sort')" prop="sort">
+                                <el-input-number
+                                    v-model="formData.sort"
+                                    :min="0"
+                                    :max="999"
+                                    controls-position="right"
+                                />
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
                 </el-col>
-                <el-col :span="12">
-                    <el-form-item :label="$t('article.type')" prop="typeId">
-                        <el-select
-                            v-model="formData.typeId"
-                            :placeholder="$t('article.selectType')"
-                        >
-                            <el-option
-                                v-for="type in articleTypeOpts"
-                                :key="type.id"
-                                :label="type.typeName"
-                                :value="type.id"
-                            />
-                        </el-select>
-                    </el-form-item>
-                </el-col>
-            </el-row>
-            <el-row>
-                <el-col :span="12">
-                    <el-form-item :label="$t('article.cover')" prop="attachmentId">
+                <el-col :span="4">
+                    <el-form-item
+                        :label="$t('article.cover')"
+                        prop="attachmentId"
+                        class="cover-item"
+                        label-width="60px"
+                    >
                         <change-image-icon
                             :image="formData.attachment"
                             @chosed-image="chosedLogo"
-                        />
-                    </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                    <el-form-item :label="$t('article.sort')" prop="sort">
-                        <el-input-number
-                            v-model="formData.sort"
-                            :min="0"
-                            :max="999"
-                            controls-position="right"
                         />
                     </el-form-item>
                 </el-col>
@@ -60,7 +67,9 @@
                     <el-form-item :label="$t('article.content')" prop="content">
                         <tiny-editor
                             v-model="formData.content"
+                            :content="formData.content || ''"
                             :placeholder="$t('article.inputContent')"
+                            style="width: 100%"
                         />
                     </el-form-item>
                 </el-col>
@@ -79,28 +88,37 @@
                     </el-form-item>
                 </el-col>
             </el-row>
-            <el-form-item>
-                <el-button
-                    :loading="editLoading"
-                    :size="normalSize"
-                    round
-                    type="primary"
-                    @click="submitForm"
-                >
-                    {{ $t('action.submit') }}
-                </el-button>
-                <el-button :size="normalSize" round @click="resetForm('formData')">
-                    {{ $t('action.reset') }}
-                </el-button>
-            </el-form-item>
+            <el-row>
+                <el-col :span="24">
+                    <el-form-item class="button-right">
+                        <el-button
+                            :loading="editLoading"
+                            :size="normalSize"
+                            round
+                            type="primary"
+                            @click="submitForm"
+                        >
+                            {{ $t('action.submit') }}
+                        </el-button>
+                        <el-button :size="normalSize" round @click="resetForm('formData')">
+                            {{ $t('action.reset') }}
+                        </el-button>
+                    </el-form-item>
+                </el-col>
+            </el-row>
         </el-form>
     </div>
 </template>
 
 <script>
+import changeImageIcon from '@/components/change_image_icon.vue';
+import tinyEditor from '@/components/tiny_editor.vue';
 export default {
     name: 'ArticleEdit',
-    components: {},
+    components: {
+        changeImageIcon,
+        tinyEditor,
+    },
     data() {
         return {
             normalSize: 'default',
@@ -204,4 +222,38 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.cover-item {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+}
+
+// 让 tiny-editor 自适应宽度
+:deep(.tiny-container) {
+    width: 100% !important;
+
+    .tox-tinymce {
+        width: 100% !important;
+    }
+
+    textarea {
+        width: 100% !important;
+    }
+}
+
+// 按钮右对齐
+.button-right {
+    :deep(.el-form-item__content) {
+        display: flex !important;
+        justify-content: flex-end !important;
+    }
+}
+
+// 使用 flexbox 的按钮右对齐
+.button-right-flex {
+    display: flex !important;
+    justify-content: flex-end !important;
+}
+</style>

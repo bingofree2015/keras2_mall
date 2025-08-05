@@ -2,6 +2,7 @@
  * 品牌接口 */
 
 const Router = require('@koa/router');
+const { omit } = require('lodash');
 
 const spRuleRepo = require('../../../repository/promotion/sp_rule_repos');
 
@@ -56,7 +57,7 @@ spRuleRouter.post('/save', async (ctx) => {
     let _result = {};
     if (_spRule.id) {
         const _id = _spRule.id;
-        _spRule = _.omit(_spRule, 'id');
+        _spRule = omit(_spRule, 'id');
         _result = await spRuleRepo.update(_id, _spRule);
     } else {
         _result = await spRuleRepo.create(_spRule);

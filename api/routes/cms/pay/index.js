@@ -2,6 +2,7 @@
  * 管理员权限管理 */
 
 const Router = require('@koa/router');
+const { omit } = require('lodash');
 
 const paymentRepo = require('../../../repository/pay/payment_repos');
 const balanceRouter = require('./balance');
@@ -28,7 +29,7 @@ router.post('/save', async (ctx) => {
     let _result = {};
     if (_user.id) {
         const _id = _user.id;
-        _user = _.omit(_user, 'id');
+        _user = omit(_user, 'id');
         _result = await paymentRepo.update(_id, _user);
     } else {
         _result = await paymentRepo.create(_user);

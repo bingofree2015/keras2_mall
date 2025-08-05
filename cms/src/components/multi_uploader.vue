@@ -15,7 +15,7 @@
                     :size="normalSize"
                     :cell-style="{ padding: '0px' }"
                     :data="attachGroups"
-                    :row-style="{ height: '42px' }"
+                    :row-style="{ height: '38px' }"
                     highlight-current-row
                     @cell-click="cellClick"
                     @cell-dblclick="cellDblClick"
@@ -37,20 +37,14 @@
                                 v-model="scope.row.name"
                                 :size="normalSize"
                                 :placeholder="$t('common.inputPlaceholder')"
-                                style="width: 100%"
                                 @blur="onSaveAttachGroup(scope.row)"
                             />
-                            <span v-else style="margin-left: 10px">
-                                {{ scope.row.name }}
-                                <el-button
-                                    :size="normalSize"
-                                    circle
-                                    style="float: right"
-                                    type="danger"
+                            <span v-else class="group-item-container">
+                                <span class="group-name">{{ scope.row.name }}</span>
+                                <i
+                                    class="el-icon-ali-delete delete-icon"
                                     @click="onDeleteAttachGroup(scope.row)"
-                                >
-                                    <i class="el-icon-ali-delete"></i>
-                                </el-button>
+                                ></i>
                             </span>
                         </template>
                     </el-table-column>
@@ -122,7 +116,7 @@
                     <el-tab-pane name="remote">
                         <template #label>
                             <span>
-                                <i class="el-icon-ali-xiazai2"></i>
+                                <i class="el-icon-ali-xiazai"></i>
                                 {{ $t('multiUploader.extractNetworkImage') }}
                             </span>
                         </template>
@@ -149,12 +143,7 @@
                                 style="border-radius: 30px; margin-top: 5px; max-height: 380px"
                             >
                                 <template #error>
-                                    <div class="image-slot">
-                                        <i
-                                            class="el-icon-ali-gaiyemianshanchuhuobucunzai"
-                                            style="font-size: 180px; color: #f2f6fc"
-                                        ></i>
-                                    </div>
+                                    <div class="image-slot"></div>
                                 </template>
                             </el-image>
                         </div>
@@ -229,7 +218,7 @@
         </el-container>
         <template #footer>
             <div class="dialog-footer">
-                <el-button :size="normalSize" round @click="$emit('update:visible', false)">
+                <el-button :size="normalSize" round @click="$emit('update:modelValue', false)">
                     {{ $t('action.cancel') }}
                 </el-button>
                 <el-button
@@ -259,12 +248,12 @@ export default {
         VueCropper,
     },
     props: {
-        visible: {
+        modelValue: {
             type: Boolean,
             default: false,
         },
     },
-    emits: ['update:visible', 'chosedImage'],
+    emits: ['update:modelValue', 'chosedImage'],
     data() {
         const token = Cookies.get('token');
         return {
@@ -322,10 +311,10 @@ export default {
         },
         dialogVisible: {
             get() {
-                return this.visible;
+                return this.modelValue;
             },
             set(val) {
-                this.$emit('update:visible', val);
+                this.$emit('update:modelValue', val);
             },
         },
     },
@@ -693,5 +682,28 @@ export default {
 // 截图
 .cropper-container {
     height: 360px;
+}
+
+// 图片分组列表样式
+.group-item-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .group-name {
+        flex: 1;
+        margin-right: 10px;
+    }
+
+    .delete-icon {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        cursor: pointer;
+    }
+
+    &:hover {
+        .delete-icon {
+            opacity: 1;
+        }
+    }
 }
 </style>

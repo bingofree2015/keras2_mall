@@ -2,6 +2,7 @@
  * 管理员权限管理 */
 
 const Router = require('@koa/router');
+const { omit } = require('lodash');
 
 const page = require('../../../repository/page/page_repos');
 
@@ -19,7 +20,7 @@ router.post('/save', async (ctx) => {
     let _result = {};
     if (_page.id) {
         const _id = _page.id;
-        _page = _.omit(_page, 'id');
+        _page = omit(_page, 'id');
         _result = await page.update(_id, _page);
     } else {
         _result = await page.create(_page);

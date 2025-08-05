@@ -232,6 +232,14 @@ export default {
         };
     },
     computed: {},
+    watch: {
+        type: {
+            handler(newType) {
+                this.attrs.type = newType;
+            },
+            immediate: true,
+        },
+    },
     mounted() {
         this.handleCurrentChange(1);
     },

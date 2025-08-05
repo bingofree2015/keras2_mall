@@ -7,7 +7,8 @@
             :rules="formDataRules"
             :size="normalSize"
             class="edit-dialog-container"
-            label-width="100px"
+            label-width="120px"
+            style="width: 80%"
         >
             <el-row>
                 <el-col :span="24">
@@ -115,9 +116,10 @@
                         <el-col :span="6">
                             {{ $t('ship.firstWeight') }}
                             <el-input-number
-                                v-model="formData.firstunitPrice"
-                                :max="10"
-                                :min="1"
+                                v-model="formData.firstUnitPrice"
+                                :max="99999"
+                                :min="0"
+                                :precision="2"
                                 controls-position="right"
                                 :label="$t('ship.inputFirstWeightFee')"
                             />
@@ -126,8 +128,9 @@
                             {{ $t('ship.continueWeight') }}
                             <el-input-number
                                 v-model="formData.continueUnitPrice"
-                                :max="10"
-                                :min="1"
+                                :max="99999"
+                                :min="0"
+                                :precision="2"
                                 controls-position="right"
                                 :label="$t('ship.inputContinueWeightFee')"
                             />
@@ -148,8 +151,9 @@
                     <el-form-item :label="$t('ship.goodsMoney')" prop="goodsMoney">
                         <el-input-number
                             v-model="formData.goodsMoney"
-                            :max="99"
+                            :max="999999"
                             :min="0"
+                            :precision="2"
                             controls-position="right"
                             :label="$t('ship.inputGoodsMoney')"
                         />
@@ -176,7 +180,7 @@
                     >
                         <el-table-column
                             :label="$t('ship.areaList')"
-                            min-width="280"
+                            min-width="100"
                             prop="areas"
                             show-overflow-tooltip
                         >
@@ -184,7 +188,7 @@
                                 {{ scope.row.areas.map((v) => v.name).join(',') }}
                             </template>
                         </el-table-column>
-                        <el-table-column :label="$t('ship.select')" min-width="130" prop="areas">
+                        <el-table-column :label="$t('ship.select')" min-width="100" prop="areas">
                             <template #default="scope">
                                 <pick-area
                                     :area-ids="scope.row.areas.map((v) => v.id)"
@@ -202,10 +206,15 @@
                             prop="firstUnitAreaPrice"
                         >
                             <template #default="scope">
-                                <el-input
+                                <el-input-number
                                     v-model="scope.row.firstUnitAreaPrice"
                                     :size="normalSize"
+                                    :max="99999"
+                                    :min="0"
+                                    :precision="2"
+                                    controls-position="right"
                                     placeholder="请输入首重费用"
+                                    style="width: 100px"
                                 />
                             </template>
                         </el-table-column>
@@ -215,10 +224,15 @@
                             prop="continueUnitAreaPrice"
                         >
                             <template #default="scope">
-                                <el-input
+                                <el-input-number
                                     v-model="scope.row.continueUnitAreaPrice"
                                     :size="normalSize"
+                                    :max="99999"
+                                    :min="0"
+                                    :precision="2"
+                                    controls-position="right"
                                     placeholder="请输入续重费用"
+                                    style="width: 100px"
                                 />
                             </template>
                         </el-table-column>
@@ -226,12 +240,12 @@
                             align="center"
                             fixed="right"
                             :label="$t('action.operation')"
-                            min-width="80"
+                            min-width="60"
                         >
                             <template #header>
                                 <el-button
                                     round
-                                    size="small"
+                                    :size="normalSize"
                                     style="float: right"
                                     type="primary"
                                     @click.prevent="handleAddAreaFee()"
@@ -240,20 +254,17 @@
                                 </el-button>
                             </template>
                             <template #default="scope">
-                                <el-button
-                                    circle
-                                    icon="el-icon-delete"
-                                    size="small"
-                                    type="danger"
+                                <i
+                                    class="el-icon-ali-delete"
                                     @click="handleDeleteAreaFee(scope.row.idx)"
-                                />
+                                ></i>
                             </template>
                         </el-table-column>
                     </el-table>
                 </el-col>
             </el-row>
             <el-row>
-                <el-col :span="16" class="footer">
+                <el-col :span="16" class="footer" style="padding-right: 12px">
                     <el-button :size="normalSize" round @click="resetForm('formData')">
                         {{ $t('action.cancel') }}
                     </el-button>
@@ -283,11 +294,15 @@ export default {
     },
     data() {
         const checkPrice = (rule, value, callback) => {
-            var reg = /^-?\d{1,5}(?:\.\d{1,3})?$/;
-            if (reg.test(value)) {
+            if (value === '' || value === null || value === undefined || value === 0) {
+                callback();
+                return;
+            }
+            const reg = /^\d{1,5}(?:\.\d{1,2})?$/;
+            if (reg.test(value) && parseFloat(value) >= 0) {
                 callback();
             } else {
-                callback(new Error('请输入大于零小于十万不超过三位小数的数字'));
+                callback(new Error('请输入大于等于零小于十万不超过两位小数的数字'));
             }
         };
         return {
@@ -306,8 +321,8 @@ export default {
                 state: true, // 是否启用
                 firstUnit: '', // 首重重量
                 continueUnit: '', // 续重重量
-                firstunitPrice: '', // 首重费用
-                continueUnitPrice: '', // 续重费用
+                firstUnitPrice: 0, // 首重费用
+                continueUnitPrice: 0, // 续重费用
 
                 sort: 1, // 排序
                 goodsMoney: 0, // 商品满多少
@@ -316,10 +331,12 @@ export default {
             },
             formDataRules: {
                 name: [{ required: true, message: '请输入配送方式名称', trigger: 'blur' }],
-                price: [
-                    { required: true, message: '请输入价格', trigger: 'blur' },
-                    { validator: checkPrice, trigger: 'blur' },
-                ],
+                logiCode: [{ required: true, message: '请选择物流公司', trigger: 'change' }],
+                firstUnit: [{ required: true, message: '请选择首重单位', trigger: 'change' }],
+                continueUnit: [{ required: true, message: '请选择续重单位', trigger: 'change' }],
+                firstUnitPrice: [{ validator: checkPrice, trigger: 'blur' }],
+                continueUnitPrice: [{ validator: checkPrice, trigger: 'blur' }],
+                goodsMoney: [{ validator: checkPrice, trigger: 'blur' }],
             },
         };
     },
@@ -332,15 +349,43 @@ export default {
 
         const _id = this.$route.query.shipId;
         if (_id) {
-            const _result = await this.$api.ship.get({ id: _id });
-            if (_result.succeed === 1 && _result.code === 200) {
-                this.formData = Object.assign({}, _result.data);
+            try {
+                const _result = await this.$api.ship.get({ id: _id });
+                if (_result.succeed === 1 && _result.code === 200) {
+                    const data = Object.assign({}, _result.data);
+                    // 强制转换为数字类型，避免 el-input-number 类型警告
+                    data.firstUnitPrice = Number(data.firstUnitPrice) || 0;
+                    data.continueUnitPrice = Number(data.continueUnitPrice) || 0;
+                    data.goodsMoney = Number(data.goodsMoney) || 0;
+                    data.sort = Number(data.sort) || 1;
+
+                    // 处理地区费用数组中的数字字段
+                    if (Array.isArray(data.areaFee)) {
+                        data.areaFee = data.areaFee.map((item) => ({
+                            ...item,
+                            firstUnitAreaPrice: Number(item.firstUnitAreaPrice) || 0,
+                            continueUnitAreaPrice: Number(item.continueUnitAreaPrice) || 0,
+                        }));
+                    }
+
+                    this.formData = data;
+                } else {
+                    this.$notify.error({
+                        title: this.$t('common.error'),
+                        message: _result.description || '获取配送方式信息失败',
+                    });
+                }
+            } catch (error) {
+                this.$notify.error({
+                    title: this.$t('common.error'),
+                    message: '获取配送方式信息失败',
+                });
             }
         }
     },
     methods: {
         chosedAreas(areaIds, row) {
-            row['areas'] = areaIds;
+            row.areas = areaIds;
         },
         handleAddAreaFee() {
             this.formData.areaFee.push({
@@ -355,22 +400,55 @@ export default {
             const index = this.formData.areaFee.findIndex((v) => v.idx === idx);
             if (index !== -1) {
                 this.formData.areaFee.splice(index, 1);
+                // 重新计算索引
+                this.formData.areaFee.forEach((item, index) => {
+                    item.idx = index;
+                });
             }
         },
         async getLogistics() {
-            const _result = await this.$api.logistics.list({});
-            if (_result.succeed === 1 && _result.code === 200) {
-                this.logistics = _result.data.list;
+            try {
+                const _result = await this.$api.logistics.list({});
+                if (_result.succeed === 1 && _result.code === 200) {
+                    this.logistics = _result.data.list;
+                } else {
+                    this.$notify.error({
+                        title: this.$t('common.error'),
+                        message: _result.description || '获取物流公司列表失败',
+                    });
+                }
+            } catch (error) {
+                this.$notify.error({
+                    title: this.$t('common.error'),
+                    message: '获取物流公司列表失败',
+                });
             }
         },
         // 编辑
         submitForm() {
             this.$refs.formData.validate((valid) => {
                 if (valid) {
-                    this.$confirm(this.$t('common.confirmDelete'), this.$t('common.tip'), {}).then(
-                        async () => {
-                            this.editLoading = true;
+                    const confirmMessage = this.isCreating
+                        ? '确认新增配送方式？'
+                        : '确认保存修改？';
+                    this.$confirm(confirmMessage, this.$t('common.tip'), {}).then(async () => {
+                        this.editLoading = true;
+                        try {
                             const data = Object.assign({}, this.formData);
+                            // 确保数字字段类型正确
+                            data.firstUnitPrice = Number(data.firstUnitPrice) || 0;
+                            data.continueUnitPrice = Number(data.continueUnitPrice) || 0;
+                            data.goodsMoney = Number(data.goodsMoney) || 0;
+                            data.sort = Number(data.sort) || 1;
+
+                            // 处理地区费用数组中的数字字段
+                            if (Array.isArray(data.areaFee)) {
+                                data.areaFee = data.areaFee.map((item) => ({
+                                    ...item,
+                                    firstUnitAreaPrice: Number(item.firstUnitAreaPrice) || 0,
+                                    continueUnitAreaPrice: Number(item.continueUnitAreaPrice) || 0,
+                                }));
+                            }
 
                             const _result = await this.$api.ship.save(data);
                             if (_result.succeed === 1 && _result.code === 200) {
@@ -379,24 +457,46 @@ export default {
                                     message: _result.description,
                                     type: 'success',
                                 });
+                                this.$router.push({ path: '/preference/ship' });
                             } else {
                                 this.$notify.error({
                                     title: this.$t('common.error'),
                                     message: _result.description,
                                 });
                             }
-
+                        } catch (error) {
+                            this.$notify.error({
+                                title: this.$t('common.error'),
+                                message: '保存配送方式失败',
+                            });
+                        } finally {
                             this.editLoading = false;
-
-                            this.$router.push({ path: '/preference/ship' });
                         }
-                    );
+                    });
                 }
             });
         },
 
         resetForm(formName) {
             this.$refs[formName].resetFields();
+            // 重置表单数据到初始状态
+            this.formData = {
+                id: 0,
+                name: '',
+                logiCode: '',
+                freePostage: true,
+                hasCod: false,
+                isDef: false,
+                state: true,
+                firstUnit: '',
+                continueUnit: '',
+                firstUnitPrice: 0,
+                continueUnitPrice: 0,
+                sort: 1,
+                goodsMoney: 0,
+                type: 1,
+                areaFee: [],
+            };
         },
     },
 };

@@ -210,8 +210,8 @@
                         :size="normalSize"
                         round
                         type="primary"
-                        @click="submitForm"
-                        @load="editLoading"
+                        :loading="editLoading"
+                        @click="saveFeedback"
                     >
                         {{ $t('action.submit') }}
                     </el-button>
@@ -235,6 +235,7 @@ export default {
     data() {
         return {
             normalSize: 'default',
+            editLoading: false,
             filters: {
                 key: 'name',
                 value: '',
@@ -304,7 +305,7 @@ export default {
             },
             viewDialogVisible: false,
             feedbackDialogVisible: false,
-            operationWidth: 200,
+            operationWidth: 320,
             formDataRules: {
                 feedback: [
                     { required: true, message: this.$t('common.required'), trigger: 'blur' },
@@ -435,6 +436,7 @@ export default {
 
         // 保存反馈
         async saveFeedback() {
+            this.editLoading = true;
             try {
                 const result = await this.$api.formSubmit.save(this.formData);
                 if (this.$el && result.succeed === 1 && result.code === 200) {
@@ -447,6 +449,8 @@ export default {
                 if (this.$el) {
                     this.$message.error(this.$t('common.saveFailed'));
                 }
+            } finally {
+                this.editLoading = false;
             }
         },
     },

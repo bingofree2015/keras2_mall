@@ -1,8 +1,8 @@
 <template>
-    <div class="tiny-container">
+    <div class="tiny-container" style="width: 100%">
         <textarea ref="editor"></textarea>
-        <video-uploader v-model:visible="videoDialogVisible" @chosed-video="chosedVideo" />
-        <multi-uploader v-model:visible="imageDialogVisible" @chosed-image="chosedImage" />
+            <video-uploader v-model="videoDialogVisible" @chosed-video="chosedVideo" />
+    <multi-uploader v-model="imageDialogVisible" @chosed-image="chosedImage" />
     </div>
 </template>
 <script>
@@ -23,6 +23,7 @@ export default {
         content: {
             type: String,
             required: true,
+            default: ''
         },
         // 触发content同步更新的tinymce Editor Events，其他https://www.tiny.cloud/docs/advanced/events/
         updateEvent: {

@@ -5,7 +5,7 @@ export function login() {
     const loginData = {
         succeed: 1,
         code: 200,
-        description: this.$t('common.success'),
+        description: '操作成功',
         data: {
             id: 1,
             userId: 1,
@@ -28,7 +28,7 @@ export function resetPwd() {
     const resetPwdData = {
         succeed: 1,
         code: 200,
-        description: this.$t('common.success'),
+        description: '操作成功',
         data: {
             id: 1,
             pwd: '122222',
@@ -47,7 +47,7 @@ export function logout() {
     const logoutData = {
         succeed: 1,
         code: 200,
-        description: this.$t('common.success'),
+        description: '操作成功',
         data: {},
     };
     return {
@@ -65,7 +65,7 @@ export function save() {
         data: {
             succeed: 1,
             code: 200,
-            description: this.$t('common.success'),
+            description: '操作成功',
             data: 1,
         },
     };
@@ -78,7 +78,7 @@ export function destroy() {
         data: {
             succeed: 1,
             code: 200,
-            description: this.$t('common.success'),
+            description: '操作成功',
             data: 1,
         },
     };
@@ -88,7 +88,7 @@ export function list(params) {
     const findPageData = {
         succeed: 1,
         code: 200,
-        description: this.$t('common.success'),
+        description: '操作成功',
         data: {},
     };
     const pageNum = 1;

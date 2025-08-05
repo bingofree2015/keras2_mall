@@ -111,7 +111,10 @@ class Uploader {
             const _width = lenna.bitmap.width;
             const _height = lenna.bitmap.height;
             const _extName = imgUrl.includes('.')
-                ? imgUrl.substring(imgUrl.lastIndexOf('.') + 1, imgUrl.length)
+                ? imgUrl.substring(
+                    imgUrl.lastIndexOf('.') + 1,
+                    imgUrl.indexOf('?') !== -1 ? imgUrl.indexOf('?') : imgUrl.length,
+                )
                 : _fileType.substring(_fileType.lastIndexOf('/') + 1, _fileType.length);
             console.log(_extName);
             const _fileName = _genFileName(_extName);

@@ -9,7 +9,7 @@ export function save() {
         data: {
             succeed: 1,
             code: 200,
-            description: this.$t('common.success'),
+            description: '操作成功',
             data: 1,
         },
     };
@@ -22,7 +22,7 @@ export function destroy() {
         data: {
             succeed: 1,
             code: 200,
-            description: this.$t('common.success'),
+            description: '操作成功',
             data: 1,
         },
     };
@@ -32,7 +32,7 @@ export function list(params) {
     const findPageData = {
         succeed: 1,
         code: 200,
-        description: this.$t('common.success'),
+        description: '操作成功',
         data: {},
     };
     let pageNum = 1;

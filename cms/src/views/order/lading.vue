@@ -77,19 +77,23 @@
         >
             <el-form ref="formData" :model="formData" :rules="formDataRules" label-width="80px">
                 <el-row>
-                    <el-col :span="12">
+                    <el-col :span="8">
                         <el-form-item :label="$t('order.ladingId') + ':'" prop="ladingId">
                             {{ formData.ladingId }}
                         </el-form-item>
                     </el-col>
-                    <el-col :span="12">
-                        <el-form-item :label="$t('order.orderId') + ':'" prop="orderId">
+                    <el-col :span="16">
+                        <el-form-item
+                            :label="$t('order.orderId') + ':'"
+                            prop="orderId"
+                            label-width="120px"
+                        >
                             {{ formData.orderId }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
-                    <el-col :span="12">
+                    <el-col :span="8">
                         <el-form-item :label="$t('order.store') + ':'" prop="storeId">
                             <el-select
                                 v-model="formData.storeId"
@@ -104,38 +108,52 @@
                             </el-select>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="12">
-                        <el-form-item :label="$t('order.ladingName') + ':'" prop="name">
+                    <el-col :span="16">
+                        <el-form-item
+                            :label="$t('order.ladingName') + ':'"
+                            prop="name"
+                            label-width="120px"
+                        >
                             <el-input
                                 v-model="formData.name"
                                 :placeholder="$t('order.inputLadingName')"
+                                style="width: 200px"
                             />
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
-                    <el-col :span="12">
+                    <el-col :span="8">
                         <el-form-item :label="$t('order.mobile') + ':'" prop="mobile">
                             <el-input
                                 v-model="formData.mobile"
                                 :placeholder="$t('order.inputMobile')"
+                                style="width: 200px"
                             />
                         </el-form-item>
                     </el-col>
-                    <el-col :span="12">
-                        <el-form-item :label="$t('order.status') + ':'" prop="status">
+                    <el-col :span="16">
+                        <el-form-item
+                            :label="$t('order.status') + ':'"
+                            prop="status"
+                            label-width="120px"
+                        >
                             {{ formData.status }}
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
-                    <el-col :span="12">
+                    <el-col :span="8">
                         <el-form-item :label="$t('order.createdAt') + ':'" prop="createdAt">
                             {{ formData.createdAt }}
                         </el-form-item>
                     </el-col>
-                    <el-col :span="12">
-                        <el-form-item :label="$t('order.clerkId') + ':'" prop="clerkId">
+                    <el-col :span="16">
+                        <el-form-item
+                            :label="$t('order.clerkId') + ':'"
+                            prop="clerkId"
+                            label-width="120px"
+                        >
                             {{ formData.clerkId }}
                         </el-form-item>
                     </el-col>

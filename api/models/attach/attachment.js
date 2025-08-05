@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
                 comment : '分组Id',
             },
             name: {
-                type      : DataTypes.STRING(64),
+                type      : DataTypes.STRING(255),
                 allowNull : false,
                 comment   : '文件名',
             },

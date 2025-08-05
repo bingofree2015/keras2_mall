@@ -1,7 +1,7 @@
 <template>
     <div
         :class="['menu-bar-container', { collapse }]"
-        :style="{ width: collapse ? '65px' : '200px' }"
+        :style="{ background: themeColor, width: collapse ? '65px' : '200px' }"
     >
         <!-- logo -->
         <div class="logo" @click="$router.push('/')">
@@ -13,7 +13,7 @@
         <!-- 导航菜单 -->
         <el-menu
             ref="navMenu"
-            :background-color="themeTintColor"
+            :background-color="themeColor"
             :collapse="collapse"
             :collapse-transition="false"
             :unique-opened="true"

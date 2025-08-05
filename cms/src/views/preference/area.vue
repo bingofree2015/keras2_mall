@@ -122,12 +122,12 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
-                <el-form-item :label="$t('area.sort')" prop="sort" style="width: 80px">
+                <el-form-item :label="$t('area.sort')" prop="sort" style="width: 180px">
                     <el-input-number
                         v-model="formData.sort"
                         :min="0"
                         controls-position="right"
-                        label="排序"
+                        placeholder="排序"
                     />
                 </el-form-item>
             </el-form>
@@ -239,6 +239,7 @@ export default {
         handleAdd() {
             this.dialogVisible = true;
             this.formData = {
+                id: 0,
                 name: '', // 地区名称
                 depth: 1, // 地区深度
                 parentId: 0, // 父级ID
@@ -250,7 +251,16 @@ export default {
         // 显示编辑界面
         handleEdit(row) {
             this.dialogVisible = true;
-            Object.assign(this.formData, row);
+            // 确保 sort 字段是数字类型
+            this.formData = {
+                id: row.id || 0,
+                name: row.name || '',
+                depth: row.depth || 1,
+                parentId: row.parentId || 0,
+                parentName: row.parentName || '',
+                postalCode: row.postalCode || '',
+                sort: Number(row.sort) || 0, // 确保 sort 是数字类型
+            };
         },
         // 删除
         handleDelete(row) {

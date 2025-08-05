@@ -161,6 +161,8 @@ export default {
                         this.editDialogVisible = true;
                         this.isCreating = false;
                         this.formData = Object.assign({}, row);
+                        // Ensure sort is a number for el-input-number
+                        this.formData.sort = Number(this.formData.sort) || 0;
                     },
                 },
                 {
@@ -189,7 +191,7 @@ export default {
                 label: '', // 标签名
                 value: '', // 值
                 type: '', // 类型
-                sort: 0,
+                sort: 0, // Ensure this is a number
                 description: '', // 描述
                 remark: '',
             },
@@ -289,7 +291,7 @@ export default {
                 label: '',
                 value: '',
                 type: '',
-                sort: 0,
+                sort: 0, // Ensure this is a number
                 description: '',
                 remark: '',
             };

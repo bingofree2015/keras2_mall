@@ -98,7 +98,7 @@
                                 {{ $t('goods.param') }}
                             </span>
                         </template>
-                        <el-table :data="formData.params" style="width: 100%">
+                        <el-table :data="formData.params" style="width: 100%" class="param-table">
                             <el-table-column
                                 :label="$t('goods.paramName')"
                                 min-width="240"
@@ -159,12 +159,10 @@
                                     </el-button>
                                 </template>
                                 <template #default="scope">
-                                    <el-button
-                                        circle
-                                        icon="el-icon-delete"
-                                        type="danger"
-                                        @click="handleDeleteParam(scope.row.idx)"
-                                    />
+                                    <i
+                                        class="el-icon-ali-shanchu2 delete-icon"
+                                        @click.prevent="handleDeleteParam(scope.row.idx)"
+                                    ></i>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -176,7 +174,7 @@
                                 {{ $t('goods.spec') }}
                             </span>
                         </template>
-                        <el-table :data="formData.specs" style="width: 100%">
+                        <el-table :data="formData.specs" style="width: 100%" class="spec-table">
                             <el-table-column
                                 :label="$t('goods.specName')"
                                 min-width="240"
@@ -235,12 +233,10 @@
                                     </el-button>
                                 </template>
                                 <template #default="scope">
-                                    <el-button
-                                        circle
-                                        icon="el-icon-delete"
-                                        type="danger"
-                                        @click="handleDeleteSpec(scope.row.idx)"
-                                    />
+                                    <i
+                                        class="el-icon-ali-shanchu2 delete-icon"
+                                        @click.prevent="handleDeleteSpec(scope.row.idx)"
+                                    ></i>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -335,7 +331,12 @@ export default {
         columns() {
             return [
                 { prop: 'id', label: 'ID', minWidth: 60, showOverflowTooltip: true },
-                { prop: 'name', label: this.$t('goods.typeName'), minWidth: 80, showOverflowTooltip: true },
+                {
+                    prop: 'name',
+                    label: this.$t('goods.typeName'),
+                    minWidth: 80,
+                    showOverflowTooltip: true,
+                },
                 {
                     prop: 'specValues',
                     label: this.$t('goods.attributeSpec'),
@@ -363,6 +364,18 @@ export default {
                 _operationWidth += this.operations.length * 120;
             }
             return _operationWidth;
+        },
+        // 响应式的表单验证规则
+        formDataRules() {
+            return {
+                name: [
+                    {
+                        required: true,
+                        message: this.$t('goods.inputTypeName'),
+                        trigger: 'blur',
+                    },
+                ],
+            };
         },
     },
     methods: {
@@ -551,4 +564,33 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.spec-table,
+.param-table {
+    .delete-icon {
+        font-size: 2em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        opacity: 0;
+        visibility: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
+    }
+
+    tr:hover .delete-icon,
+    tr:focus-within .delete-icon {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+</style>

@@ -9,7 +9,7 @@
             <i class="el-icon-ali-Newxuanzeshangpinxuanzhong"></i>
         </ext-button>
         <el-dialog
-            v-model:visible="dialogVisible"
+            v-model="dialogVisible"
             :modal-append-to-body="false"
             :close-on-click-modal="false"
             :size="normalSize"
@@ -76,10 +76,10 @@
             <template #footer>
                 <span class="dialog-footer">
                     <el-button :size="normalSize" round @click="dialogVisible = false">
-                        {{ $t('common.cancel') }}
+                        {{ $t('action.cancel') }}
                     </el-button>
                     <el-button :size="normalSize" round type="primary" @click="chosedArticles">
-                        {{ $t('common.confirm') }}
+                        {{ $t('action.comfirm') }}
                     </el-button>
                 </span>
             </template>

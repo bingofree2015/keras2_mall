@@ -2,6 +2,7 @@
  * 会员等级 */
 
 const Router = require('@koa/router');
+const { omit } = require('lodash');
 
 const orderRepo = require('../../../repository/order/order_repos');
 
@@ -29,7 +30,7 @@ router.post('/save', async (ctx) => {
     let _result = {};
     if (_order.id) {
         const _id = _order.id;
-        _order = _.omit(_order, 'id');
+        _order = omit(_order, 'id');
         _result = await orderRepo.update(_id, _order);
     } else {
         _result = await orderRepo.create(_order);

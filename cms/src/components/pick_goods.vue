@@ -9,7 +9,7 @@
             <i class="el-icon-ali-Newxuanzeshangpinxuanzhong"></i>
         </ext-button>
         <el-dialog
-            v-model:visible="dialogVisible"
+            v-model="dialogVisible"
             :modal-append-to-body="false"
             :close-on-click-modal="false"
             :size="normalSize"
@@ -97,10 +97,9 @@ export default {
             default: 1, // 1 多选; 0 单选
         },
     },
-    emits: ['chosedGoods'],
+    emits: ['chosed-goods'],
     data() {
         return {
-
             normalSize: 'default',
             loading: false,
             dialogVisible: false,
@@ -116,7 +115,7 @@ export default {
     },
     mounted() {
         this.queryForPaginatedList();
-        this.dialogVisible = true; // 测试弹窗是否能自动弹出
+        //this.dialogVisible = true; // 测试弹窗是否能自动弹出
     },
     methods: {
         // 获取分页数据
@@ -156,7 +155,7 @@ export default {
             this.dialogVisible = true;
         },
         chosedGoods() {
-            this.$emit('chosedGoods', this.selectGoods);
+            this.$emit('chosed-goods', this.selectGoods);
             this.dialogVisible = false;
         },
     },

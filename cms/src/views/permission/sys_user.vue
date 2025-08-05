@@ -101,7 +101,7 @@
                 label-width="80px"
             >
                 <el-row>
-                    <el-col :span="14" class="top-bar">
+                    <el-col :span="14">
                         <el-form-item :label="$t('permission.username')" prop="username">
                             <el-input v-model="formData.username" />
                         </el-form-item>
@@ -122,7 +122,7 @@
                     </el-col>
                 </el-row>
                 <el-row>
-                    <el-col :span="14" class="top-bar">
+                    <el-col :span="14">
                         <el-form-item :label="$t('permission.mobile')" prop="mobile">
                             <el-input v-model="formData.mobile" />
                         </el-form-item>

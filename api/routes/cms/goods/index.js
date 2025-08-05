@@ -2,6 +2,7 @@
  * 商品 */
 
 const Router = require('@koa/router');
+const { omit } = require('lodash');
 
 const goodsRepos = require('../../../repository/goods/goods_repos');
 
@@ -33,7 +34,7 @@ router.post('/save', async (ctx) => {
     let _result = {};
     if (_goods.id) {
         const _id = _goods.id;
-        _goods = _.omit(_goods, 'id');
+        _goods = omit(_goods, 'id');
         _result = await goodsRepos.update(_id, _goods);
     } else {
         _result = await goodsRepos.create(_goods);

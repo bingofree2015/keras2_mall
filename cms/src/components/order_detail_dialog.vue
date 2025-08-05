@@ -5,7 +5,9 @@
         :title="$t('orderDetail.dialogTitle')"
         v-bind="$attrs"
         width="60%"
+        :model-value="modelValue"
         @open="openDialog"
+        @update:model-value="$emit('update:modelValue', $event)"
         v-on="$attrs"
     >
         <el-tabs v-model="activeName">
@@ -556,9 +558,9 @@
                     </el-form-item>
                 </el-form>
                 <div class="dialog-footer">
-                    <el-button :size="normalSize" round @click="$emit('update:visible', false)">
-                        {{ $t('action.cancel') }}
-                    </el-button>
+                                                <el-button :size="normalSize" round @click="$emit('update:modelValue', false)">
+                                {{ $t('action.cancel') }}
+                            </el-button>
                     <el-button
                         :loading="loading"
                         :size="normalSize"
@@ -586,8 +588,12 @@ export default {
             type: String,
             required: true,
         },
+        modelValue: {
+            type: Boolean,
+            default: false,
+        },
     },
-    emits: ['update:visible'],
+    emits: ['update:visible', 'update:modelValue'],
     computed: {
         ...mapState(['mapAlias']),
     },
@@ -702,7 +708,7 @@ export default {
                                 type: 'success',
                             });
                             this.$refs.formData.resetFields();
-                            this.$emit('update:visible', false);
+                            this.$emit('update:modelValue', false);
                         } else {
                             this.$notify.error({
                                 title: this.$t('common.error'),

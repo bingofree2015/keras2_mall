@@ -1,6 +1,6 @@
 <template>
     <el-dialog
-        v-model:visible="mapDialogVisible"
+        v-model="mapDialogVisible"
         :close-on-click-modal="false"
         :modal="false"
         class="edit-dialog-container"

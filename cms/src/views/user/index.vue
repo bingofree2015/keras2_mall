@@ -98,7 +98,12 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                        <el-form-item :label="$t('user.avatar')" prop="attachment">
+                        <el-form-item
+                            :label="$t('user.avatar')"
+                            prop="attachment"
+                            class="avatar-item"
+                            label-width="50px"
+                        >
                             <change-image-icon
                                 :img-url="formData.attachment ? formData.attachment.path : ''"
                                 @chosed-image-icon="chosedLogo"
@@ -212,6 +217,14 @@ export default {
                 },
                 list: [],
             },
+            // 性别选项
+            sexOpts: [
+                { value: 1, label: '男' },
+                { value: 0, label: '女' },
+                { value: 3, label: '未知' },
+            ],
+            // 用户等级列表
+            userGrades: [],
             operations: [
                 {
                     label: 'action.edit', // 按钮上显示的文字
@@ -248,14 +261,20 @@ export default {
             // 新增编辑界面数据
             formData: {
                 id: 0,
+                username: '',
                 mobile: '',
+                nickname: '',
+                password: '',
                 userGrade: {},
+                gradeId: 1,
                 sex: '',
                 birthday: '',
                 avatar: '',
+                attachment: {},
                 balance: 0,
                 point: 0,
                 state: 1,
+                pid: 0,
             },
         };
     },
@@ -276,27 +295,32 @@ export default {
                     prop: 'id',
                     label: 'ID',
                     minWidth: 60,
+                    showOverflowTooltip: true,
                 },
                 {
                     prop: 'mobile',
                     label: this.$t('user.mobile'),
                     minWidth: 120,
+                    showOverflowTooltip: true,
                 },
                 {
                     prop: 'userGrade.name',
                     label: this.$t('user.gradeName'),
                     minWidth: 100,
+                    showOverflowTooltip: true,
                 },
                 {
                     prop: 'sex',
                     label: this.$t('user.sex'),
                     minWidth: 80,
                     formatter: this.env.columnFormatter,
+                    showOverflowTooltip: true,
                 },
                 {
                     prop: 'birthday',
                     label: this.$t('user.birthday'),
                     minWidth: 100,
+                    showOverflowTooltip: true,
                 },
                 {
                     prop: 'avatar',
@@ -308,12 +332,14 @@ export default {
                 {
                     prop: 'balance',
                     label: this.$t('user.balance'),
-                    minWidth: 70,
+                    minWidth: 90,
+                    showOverflowTooltip: true,
                 },
                 {
                     prop: 'point',
                     label: this.$t('user.point'),
                     minWidth: 70,
+                    showOverflowTooltip: true,
                 },
                 {
                     prop: 'state',
@@ -321,6 +347,7 @@ export default {
                     minWidth: 70,
                     formatter: this.env.formatState,
                     align: 'center',
+                    showOverflowTooltip: true,
                 },
             ];
         },
@@ -331,6 +358,13 @@ export default {
                     {
                         required: true,
                         message: this.$t('user.inputMobile'),
+                        trigger: 'blur',
+                    },
+                ],
+                nickname: [
+                    {
+                        required: true,
+                        message: '请输入昵称',
                         trigger: 'blur',
                     },
                 ],
@@ -371,6 +405,7 @@ export default {
         },
         chosedLogo(chosen) {
             this.formData.avatar = chosen.path;
+            this.formData.attachment = chosen;
         },
         // 获取分页数据
         async queryForPaginatedList(data) {
@@ -417,6 +452,7 @@ export default {
                 sex: -1, // 1:男 0:女 3:未知
                 birthday: null, // 生日
                 avatar: '', // 头像
+                attachment: {}, // 附件
                 nickname: '', // 昵称
                 balance: 0, // 余额
                 point: 0, // 积分
@@ -471,4 +507,11 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.avatar-item {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+}
+</style>

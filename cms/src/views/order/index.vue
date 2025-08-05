@@ -96,9 +96,21 @@
             </el-tab-pane>
         </el-tabs>
 
-        <order-delivery-dialog :order-id="orderId" :model-value="deliveryDialogVisible" />
-        <order-detail-dialog :order-id="orderId" :model-value="viewDialogVisible" />
-        <order-edit-dialog :order-id="orderId" :model-value="editDialogVisible" />
+        <order-delivery-dialog
+            :order-id="orderId"
+            :model-value="deliveryDialogVisible"
+            @update:model-value="deliveryDialogVisible = $event"
+        />
+        <order-detail-dialog
+            :order-id="orderId"
+            :model-value="viewDialogVisible"
+            @update:model-value="viewDialogVisible = $event"
+        />
+        <order-edit-dialog
+            :order-id="orderId"
+            :model-value="editDialogVisible"
+            @update:model-value="editDialogVisible = $event"
+        />
     </div>
 </template>
 
@@ -217,8 +229,11 @@ export default {
          * @param {Object} tab - 被点击的标签页对象
          */
         handleClick(tab) {
-            if (tab.name !== this.activeName) {
-                this.activeName = tab.name;
+            // Element Plus 的 tab 对象使用 paneName 属性
+            const tabName = tab.paneName;
+
+            if (tabName && tabName !== this.activeName) {
+                this.activeName = tabName;
                 this.queryForPaginatedList();
             }
         },
@@ -234,9 +249,17 @@ export default {
         async queryForPaginatedList(data) {
             try {
                 let _type = this.activeName;
+
                 if (data && data.attrs) {
                     _type = data.attrs.type;
                     this.paginated[_type].attrs = data.attrs;
+                }
+
+                // 验证 _type 是否有效
+                if (!this.paginated[_type]) {
+                    console.error(`无效的订单类型: ${_type}`);
+                    this.$message.error(`无效的订单类型: ${_type}`);
+                    return;
                 }
 
                 this.paginated[_type].attrs.searchKey = {};
@@ -270,6 +293,12 @@ export default {
          * @param {string} type - 订单类型
          */
         setSearchConditions(type) {
+            // 验证 type 是否有效
+            if (!this.paginated[type] || !this.paginated[type].attrs) {
+                console.error(`无效的订单类型或缺少 attrs: ${type}`);
+                return;
+            }
+
             const searchKey = this.paginated[type].attrs.searchKey;
 
             switch (type) {
@@ -317,6 +346,12 @@ export default {
          * @param {string} type - 订单类型
          */
         updateOperationWidth(type) {
+            // 验证 type 是否有效
+            if (!this.paginated[type] || !this.paginated[type].list) {
+                console.error(`无效的订单类型或缺少 list: ${type}`);
+                return;
+            }
+
             for (const item of this.paginated[type].list) {
                 const _actions = Array.isArray(item.operatings) ? item.operatings.length : 0;
                 if (_actions * 90 > this.operationWidth) {
@@ -330,6 +365,12 @@ export default {
             try {
                 const _result = await this.$api.order.destroy({ ids });
                 if (_result.succeed === 1 && _result.code === 200) {
+                    // 验证 activeName 是否有效
+                    if (!this.paginated[this.activeName] || !this.paginated[this.activeName].list) {
+                        console.error(`无效的订单类型或缺少 list: ${this.activeName}`);
+                        return;
+                    }
+
                     for (const id of ids) {
                         const _index = this.paginated[this.activeName].list.findIndex(
                             (v) => v.id === id

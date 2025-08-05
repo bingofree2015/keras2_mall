@@ -9,7 +9,7 @@
             <i class="el-icon-ali-Newxuanzeshangpinxuanzhong"></i>
         </ext-button>
         <el-dialog
-            v-model:visible="dialogVisible"
+            v-model="dialogVisible"
             :modal-append-to-body="false"
             :close-on-click-modal="false"
             :size="normalSize"

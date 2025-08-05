@@ -2,6 +2,7 @@
  * 品牌接口 */
 
 const Router = require('@koa/router');
+const { omit } = require('lodash');
 
 const spTargetRepo = require('../../../repository/promotion/sp_target_repos');
 
@@ -56,7 +57,7 @@ spTargetRouter.post('/save', async (ctx) => {
     let _result = {};
     if (_spTarget.id) {
         const _id = _spTarget.id;
-        _spTarget = _.omit(_spTarget, 'id');
+        _spTarget = omit(_spTarget, 'id');
         _result = await spTargetRepo.update(_id, _spTarget);
     } else {
         _result = await spTargetRepo.create(_spTarget);

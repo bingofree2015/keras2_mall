@@ -2,6 +2,7 @@
  * 管理员权限管理 */
 
 const Router = require('@koa/router');
+const { omit } = require('lodash');
 
 const promotion = require('../../../repository/promotion/promotion_repos');
 const promotionConditionRouter = require('./sp_target');
@@ -26,7 +27,7 @@ router.post('/save', async (ctx) => {
     let _result = {};
     if (_promotion.id) {
         const _id = _promotion.id;
-        _promotion = _.omit(_promotion, 'id');
+        _promotion = omit(_promotion, 'id');
         _result = await promotion.update(_id, _promotion);
     } else {
         _result = await promotion.create(_promotion);

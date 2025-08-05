@@ -49,7 +49,7 @@
         </el-form>
         <template #footer>
             <div class="dialog-footer">
-                <el-button :size="size" round @click="$emit('update:visible', false)">
+                <el-button :size="size" round @click="$emit('update:modelValue', false)">
                     {{ $t('action.cancel') }}
                 </el-button>
                 <el-button
@@ -80,7 +80,13 @@ export default {
             default: 'mini',
         },
     },
-    emits: ['update:visible'],
+    props: {
+        modelValue: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    emits: ['update:modelValue'],
     data() {
         const checkPhone = (rule, value, callback) => {
             if (!value) {
@@ -168,7 +174,7 @@ export default {
                                     type: 'success',
                                 });
                                 this.setLoginUser(this.formData);
-                                this.$emit('update:visible', false);
+                                this.$emit('update:modelValue', false);
                             } else {
                                 this.$notify.error({
                                     title: this.$t('common.error'),

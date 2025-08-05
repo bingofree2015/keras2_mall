@@ -196,57 +196,47 @@ export default {
             // 新增编辑界面数据
             formData: {
                 id: 0,
-                mobile: '',
-                userGrade: {},
-                sex: '',
-                birthday: '',
-                avatar: '',
-                balance: 0,
-                point: 0,
-                state: 1,
+                level: null,
+                name: '',
+                isDef: false,
             },
         };
     },
     computed: {
         // 响应式的搜索字段配置
         searchFields() {
-            return [{ prop: 'mobile', label: this.$t('user.mobile') }];
+            return [{ prop: 'name', label: this.$t('visualDesign.name') }];
         },
         // 响应式的列配置
         columns() {
             return [
-                { prop: 'id', label: 'ID', minWidth: 60 },
-                { prop: 'mobile', label: this.$t('user.mobile'), minWidth: 120 },
-                { prop: 'userGrade.name', label: this.$t('user.gradeName'), minWidth: 100 },
+                { prop: 'id', label: 'ID', minWidth: 60, showOverflowTooltip: true },
                 {
-                    prop: 'sex',
-                    label: this.$t('user.sex'),
+                    prop: 'level',
+                    label: this.$t('userGrade.level'),
                     minWidth: 80,
-                    formatter: this.env.columnFormatter,
+                    showOverflowTooltip: true,
                 },
-                { prop: 'birthday', label: this.$t('user.birthday'), minWidth: 100 },
                 {
-                    prop: 'avatar',
-                    label: this.$t('user.avatar'),
-                    minWidth: 80,
-                    propType: 'image',
-                    align: 'center',
+                    prop: 'name',
+                    label: this.$t('visualDesign.name'),
+                    minWidth: 120,
+                    showOverflowTooltip: true,
                 },
-                { prop: 'balance', label: this.$t('user.balance'), minWidth: 70 },
-                { prop: 'point', label: this.$t('user.point'), minWidth: 70 },
                 {
-                    prop: 'state',
-                    label: this.$t('user.state'),
-                    minWidth: 70,
-                    formatter: this.env.formatState,
+                    prop: 'isDef',
+                    label: this.$t('userGrade.isDefault'),
+                    minWidth: 100,
+                    formatter: this.env.formatBoolean,
                     align: 'center',
+                    showOverflowTooltip: true,
                 },
             ];
         },
         // 响应式的表单验证规则
         formDataRules() {
             return {
-                mobile: [{ required: true, message: this.$t('user.inputMobile'), trigger: 'blur' }],
+                name: [{ required: true, message: '请输入等级名称', trigger: 'blur' }],
             };
         },
         ...mapState({
@@ -270,17 +260,9 @@ export default {
         handleRefresh() {
             this.reload();
         },
-        // 列内容格式化
+        // 列内容格式化 - 用户等级页面不需要复杂的格式化
         columnFormatter(row, column) {
             const colKey = column.property || column.prop || column;
-            if (
-                this.mapAlias &&
-                this.mapAlias.user_grade &&
-                this.mapAlias.user_grade[colKey] &&
-                typeof row[colKey] !== 'undefined'
-            ) {
-                return this.mapAlias.user_grade[colKey][row[colKey]];
-            }
             return row[colKey] ?? '';
         },
         // 获取分页数据
@@ -315,6 +297,7 @@ export default {
             this.isCreating = true;
             this.formData = {
                 id: 0,
+                level: null,
                 name: '',
                 isDef: false,
             };

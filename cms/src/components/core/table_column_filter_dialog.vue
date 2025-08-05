@@ -1,7 +1,7 @@
 <template>
     <!--表格显示列界面-->
     <el-dialog
-        v-model:visible="dialogVisible"
+        v-model="dialogVisible"
         :close-on-click-modal="false"
         title="表格显示列"
         width="40%"

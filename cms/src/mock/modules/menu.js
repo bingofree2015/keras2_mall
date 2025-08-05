@@ -188,7 +188,7 @@ export function getMenuTree() {
     const menuTreeData = {
         succeed: 1,
         code: 200,
-        description: this.$t('common.success'),
+        description: '操作成功',
         data: {
             list: [
                 {
@@ -250,7 +250,7 @@ export function getMenuTree() {
                                     lastUpdateBy: null,
                                     lastUpdateTime: null,
                                     parentId: 2,
-                                    name: this.$t('permission.add'),
+                                    name: '新增',
                                     url: null,
                                     perms: 'sys:user:add',
                                     type: 2,
@@ -341,7 +341,7 @@ export function getMenuTree() {
                                     lastUpdateBy: null,
                                     lastUpdateTime: null,
                                     parentId: 4,
-                                    name: this.$t('permission.add'),
+                                    name: '新增',
                                     url: null,
                                     perms: 'sys:role:add',
                                     type: 2,
@@ -432,7 +432,7 @@ export function getMenuTree() {
                                     lastUpdateBy: null,
                                     lastUpdateTime: null,
                                     parentId: 5,
-                                    name: this.$t('permission.add'),
+                                    name: '新增',
                                     url: null,
                                     perms: 'sys:menu:add',
                                     type: 2,
@@ -523,7 +523,7 @@ export function getMenuTree() {
                                     lastUpdateBy: null,
                                     lastUpdateTime: null,
                                     parentId: 7,
-                                    name: this.$t('permission.add'),
+                                    name: '新增',
                                     url: null,
                                     perms: 'sys:dict:add',
                                     type: 2,

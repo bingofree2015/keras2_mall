@@ -2,6 +2,7 @@
  * 会员等级 */
 
 const Router = require('@koa/router');
+const { omit } = require('lodash');
 
 const formSubmitRepo = require('../../../repository/form/form_submit_repos');
 
@@ -19,7 +20,7 @@ formSubmitRouter.post('/save', async (ctx) => {
     let _result = {};
     if (_formSubmit.id) {
         const _id = _formSubmit.id;
-        _formSubmit = _.omit(_formSubmit, 'id');
+        _formSubmit = omit(_formSubmit, 'id');
         _result = await formSubmitRepo.update(_id, _formSubmit);
     } else {
         _result = await formSubmitRepo.create(_formSubmit);

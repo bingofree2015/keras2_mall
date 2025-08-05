@@ -74,7 +74,7 @@
         </el-container>
         <template #footer>
             <div class="dialog-footer">
-                <el-button :size="normalSize" round @click="$emit('update:visible', false)">
+                <el-button :size="normalSize" round @click="$emit('update:modelValue', false)">
                     {{ $t('action.close') }}
                 </el-button>
                 <el-button
@@ -98,12 +98,12 @@ export default {
     name: 'VideoUploader',
     components: {},
     props: {
-        visible: {
+        modelValue: {
             type: Boolean,
             default: false,
         },
     },
-    emits: ['update:visible', 'chosedVideo'],
+    emits: ['update:modelValue', 'chosedVideo'],
     data() {
         const token = Cookies.get('token');
         return {

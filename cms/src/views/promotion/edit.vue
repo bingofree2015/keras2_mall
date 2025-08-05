@@ -418,7 +418,12 @@
                             </el-form-item>
                         </el-col>
                     </div>
-                    <el-table :data="formData.spRules" :size="normalSize" stripe style="width: 100%">
+                    <el-table
+                        :data="formData.spRules"
+                        :size="normalSize"
+                        stripe
+                        style="width: 100%"
+                    >
                         <el-table-column label="结果代码" min-width="180" prop="code" />
                         <el-table-column label="结果名称" min-width="180" prop="name" />
                         <el-table-column label="参数" min-width="280" prop="pattern">
@@ -494,13 +499,19 @@ export default {
                 spTarget: {
                     code: '',
                     name: '',
-                    pattern: {}, //
+                    pattern: {
+                        discount: null,
+                    }, //
                 },
                 spTargets: [],
                 spRule: {
                     code: '',
                     name: '',
-                    pattern: {},
+                    pattern: {
+                        money: null,
+                        discount: null,
+                        num: null,
+                    },
                 }, // 选择的结果
                 spRules: [],
             },
@@ -524,12 +535,18 @@ export default {
                 this.formData.spTarget = {
                     code: '',
                     name: '',
-                    pattern: {},
+                    pattern: {
+                        discount: null,
+                    },
                 };
                 this.formData.spRule = {
                     code: '',
                     name: '',
-                    pattern: {},
+                    pattern: {
+                        money: null,
+                        discount: null,
+                        num: null,
+                    },
                 };
             }
         }

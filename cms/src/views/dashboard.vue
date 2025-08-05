@@ -156,7 +156,11 @@
                         </div>
                     </template>
                     <div class="body">
-                        <div id="chartColumn" class="echarts-container" style="width: 100%; height: 400px"></div>
+                        <div
+                            id="chartColumn"
+                            class="echarts-container"
+                            style="width: 100%; height: 400px"
+                        ></div>
                     </div>
                 </el-card>
             </el-col>
@@ -169,7 +173,11 @@
                         </div>
                     </template>
                     <div class="body">
-                        <div id="chartColumn2" class="echarts-container" style="width: 100%; height: 400px"></div>
+                        <div
+                            id="chartColumn2"
+                            class="echarts-container"
+                            style="width: 100%; height: 400px"
+                        ></div>
                     </div>
                 </el-card>
             </el-col>
@@ -522,17 +530,25 @@ export default {
                 if (chartDom) {
                     // 为图表容器添加 passive 事件监听器
                     const events = ['mousewheel', 'wheel', 'touchstart', 'touchmove', 'touchend'];
-                    events.forEach(event => {
+                    events.forEach((event) => {
                         chartDom.addEventListener(event, () => {}, { passive: true });
                     });
 
                     // 为图表内部的 canvas 元素添加 passive 监听器
                     const canvas = chartDom.querySelector('canvas');
                     if (canvas) {
-                        events.forEach(event => {
+                        events.forEach((event) => {
                             canvas.addEventListener(event, () => {}, { passive: true });
                         });
                     }
+
+                    // 为图表内部的所有元素添加 passive 监听器
+                    const allElements = chartDom.querySelectorAll('*');
+                    allElements.forEach((element) => {
+                        events.forEach((event) => {
+                            element.addEventListener(event, () => {}, { passive: true });
+                        });
+                    });
                 }
             }
         },

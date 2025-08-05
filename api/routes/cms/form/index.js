@@ -2,6 +2,7 @@
  * 会员等级 */
 
 const Router = require('@koa/router');
+const { omit } = require('lodash');
 
 const form = require('../../../repository/form/form_repos');
 
@@ -60,7 +61,7 @@ router.post('/save', async (ctx) => {
 
     if (_form.id) {
         const _id = _form.id;
-        _form = _.omit(_form, 'id');
+        _form = omit(_form, 'id');
         _result = await form.update(_id, _form);
     } else {
         _result = await form.create(_form);

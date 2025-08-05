@@ -85,7 +85,7 @@
                 :model="formData"
                 :rules="formDataRules"
                 :size="normalSize"
-                label-width="80px"
+                label-width="120px"
             >
                 <el-row>
                     <el-col :span="16">
@@ -100,7 +100,12 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                        <el-form-item label="Logo" prop="attachment">
+                        <el-form-item
+                            prop="attachment"
+                            label="Logo"
+                            label-width="60px"
+                            class="logo-form-item"
+                        >
                             <change-image-icon
                                 :img-url="formData.attachment ? formData.attachment.path : ''"
                                 @chosed-image-icon="chosedLogo"
@@ -119,11 +124,17 @@
                             />
                         </el-form-item>
                     </el-col>
-                    <el-col :span="14" class="top-bar">
-                        <el-form-item :label="$t('store.coordinate')" prop="coordinate">
+                    <el-col :span="14">
+                        <el-form-item
+                            :label="$t('store.coordinate')"
+                            prop="coordinate"
+                            label-width="80px"
+                        >
                             <el-input v-model="formData.coordinate" readonly>
                                 <template #append>
-                                    <el-button icon="el-icon-ali-dakai" @click="changePosition" />
+                                    <el-button @click="changePosition">
+                                        <i class="el-icon-ali-dakai"></i>
+                                    </el-button>
                                 </template>
                             </el-input>
                         </el-form-item>
@@ -464,5 +475,11 @@ export default {
 .amap-container {
     height: 300px;
     width: 100%;
+}
+.logo-form-item {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: column !important;
 }
 </style>

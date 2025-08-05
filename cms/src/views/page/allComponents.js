@@ -4,14 +4,14 @@ const allComponents = {
             type: 'search',
             name: '搜索框',
             config: {
-                keywords: this.$t('visualDesign.inputSearchKeyword'),
+                keywords: '请输入关键字搜索',
                 style: 'round',
             },
             icon: 'el-icon-ali-sousuo',
         },
         {
             type: 'notice',
-            name: this.$t('visualDesign.noticeGroup'),
+            name: '公告组',
             config: {
                 type: 'auto',
                 list: [
@@ -26,7 +26,7 @@ const allComponents = {
         },
         {
             type: 'navBar',
-            name: this.$t('visualDesign.navigationGroup'),
+            name: '导航组',
             config: {
                 limit: 4,
                 list: [
@@ -64,7 +64,7 @@ const allComponents = {
             icon: 'el-icon-ali-shangpinzuguanli',
             config: {
                 title: '商品组名称',
-                more: 'true',
+                more: true,
                 type: 'auto',
                 classifyId: '',
                 brandId: '',
@@ -74,22 +74,22 @@ const allComponents = {
                 list: [
                     {
                         url: 'images/empty-goods.png',
-                        name: this.$t('visualDesign.goodsName'),
+                        name: '商品名称',
                         price: '100.00',
                     },
                     {
                         url: 'images/empty-goods.png',
-                        name: this.$t('visualDesign.goodsName'),
+                        name: '商品名称',
                         price: '59.00',
                     },
                     {
                         url: 'images/empty-goods.png',
-                        name: this.$t('visualDesign.goodsName'),
+                        name: '商品名称',
                         price: '32.00',
                     },
                     {
                         url: 'images/empty-goods.png',
-                        name: this.$t('visualDesign.goodsName'),
+                        name: '商品名称',
                         price: '129.00',
                     },
                 ],
@@ -97,19 +97,19 @@ const allComponents = {
         },
         {
             type: 'groupPurchase',
-            name: this.$t('visualDesign.groupSeckill'),
+            name: '团购秒杀',
             config: {
                 title: '活动名称',
                 limit: 5,
                 list: [
                     {
                         url: 'images/empty-banner.png',
-                        name: this.$t('visualDesign.goodsName'),
+                        name: '商品名称',
                         price: '99.00',
                     },
                     {
                         url: 'images/empty-banner.png',
-                        name: this.$t('visualDesign.goodsName'),
+                        name: '商品名称',
                         price: '199.00',
                     },
                 ],
@@ -118,15 +118,15 @@ const allComponents = {
         },
         {
             type: 'coupon',
-            name: this.$t('visualDesign.couponGroup'),
+            name: '优惠券组',
             config: {
-                limit: '2',
+                limit: 2,
             },
             icon: 'el-icon-ali-youhuiquan1',
         },
         {
             type: 'record',
-            name: this.$t('visualDesign.record'),
+            name: '购买记录',
             config: {
                 style: {
                     top: 20,
@@ -139,7 +139,7 @@ const allComponents = {
     utilsComponents: [
         {
             type: 'blank',
-            name: this.$t('visualDesign.auxiliaryBlank'),
+            name: '辅助空白',
             icon: 'el-icon-ali-fuzhukongbai',
             config: {
                 height: 20,
@@ -148,7 +148,7 @@ const allComponents = {
         },
         {
             type: 'textarea',
-            name: this.$t('visualDesign.textArea'),
+            name: '文本域',
             config: '',
             icon: 'el-icon-ali-wenbenyu',
         },
@@ -156,7 +156,7 @@ const allComponents = {
     mediaComponents: [
         {
             type: 'imgSlide',
-            name: this.$t('visualDesign.imageCarousel'),
+            name: '图片轮播',
             config: {
                 duration: 2500,
                 list: [
@@ -217,9 +217,9 @@ const allComponents = {
         },
         {
             type: 'video',
-            name: this.$t('visualDesign.videoGroup'),
+            name: '视频组',
             config: {
-                autoplay: 'false',
+                autoplay: false,
                 url: 'images/empty-banner.png',
                 videoUrl:
                     'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400',
@@ -230,7 +230,7 @@ const allComponents = {
         },
         {
             type: 'article',
-            name: this.$t('visualDesign.articleGroup'),
+            name: '文章组',
             config: {
                 title: '',
                 url: 'images/empty-goods.png',
@@ -239,7 +239,7 @@ const allComponents = {
         },
         {
             type: 'articleClassify',
-            name: this.$t('visualDesign.articleCategory'),
+            name: '文章分类',
             config: {
                 limit: 3,
                 articleClassifyId: '',

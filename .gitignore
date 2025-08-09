@@ -36,3 +36,6 @@ playwright-report/
 /web/
 /api/
 keras_mall.sql
+ 
+# Ignore local build helper script for CMS (do not commit)
+cms/scripts/build.sh

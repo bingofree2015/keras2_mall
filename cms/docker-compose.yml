@@ -1,0 +1,19 @@
+services:
+  cms:
+    image: crpi-jcsqfc0dscexrb7n.cn-heyuan.personal.cr.aliyuncs.com/bingofree2025/keras-mall-cms:latest
+    container_name: keras-mall_cms
+    ports:
+      - "8085:8085"
+    environment:
+      - VITE_BASE_URL=http://127.0.0.1:8080
+      - VITE_APP_TITLE="KerasMall CMS"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - app_network
+    restart: unless-stopped
+
+networks:
+  app_network:
+    external: true
+    name: keras-mall_app_network

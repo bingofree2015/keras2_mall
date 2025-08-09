@@ -7,10 +7,8 @@ import _ from 'lodash';
 import moment from 'moment';
 import store from '@/store';
 // 后台管理系统服务器地址
-const baseUrl =
-    import.meta.env.VITE_BASE_URL === 'VITE_BASE_URL_PLACEHOLDER'
-        ? 'http://127.0.0.1:8080'
-        : import.meta.env.VITE_BASE_URL || 'http://127.0.0.1:8080';
+// 使用相对路径，交由容器内 Nginx 代理 /cms 与 /upload 到 API
+const baseUrl = '';
 const baseImgUrl = `${baseUrl}/upload`;
 const baseAssetsUrl = `${baseUrl}/assets`;
 

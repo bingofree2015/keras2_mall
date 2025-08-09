@@ -7,13 +7,20 @@ set -Eeuo pipefail
 # - 自动生成 docker-compose.yml 与 nginx.conf
 # - 环境检测（docker / compose / 端口占用 / 写权限 / curl）
 # - 不包含镜像构建过程，仅拉取并启动容器
-# - 使用固定镜像仓库与空间名：
-#   crpi-jcsqfc0dscexrb7n.cn-heyuan.personal.cr.aliyuncs.com/bingofree2025
+# - 连接到 API 创建的网络，实现容器间通信
+# - 使用方法:
+#   ./install.sh                          # 使用默认项目名称 "keras-mall"
+#   PROJECT_NAME=my-mall ./install.sh     # 使用自定义项目名称 "my-mall"
 # =============================
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+# 将工作目录固定为脚本所在目录，所有生成文件落在当前目录
+REPO_ROOT="$SCRIPT_DIR"
 cd "$REPO_ROOT"
+
+# 设置容器组项目名称（与 API 保持一致）
+PROJECT_NAME=${PROJECT_NAME:-"keras-mall"}
+export COMPOSE_PROJECT_NAME="$PROJECT_NAME"
 
 # 常量（可通过环境变量覆盖）
 REGISTRY_URL=${REGISTRY_URL:-"crpi-jcsqfc0dscexrb7n.cn-heyuan.personal.cr.aliyuncs.com"}
@@ -21,7 +28,7 @@ REGISTRY_NAMESPACE=${REGISTRY_NAMESPACE:-"bingofree2025"}
 IMAGE_NAME=${IMAGE_NAME:-"keras-mall-cms"}
 IMAGE_TAG=${IMAGE_TAG:-"latest"}
 
-SERVICE_NAME=${SERVICE_NAME:-"keras-mall-cms"}
+SERVICE_NAME=${SERVICE_NAME:-"${PROJECT_NAME}_cms"}
 COMPOSE_FILE=${COMPOSE_FILE:-"docker-compose.yml"}
 NGINX_CONF=${NGINX_CONF:-"nginx.conf"}
 
@@ -129,6 +136,20 @@ stop_existing_container() {
   fi
 }
 
+check_api_network() {
+  local network_name="${PROJECT_NAME}_app_network"
+  info "检查 API 网络是否存在..."
+  
+  if ! docker network ls --format '{{.Name}}' | grep -wq "^${network_name}$"; then
+    error "未找到 API 网络: ${network_name}"
+    error "请先运行 API 的 install.sh 脚本创建网络"
+    error "或者使用相同的 PROJECT_NAME 环境变量"
+    exit 1
+  fi
+  
+  success "找到 API 网络: ${network_name}"
+}
+
 pull_latest_image() {
   local image_ref="${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG}"
   info "拉取最新镜像: ${image_ref}"
@@ -138,7 +159,7 @@ pull_latest_image() {
 
 generate_nginx_conf() {
   info "生成 $NGINX_CONF"
-  backup_file "$NGINX_CONF"
+  # 按用户要求：不备份旧配置，直接覆盖生成
   cat > "$NGINX_CONF" <<EOF
 server {
     listen ${NGINX_CONTAINER_PORT};
@@ -146,16 +167,38 @@ server {
     root /usr/share/nginx/html;
     index index.html;
 
-    set \$VITE_BASE_URL ${VITE_BASE_URL};
-    set \$VITE_APP_TITLE "${VITE_APP_TITLE}";
-
+    # 静态站点与前端路由
     location / {
         try_files \$uri \$uri/ /index.html;
+    }
 
-        # 将构建产物中的占位符替换为运行时变量（需 nginx sub_filter 模块）
-        sub_filter 'VITE_BASE_URL_PLACEHOLDER' '\$VITE_BASE_URL';
-        sub_filter 'VITE_APP_TITLE_PLACEHOLDER' '\$VITE_APP_TITLE';
-        sub_filter_once off;
+    # 反向代理到 API（容器网络内，通过服务名解析）
+    location /cms/ {
+        proxy_pass http://${PROJECT_NAME}_api:8080/cms/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
+    }
+
+    location /upload/ {
+        proxy_pass http://${PROJECT_NAME}_api:8080/upload/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
     }
 
     # 静态资源缓存
@@ -182,14 +225,13 @@ EOF
 
 generate_compose() {
   info "生成 $COMPOSE_FILE"
-  backup_file "$COMPOSE_FILE"
+  # 按用户要求：不备份旧配置，直接覆盖生成
+  # 注意：新版 Docker Compose 不再需要 version 字段
   cat > "$COMPOSE_FILE" <<EOF
-version: '3.8'
-
 services:
-  ${SERVICE_NAME}:
+  cms:
     image: ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG}
-    container_name: ${SERVICE_NAME}
+    container_name: ${PROJECT_NAME}_cms
     ports:
       - "${APP_PORT}:${NGINX_CONTAINER_PORT}"
     environment:
@@ -197,7 +239,14 @@ services:
       - VITE_APP_TITLE="${VITE_APP_TITLE}"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - app_network
     restart: unless-stopped
+
+networks:
+  app_network:
+    external: true
+    name: ${PROJECT_NAME}_app_network
 EOF
   success "已生成 $COMPOSE_FILE"
 }
@@ -226,6 +275,7 @@ health_check() {
 main() {
   echo -e "${BLUE}================================${NC}"
   echo -e "${BLUE}  KerasMall CMS 部署（Compose） ${NC}"
+  echo -e "${BLUE}  项目名称: ${PROJECT_NAME}${NC}"
   echo -e "${BLUE}================================${NC}"
   echo "镜像: ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG}"
   echo "映射端口: ${APP_PORT}->${NGINX_CONTAINER_PORT}"
@@ -235,6 +285,7 @@ main() {
   echo
 
   check_env
+  check_api_network
   generate_nginx_conf
   generate_compose
   stop_existing_container

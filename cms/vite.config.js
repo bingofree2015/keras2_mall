@@ -37,11 +37,6 @@ export default defineConfig(({ mode }) => {
                     manualChunks: undefined,
                 },
             },
-            // 构建时替换环境变量为占位符
-            define: {
-                'import.meta.env.VITE_BASE_URL': JSON.stringify('VITE_BASE_URL_PLACEHOLDER'),
-                'import.meta.env.VITE_APP_TITLE': JSON.stringify('VITE_APP_TITLE_PLACEHOLDER'),
-            },
         },
     };
 });

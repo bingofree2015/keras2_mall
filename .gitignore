@@ -35,3 +35,4 @@ playwright-report/
 # Project directories to ignore
 /web/
 /api/
+keras_mall.sql

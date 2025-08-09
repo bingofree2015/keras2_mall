@@ -1,5 +1,5 @@
 {
-    "name": "coupon_mall-cms",
+    "name": "keras-mall-cms",
     "script": "npm run dev",
     "cwd": "./",
     "watch": [
@@ -13,7 +13,7 @@
     "watch_options": {
         "followSymlinks": false
     },
-    "error_file": "./logs/coupon_mall-cms-err.log",
-    "out_file": "./logs/coupon_mall-cms-out.log",
+    "error_file": "./logs/keras-mall-cms-err.log",
+    "out_file": "./logs/keras-mall-cms-out.log",
     "log_date_format": "YYYY-MM-DD HH:mm Z"
 }

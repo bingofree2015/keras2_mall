@@ -186,7 +186,7 @@ export default {
                 this.uploadLoading = true;
                 this.uploadProgressState = 2;
                 this.$axios({
-                    url: 'cms/upload',
+                    url: '/upload',
                     method: 'post',
                     data: _formData,
                     headers: { 'Content-Type': 'multipart/form-data' },

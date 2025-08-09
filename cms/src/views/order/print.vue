@@ -311,7 +311,7 @@
                 :size="normalSize"
                 round
                 type="primary"
-                @click="window.print()"
+                @click="handlePrint"
             >
                 {{ $t('action.print') }}
             </el-button>
@@ -421,6 +421,15 @@ export default {
             const _result = await this.$api.order.get({ orderId: this.orderId });
             if (_result.succeed === 1 && _result.code === 200) {
                 Object.assign(this.printData, _result.data);
+            }
+        },
+        // 处理打印功能
+        handlePrint() {
+            try {
+                window.print();
+            } catch (error) {
+                console.error('打印功能出错:', error);
+                this.$message.error('打印功能暂时不可用');
             }
         },
     },

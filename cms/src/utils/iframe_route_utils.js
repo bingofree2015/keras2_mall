@@ -1,7 +1,7 @@
 /**
  * 嵌套页面IFrame模块
  */
-import { baseUrl } from '@/env';
+import { baseUrl } from '@/utils/format';
 import store from '@/store';
 import router from '@/router';
 

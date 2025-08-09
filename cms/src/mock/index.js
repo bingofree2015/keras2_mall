@@ -1,5 +1,5 @@
 import Mock from 'mockjs';
-import { baseUrl } from '@/env';
+import { baseUrl } from '@/utils/format';
 import * as sysUser from '@/mock/modules/sys_user';
 import * as role from '@/mock/modules/role';
 import * as menu from '@/mock/modules/menu';

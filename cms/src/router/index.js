@@ -5,6 +5,7 @@ const createRoutes = [
     // 二级路由
     {
         path: '/',
+        name: 'home',
         component: () => import('@/views/home.vue'),
         children: [
             {

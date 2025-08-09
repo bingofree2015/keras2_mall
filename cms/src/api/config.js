@@ -1,4 +1,4 @@
-import { baseUrl } from '@/env';
+import { baseUrl } from '@/utils/format';
 
 export default {
     method: 'get',

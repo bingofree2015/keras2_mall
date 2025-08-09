@@ -7,11 +7,13 @@ import _ from 'lodash';
 import moment from 'moment';
 import store from '@/store';
 // 后台管理系统服务器地址
-const baseUrl = 'http://127.0.0.1:8080';
+const baseUrl =
+    import.meta.env.VITE_BASE_URL === 'VITE_BASE_URL_PLACEHOLDER'
+        ? 'http://127.0.0.1:8080'
+        : import.meta.env.VITE_BASE_URL || 'http://127.0.0.1:8080';
 const baseImgUrl = `${baseUrl}/upload`;
 const baseAssetsUrl = `${baseUrl}/assets`;
-// 系统数据备份还原服务器地址
-const backupBaseUrl = 'http://127.0.0.1:8002';
+
 const getImgUrl = (url, prefix = baseImgUrl) => {
     /*
     // 判断图片是否存在
@@ -65,7 +67,6 @@ const columnFormatter = (value, aliasName, column) => {
 export {
     baseUrl,
     baseImgUrl,
-    backupBaseUrl,
     baseAssetsUrl,
     getImgUrl,
     formatDateTime,

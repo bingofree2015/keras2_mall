@@ -116,10 +116,10 @@ export function getContent(pageNum, pageSize) {
         const obj = {};
         const index = (pageNum - 1) * pageSize + i + 1;
         obj.id = index;
-        obj.name = 'coupon_mall' + index;
+        obj.name = 'keras-mall' + index;
         obj.password = '9ec9750e709431dad22365cabc5c625482e574c74adaebba7dd02f1129e4ce1d';
         obj.salt = 'YzcmCZNvbXocrsz9dm8e';
-        obj.email = 'coupon_mall' + index + '@qq.com';
+        obj.email = 'keras-mall' + index + '@qq.com';
         obj.mobile = '18688982323';
         obj.status = 1;
 

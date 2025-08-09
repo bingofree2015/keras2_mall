@@ -4,7 +4,7 @@ import router from '@/router';
 import vueApi from '@/api/vue_api';
 import i18n from '@/i18n';
 import store from '@/store';
-import * as env from '@/env';
+import * as env from '@/utils/format';
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
 import '@/assets/styles/common.scss';

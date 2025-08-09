@@ -8,79 +8,141 @@ import { parseIFrameRoutePath, buildIFrameFullUrl } from '@/utils/iframe_route_u
  * 比如'代码生成'是要求直接绑定到'Generator'页面组件
  */
 function mountDynamicRoutes(dynamicRoutes) {
+    // 下面代码为拦截代码生成路由，直接绑定到Generator页面组件
     dynamicRoutes.map((v) => {
         if (v.name === '代码生成') {
             //v.component = Generator}
         }
     });
-    // 获取根路由的引用
-    let _rootRoute = router.options.routes;
-    if (_rootRoute.length > 0) {
-        // 先备份原有的静态子路由
-        const originalChildren = [..._rootRoute[0].children];
-        // 将动态路由添加到根路由的children中
-        _rootRoute[0].children = originalChildren.concat(dynamicRoutes);
-        // 重新注册根路由，包含所有子路由
-        // 由于我们保留了原有的静态路由，所以不会被覆盖
-        router.addRoute(_rootRoute[0]);
+    if (router.hasRoute('home')) {
+        dynamicRoutes.forEach((route) => {
+            router.addRoute('home', route);
+        });
     }
 }
 
+// 批量导入 views 下所有 vue 文件
+const modules = import.meta.glob('../views/**/*.vue');
+
 /**
- * 添加动态(菜单)路由
- * @param {*} menus 菜单列表
- * @param {*} routes 递归创建的动态(菜单)路由
+ * 查找组件模块
+ * @param {string} menuUrl 菜单URL
+ * @returns {Function|null} 组件加载函数
+ */
+function findComponentModule(menuUrl) {
+    const key = `../views/${menuUrl}`;
+    if (modules[key]) {
+        return modules[key];
+    }
+
+    // 尝试不同的路径格式
+    const alternativeKeys = [`../views/${menuUrl}.vue`, `../views/${menuUrl}/index.vue`];
+
+    for (const altKey of alternativeKeys) {
+        if (modules[altKey]) {
+            return modules[altKey];
+        }
+    }
+
+    // 找不到页面时返回404
+    return () => import('../views/404.vue');
+}
+
+/**
+ * 创建路由元信息
+ * @param {Object} menu 菜单对象
+ * @param {Array} nav 导航路径
+ * @returns {Object} 路由元信息
+ */
+function createRouteMeta(menu, nav) {
+    return {
+        icon: menu.icon,
+        index: menu.id,
+        nav: [...nav],
+    };
+}
+
+/**
+ * 处理iframe路由
+ * @param {Object} menu 菜单对象
+ * @returns {Object} iframe路由配置
+ */
+function createIframeRoute(menu) {
+    const path = parseIFrameRoutePath(menu.url);
+    const url = buildIFrameFullUrl(menu.url);
+
+    // 添加到 state.iframeUrls 变量中
+    store.commit('addIFrameUrls', { path, url });
+
+    return {
+        path,
+        name: menu.name,
+        component: () => import('../views/layout/iframe_container.vue'),
+        meta: createRouteMeta(menu, []),
+    };
+}
+
+/**
+ * 创建普通路由
+ * @param {Object} menu 菜单对象
+ * @param {Array} nav 导航路径
+ * @returns {Object} 路由配置
+ */
+function createNormalRoute(menu, nav) {
+    return {
+        path: menu.url || '/',
+        name: menu.name,
+        component: findComponentModule(menu.url),
+        meta: createRouteMeta(menu, nav),
+    };
+}
+
+/**
+ * 将菜单转换为路由
+ * @param {Object} menu 菜单对象
+ * @param {Array} nav 导航路径
+ * @param {Array} routes 路由数组
+ */
+function convertMenuToRoute(menu, nav = [], routes = []) {
+    // 构建导航路径
+    const currentNav = [...nav];
+    currentNav[menu.level - 1] = {
+        path: menu.url ? '/' + menu.url : '',
+        name: menu.name,
+    };
+    currentNav.splice(menu.level);
+
+    // 创建路由
+    let route;
+    if (parseIFrameRoutePath(menu.url)) {
+        route = createIframeRoute(menu);
+    } else {
+        route = createNormalRoute(menu, currentNav);
+    }
+
+    // 处理子菜单
+    if (menu.children?.length > 0) {
+        for (const subMenu of menu.children) {
+            convertMenuToRoute(subMenu, currentNav, routes);
+        }
+    }
+
+    routes.push(route);
+}
+
+/**
+ * 生成动态路由
+ * @param {Array} menus 菜单列表
+ * @returns {Array} 动态路由数组
  */
 function generateDynamicRoutes(menus) {
-    const _routes = [];
+    const routes = [];
 
-    const menu2Router = (menu, nav = [], routes = []) => {
-        nav[menu.level - 1] = {
-            path: menu.url ? '/' + menu.url : '',
-            name: menu.name,
-        };
-        nav = nav.slice(0, menu.level);
-        const _nav = [...nav];
-        const _route = {
-            path: menu.url ? menu.url : '/',
-            name: menu.name,
-            component: null,
-            meta: {
-                icon: menu.icon,
-                index: menu.id,
-                nav: _nav,
-            },
-        };
-
-        const _path = parseIFrameRoutePath(menu.url);
-        if (_path) {
-            // 外链
-            _route.path = _path;
-            _route.component = () => import(`../views/layout/iframe_container.vue`);
-            // 添加到 state.iframeUrls 变量中
-            const _url = buildIFrameFullUrl(menu.url);
-            const _iFrameUrl = {
-                path: _path,
-                url: _url,
-            };
-            store.commit('addIFrameUrls', _iFrameUrl);
-        } else if (menu.url) {
-            // 内置组件
-            _route.component = () => import(`../views/${menu.url}`);
-        }
-
-        if (menu.children && menu.children.length > 0) {
-            for (const _subMenu of menu.children) {
-                menu2Router(_subMenu, nav, routes);
-            }
-        }
-        routes.push(_route);
-    };
-
-    for (const _menu of menus) {
-        menu2Router(_menu, [], _routes);
+    for (const menu of menus) {
+        convertMenuToRoute(menu, [], routes);
     }
-    return _routes;
+
+    return routes;
 }
 
 /**
@@ -88,8 +150,6 @@ function generateDynamicRoutes(menus) {
  */
 export async function loadDynamicMenuAndRoutes(sysUserId) {
     try {
-        console.log('loadDynamicMenuAndRoutes', sysUserId);
-
         let _result = await api.menu.getRouteTree({ sysUserId });
         if (_result.succeed === 1 && _result.code === 200) {
             const _routeMenu = _result.data.list;

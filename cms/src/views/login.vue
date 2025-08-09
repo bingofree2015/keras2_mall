@@ -225,11 +225,15 @@ export default {
         this.startAutoRotate();
         // 添加键盘事件监听
         document.addEventListener('keydown', this.handleKeydown);
+        // 添加页面可见性变化监听
+        document.addEventListener('visibilitychange', this.handleVisibilityChange);
     },
     beforeUnmount() {
         this.stopAutoRotate();
         // 移除键盘事件监听
         document.removeEventListener('keydown', this.handleKeydown);
+        // 移除页面可见性变化监听
+        document.removeEventListener('visibilitychange', this.handleVisibilityChange);
     },
     methods: {
         ...mapActions(['setLoginUser', 'setThemeColor', 'setMapAlias']),
@@ -365,6 +369,18 @@ export default {
                 } else if (event.key === 'ArrowRight') {
                     this.rotateCube('right');
                 }
+            }
+        },
+        // 处理页面可见性变化
+        handleVisibilityChange() {
+            if (document.hidden) {
+                // 页面不可见时暂停自动旋转
+                this.pauseAutoRotate();
+                console.log('页面不可见，暂停3D动画');
+            } else {
+                // 页面重新可见时恢复自动旋转
+                this.resumeAutoRotate();
+                console.log('页面重新可见，恢复3D动画');
             }
         },
     },

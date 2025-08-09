@@ -1,6 +1,0 @@
-{
-    "db": {
-        "dialect": "sqlite",
-        "storage": ":memory:"
-    }
-}

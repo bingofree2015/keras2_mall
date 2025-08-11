@@ -37,5 +37,11 @@ playwright-report/
 /api/
 keras_mall.sql
  
+# 环境配置文件（包含敏感信息）
+.env
+.env.local
+.env.production
+.env.staging
+
 # Ignore local build helper script for CMS (do not commit)
 cms/scripts/build.sh

@@ -36,6 +36,8 @@ playwright-report/
 /web/
 /api/
 keras_mall.sql
+# Allow tracking the SQL schema under deploy/api
+!deploy/api/keras_mall.sql
  
 # 环境配置文件（包含敏感信息）
 .env
